@@ -1,0 +1,51 @@
+buildscript {
+    repositories {
+        jcenter()
+        maven { url 'https://www.dimdev.org/maven/' }
+        maven { url 'https://plugins.gradle.org/m2/' }
+        maven { url 'http://repo.spongepowered.org/maven' }
+    }
+    dependencies {
+        classpath 'org.dimdev:ForgeGradle:2.3-SNAPSHOT'
+        classpath 'gradle.plugin.com.github.breadmoirai:github-release:2.0.1'
+        classpath 'org.spongepowered:mixingradle:0.6-SNAPSHOT'
+    }
+}
+
+apply plugin: 'net.minecraftforge.gradle.tweaker-client'
+apply plugin: 'java'
+apply plugin: 'org.spongepowered.mixin'
+apply plugin: 'maven-publish'
+apply plugin: 'com.github.breadmoirai.github-release'
+
+group 'com.legacy.aether'
+version '1.0.1'
+archivesBaseName = 'aether_legacy'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+    maven { url 'https://libraries.minecraft.net/' }
+    maven { url 'https://www.dimdev.org/maven/' }
+}
+
+dependencies {
+    implementation 'org.dimdev:rift:1.0.2-33:dev'
+    implementation('net.minecraft:launchwrapper:1.12') { transitive = false }
+    implementation 'org.ow2.asm:asm:6.2'
+    implementation 'org.ow2.asm:asm-commons:6.2'
+}
+
+minecraft {
+    version = '1.13'
+    mappings = 'snapshot_5'
+    runDir = 'run'
+    tweakClass = 'org.dimdev.riftloader.launch.RiftLoaderTweaker'
+}
+
+mixin {
+    defaultObfuscationEnv notch
+    add sourceSets.main, 'mixins.aether_legacy.refmap.json'
+}

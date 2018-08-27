@@ -1,0 +1,14 @@
+{
+
+	"variants": {
+
+		"double_drop=true": {
+			"model": "aether_legacy:block/holystone"
+		},
+
+		"double_drop=false": {
+			"model": "aether_legacy:block/holystone"
+		}
+	}
+
+}
