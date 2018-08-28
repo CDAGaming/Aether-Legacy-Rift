@@ -16,6 +16,8 @@
 
 		"MixinEntityPlayer",
 		"MixinBlockBush",
+		"MixinEntityTracker",
+		"MixinEntityTrackerEntry",
 		"MixinEntitySummonArgument",
 		"MixinNetHandlerPlayServer",
 		"client.MixinMinecraft",
@@ -23,6 +25,7 @@
 		"client.MixinItemColors",
 		"client.MixinGuiInventory",
 		"client.MixinTextureMap",
+		"client.MixinNetHandlerPlayClient",
 		"client.MixinPlayerControllerMP"
 	],
   

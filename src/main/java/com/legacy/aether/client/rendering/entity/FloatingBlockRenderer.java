@@ -10,6 +10,7 @@ import net.minecraft.client.renderer.BlockRendererDispatcher;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.culling.ICamera;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.texture.TextureMap;
@@ -28,6 +29,11 @@ public class FloatingBlockRenderer extends Render<EntityFloatingBlock>
 
 		this.shadowSize = 0.5F;
 	}
+
+    public boolean shouldRender(EntityFloatingBlock livingEntity, ICamera camera, double camX, double camY, double camZ)
+    {
+    	return super.shouldRender(livingEntity, camera, camX, camY, camZ);
+    }
 
 	@Override
     public void doRender(EntityFloatingBlock entity, double x, double y, double z, float entityYaw, float partialTicks)

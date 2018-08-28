@@ -114,7 +114,6 @@ public class EntityFloatingBlock extends Entity
                 }
                 else if (!this.world.isRemote)
                 {
-                	System.out.println("hello");
                     this.setDead();
                     return;
                 }
@@ -174,6 +173,12 @@ public class EntityFloatingBlock extends Entity
             this.motionX *= 0.9800000190734863D;
             this.motionY *= 0.9800000190734863D;
             this.motionZ *= 0.9800000190734863D;
+
+            if (this.motionY == 0.0F)
+            {
+            	this.world.setBlockState(new BlockPos(this), this.getBlockstate());
+            	this.setDead();
+            }
         }
 	}
 
