@@ -1,30 +1,19 @@
 package com.legacy.aether.api.freezable;
 
-import net.minecraft.block.Block;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.util.IItemProvider;
 
 public class FreezableFuel 
 {
 
-	public int timeGiven;
+	private int timeGiven;
 
-	public ItemStack fuelStack;
+	private IItemProvider fuel;
 
-	public FreezableFuel(Block fuelBlock, int timeGiven)
+	public FreezableFuel(IItemProvider fuel, int timeGiven)
 	{
-		this(new ItemStack(fuelBlock), timeGiven);
-	}
-
-	public FreezableFuel(Item fuelItem, int timeGiven)
-	{
-		this(new ItemStack(fuelItem), timeGiven);
-	}
-
-	public FreezableFuel(ItemStack fuelStack, int timeGiven)
-	{
+		this.fuel = fuel;
 		this.timeGiven = timeGiven;
-		this.fuelStack = fuelStack;
 	}
 
 	public int getTimeGiven()
@@ -32,9 +21,9 @@ public class FreezableFuel
 		return this.timeGiven;
 	}
 
-	public ItemStack getFuelStack()
+	public Item getFuel()
 	{
-		return this.fuelStack;
+		return this.fuel.getItem();
 	}
 
 	@Override
@@ -44,7 +33,7 @@ public class FreezableFuel
 		{
 			FreezableFuel fuel = (FreezableFuel) obj;
 
-			return this.getFuelStack().getItem() == fuel.getFuelStack().getItem() && this.getFuelStack().getItemDamage() == fuel.getFuelStack().getItemDamage();
+			return this.getFuel().getItem() == fuel.getFuel().getItem();
 		}
 
 		return false;

@@ -1,40 +1,29 @@
 package com.legacy.aether.api.accessories;
 
-import net.minecraft.block.Block;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.util.IItemProvider;
 
 public class Accessory 
 {
 
-	private ItemStack accessoryStack;
+	private IItemProvider item;
 
-	private AccessoryType accessoryType;
+	private AccessoryType type;
 
-	public Accessory(Block item, AccessoryType type)
+	public Accessory(AccessoryType type, IItemProvider item)
 	{
-		this(new ItemStack(item), type);
-	}
-
-	public Accessory(Item item, AccessoryType type)
-	{
-		this(new ItemStack(item), type);
-	}
-
-	public Accessory(ItemStack stack, AccessoryType type)
-	{
-		this.accessoryType = type;
-		this.accessoryStack = stack;
+		this.type = type;
+		this.item = item;
 	}
 
 	public AccessoryType getType()
 	{
-		return this.accessoryType;
+		return this.type;
 	}
 
-	public ItemStack getStack()
+	public Item getItem()
 	{
-		return this.accessoryStack;
+		return this.item.getItem();
 	}
 
 }

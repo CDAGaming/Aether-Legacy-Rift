@@ -60,7 +60,7 @@ public class TileEntityEnchanter extends AetherTileEntity
 		{
 			if (this.progress >= this.ticksRequired && !this.world.isRemote)
 			{
-				ItemStack result = this.enchantment.getOutput().copy();
+				ItemStack result = new ItemStack(this.enchantment.getOutput());
 
 				EnchantmentHelper.setEnchantments(EnchantmentHelper.getEnchantments(this.getStackInSlot(0)), result);
 

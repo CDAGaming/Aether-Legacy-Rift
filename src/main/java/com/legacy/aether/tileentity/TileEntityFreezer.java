@@ -60,7 +60,7 @@ public class TileEntityFreezer extends AetherTileEntity
 		{
 			if (this.progress >= this.ticksRequired && !this.world.isRemote)
 			{
-				ItemStack result = this.freezable.getOutput().copy();
+				ItemStack result = new ItemStack(this.freezable.getOutput());
 
 				EnchantmentHelper.setEnchantments(EnchantmentHelper.getEnchantments(this.getStackInSlot(0)), result);
 
