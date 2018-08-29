@@ -33,27 +33,27 @@ public class AetherAPI
 
 	public void register(Accessory accessory)
 	{
-		ACCESSORY_REGISTRY.putObject(Item.REGISTRY.getNameForObject(accessory.getItem()), accessory);
+		ACCESSORY_REGISTRY.put(Item.REGISTRY.getKey(accessory.getItem()), accessory);
 	}
 
 	public void register(Freezable freezable)
 	{
-		FREEZABLE_REGISTRY.putObject(Item.REGISTRY.getNameForObject(freezable.getInput()), freezable);
+		FREEZABLE_REGISTRY.put(Item.REGISTRY.getKey(freezable.getInput()), freezable);
 	}
 
 	public void register(FreezableFuel fuel)
 	{
-		FREEZABLE_FUEL_REGISTRY.putObject(Item.REGISTRY.getNameForObject(fuel.getFuel()), fuel);
+		FREEZABLE_FUEL_REGISTRY.put(Item.REGISTRY.getKey(fuel.getFuel()), fuel);
 	}
 
 	public void register(Enchantment enchantment)
 	{
-		ENCHANTMENT_REGISTRY.putObject(Item.REGISTRY.getNameForObject(enchantment.getInput()), enchantment);
+		ENCHANTMENT_REGISTRY.put(Item.REGISTRY.getKey(enchantment.getInput()), enchantment);
 	}
 
 	public void register(EnchantmentFuel fuel)
 	{
-		ENCHANTMENT_FUEL_REGISTRY.putObject(Item.REGISTRY.getNameForObject(fuel.getFuel()), fuel);
+		ENCHANTMENT_FUEL_REGISTRY.put(Item.REGISTRY.getKey(fuel.getFuel()), fuel);
 	}
 
 	public Accessory getAccessory(ItemStack stack)
