@@ -22,7 +22,7 @@ public class InventoryAccessories implements IInventory, IInteractionObject
 
 	private IPlayerAether playerAether;
 
-    public NonNullList<ItemStack> stacks = NonNullList.<ItemStack>withSize(8, ItemStack.EMPTY);
+    public NonNullList<ItemStack> stacks = NonNullList.withSize(8, ItemStack.EMPTY);
 
     public static final String[] EMPTY_SLOT_NAMES = new String[] {"pendant", "cape", "shield", "misc", "ring", "ring", "gloves", "misc"};
 

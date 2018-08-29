@@ -29,7 +29,7 @@ public abstract class BlockAetherContainer extends BlockContainer
 	@Override
 	public void addPropertiesToBuilder(StateContainer.Builder<Block, IBlockState> propertyBuilderIn)
 	{
-		propertyBuilderIn.addProperties(POWERED);
+		propertyBuilderIn.add(POWERED);
 	}
 
 	public static void setState(World worldIn, BlockPos posIn, boolean isActive)
@@ -55,7 +55,7 @@ public abstract class BlockAetherContainer extends BlockContainer
 
             if (tileentity instanceof AetherTileEntity)
             {
-                ((AetherTileEntity)tileentity).setCustomName(stackIn.func_200301_q());
+                ((AetherTileEntity)tileentity).setCustomName(stackIn.getDisplayName());
             }
         }
     }

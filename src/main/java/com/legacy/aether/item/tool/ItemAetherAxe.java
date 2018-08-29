@@ -51,13 +51,13 @@ public class ItemAetherAxe extends ItemAxe implements IAetherTool
 	}
 
 	@Override
-    public EnumActionResult func_195939_a(ItemUseContext context)
+    public EnumActionResult onItemUse(ItemUseContext context)
     {
-        World world = context.func_195991_k();
-        BlockPos blockpos = context.func_195995_a();
+        World world = context.getWorld();
+        BlockPos blockpos = context.getPos();
         IBlockState iblockstate = world.getBlockState(blockpos);
 
-        if (this.getMaterial() == AetherMaterialType.Gravitite && this.getDestroySpeed(context.func_195996_i(), iblockstate) == this.efficiency)
+        if (this.getMaterial() == AetherMaterialType.Gravitite && this.getDestroySpeed(context.getItem(), iblockstate) == this.efficiency)
         {
         	if (world.isAirBlock(blockpos.up()) && !world.isRemote)
         	{
@@ -95,7 +95,7 @@ public class ItemAetherAxe extends ItemAxe implements IAetherTool
 
     private float calculateIncrease(ItemStack tool, float original)
     {
-    	boolean AllowedCalculations = original != 4.0F ? false : true;
+    	boolean AllowedCalculations = !(original != 4.0F);
     	int current = tool.getItemDamage();
 
     	if (AllowedCalculations)

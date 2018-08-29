@@ -1,19 +1,13 @@
 {
   
 	"id": "aether_legacy",
-  
 	"name": "Aether Legacy",
-  
 	"authors": [ 
 		"115kino",
- 
 		"KingPhygieBoo", 
 		"Lachney"
-
 	],
-  
 	"listeners": [
-
 		"com.legacy.aether.mixin.init.MixinListener",
 		"com.legacy.aether.client.ClientGuiHandler",
 		"com.legacy.aether.client.rendering.AetherEntityRenders",

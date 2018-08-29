@@ -18,6 +18,9 @@ public class MixinPlayerControllerMP
 
 	@Shadow private GameType currentGameType;
 
+	/**
+	 * @author Modding Legacy
+	 */
 	@Overwrite
 	public float getBlockReachDistance()
 	{

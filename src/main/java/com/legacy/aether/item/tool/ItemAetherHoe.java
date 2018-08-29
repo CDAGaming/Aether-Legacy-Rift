@@ -43,18 +43,18 @@ public class ItemAetherHoe extends ItemHoe implements IAetherTool
 	}
 
 	@Override
-    public EnumActionResult func_195939_a(ItemUseContext context)
+    public EnumActionResult onItemUse(ItemUseContext context)
     {
-        World world = context.func_195991_k();
-        BlockPos blockpos = context.func_195995_a();
+        World world = context.getWorld();
+        BlockPos blockpos = context.getPos();
 
-        if (context.func_196000_l() != EnumFacing.DOWN && world.isAirBlock(blockpos.up()))
+        if (context.getFace() != EnumFacing.DOWN && world.isAirBlock(blockpos.up()))
         {
             IBlockState iblockstate = convertableBlocks.get(world.getBlockState(blockpos).getBlock());
 
             if (iblockstate != null)
             {
-                EntityPlayer entityplayer = context.func_195999_j();
+                EntityPlayer entityplayer = context.getPlayer();
 
                 world.playSound(entityplayer, blockpos, SoundEvents.ITEM_HOE_TILL, SoundCategory.BLOCKS, 1.0F, 1.0F);
 
@@ -64,7 +64,7 @@ public class ItemAetherHoe extends ItemHoe implements IAetherTool
 
                     if (entityplayer != null)
                     {
-                    	context.func_195996_i().damageItem(1, entityplayer);
+                    	context.getItem().damageItem(1, entityplayer);
                     }
                 }
 

@@ -21,13 +21,13 @@ public class BlueAercloudStructure extends Structure<NoFeatureConfig>
 	}
 
 	@Override
-	protected boolean func_202372_a(IChunkGenerator<?> chunkGeneratorIn, Random randIn, int chunkX, int chunkZ) 
+	protected boolean hasStartAt(IChunkGenerator<?> chunkGeneratorIn, Random randIn, int chunkX, int chunkZ)
 	{
 		return randIn.nextInt(26) == 0;
 	}
 
 	@Override
-	public int func_202367_b() 
+	public int getSize()
 	{
 		return 9;
 	}
@@ -39,13 +39,13 @@ public class BlueAercloudStructure extends Structure<NoFeatureConfig>
 	}
 
 	@Override
-	protected boolean isEnabled(IWorld worldIn) 
+	protected boolean isEnabledIn(IWorld worldIn)
 	{
 		return true;
 	}
 
 	@Override
-	protected StructureStart func_202369_a(IWorld worldIn, IChunkGenerator<?> chunkGeneratorIn, SharedSeedRandom randIn, int chunkX, int chunkZ) 
+	protected StructureStart makeStart(IWorld worldIn, IChunkGenerator<?> chunkGeneratorIn, SharedSeedRandom randIn, int chunkX, int chunkZ)
 	{
 		return new Start(worldIn, randIn, chunkX, chunkZ);
 	}
@@ -68,7 +68,7 @@ public class BlueAercloudStructure extends Structure<NoFeatureConfig>
 		{
 			this.components.add(new BlueAercloudPiece(randIn, (chunkX << 4) + 2, randIn.nextInt(64) + 32, (chunkZ << 4) + 2));
 
-			this.func_202500_a(worldIn);
+			this.recalculateStructureSize(worldIn);
 		}
 
 	}

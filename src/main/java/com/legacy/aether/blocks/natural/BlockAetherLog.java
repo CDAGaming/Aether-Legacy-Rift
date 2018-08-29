@@ -28,7 +28,7 @@ public class BlockAetherLog extends BlockLog
 	{
 		super.addPropertiesToBuilder(propertyBuilderIn);
 
-		propertyBuilderIn.addProperties(DOUBLE_DROP);
+		propertyBuilderIn.add(DOUBLE_DROP);
 	}
 
 	@Override

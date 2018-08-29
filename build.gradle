@@ -32,7 +32,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.dimdev:rift:1.0.2-33:dev'
+    implementation 'org.dimdev:rift:1.0.4-64:dev'
     implementation('net.minecraft:launchwrapper:1.12') { transitive = false }
     implementation 'org.ow2.asm:asm:6.2'
     implementation 'org.ow2.asm:asm-commons:6.2'
@@ -40,12 +40,11 @@ dependencies {
 
 minecraft {
     version = '1.13'
-    mappings = 'snapshot_5'
+    mappings = 'snapshot_20180828'
     runDir = 'run'
-    tweakClass = 'org.dimdev.riftloader.launch.RiftLoaderTweaker'
+    tweakClass = 'org.dimdev.riftloader.launch.RiftLoaderClientTweaker'
 }
 
 mixin {
     defaultObfuscationEnv notch
-    add sourceSets.main, 'mixins.aether_legacy.refmap.json'
 }

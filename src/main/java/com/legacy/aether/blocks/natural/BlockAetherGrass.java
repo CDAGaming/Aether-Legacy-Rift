@@ -36,7 +36,7 @@ public class BlockAetherGrass extends Block
 	@Override
 	public void addPropertiesToBuilder(StateContainer.Builder<Block, IBlockState> propertyBuilderIn)
 	{
-		propertyBuilderIn.addProperties(DOUBLE_DROP);
+		propertyBuilderIn.add(DOUBLE_DROP);
 	}
 
 	@Override

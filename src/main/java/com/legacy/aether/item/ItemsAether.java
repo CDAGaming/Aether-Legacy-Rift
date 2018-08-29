@@ -98,7 +98,7 @@ public class ItemsAether implements ItemAdder
 
 	public Item register(String name, Item item)
 	{
-		Item.registerItem(Aether.locate(name), item);
+		Item.registerItem(Aether.locate(name).toString(), item);
 
 		return item;
 	}

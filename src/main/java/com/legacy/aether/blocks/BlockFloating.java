@@ -28,17 +28,17 @@ public class BlockFloating extends Block
 	}
 
 	@Override
-	public void onBlockPlace(IBlockState stateIn, World worldIn, BlockPos posIn, IBlockState neighborStateIn)
+	public void onBlockPlacedBy(IBlockState stateIn, World worldIn, BlockPos posIn, IBlockState neighborStateIn)
 	{
-		worldIn.getPendingBlockTickList().add(posIn, this, this.tickRate(worldIn));
+		worldIn.getPendingBlockTicks().scheduleUpdate(posIn, this, this.tickRate(worldIn));
 	}
 
 	@Override
-    public IBlockState func_196271_a(IBlockState stateIn, EnumFacing facingIn, IBlockState neighborIn, IWorld worldIn, BlockPos posIn, BlockPos neighborPosIn)
+    public IBlockState updatePostPlacement(IBlockState stateIn, EnumFacing facingIn, IBlockState neighborIn, IWorld worldIn, BlockPos posIn, BlockPos neighborPosIn)
     {
-		worldIn.getPendingBlockTickList().add(posIn, this, this.tickRate(worldIn));
+		worldIn.getPendingBlockTicks().scheduleUpdate(posIn, this, this.tickRate(worldIn));
 
-    	return super.func_196271_a(stateIn, facingIn, neighborIn, worldIn, posIn, neighborPosIn);
+    	return super.updatePostPlacement(stateIn, facingIn, neighborIn, worldIn, posIn, neighborPosIn);
     }
 
 	@Override
@@ -72,7 +72,7 @@ public class BlockFloating extends Block
             {
                 if (worldIn.getBlockState(posIn).getBlock() == this)
                 {
-                    worldIn.setBlockToAir(posIn);
+                    worldIn.isAirBlock(posIn);
                 }
 
                 BlockPos blockpos;

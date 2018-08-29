@@ -65,23 +65,16 @@ public class ContainerFreezer extends Container
     {
         super.detectAndSendChanges();
 
-        for (int i = 0; i < this.listeners.size(); ++i)
-        {
-            IContainerListener icontainerlistener = (IContainerListener)this.listeners.get(i);
+		for (IContainerListener listener : this.listeners) {
 
-            if (this.progress != this.freezer.getField(0))
-            {
-                icontainerlistener.sendWindowProperty(this, 0, this.freezer.getField(0));
-            }
-            else if (this.powerRemaining != this.freezer.getField(1))
-            {
-                icontainerlistener.sendWindowProperty(this, 1, this.freezer.getField(1));
-            }
-            else if (this.ticksRequired != this.freezer.getField(2))
-            {
-                icontainerlistener.sendWindowProperty(this, 2, this.freezer.getField(2));
-            }
-        }
+			if (this.progress != this.freezer.getField(0)) {
+				listener.sendWindowProperty(this, 0, this.freezer.getField(0));
+			} else if (this.powerRemaining != this.freezer.getField(1)) {
+				listener.sendWindowProperty(this, 1, this.freezer.getField(1));
+			} else if (this.ticksRequired != this.freezer.getField(2)) {
+				listener.sendWindowProperty(this, 2, this.freezer.getField(2));
+			}
+		}
 
         this.progress = this.freezer.getField(0);
         this.powerRemaining = this.freezer.getField(1);
@@ -92,7 +85,7 @@ public class ContainerFreezer extends Container
 	public ItemStack transferStackInSlot(EntityPlayer par1EntityPlayer, int par2)
 	{
 		ItemStack itemstack = ItemStack.EMPTY;
-		Slot slot = (Slot) this.inventorySlots.get(par2);
+		Slot slot = this.inventorySlots.get(par2);
 
 		if (slot != null && slot.getHasStack())
 		{

@@ -56,7 +56,7 @@ public class BlockAetherPortal extends BlockPortal
 	@Override
     public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos)
     {
-        EnumFacing.Axis enumfacing$axis = (EnumFacing.Axis)state.getValue(AXIS);
+        EnumFacing.Axis enumfacing$axis = state.getValue(AXIS);
 
         if (enumfacing$axis == EnumFacing.Axis.X)
         {
@@ -140,7 +140,7 @@ public class BlockAetherPortal extends BlockPortal
 	}
 
 	@Override
-	public void onCollisionWithEntity(IBlockState stateIn, World worldIn, BlockPos posIn, Entity entityIn)
+	public void onEntityCollision(IBlockState stateIn, World worldIn, BlockPos posIn, Entity entityIn)
 	{
 		  
 	}

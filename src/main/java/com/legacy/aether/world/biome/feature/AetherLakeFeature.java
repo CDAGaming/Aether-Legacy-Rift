@@ -18,7 +18,7 @@ public class AetherLakeFeature extends Feature<LakesConfig>
 {
 
 	@Override
-	public boolean generate(IWorld worldIn, IChunkGenerator<? extends IChunkGenSettings> chunkGeneratorIn, Random rand, BlockPos position, LakesConfig config)
+	public boolean place(IWorld worldIn, IChunkGenerator<? extends IChunkGenSettings> chunkGeneratorIn, Random rand, BlockPos position, LakesConfig config)
 	{
 		for (position = position.add(-8, 0, -8); position.getY() > 5 && worldIn.isAirBlock(position); position = position.down())
         {

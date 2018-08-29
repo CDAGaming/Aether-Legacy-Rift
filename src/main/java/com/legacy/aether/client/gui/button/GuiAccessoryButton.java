@@ -38,7 +38,7 @@ public class GuiAccessoryButton extends GuiButton
 	}
 
 	@Override
-	public void mouseClicked(double mouseX, double mouseY)
+	public void mousePressed(double mouseX, double mouseY)
 	{
 		if (this.screen instanceof GuiAccessories)
 		{
@@ -51,7 +51,7 @@ public class GuiAccessoryButton extends GuiButton
 	}
 
 	@Override
-    public void func_194828_a(int mouseX, int mouseY, float partialTicks)
+    public void drawButton(int mouseX, int mouseY, float partialTicks)
     {
         this.hovered = mouseX >= this.x && mouseY >= this.y && mouseX < this.x + this.width && mouseY < this.y + this.height;
 

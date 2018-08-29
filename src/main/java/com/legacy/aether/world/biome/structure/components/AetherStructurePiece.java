@@ -337,7 +337,7 @@ public abstract class AetherStructurePiece extends StructurePiece
  
             if (entity instanceof EntityLiving)
             {
-            	((EntityLiving) entity).func_204210_a(this.world.getDifficultyForLocation(new BlockPos(entity)), (IEntityLivingData)null, (NBTTagCompound)null);
+            	((EntityLiving) entity).onInitialSpawn(this.world.getDifficultyForLocation(new BlockPos(entity)), null, null);
             }
 
             if (!this.world.isRemote()) //Not taking chances ~Kino

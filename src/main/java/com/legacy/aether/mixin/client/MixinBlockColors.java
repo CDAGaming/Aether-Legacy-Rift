@@ -19,7 +19,7 @@ public class MixinBlockColors
 	{
     	BlockColors colors = info.getReturnValue();
 
-    	colors.registerBlockColorHandler(new AetherColor(), BlocksAether.blue_aercloud, BlocksAether.golden_aercloud);
+    	colors.register(new AetherColor(), BlocksAether.blue_aercloud, BlocksAether.golden_aercloud);
 
     	info.setReturnValue(colors);
 	}

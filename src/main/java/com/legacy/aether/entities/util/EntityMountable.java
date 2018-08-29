@@ -19,7 +19,7 @@ import com.legacy.aether.player.IPlayerAether;
 public abstract class EntityMountable extends EntityAetherAnimal
 {
 
-	public static final DataParameter<Boolean> RIDER_SNEAKING = EntityDataManager.<Boolean>createKey(EntityMountable.class, DataSerializers.BOOLEAN);
+	public static final DataParameter<Boolean> RIDER_SNEAKING = EntityDataManager.createKey(EntityMountable.class, DataSerializers.BOOLEAN);
 
 	protected float jumpPower;
 

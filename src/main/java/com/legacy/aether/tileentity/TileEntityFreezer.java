@@ -22,7 +22,7 @@ public class TileEntityFreezer extends AetherTileEntity
 
 	public int progress, ticksRequired, powerRemaining;
 
-	private NonNullList<ItemStack> stacks = NonNullList.<ItemStack>withSize(3, ItemStack.EMPTY);
+	private NonNullList<ItemStack> stacks = NonNullList.withSize(3, ItemStack.EMPTY);
 
 	private Freezable freezable;
 
@@ -187,10 +187,7 @@ public class TileEntityFreezer extends AetherTileEntity
 			{
 				return true;
 			}
-			else if (index == 1 && AetherAPI.instance().isFreezerFuel(stack))
-			{
-				return true;
-			}
+			else return index == 1 && AetherAPI.instance().isFreezerFuel(stack);
 		}
 
 		return false;

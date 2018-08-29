@@ -5,8 +5,8 @@ import net.minecraft.entity.Entity;
 public interface IPlayerAether
 {
 
-	public PlayerAether getPlayerAether();
+	PlayerAether getPlayerAether();
 
-	public Entity getInstance();
+	Entity getInstance();
 
 }

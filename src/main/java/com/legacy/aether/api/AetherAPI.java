@@ -58,52 +58,52 @@ public class AetherAPI
 
 	public Accessory getAccessory(ItemStack stack)
 	{
-		return ACCESSORY_REGISTRY.getObject(Item.REGISTRY.getNameForObject(stack.getItem()));
+		return ACCESSORY_REGISTRY.get(Item.REGISTRY.getKey(stack.getItem()));
 	}
 
 	public boolean isAccessory(ItemStack stack)
 	{
-		return ACCESSORY_REGISTRY.containsKey(Item.REGISTRY.getNameForObject(stack.getItem()));
+		return ACCESSORY_REGISTRY.containsKey(Item.REGISTRY.getKey(stack.getItem()));
 	}
 
 	public Freezable getFreezable(ItemStack stack)
 	{
-		return FREEZABLE_REGISTRY.getObject(Item.REGISTRY.getNameForObject(stack.getItem()));
+		return FREEZABLE_REGISTRY.get(Item.REGISTRY.getKey(stack.getItem()));
 	}
 
 	public boolean isFreezable(ItemStack stack)
 	{
-		return FREEZABLE_REGISTRY.containsKey(Item.REGISTRY.getNameForObject(stack.getItem()));
+		return FREEZABLE_REGISTRY.containsKey(Item.REGISTRY.getKey(stack.getItem()));
 	}
 
 	public FreezableFuel getFreezableFuel(ItemStack stack) 
 	{
-		return FREEZABLE_FUEL_REGISTRY.getObject(Item.REGISTRY.getNameForObject(stack.getItem()));
+		return FREEZABLE_FUEL_REGISTRY.get(Item.REGISTRY.getKey(stack.getItem()));
 	}
 
 	public boolean isFreezerFuel(ItemStack stack)
 	{
-		return FREEZABLE_FUEL_REGISTRY.containsKey(Item.REGISTRY.getNameForObject(stack.getItem()));
+		return FREEZABLE_FUEL_REGISTRY.containsKey(Item.REGISTRY.getKey(stack.getItem()));
 	}
 
 	public Enchantment getEnchantment(ItemStack stack)
 	{
-		return ENCHANTMENT_REGISTRY.getObject(Item.REGISTRY.getNameForObject(stack.getItem()));
+		return ENCHANTMENT_REGISTRY.get(Item.REGISTRY.getKey(stack.getItem()));
 	}
 
 	public boolean isEnchantable(ItemStack stack)
 	{
-		return ENCHANTMENT_REGISTRY.containsKey(Item.REGISTRY.getNameForObject(stack.getItem()));
+		return ENCHANTMENT_REGISTRY.containsKey(Item.REGISTRY.getKey(stack.getItem()));
 	}
 
 	public EnchantmentFuel getEnchantmentFuel(ItemStack stack) 
 	{
-		return ENCHANTMENT_FUEL_REGISTRY.getObject(Item.REGISTRY.getNameForObject(stack.getItem()));
+		return ENCHANTMENT_FUEL_REGISTRY.get(Item.REGISTRY.getKey(stack.getItem()));
 	}
 
 	public boolean isEnchantmentFuel(ItemStack stack)
 	{
-		return ENCHANTMENT_FUEL_REGISTRY.containsKey(Item.REGISTRY.getNameForObject(stack.getItem()));
+		return ENCHANTMENT_FUEL_REGISTRY.containsKey(Item.REGISTRY.getKey(stack.getItem()));
 	}
 
 	public static AetherAPI instance()

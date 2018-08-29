@@ -158,18 +158,18 @@ public class BlocksAether implements BlockAdder, ItemAdder
 
 			if (itemBlock == null)
 			{
-				Item.registerItemBlock(block, ItemGroup.BUILDING_BLOCKS);
+				Item.register(block, ItemGroup.BUILDING_BLOCKS);
 			}
 			else
 			{
-				Item.registerItemBlock(block, itemBlock);
+				Item.register(block, itemBlock);
 			}
 		}
 	}
 
 	public static Block register(String name, Block block)
 	{
-		Block.registerBlock(Aether.locate(name), block);
+		Block.register(Aether.locate(name), block);
 
 		blockList[availableId] = block;
 

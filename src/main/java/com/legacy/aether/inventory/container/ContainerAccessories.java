@@ -1,14 +1,11 @@
 package com.legacy.aether.inventory.container;
 
-import java.util.List;
-
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.ContainerPlayer;
-import net.minecraft.inventory.Slot;
-
 import com.legacy.aether.api.accessories.AccessoryType;
 import com.legacy.aether.inventory.slot.SlotAccessory;
 import com.legacy.aether.player.IPlayerAether;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.ContainerPlayer;
+import net.minecraft.inventory.Slot;
 
 public class ContainerAccessories extends ContainerPlayer
 {
@@ -17,7 +14,7 @@ public class ContainerAccessories extends ContainerPlayer
 	{
 		super(((EntityPlayer)playerAetherIn.getInstance()).inventory, !playerAetherIn.getInstance().world.isRemote, (EntityPlayer) playerAetherIn.getInstance());
 
-		for (Slot slot : (List<Slot>) this.inventorySlots)
+		for (Slot slot : this.inventorySlots)
 		{
 			if (slot.slotNumber > 0 && slot.slotNumber < 5)
 			{

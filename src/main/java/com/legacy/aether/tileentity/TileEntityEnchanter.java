@@ -22,7 +22,7 @@ public class TileEntityEnchanter extends AetherTileEntity
 
 	public int progress, ticksRequired, powerRemaining;
 
-	private NonNullList<ItemStack> stacks = NonNullList.<ItemStack>withSize(3, ItemStack.EMPTY);
+	private NonNullList<ItemStack> stacks = NonNullList.withSize(3, ItemStack.EMPTY);
 
 	private Enchantment enchantment;
 
@@ -189,12 +189,8 @@ public class TileEntityEnchanter extends AetherTileEntity
 		{
 			return true;
 		}
-		else if (slot == 0 && AetherAPI.instance().isEnchantable(stackInSlot))
-		{
-			return true;
-		}
+		else return slot == 0 && AetherAPI.instance().isEnchantable(stackInSlot);
 
-		return false;
 	}
 
 	@Override
