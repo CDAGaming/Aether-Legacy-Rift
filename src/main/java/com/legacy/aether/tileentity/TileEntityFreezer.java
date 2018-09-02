@@ -38,7 +38,7 @@ public class TileEntityFreezer extends AetherTileEntity
 	}
 
 	@Override
-	public void update() 
+	public void tick()
 	{
 		boolean isActive = this.isFreezing();
 
@@ -118,7 +118,7 @@ public class TileEntityFreezer extends AetherTileEntity
 
 			if (freezable != null)
 			{
-				if (this.getStackInSlot(2).isEmpty() || (freezable.getOutput().getItem() == this.getStackInSlot(2).getItem()))
+				if (this.getStackInSlot(2).isEmpty() || (freezable.getOutput().asItem() == this.getStackInSlot(2).getItem()))
 				{
 					this.freezable = freezable;
 					this.ticksRequired = this.freezable.getTimeRequired();

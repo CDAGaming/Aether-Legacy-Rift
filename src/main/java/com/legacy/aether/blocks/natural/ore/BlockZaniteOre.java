@@ -18,19 +18,19 @@ public class BlockZaniteOre extends Block
 
 	public BlockZaniteOre()
 	{
-		super(Block.Builder.create(Material.ROCK).hardnessAndResistance(3.0F, 5.0F).soundType(SoundType.STONE));
+		super(Block.Builder.create(Material.ROCK).hardnessAndResistance(3.0F, 5.0F).sound(SoundType.STONE));
 	}
 
 	@Override
-	public IItemProvider getItemProvider(IBlockState stateIn, World worldIn, BlockPos posIn, int fortune)
+	public IItemProvider getItemDropped(IBlockState stateIn, World worldIn, BlockPos posIn, int fortune)
 	{
 		return ItemsAether.zanite_gemstone;
 	}
 
 	@Override
-	public void spawnItems(IBlockState stateIn, World worldIn, BlockPos posIn, float chanceIn, int fortuneIn)
+	public void dropBlockAsItemWithChance(IBlockState stateIn, World worldIn, BlockPos posIn, float chanceIn, int fortuneIn)
 	{
-		super.spawnItems(stateIn, worldIn, posIn, chanceIn, fortuneIn);
+		super.dropBlockAsItemWithChance(stateIn, worldIn, posIn, chanceIn, fortuneIn);
 
 		super.dropXpOnBlockBreak(worldIn, posIn, MathHelper.getInt(new Random(), 3, 5));
 	}
@@ -47,11 +47,11 @@ public class BlockZaniteOre extends Block
                 i = 0;
             }
 
-            return this.getItemsToDropCount(stateIn, randomIn) * (i + 1);
+            return super.getItemsToDropCount(stateIn, fortuneIn, worldIn, posIn, randomIn) * (i + 1);
         }
         else
         {
-            return this.getItemsToDropCount(stateIn, randomIn);
+            return super.getItemsToDropCount(stateIn, fortuneIn, worldIn, posIn, randomIn);
         }
     }
 

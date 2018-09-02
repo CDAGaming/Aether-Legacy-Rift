@@ -22,33 +22,33 @@ public class BlockAetherGrass extends Block
 
 	public BlockAetherGrass() 
 	{
-		super(Block.Builder.create(Material.GRASS).needsRandomTick().hardnessAndResistance(0.2F, -1.0F).soundType(SoundType.PLANT));
+		super(Block.Builder.create(Material.GRASS).needsRandomTick().hardnessAndResistance(0.2F, -1.0F).sound(SoundType.PLANT));
 
-		this.setDefaultState(this.getDefaultState().withProperty(DOUBLE_DROP, true));
+		this.setDefaultState(this.getDefaultState().with(DOUBLE_DROP, true));
 	}
 
 	@Override
-	public IItemProvider getItemProvider(IBlockState stateIn, World worldIn, BlockPos posIn, int fortune)
+	public IItemProvider getItemDropped(IBlockState stateIn, World worldIn, BlockPos posIn, int fortune)
 	{
 		return BlocksAether.aether_dirt;
 	}
 
 	@Override
-	public void addPropertiesToBuilder(StateContainer.Builder<Block, IBlockState> propertyBuilderIn)
+	public void fillStateContainer(StateContainer.Builder<Block, IBlockState> propertyBuilderIn)
 	{
 		propertyBuilderIn.add(DOUBLE_DROP);
 	}
 
 	@Override
-	public IBlockState getBlockToPlaceOnUse(BlockItemUseContext context)
+	public IBlockState getStateForPlacement(BlockItemUseContext context)
 	{
-		return super.getBlockToPlaceOnUse(context).withProperty(DOUBLE_DROP, false);
+		return super.getStateForPlacement(context).with(DOUBLE_DROP, false);
 	}
 
 	@Override
-	public int getItemsToDropCount(IBlockState stateIn, Random randIn)
+	public int quantityDropped(IBlockState stateIn, Random randIn)
 	{
-		return stateIn.getValue(DOUBLE_DROP).booleanValue() ? 2 : 1;
+		return stateIn.get(DOUBLE_DROP) ? 2 : 1;
 	}
  
 	@Override
@@ -73,8 +73,8 @@ public class BlockAetherGrass extends Block
 
                 if (iblockstate1.getBlock() == BlocksAether.aether_dirt && worldIn.getLight(blockpos.up()) >= 4)
                 {
-                    boolean shouldContainDoubleDrop = iblockstate1.getValue(BlockAetherDirt.DOUBLE_DROP);
-                    worldIn.setBlockState(blockpos, BlocksAether.aether_grass.getDefaultState().withProperty(DOUBLE_DROP, shouldContainDoubleDrop));
+                    boolean shouldContainDoubleDrop = iblockstate1.get(BlockAetherDirt.DOUBLE_DROP);
+                    worldIn.setBlockState(blockpos, BlocksAether.aether_grass.getDefaultState().with(DOUBLE_DROP, shouldContainDoubleDrop));
                 	return;
                 }
 			}

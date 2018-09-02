@@ -364,7 +364,7 @@ public class TeleporterAether extends Teleporter
             }
         }
 
-        IBlockState iblockstate = BlocksAether.aether_portal.getDefaultState().withProperty(BlockPortal.AXIS, l6 == 0 ? EnumFacing.Axis.Z : EnumFacing.Axis.X);
+        IBlockState iblockstate = BlocksAether.aether_portal.getDefaultState().with(BlockPortal.AXIS, l6 == 0 ? EnumFacing.Axis.Z : EnumFacing.Axis.X);
 
         for (int i8 = 0; i8 < 4; ++i8)
         {

@@ -16,11 +16,11 @@ public class BlockAmbrosiumTorchWall extends BlockTorchWall
 
 	public BlockAmbrosiumTorchWall()
 	{
-		super(Block.Builder.create(Material.CIRCUITS).needsRandomTick().lightValue(1).soundType(SoundType.WOOD));
+		super(Block.Builder.create(Material.CIRCUITS).needsRandomTick().lightValue(1).sound(SoundType.WOOD));
 	}
 
 	@Override
-	public IItemProvider getItemProvider(IBlockState stateIn, World worldIn, BlockPos posIn, int fortune)
+	public IItemProvider getItemDropped(IBlockState stateIn, World worldIn, BlockPos posIn, int fortune)
 	{
 		return BlocksAether.ambrosium_torch;
 	}

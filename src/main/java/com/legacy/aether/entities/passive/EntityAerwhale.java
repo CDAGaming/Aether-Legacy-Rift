@@ -73,9 +73,9 @@ public class EntityAerwhale extends EntityFlying implements IMob
     }
 
     @Override
-    public void onUpdate()
+    public void tick()
     {
-    	super.onUpdate();
+    	super.tick();
         this.extinguish();
 
         int i = MathHelper.floor(this.posX);

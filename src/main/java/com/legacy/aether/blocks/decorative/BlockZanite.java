@@ -9,7 +9,7 @@ public class BlockZanite extends Block
 
 	public BlockZanite()
 	{
-		super(Block.Builder.create(Material.IRON).hardnessAndResistance(3.0F, -1.0F).soundType(SoundType.METAL));
+		super(Block.Builder.create(Material.IRON).hardnessAndResistance(3.0F, -1.0F).sound(SoundType.METAL));
 	}
 
 }

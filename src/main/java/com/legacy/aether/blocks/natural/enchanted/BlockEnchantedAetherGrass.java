@@ -18,11 +18,11 @@ public class BlockEnchantedAetherGrass extends Block
 
 	public BlockEnchantedAetherGrass()
 	{
-		super(Block.Builder.create(Material.GRASS).needsRandomTick().hardnessAndResistance(0.2F, -1.0F).soundType(SoundType.PLANT));
+		super(Block.Builder.create(Material.GRASS).needsRandomTick().hardnessAndResistance(0.2F, -1.0F).sound(SoundType.PLANT));
 	}
 
 	@Override
-	public IItemProvider getItemProvider(IBlockState stateIn, World worldIn, BlockPos posIn, int fortune)
+	public IItemProvider getItemDropped(IBlockState stateIn, World worldIn, BlockPos posIn, int fortune)
 	{
 		return BlocksAether.aether_dirt;
 	}
@@ -34,7 +34,7 @@ public class BlockEnchantedAetherGrass extends Block
         {
             if (worldIn.getLight(posIn.up()) < 4)
             {
-            	worldIn.setBlockState(posIn, BlocksAether.aether_dirt.getDefaultState().withProperty(BlockAetherDirt.DOUBLE_DROP, false));
+            	worldIn.setBlockState(posIn, BlocksAether.aether_dirt.getDefaultState().with(BlockAetherDirt.DOUBLE_DROP, false));
             }
         }
     }

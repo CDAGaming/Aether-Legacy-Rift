@@ -96,7 +96,7 @@ public class ItemAetherAxe extends ItemAxe implements IAetherTool
     private float calculateIncrease(ItemStack tool, float original)
     {
     	boolean AllowedCalculations = !(original != 4.0F);
-    	int current = tool.getItemDamage();
+    	int current = tool.getDamage();
 
     	if (AllowedCalculations)
     	{

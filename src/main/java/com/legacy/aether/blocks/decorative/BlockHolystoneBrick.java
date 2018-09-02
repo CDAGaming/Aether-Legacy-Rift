@@ -9,7 +9,7 @@ public class BlockHolystoneBrick extends Block
 
 	public BlockHolystoneBrick() 
 	{
-		super(Block.Builder.create(Material.ROCK).hardnessAndResistance(0.5F, 10.0F).soundType(SoundType.STONE));
+		super(Block.Builder.create(Material.ROCK).hardnessAndResistance(0.5F, 10.0F).sound(SoundType.STONE));
 	}
 
 }

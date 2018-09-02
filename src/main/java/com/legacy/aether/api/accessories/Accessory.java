@@ -23,7 +23,7 @@ public class Accessory
 
 	public Item getItem()
 	{
-		return this.item.getItem();
+		return this.item.asItem();
 	}
 
 }

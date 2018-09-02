@@ -21,7 +21,7 @@ public class BlockAetherLeaves extends BlockLeaves
 
 	public BlockAetherLeaves()
 	{
-		super(Block.Builder.create(Material.GRASS).needsRandomTick().hardnessAndResistance(0.2F, -1.0F).soundType(SoundType.PLANT));
+		super(Block.Builder.create(Material.GRASS).needsRandomTick().hardnessAndResistance(0.2F, -1.0F).sound(SoundType.PLANT));
 	}
 
 	@Override
@@ -29,9 +29,9 @@ public class BlockAetherLeaves extends BlockLeaves
     {
         int i = getDistanceFromLog(neighborIn) + 1;
 
-        if (i != 1 || stateIn.getValue(DISTANCE) != i)
+        if (i != 1 || stateIn.get(DISTANCE) != i)
         {
-        	worldIn.getPendingBlockTicks().scheduleUpdate(posIn, this, 1);
+        	worldIn.getPendingBlockTicks().scheduleTick(posIn, this, 1);
         }
 
         return stateIn;
@@ -83,7 +83,7 @@ public class BlockAetherLeaves extends BlockLeaves
             }
         }
 
-        return p_208493_0_.withProperty(DISTANCE, i);
+        return p_208493_0_.with(DISTANCE, i);
     }
 
     private static int getDistanceFromLog(IBlockState stateIn)
@@ -94,7 +94,7 @@ public class BlockAetherLeaves extends BlockLeaves
         }
         else
         {
-            return stateIn.getBlock() instanceof BlockLeaves ? stateIn.getValue(DISTANCE) : 7;
+            return stateIn.getBlock() instanceof BlockLeaves ? stateIn.get(DISTANCE) : 7;
         }
     }
 
@@ -105,13 +105,13 @@ public class BlockAetherLeaves extends BlockLeaves
     }
 
     @Override
-    public IBlockState getBlockToPlaceOnUse(BlockItemUseContext contextIn)
+    public IBlockState getStateForPlacement(BlockItemUseContext contextIn)
     {
-        return setDistanceFromBlock((IBlockState)this.getDefaultState().withProperty(PERSISTENT, Boolean.TRUE), contextIn.getWorld(), contextIn.getPos());
+        return setDistanceFromBlock(this.getDefaultState().with(PERSISTENT, Boolean.TRUE), contextIn.getWorld(), contextIn.getPos());
     }
 
 	@Override
-	public IItemProvider getItemProvider(IBlockState stateIn, World worldIn, BlockPos posIn, int fortune)
+	public IItemProvider getItemDropped(IBlockState stateIn, World worldIn, BlockPos posIn, int fortune)
 	{
 		return this == BlocksAether.skyroot_leaves ? BlocksAether.skyroot_sapling : BlocksAether.golden_oak_sapling;
 	}

@@ -91,7 +91,7 @@ public class EntityFloatingBlock extends Entity
     }
 
 	@Override
-	public void onUpdate()
+	public void tick()
 	{
 		if (this.state.isAir())
 		{

@@ -14,7 +14,7 @@ import com.legacy.aether.player.IPlayerAether;
 import com.legacy.aether.player.PlayerAether;
 import com.mojang.authlib.GameProfile;
 
-@Mixin(EntityPlayer.class)
+@Mixin(value = EntityPlayer.class)
 public abstract class MixinEntityPlayer implements IPlayerAether
 {
 
@@ -36,10 +36,10 @@ public abstract class MixinEntityPlayer implements IPlayerAether
 		this.playerAether = new PlayerAether((EntityPlayer) (Object) this);
 	}
 
-    @Inject(method = "onUpdate", at = @At("RETURN"))
+    @Inject(method = "tick", at = @At("RETURN"))
 	public void playerUpdate(CallbackInfo ci)
 	{
-		this.playerAether.onUpdate();
+		this.playerAether.tick();
 	}
 
     @Inject(method = "writeEntityToNBT", at = @At("RETURN"))

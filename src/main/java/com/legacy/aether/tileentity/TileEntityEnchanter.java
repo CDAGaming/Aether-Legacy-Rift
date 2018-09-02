@@ -38,7 +38,7 @@ public class TileEntityEnchanter extends AetherTileEntity
 	}
 
 	@Override
-	public void update()
+	public void tick()
 	{
 		boolean isActive = this.isEnchanting();
 
@@ -118,7 +118,7 @@ public class TileEntityEnchanter extends AetherTileEntity
 
 			if (enchantment != null)
 			{
-				if (this.getStackInSlot(2).isEmpty() || (enchantment.getOutput().getItem() == this.getStackInSlot(2).getItem()))
+				if (this.getStackInSlot(2).isEmpty() || (enchantment.getOutput().asItem() == this.getStackInSlot(2).getItem()))
 				{
 					this.enchantment = enchantment;
 					this.ticksRequired = this.enchantment.getTimeRequired();

@@ -18,7 +18,7 @@ public class BlockAetherFlower extends BlockBush
 
 	public BlockAetherFlower() 
 	{
-		super(Builder.create(Material.PLANTS).soundType(SoundType.PLANT));
+		super(Builder.create(Material.PLANTS).sound(SoundType.PLANT));
 	}
 
 	@Override
@@ -28,9 +28,9 @@ public class BlockAetherFlower extends BlockBush
 	}
 
 	@Override
-	public VoxelShape getShapeForCollision(IBlockState blockstateIn, IBlockReader blockReaderIn, BlockPos posIn)
+	public VoxelShape getCollisionShape(IBlockState blockstateIn, IBlockReader blockReaderIn, BlockPos posIn)
 	{
-		return ShapeUtils.makeCuboidShape(0.3D, 0.0D, 0.3D, 0.7D, 0.6D, 0.7D);
+		return ShapeUtils.create(0.3D, 0.0D, 0.3D, 0.7D, 0.6D, 0.7D);
 	}
 
 	@Override

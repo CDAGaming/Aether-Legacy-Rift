@@ -65,10 +65,10 @@ public abstract class EntityMountable extends EntityAetherAnimal
 	}
 
 	@Override
-	public void onUpdate()
+	public void tick()
 	{
 		this.updateRider();
-		super.onUpdate();
+		super.tick();
 
 		if (this.isBeingRidden() && this.isRiding())
 		{
