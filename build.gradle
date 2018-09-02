@@ -60,4 +60,5 @@ minecraft {
 
 mixin {
     defaultObfuscationEnv notch
+    add sourceSets.main, 'mixins.aether_legacy.refmap.json'
 }
