@@ -14,7 +14,7 @@ import com.legacy.aether.player.IPlayerAether;
 import com.legacy.aether.player.PlayerAether;
 import com.mojang.authlib.GameProfile;
 
-@Mixin(value = EntityPlayer.class)
+@Mixin(EntityPlayer.class)
 public abstract class MixinEntityPlayer implements IPlayerAether
 {
 

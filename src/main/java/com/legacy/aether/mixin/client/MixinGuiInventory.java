@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import com.legacy.aether.client.gui.button.GuiAccessoryButton;
 
-@Mixin(value = GuiInventory.class)
+@Mixin(GuiInventory.class)
 public abstract class MixinGuiInventory extends InventoryEffectRenderer
 {
     public MixinGuiInventory(EntityPlayer player)
