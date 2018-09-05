@@ -26,15 +26,15 @@ public class ClientGuiHandler implements GameGuiAdder
 	{
 		if ("aether_legacy:enchanter".equals(nameIn))
 		{
-			Minecraft.getMinecraft().displayGuiScreen(new GuiEnchanter(playerIn.inventory, inventoryIn));
+			Minecraft.getInstance().displayGuiScreen(new GuiEnchanter(playerIn.inventory, inventoryIn));
 		}
 		else if ("aether_legacy:freezer".equals(nameIn))
 		{
-			Minecraft.getMinecraft().displayGuiScreen(new GuiFreezer(playerIn.inventory, inventoryIn));
+			Minecraft.getInstance().displayGuiScreen(new GuiFreezer(playerIn.inventory, inventoryIn));
 		}
 		else if ("aether_legacy:accessories".equals(nameIn))
 		{
-			Minecraft.getMinecraft().displayGuiScreen(new GuiAccessories(((IPlayerAether)playerIn)));
+			Minecraft.getInstance().displayGuiScreen(new GuiAccessories(((IPlayerAether)playerIn)));
 		}
 	}
 

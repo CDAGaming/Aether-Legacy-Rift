@@ -53,7 +53,7 @@ compileJava {
 
 minecraft {
     version = '1.13'
-    mappings = 'snapshot_20180901'
+    mappings = 'snapshot_20180904'
     runDir = 'run'
     tweakClass = 'org.dimdev.riftloader.launch.RiftLoaderClientTweaker'
 }

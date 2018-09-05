@@ -32,7 +32,7 @@ public class GuiAccessories extends GuiContainer
     {
     	super.onGuiClosed();
 
-		Minecraft.getMinecraft().player.connection.sendPacket(new CPacketCustomPayload(Aether.locate("close_accessory_gui"), new PacketBuffer(Unpooled.buffer())));
+		Minecraft.getInstance().player.connection.sendPacket(new CPacketCustomPayload(Aether.locate("close_accessory_gui"), new PacketBuffer(Unpooled.buffer())));
     }
 
 	@Override
