@@ -67,7 +67,7 @@ public class EntityFloatingBlock extends Entity
     }
 
 	@Override
-	protected void entityInit() 
+	protected void registerData() 
 	{
         this.dataManager.register(ORIGIN, BlockPos.ORIGIN);
 	}
@@ -202,9 +202,9 @@ public class EntityFloatingBlock extends Entity
 	}
 
 	@Override
-    public void addEntityCrashInfo(CrashReportCategory category)
+    public void fillCrashReport(CrashReportCategory category)
     {
-        super.addEntityCrashInfo(category);
+        super.fillCrashReport(category);
 
         category.addCrashSection("BlockState", this.state.toString());
         category.addCrashSection("Time Floated", this.floatTime);

@@ -35,9 +35,9 @@ public abstract class EntityMountable extends EntityAetherAnimal
 	}
 
 	@Override
-	protected void entityInit()
+	protected void registerData()
 	{
-		super.entityInit();
+		super.registerData();
 
 		this.dataManager.register(RIDER_SNEAKING, false);
 	}

@@ -113,7 +113,7 @@ public abstract class AetherTileEntity extends TileEntity implements IInteractio
 
         if (compound.hasKey("name", 8))
         {
-            this.customTileName = ITextComponent.Serializer.jsonToComponent(compound.getString("name"));
+            this.customTileName = ITextComponent.Serializer.fromJson(compound.getString("name"));
         }
 
 		super.readFromNBT(compound);
@@ -126,7 +126,7 @@ public abstract class AetherTileEntity extends TileEntity implements IInteractio
 
         if (this.hasCustomName())
         {
-        	compound.setString("name", ITextComponent.Serializer.componentToJson(this.customTileName));
+        	compound.setString("name", ITextComponent.Serializer.toJson(this.customTileName));
         }
 
 		return super.writeToNBT(compound);

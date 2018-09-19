@@ -51,11 +51,12 @@ public class EntityAerwhale extends EntityFlying implements IMob
     }
 
     @Override
-    protected void applyEntityAttributes()
+    protected void registerAttributes()
     {
-        super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(1.0D);
-        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(20.0D); 
+        super.registerAttributes();
+
+        this.getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(1.0D);
+        this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(20.0D); 
     }
 
     /*@Override
@@ -376,7 +377,7 @@ public class EntityAerwhale extends EntityFlying implements IMob
             return standard;
         }
 
-        if(movingobjectposition.typeOfHit == RayTraceResult.Type.BLOCK)
+        if(movingobjectposition.type == RayTraceResult.Type.BLOCK)
         {
             double i = movingobjectposition.getBlockPos().getX() - this.posX;
             double j = movingobjectposition.getBlockPos().getY() - this.getEntityBoundingBox().minY;

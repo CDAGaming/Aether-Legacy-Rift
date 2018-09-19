@@ -38,16 +38,16 @@ public class EntityAechorPlant extends EntityAetherAnimal
 	}
 
 	@Override
-    protected void applyEntityAttributes()
+    protected void registerAttributes()
     {
-        super.applyEntityAttributes();
+        super.registerAttributes();
 
-        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(15.0D);
+        this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(15.0D);
         this.setHealth(20F);
     }
 
 	@Override
-    protected void initEntityAI()
+    protected void registerData()
     {
     	this.tasks.addTask(0, new AechorPlantAIShootPlayer(this));
     }

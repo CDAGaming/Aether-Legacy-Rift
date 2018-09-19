@@ -38,7 +38,7 @@ public class GuiAccessoryButton extends GuiButton
 	}
 
 	@Override
-	public void mousePressed(double mouseX, double mouseY)
+	public void onClick(double mouseX, double mouseY)
 	{
 		if (this.screen instanceof GuiAccessories)
 		{
@@ -51,13 +51,13 @@ public class GuiAccessoryButton extends GuiButton
 	}
 
 	@Override
-    public void drawButton(int mouseX, int mouseY, float partialTicks)
+    public void render(int mouseX, int mouseY, float partialTicks)
     {
         this.hovered = mouseX >= this.x && mouseY >= this.y && mouseX < this.x + this.width && mouseY < this.y + this.height;
 
     	if (this.visible)
     	{
-            GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+            GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
             GlStateManager.pushMatrix();
             int i = this.getHoverState(this.hovered);
             Minecraft.getInstance().getTextureManager().bindTexture(i == 2 ? HOVERED_TEXTURE : TEXTURE);

@@ -30,8 +30,8 @@ public class EntityTypesAether implements EntityTypeAdder, ItemAdder
 	@SuppressWarnings("unchecked")
 	public void registerEntityTypes() 
 	{
-		AECHOR_PLANT = (EntityType<EntityAechorPlant>) register("aechor_plant", true, Builder.create(EntityAechorPlant.class, EntityAechorPlant::new));
-		FLOATING_BLOCK = (EntityType<EntityFloatingBlock>) register("floating_block", false, Builder.create(EntityFloatingBlock.class, EntityFloatingBlock::new));
+		AECHOR_PLANT = (EntityType<EntityAechorPlant>) register("aechor_plant", Builder.create(EntityAechorPlant.class, EntityAechorPlant::new));
+		FLOATING_BLOCK = (EntityType<EntityFloatingBlock>) register("floating_block", Builder.create(EntityFloatingBlock.class, EntityFloatingBlock::new).disableSummoning());
 
 		//AECHOR_PLANT = EntityType.registerEntityType("aether_legacy:aechor_plant", EntityType.Builder.create(EntityAechorPlant.class, EntityAechorPlant::new));
 		//FLOATING_BLOCK = EntityType.registerEntityType("aether_legacy:floating_block", EntityType.Builder.create(EntityFloatingBlock.class, EntityFloatingBlock::new));
@@ -43,14 +43,9 @@ public class EntityTypesAether implements EntityTypeAdder, ItemAdder
 		Item.registerItem("aether_legacy:aechor_plant_spawn_egg", new ItemAetherSpawnEgg(AECHOR_PLANT, 0x9fc3f7, 0x29a793, new Item.Builder().group(ItemGroup.MISC)));
 	}
 
-	public EntityType<? extends Entity> register(String name, boolean summonable, Builder<? extends Entity> entityBuilder)
+	public EntityType<? extends Entity> register(String name, Builder<? extends Entity> entityBuilder)
 	{
 		EntityType<? extends Entity> entityType = EntityType.register("aether_legacy:" + name, entityBuilder.disableSerialization());
-
-		if (summonable)
-		{
-			SUMMONABLE_ENTITIES.add(entityType);
-		}
 
 		return entityType;
 	}

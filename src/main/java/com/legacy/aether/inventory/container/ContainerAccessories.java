@@ -39,7 +39,7 @@ public class ContainerAccessories extends ContainerPlayer
 			{
 				AccessoryType type = playerAetherIn.getPlayerAether().getAccessories().type[slotID];
 
-				this.addSlotToContainer(new SlotAccessory(playerAetherIn.getPlayerAether().getAccessories(), slotID, type, 59 + x * 18, 8 + y * 18));
+				this.addSlot(new SlotAccessory(playerAetherIn.getPlayerAether().getAccessories(), slotID, type, 59 + x * 18, 8 + y * 18));
 
 				slotID++;
 			}

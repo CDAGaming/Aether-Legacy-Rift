@@ -44,7 +44,7 @@ public class BlockAmbrosiumOre extends Block
 	{
 		super.dropBlockAsItemWithChance(stateIn, worldIn, posIn, chanceIn, fortuneIn);
 
-		super.dropXpOnBlockBreak(worldIn, posIn, MathHelper.getInt(new Random(), 0, 2));
+		super.dropXpOnBlockBreak(worldIn, posIn, MathHelper.nextInt(new Random(), 0, 2));
 	}
 
 	@Override
