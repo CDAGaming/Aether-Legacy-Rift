@@ -37,7 +37,7 @@ configurations {
 
 dependencies {
     ecj 'org.eclipse.jdt.core.compiler:ecj:4.6.1'
-    implementation 'org.dimdev:rift:1.0.4-66:dev'
+    implementation 'org.dimdev:rift:1.0.4-77:dev'
     implementation('net.minecraft:launchwrapper:1.12') { transitive = false }
     implementation 'org.ow2.asm:asm:6.2'
     implementation 'org.ow2.asm:asm-commons:6.2'
@@ -53,7 +53,7 @@ compileJava {
 
 minecraft {
     version = '1.13'
-    mappings = 'snapshot_20180904'
+    mappings = 'snapshot_20180908'
     runDir = 'run'
     tweakClass = 'org.dimdev.riftloader.launch.RiftLoaderClientTweaker'
 }
