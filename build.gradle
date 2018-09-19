@@ -31,18 +31,31 @@ repositories {
     maven { url 'https://www.dimdev.org/maven/' }
 }
 
+configurations {
+    ecj
+}
+
 dependencies {
-    implementation 'org.dimdev:rift:1.0.2-33:dev'
+    ecj 'org.eclipse.jdt.core.compiler:ecj:4.6.1'
+    implementation 'org.dimdev:rift:1.0.4-66:dev'
     implementation('net.minecraft:launchwrapper:1.12') { transitive = false }
     implementation 'org.ow2.asm:asm:6.2'
     implementation 'org.ow2.asm:asm-commons:6.2'
 }
 
+compileJava {
+    options.fork = true
+    options.forkOptions.with {
+        executable = 'java'
+        jvmArgs = ['-classpath', project.configurations.ecj.asPath, 'org.eclipse.jdt.internal.compiler.batch.Main', '-nowarn']
+    }
+}
+
 minecraft {
     version = '1.13'
-    mappings = 'snapshot_5'
+    mappings = 'snapshot_20180904'
     runDir = 'run'
-    tweakClass = 'org.dimdev.riftloader.launch.RiftLoaderTweaker'
+    tweakClass = 'org.dimdev.riftloader.launch.RiftLoaderClientTweaker'
 }
 
 mixin {

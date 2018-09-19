@@ -18,10 +18,13 @@ public class MixinPlayerControllerMP
 
 	@Shadow private GameType currentGameType;
 
+	/**
+	 * @author Modding Legacy
+	 */
 	@Overwrite
 	public float getBlockReachDistance()
 	{
-		ItemStack stack = Minecraft.getMinecraft().player.getHeldItemMainhand();
+		ItemStack stack = Minecraft.getInstance().player.getHeldItemMainhand();
 
 		if (stack.getItem() instanceof IAetherTool && ((IAetherTool)stack.getItem()).getMaterial() == AetherMaterialType.Valkyrie)
 		{

@@ -36,10 +36,10 @@ public abstract class MixinEntityPlayer implements IPlayerAether
 		this.playerAether = new PlayerAether((EntityPlayer) (Object) this);
 	}
 
-    @Inject(method = "onUpdate", at = @At("RETURN"))
+    @Inject(method = "tick", at = @At("RETURN"))
 	public void playerUpdate(CallbackInfo ci)
 	{
-		this.playerAether.onUpdate();
+		this.playerAether.tick();
 	}
 
     @Inject(method = "writeEntityToNBT", at = @At("RETURN"))

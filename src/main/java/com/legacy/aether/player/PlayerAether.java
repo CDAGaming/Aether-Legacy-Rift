@@ -24,7 +24,7 @@ public class PlayerAether
 		this.accessories = new InventoryAccessories((IPlayerAether) player);
 	}
 
-	public void onUpdate()
+	public void tick()
 	{
 		boolean shouldTeleport = false;//this.player.isSneaking();
 

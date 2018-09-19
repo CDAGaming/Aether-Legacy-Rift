@@ -59,16 +59,16 @@ public class EntityAechorPlant extends EntityAetherAnimal
     }
 
 	@Override
-	public void onLivingUpdate() 
+	public void livingTick()
 	{
 		if(this.getHealth() <= 0)
 		{
-			super.onLivingUpdate();
+			super.livingTick();
 			return;
 		}
 		else
 		{
-			this.despawnEntity();
+			this.checkDespawn();
 		}
  
         if (this.isServerWorld())

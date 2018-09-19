@@ -22,7 +22,7 @@ public class TileEntityEnchanter extends AetherTileEntity
 
 	public int progress, ticksRequired, powerRemaining;
 
-	private NonNullList<ItemStack> stacks = NonNullList.<ItemStack>withSize(3, ItemStack.EMPTY);
+	private NonNullList<ItemStack> stacks = NonNullList.withSize(3, ItemStack.EMPTY);
 
 	private Enchantment enchantment;
 
@@ -38,7 +38,7 @@ public class TileEntityEnchanter extends AetherTileEntity
 	}
 
 	@Override
-	public void update()
+	public void tick()
 	{
 		boolean isActive = this.isEnchanting();
 
@@ -118,7 +118,7 @@ public class TileEntityEnchanter extends AetherTileEntity
 
 			if (enchantment != null)
 			{
-				if (this.getStackInSlot(2).isEmpty() || (enchantment.getOutput().getItem() == this.getStackInSlot(2).getItem()))
+				if (this.getStackInSlot(2).isEmpty() || (enchantment.getOutput().asItem() == this.getStackInSlot(2).getItem()))
 				{
 					this.enchantment = enchantment;
 					this.ticksRequired = this.enchantment.getTimeRequired();
@@ -189,12 +189,8 @@ public class TileEntityEnchanter extends AetherTileEntity
 		{
 			return true;
 		}
-		else if (slot == 0 && AetherAPI.instance().isEnchantable(stackInSlot))
-		{
-			return true;
-		}
+		else return slot == 0 && AetherAPI.instance().isEnchantable(stackInSlot);
 
-		return false;
 	}
 
 	@Override

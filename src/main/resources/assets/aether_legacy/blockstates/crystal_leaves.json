@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "crystal_leaves=crystal_leaves": {
+      "model": "aether_legacy:block/crystal_leaves"
+    },
+    "crystal_leaves=crystal_fruit_leaves": {
+      "model": "aether_legacy:block/crystal_fruit_leaves"
+    }
+  }
+}

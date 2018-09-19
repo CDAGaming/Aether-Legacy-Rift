@@ -37,7 +37,7 @@ public abstract class AetherTreeFeature extends AbstractTreeFeature<NoFeatureCon
 	}
 
 	@Override
-	protected boolean func_208519_a(Set<BlockPos> posListIn, IWorld worldIn, Random randomIn, BlockPos posIn) 
+	protected boolean place(Set<BlockPos> posListIn, IWorld worldIn, Random randomIn, BlockPos posIn)
 	{
 		return this.generateTree(posListIn, worldIn, randomIn, posIn);
 	}

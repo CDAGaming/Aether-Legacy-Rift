@@ -17,7 +17,7 @@ public class AetherFlowersFeature extends AbstractFlowersFeature
 	}
 
 	@Override
-	public IBlockState func_202355_a(Random randIn, BlockPos posIn) 
+	public IBlockState getRandomFlower(Random randIn, BlockPos posIn)
 	{
 		return this.flowerState;
 	}

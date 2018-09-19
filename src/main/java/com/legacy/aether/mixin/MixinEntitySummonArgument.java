@@ -14,12 +14,15 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 public class MixinEntitySummonArgument
 {
 
-	@Overwrite
-	private static final ResourceLocation func_211365_a(ResourceLocation location) throws CommandSyntaxException
+	/**
+     * @author Modding Legacy
+     */
+    @Overwrite
+	private static final ResourceLocation checkIfEntityExists(ResourceLocation location) throws CommandSyntaxException
 	{
-        EntityType<?> entitytype = EntityType.REGISTRY.getObject(location);
+        EntityType<?> entitytype = EntityType.REGISTRY.get(location);
 
-        if (entitytype != null && entitytype.func_200720_b())
+        if (entitytype != null && entitytype.isSummonable())
         {
             return location;
         }

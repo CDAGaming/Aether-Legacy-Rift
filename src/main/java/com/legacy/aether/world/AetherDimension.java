@@ -22,7 +22,7 @@ public class AetherDimension extends Dimension
 	}
 
 	@Override
-	public DimensionType getDimensionType()
+	public DimensionType getType()
 	{
 		return WorldAether.AETHER;
 	}
@@ -126,13 +126,13 @@ public class AetherDimension extends Dimension
 	}
 
 	@Override
-	public BlockPos func_206920_a(ChunkPos arg0, boolean arg1)
+	public BlockPos findSpawn(ChunkPos arg0, boolean arg1)
 	{
 		return null;
 	}
 
 	@Override
-	public BlockPos func_206921_a(int arg0, int arg1, boolean arg2) 
+	public BlockPos findSpawn(int arg0, int arg1, boolean arg2)
 	{
 		return null;
 	}

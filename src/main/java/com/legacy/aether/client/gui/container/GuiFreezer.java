@@ -37,8 +37,8 @@ public class GuiFreezer extends GuiContainer
 	{
 		String name = this.freezer.getName().getFormattedText();
 
-		this.fontRenderer.func_211126_b(name, this.xSize / 2 - this.fontRenderer.getStringWidth(name) / 2, 6, 4210752);
-		this.fontRenderer.func_211126_b(I18n.format("container.inventory"), 8, this.ySize - 96 + 2, 4210752);
+		this.fontRenderer.drawString(name, this.xSize / 2f - this.fontRenderer.getStringWidth(name) / 2f, 6, 4210752);
+		this.fontRenderer.drawString(I18n.format("container.inventory"), 8, this.ySize - 96 + 2, 4210752);
 	}
 
 	@Override

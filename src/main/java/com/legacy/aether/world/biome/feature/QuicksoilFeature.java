@@ -15,7 +15,7 @@ public class QuicksoilFeature extends Feature<NoFeatureConfig>
 {
 
 	@Override
-	public boolean generate(IWorld worldIn, IChunkGenerator<? extends IChunkGenSettings> chunkGeneratorIn, Random rand, BlockPos posIn, NoFeatureConfig config)
+	public boolean place(IWorld worldIn, IChunkGenerator<? extends IChunkGenSettings> chunkGeneratorIn, Random rand, BlockPos posIn, NoFeatureConfig config)
 	{
 		BlockPos spawnPos = BlockPos.ORIGIN;
 

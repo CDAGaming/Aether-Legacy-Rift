@@ -23,7 +23,7 @@ public class FreezableFuel
 
 	public Item getFuel()
 	{
-		return this.fuel.getItem();
+		return this.fuel.asItem();
 	}
 
 	@Override
@@ -33,7 +33,7 @@ public class FreezableFuel
 		{
 			FreezableFuel fuel = (FreezableFuel) obj;
 
-			return this.getFuel().getItem() == fuel.getFuel().getItem();
+			return this.getFuel().asItem() == fuel.getFuel().asItem();
 		}
 
 		return false;

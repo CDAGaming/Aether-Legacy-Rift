@@ -38,7 +38,7 @@ public class AetherBiome extends Biome
 
 	public AetherBiome()
 	{
-		super(new BiomeBuilder().surfaceBuilder(new CompositeSurfaceBuilder<AetherSurfaceBuilderConfig>(AetherBiome.AETHER_SURFACE_BUILDER, AetherBiome.AETHER_SURFACE)).precipitation(RainType.NONE).biomeCategory(Category.NONE).depth(0.1F).scale(0.2F).temperature(0.5F).downfall(0.0F).waterColor(0xA9F7FF).waterFogColor(0xA9F7FF).parent(null));
+		super(new BiomeBuilder().surfaceBuilder(new CompositeSurfaceBuilder<>(AetherBiome.AETHER_SURFACE_BUILDER, AetherBiome.AETHER_SURFACE)).precipitation(RainType.NONE).category(Category.NONE).depth(0.1F).scale(0.2F).temperature(0.5F).downfall(0.0F).waterColor(0xA9F7FF).waterFogColor(0xA9F7FF).parent(null));
 
 		this.addStructure(StructuresAether.COLD_AERCLOUD, IFeatureConfig.NO_FEATURE_CONFIG);
 		this.addStructure(StructuresAether.BLUE_AERCLOUD, IFeatureConfig.NO_FEATURE_CONFIG);

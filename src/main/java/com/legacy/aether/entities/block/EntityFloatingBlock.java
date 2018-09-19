@@ -25,7 +25,7 @@ import com.legacy.aether.entities.EntityTypesAether;
 public class EntityFloatingBlock extends Entity
 {
 
-    private static final DataParameter<BlockPos> ORIGIN = EntityDataManager.<BlockPos>createKey(EntityFloatingBlock.class, DataSerializers.BLOCK_POS);
+    private static final DataParameter<BlockPos> ORIGIN = EntityDataManager.createKey(EntityFloatingBlock.class, DataSerializers.BLOCK_POS);
 
     private IBlockState state = BlocksAether.gravitite_ore.getDefaultState();
 
@@ -91,7 +91,7 @@ public class EntityFloatingBlock extends Entity
     }
 
 	@Override
-	public void onUpdate()
+	public void tick()
 	{
 		if (this.state.isAir())
 		{
@@ -110,7 +110,7 @@ public class EntityFloatingBlock extends Entity
 
                 if (this.world.getBlockState(blockpos).getBlock() == block)
                 {
-                    this.world.setBlockToAir(blockpos);
+                    this.world.isAirBlock(blockpos);
                 }
                 else if (!this.world.isRemote)
                 {
@@ -150,7 +150,7 @@ public class EntityFloatingBlock extends Entity
                     {
                         if (this.world.getGameRules().getBoolean("doEntityDrops"))
                         {
-                            this.func_199703_a(block);
+                            this.entityDropItem(block);
                         }
 
                         this.setDead();

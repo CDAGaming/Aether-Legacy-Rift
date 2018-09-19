@@ -26,12 +26,12 @@ public class Freezable
 
 	public Item getInput()
 	{
-		return this.input.getItem();
+		return this.input.asItem();
 	}
 
 	public Item getOutput()
 	{
-		return this.output.getItem();
+		return this.output.asItem();
 	}
 
 	@Override
@@ -41,8 +41,8 @@ public class Freezable
 		{
 			Freezable freezable = (Freezable) obj;
 
-			boolean inputCheck = this.getInput().getItem() == freezable.getInput().getItem();
-			boolean outputCheck = this.getOutput().getItem() == freezable.getOutput().getItem();
+			boolean inputCheck = this.getInput().asItem() == freezable.getInput().asItem();
+			boolean outputCheck = this.getOutput().asItem() == freezable.getOutput().asItem();
 
 			return inputCheck && outputCheck;
 		}

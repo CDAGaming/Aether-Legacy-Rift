@@ -24,41 +24,41 @@ public class AetherItemTier implements IItemTier
         this.damageVsEntity = damageVsEntity;
         this.enchantability = enchantability;
 
-        this.ingredientLoader = new LazyLoadBase<Ingredient>(() -> { return Ingredient.fromItems(repairMaterial); });
+        this.ingredientLoader = new LazyLoadBase<>(() -> Ingredient.fromItems(repairMaterial));
 	}
 
 	@Override
-	public Ingredient func_200924_f() 
+	public Ingredient getRepairMaterial()
 	{
 		return this.ingredientLoader.getValue();
 	}
 
 	@Override
-	public int func_200925_d() 
+	public int getHarvestLevel()
 	{
 		return this.harvestLevel;
 	}
 
 	@Override
-	public int func_200926_a() 
+	public int getMaxUses()
 	{
 		return this.maxUses;
 	}
 
 	@Override
-	public int func_200927_e()
+	public int getEnchantability()
 	{
 		return this.enchantability;
 	}
 
 	@Override
-	public float func_200928_b()
+	public float getEfficiency()
 	{
 		return this.efficiencyOnProperMaterial;
 	}
 
 	@Override
-	public float func_200929_c()
+	public float getAttackDamage()
 	{
 		return this.damageVsEntity;
 	}

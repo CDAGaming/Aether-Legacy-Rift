@@ -1,8 +1,9 @@
 package com.legacy.aether.world;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.google.common.collect.Lists;
+import com.legacy.aether.blocks.BlocksAether;
+import com.legacy.aether.world.biome.AetherBiomeProvider;
+import com.legacy.aether.world.info.AetherGenSettings;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.init.Blocks;
@@ -21,47 +22,49 @@ import net.minecraft.world.gen.Heightmap;
 import net.minecraft.world.gen.NoiseGeneratorOctaves;
 import net.minecraft.world.gen.WorldGenRegion;
 
-import com.google.common.collect.Lists;
-import com.legacy.aether.blocks.BlocksAether;
-import com.legacy.aether.world.biome.AetherBiomeProvider;
-import com.legacy.aether.world.info.AetherGenSettings;
+import java.util.ArrayList;
+import java.util.List;
 
-public class ChunkGeneratorAether extends AbstractChunkGenerator<AetherGenSettings>
-{
+public class ChunkGeneratorAether extends AbstractChunkGenerator<AetherGenSettings> {
 
-	private NoiseGeneratorOctaves noiseGen1, perlinNoise1;
+    private NoiseGeneratorOctaves noiseGen1, perlinNoise1;
 
-	private final AetherGenSettings chunkGenSettings;
+    private final AetherGenSettings chunkGenSettings;
 
-	private final AetherBiomeProvider biomeProvider;
+    private final AetherBiomeProvider biomeProvider;
 
-	private final SharedSeedRandom random;
+    private final SharedSeedRandom random;
 
-	public ChunkGeneratorAether(IWorld world, BiomeProvider biomeProvider)
-	{
-		super(world, biomeProvider);
+    public ChunkGeneratorAether(IWorld world, BiomeProvider biomeProvider) {
+        super(world, biomeProvider);
 
-		this.random = new SharedSeedRandom(world.getSeed());
-		this.biomeProvider = new AetherBiomeProvider();
-		this.chunkGenSettings = new AetherGenSettings();
+        this.random = new SharedSeedRandom(world.getSeed());
+        this.biomeProvider = new AetherBiomeProvider();
+        this.chunkGenSettings = new AetherGenSettings();
 
-		this.noiseGen1 = new NoiseGeneratorOctaves(this.random, 16);
-		this.perlinNoise1 = new NoiseGeneratorOctaves(this.random, 8);
+        this.noiseGen1 = new NoiseGeneratorOctaves(this.random, 16);
+        this.perlinNoise1 = new NoiseGeneratorOctaves(this.random, 8);
 
-	}
+    }
 
-	public void setBlocksInChunk(int x, int z, IChunk chunk)
-    {
+    @Override
+    public AetherGenSettings getSettings() {
+        return this.chunkGenSettings;
+    }
+
+    @Override
+    public double[] generateNoiseRegion(int i, int i1) {
+        return new double[3366];
+    }
+
+    public void setBlocksInChunk(int x, int z, IChunk chunk) {
         BlockPos.MutableBlockPos mutedPos = new BlockPos.MutableBlockPos();
 
         double[] buffer = this.setupNoiseGenerators(x * 2, z * 2);
 
-        for(int i1 = 0; i1 < 2; i1++)
-        {
-            for(int j1 = 0; j1 < 2; j1++)
-            {
-                for(int k1 = 0; k1 < 32; k1++)
-                {
+        for (int i1 = 0; i1 < 2; i1++) {
+            for (int j1 = 0; j1 < 2; j1++) {
+                for (int k1 = 0; k1 < 32; k1++) {
                     double d1 = buffer[(i1 * 3 + j1) * 33 + k1];
                     double d2 = buffer[(i1 * 3 + (j1 + 1)) * 33 + k1];
                     double d3 = buffer[((i1 + 1) * 3 + j1) * 33 + k1];
@@ -72,29 +75,25 @@ public class ChunkGeneratorAether extends AbstractChunkGenerator<AetherGenSettin
                     double d7 = (buffer[((i1 + 1) * 3 + j1) * 33 + (k1 + 1)] - d3) * 0.25D;
                     double d8 = (buffer[((i1 + 1) * 3 + (j1 + 1)) * 33 + (k1 + 1)] - d4) * 0.25D;
 
-                    for(int l1 = 0; l1 < 4; l1++)
-                    {
+                    for (int l1 = 0; l1 < 4; l1++) {
                         double d10 = d1;
                         double d11 = d2;
                         double d12 = (d3 - d1) * 0.125D;
                         double d13 = (d4 - d2) * 0.125D;
 
-                        for(int i2 = 0; i2 < 8; i2++)
-                        {
+                        for (int i2 = 0; i2 < 8; i2++) {
                             double d15 = d10;
                             double d16 = (d11 - d10) * 0.125D;
 
-                            for(int k2 = 0; k2 < 8; k2++)
-                            {
-                            	int x1 = i2 + i1 * 8;
-                            	int y = l1 + k1 * 4;
-                            	int z1 = k2 + j1 * 8;
+                            for (int k2 = 0; k2 < 8; k2++) {
+                                int x1 = i2 + i1 * 8;
+                                int y = l1 + k1 * 4;
+                                int z1 = k2 + j1 * 8;
 
                                 IBlockState filler = Blocks.AIR.getDefaultState();
 
-                                if(d15 > 0.0D)
-                                {
-                                	filler = BlocksAether.holystone.getDefaultState();
+                                if (d15 > 0.0D) {
+                                    filler = BlocksAether.holystone.getDefaultState();
                                 }
 
                                 chunk.setBlockState(mutedPos.setPos(x1, y, z1), filler, false);
@@ -120,9 +119,8 @@ public class ChunkGeneratorAether extends AbstractChunkGenerator<AetherGenSettin
 
     }
 
-    private double[] setupNoiseGenerators(int x, int z)
-    {
-    	double[] buffer = new double[3366];
+    private double[] setupNoiseGenerators(int x, int z) {
+        double[] buffer = new double[3366];
 
         double d = 1368.824D;
         double d1 = 684.41200000000003D;
@@ -133,42 +131,32 @@ public class ChunkGeneratorAether extends AbstractChunkGenerator<AetherGenSettin
 
         int id = 0;
 
-        for(int j2 = 0; j2 < 3; j2++)
-        {
-            for(int l2 = 0; l2 < 3; l2++)
-            {
-                for(int j3 = 0; j3 < 33; j3++)
-                {
-                	double d8;
+        for (int j2 = 0; j2 < 3; j2++) {
+            for (int l2 = 0; l2 < 3; l2++) {
+                for (int j3 = 0; j3 < 33; j3++) {
+                    double d8;
 
                     double d10 = ar[id] / 512D;
                     double d11 = br[id] / 512D;
                     double d12 = (pnr[id] / 10D + 1.0D) / 2D;
 
-                    if(d12 < 0.0D)
-                    {
+                    if (d12 < 0.0D) {
                         d8 = d10;
-                    } 
-                    else if(d12 > 1.0D)
-                    {
+                    } else if (d12 > 1.0D) {
                         d8 = d11;
-                    }
-                    else
-                    {
+                    } else {
                         d8 = d10 + (d11 - d10) * d12;
                     }
 
                     d8 -= 8D;
 
-                    if(j3 > 33 - 32)
-                    {
-                        double d13 = (float)(j3 - (33 - 32)) / ((float)32 - 1.0F);
+                    if (j3 > 33 - 32) {
+                        double d13 = (float) (j3 - (33 - 32)) / ((float) 32 - 1.0F);
                         d8 = d8 * (1.0D - d13) + -30D * d13;
                     }
 
-                    if(j3 < 8)
-                    {
-                        double d14 = (float)(8 - j3) / ((float)8 - 1.0F);
+                    if (j3 < 8) {
+                        double d14 = (float) (8 - j3) / ((float) 8 - 1.0F);
                         d8 = d8 * (1.0D - d14) + -30D * d14;
                     }
 
@@ -184,73 +172,55 @@ public class ChunkGeneratorAether extends AbstractChunkGenerator<AetherGenSettin
         return buffer;
     }
 
-	@Override
-	public AetherGenSettings getChunkGenSettings()
-	{
-		return this.chunkGenSettings;
-	}
+    @Override
+    public int getGroundHeight() {
+        return 20;
+    }
 
-	@Override
-	public int getGroundHeight()
-	{
-		return 20;
-	}
+    @Override
+    public int getMaxHeight() {
+        return 256;
+    }
 
-	@Override
-	public int getMaxHeight()
-	{
-		return 256;
-	}
+    @Override
+    public List<SpawnListEntry> getPossibleCreatures(EnumCreatureType arg0, BlockPos arg1) {
+        ArrayList<SpawnListEntry> entires = Lists.newArrayList();
 
-	@Override
-	public List<SpawnListEntry> getPossibleCreatures(EnumCreatureType arg0, BlockPos arg1) 
-	{
-		ArrayList<SpawnListEntry> entires = Lists.newArrayList();
+        return entires;
+    }
 
-		return entires;
-	}
+    @Override
+    public void makeBase(IChunk chunk) {
+        ChunkPos chunkPos = chunk.getPos();
 
-	@Override
-	public void makeBase(IChunk chunk)
-	{
-		ChunkPos chunkPos = chunk.getPos();
+        int x = chunkPos.x;
+        int z = chunkPos.z;
 
-		int x = chunkPos.x;
-		int z = chunkPos.z;
+        this.random.setSeed(x, z);
 
-		this.random.setSeed(x, z);
+        Biome[] biomes = this.biomeProvider.getBiomes(x * 16, z * 16, 16, 16);
 
-		Biome[] biomes = this.biomeProvider.getBiomes(x * 16, z * 16, 16, 16);
+        chunk.setBiomes(biomes);
 
-		chunk.setBiomes(biomes);
+        this.setBlocksInChunk(x, z, chunk);
 
-		this.setBlocksInChunk(x, z, chunk);
+        chunk.createHeightMap(Heightmap.Type.WORLD_SURFACE_WG, Heightmap.Type.OCEAN_FLOOR_WG);
 
-		chunk.func_201588_a(Heightmap.Type.WORLD_SURFACE_WG, Heightmap.Type.OCEAN_FLOOR_WG);
+        this.buildSurface(chunk, biomes, this.random, 0);
 
-		this.buildSurface(chunk, biomes, this.random, 0);
+        chunk.createHeightMap(Heightmap.Type.WORLD_SURFACE_WG, Heightmap.Type.OCEAN_FLOOR_WG);
 
-		chunk.func_201588_a(Heightmap.Type.WORLD_SURFACE_WG, Heightmap.Type.OCEAN_FLOOR_WG);
+        chunk.setStatus(ChunkStatus.BASE);
+    }
 
-		chunk.setStatus(ChunkStatus.BASE);
-	}
+    @Override
+    public void spawnMobs(WorldGenRegion arg0) {
 
-	@Override
-	public void spawnMobs(WorldGenRegion arg0) 
-	{
+    }
 
-	}
-
-	@Override
-	public int spawnMobs(World arg0, boolean arg1, boolean arg2)
-	{
-		return 0;
-	}
-
-	@Override
-	public double[] getSurfaceNoise(int chunkX, int chunkZ) 
-	{
-		return new double [3366];
-	}
+    @Override
+    public int spawnMobs(World arg0, boolean arg1, boolean arg2) {
+        return 0;
+    }
 
 }

@@ -9,6 +9,9 @@ import org.spongepowered.asm.mixin.Overwrite;
 public class MixinMinecraft
 {
 
+	/**
+	 * @author Modding Legacy
+	 */
 	@Overwrite
 	public String getVersionType()
 	{

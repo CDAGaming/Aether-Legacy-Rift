@@ -20,7 +20,7 @@ public class MixinItemColors
 	{
     	ItemColors colors = info.getReturnValue();
 
-    	colors.func_199877_a(new AetherColor(), BlocksAether.blue_aercloud, BlocksAether.golden_aercloud);
+    	colors.register(new AetherColor(), BlocksAether.blue_aercloud, BlocksAether.golden_aercloud);
 
     	info.setReturnValue(colors);
 	}

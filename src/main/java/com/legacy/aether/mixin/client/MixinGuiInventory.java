@@ -14,7 +14,6 @@ import com.legacy.aether.client.gui.button.GuiAccessoryButton;
 @Mixin(GuiInventory.class)
 public abstract class MixinGuiInventory extends InventoryEffectRenderer
 {
-
     public MixinGuiInventory(EntityPlayer player)
     {
         super(player.inventoryContainer);

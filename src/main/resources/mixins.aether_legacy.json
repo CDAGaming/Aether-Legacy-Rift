@@ -1,19 +1,12 @@
 {
   
 	"required": true,
-  
 	"minVersion": "0.7.7",
-  
 	"compatibilityLevel": "JAVA_8",
-  
 	"target": "@env(DEFAULT)",
-  
 	"package": "com.legacy.aether.mixin",
-  
 	"refmap": "mixins.aether_legacy.refmap.json",
-  
 	"mixins": [
-
 		"MixinEntityPlayer",
 		"MixinBlockBush",
 		"MixinEntityTracker",
@@ -28,7 +21,6 @@
 		"client.MixinNetHandlerPlayClient",
 		"client.MixinPlayerControllerMP"
 	],
-  
 	"client": [ 
 	]
 

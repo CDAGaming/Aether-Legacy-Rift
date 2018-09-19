@@ -27,7 +27,7 @@ public class BlockFreezer extends BlockAetherContainer
 	}
 
 	@Override
-    public boolean onRightClick(IBlockState stateIn, World worldIn, BlockPos posIn, EntityPlayer playerIn, EnumHand handIn, EnumFacing facingIn, float hitX, float hitY, float hitZ)
+    public boolean onBlockActivated(IBlockState stateIn, World worldIn, BlockPos posIn, EntityPlayer playerIn, EnumHand handIn, EnumFacing facingIn, float hitX, float hitY, float hitZ)
     {
         if (worldIn.isRemote)
         {
@@ -47,16 +47,16 @@ public class BlockFreezer extends BlockAetherContainer
     }
 
 	@Override
-	public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos posIn, Random randIn)
+	public void animateTick(IBlockState stateIn, World worldIn, BlockPos posIn, Random randIn)
     {
-		if(stateIn.getValue(POWERED).booleanValue())
+		if(stateIn.get(POWERED))
 		{
 			float f = (float)posIn.getX() + 0.5F;
 			float f1 = (float)posIn.getY() + 1.0F + (randIn.nextFloat() * 6F) / 16F;
 			float f2 = (float)posIn.getZ() + 0.5F;
 
-			worldIn.addParticle(Particles.SMOKE, f, f1, f2, 0.0D, 0.0D, 0.0D);
-			worldIn.addParticle(Particles.CLOUD, f, f1, f2, 0.0D, 0.0D, 0.0D);
+			worldIn.addParticle(Particles.SMOKE, true, f, f1, f2, 0.0D, 0.0D, 0.0D);
+			worldIn.addParticle(Particles.CLOUD, true, f, f1, f2, 0.0D, 0.0D, 0.0D);
 			
 			if (randIn.nextDouble() < 0.1D)
             {
@@ -66,7 +66,7 @@ public class BlockFreezer extends BlockAetherContainer
     }
 
 	@Override
-    public void beforeReplacingBlock(IBlockState previousStateIn, World worldIn, BlockPos posIn, IBlockState newStateIn, boolean isDirty)
+    public void onReplaced(IBlockState previousStateIn, World worldIn, BlockPos posIn, IBlockState newStateIn, boolean isDirty)
     {
         if (previousStateIn.getBlock() != newStateIn.getBlock())
         {
@@ -78,12 +78,12 @@ public class BlockFreezer extends BlockAetherContainer
                 worldIn.updateComparatorOutputLevel(posIn, this);
             }
 
-            super.beforeReplacingBlock(previousStateIn, worldIn, posIn, newStateIn, isDirty);
+            super.onReplaced(previousStateIn, worldIn, posIn, newStateIn, isDirty);
         }
     }
 
 	@Override
-	public TileEntity getTileEntity(IBlockReader readerIn) 
+	public TileEntity createNewTileEntity(IBlockReader readerIn)
 	{
 		return new TileEntityFreezer();
 	}

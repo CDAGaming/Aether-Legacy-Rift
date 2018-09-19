@@ -38,20 +38,20 @@ public class GuiAccessoryButton extends GuiButton
 	}
 
 	@Override
-	public void mouseClicked(double mouseX, double mouseY)
+	public void mousePressed(double mouseX, double mouseY)
 	{
 		if (this.screen instanceof GuiAccessories)
 		{
-			Minecraft.getMinecraft().displayGuiScreen(new GuiInventory(Minecraft.getMinecraft().player));
+			Minecraft.getInstance().displayGuiScreen(new GuiInventory(Minecraft.getInstance().player));
 		}
 		else
 		{
-			Minecraft.getMinecraft().player.connection.sendPacket(new CPacketCustomPayload(Aether.locate("open_accessory_gui"), new PacketBuffer(Unpooled.buffer())));
+			Minecraft.getInstance().player.connection.sendPacket(new CPacketCustomPayload(Aether.locate("open_accessory_gui"), new PacketBuffer(Unpooled.buffer())));
 		}
 	}
 
 	@Override
-    public void func_194828_a(int mouseX, int mouseY, float partialTicks)
+    public void drawButton(int mouseX, int mouseY, float partialTicks)
     {
         this.hovered = mouseX >= this.x && mouseY >= this.y && mouseX < this.x + this.width && mouseY < this.y + this.height;
 
@@ -60,7 +60,7 @@ public class GuiAccessoryButton extends GuiButton
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
             GlStateManager.pushMatrix();
             int i = this.getHoverState(this.hovered);
-            Minecraft.getMinecraft().getTextureManager().bindTexture(i == 2 ? HOVERED_TEXTURE : TEXTURE);
+            Minecraft.getInstance().getTextureManager().bindTexture(i == 2 ? HOVERED_TEXTURE : TEXTURE);
             GlStateManager.enableBlend();
 
             drawModalRectWithCustomSizedTexture(this.x - 1, this.y, 0, 0, 14, 14, 14, 14);

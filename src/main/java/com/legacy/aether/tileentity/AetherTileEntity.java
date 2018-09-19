@@ -40,7 +40,7 @@ public abstract class AetherTileEntity extends TileEntity implements IInteractio
 	@Override
     public ITextComponent getName()
     {
-        return (ITextComponent)(this.hasCustomName() ? this.getCustomName() : new TextComponentTranslation("container.aether_legacy." + this.name, new Object[0]));
+        return (this.hasCustomName() ? this.getCustomName() : new TextComponentTranslation("container.aether_legacy." + this.name));
     }
 
 	@Override

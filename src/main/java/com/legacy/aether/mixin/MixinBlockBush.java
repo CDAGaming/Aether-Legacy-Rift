@@ -16,6 +16,9 @@ import com.legacy.aether.blocks.BlocksAether;
 public class MixinBlockBush 
 {
 
+	/**
+	 * @author Modding Legacy
+	 */
 	@Overwrite
 	protected boolean isValidGround(IBlockState stateIn, IBlockReader readerIn, BlockPos posIn)
 	{

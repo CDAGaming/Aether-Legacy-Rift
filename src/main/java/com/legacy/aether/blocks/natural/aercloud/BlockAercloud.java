@@ -22,11 +22,11 @@ public class BlockAercloud extends Block
 
 	public BlockAercloud() 
 	{
-		super(Block.Builder.create(Material.ICE).hardnessAndResistance(0.2F, -1.0F).soundType(SoundType.CLOTH));
+		super(Builder.create(Material.ICE).hardnessAndResistance(0.2F, -1.0F).sound(SoundType.CLOTH));
 	}
 
 	@Override
-	public void onCollisionWithEntity(IBlockState stateIn, World worldIn, BlockPos posIn, Entity entityIn)
+	public void onEntityCollision(IBlockState stateIn, World worldIn, BlockPos posIn, Entity entityIn)
 	{
 		entityIn.fallDistance = 0.0F;
 
@@ -38,7 +38,7 @@ public class BlockAercloud extends Block
 				double yOffset = posIn.getY() + worldIn.rand.nextDouble();
 				double zOffset = posIn.getZ() + worldIn.rand.nextDouble();
 
-				worldIn.addParticle(Particles.SPLASH, xOffset, yOffset, zOffset, 0.0D, 0.0D, 0.0D);
+				worldIn.addParticle(Particles.SPLASH, true, xOffset, yOffset, zOffset, 0.0D, 0.0D, 0.0D);
 			}
 
 			if (entityIn instanceof EntityPlayer && entityIn.isSneaking() && entityIn.motionY < 0.0F)
@@ -77,9 +77,9 @@ public class BlockAercloud extends Block
     }
 
 	@Override
-	public VoxelShape getShapeForCollision(IBlockState blockstateIn, IBlockReader blockReaderIn, BlockPos posIn)
+	public VoxelShape getCollisionShape(IBlockState blockstateIn, IBlockReader blockReaderIn, BlockPos posIn)
 	{
-		return this == BlocksAether.blue_aercloud ? ShapeUtils.makeCuboidShape(0.0D, 0.0D, 0.0D, 0.0D, 0.0D, 0.0D) : ShapeUtils.makeCuboidShape(0.0D, 0.0D, 0.0D, 1.0D, 0.01D, 1.0D);
+		return this == BlocksAether.blue_aercloud ? ShapeUtils.create(0.0D, 0.0D, 0.0D, 0.0D, 0.0D, 0.0D) : ShapeUtils.create(0.0D, 0.0D, 0.0D, 1.0D, 0.01D, 1.0D);
 	}
 
 }

@@ -13,11 +13,11 @@ public class BlockIcestone extends Block
 
 	public BlockIcestone() 
 	{
-		super(Block.Builder.create(Material.ROCK).hardnessAndResistance(3.0F, -1.0F).soundType(SoundType.GLASS));
+		super(Block.Builder.create(Material.ROCK).hardnessAndResistance(3.0F, -1.0F).sound(SoundType.GLASS));
 	}
 
 	@Override
-	public void onBlockPlace(IBlockState stateIn, World worldIn, BlockPos posIn, IBlockState neighborStateIn)
+	public void onBlockAdded(IBlockState stateIn, World worldIn, BlockPos posIn, IBlockState neighborStateIn)
 	{
 		for (int x = posIn.getX() - 3; x <= (posIn.getX() + 3); ++x)
 		{

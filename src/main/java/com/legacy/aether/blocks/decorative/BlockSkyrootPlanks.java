@@ -9,7 +9,7 @@ public class BlockSkyrootPlanks extends Block
 
 	public BlockSkyrootPlanks()
 	{
-		super(Block.Builder.create(Material.WOOD).hardnessAndResistance(2.0F, 5.0F).soundType(SoundType.WOOD));
+		super(Block.Builder.create(Material.WOOD).hardnessAndResistance(2.0F, 5.0F).sound(SoundType.WOOD));
 	}
 
 }

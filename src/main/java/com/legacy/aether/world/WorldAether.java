@@ -26,7 +26,7 @@ public class WorldAether implements BiomeAdder, DimensionTypeAdder
 	@Override
 	public Set<? extends DimensionType> getDimensionTypes()
 	{
-		Set<DimensionType> dimensions = new TreeSet<DimensionType>();
+		Set<DimensionType> dimensions = new TreeSet<>();
 
 		AETHER = DimensionTypeAdder.newDimensionType(12, "aether", "_aether", AetherDimension::new);
 

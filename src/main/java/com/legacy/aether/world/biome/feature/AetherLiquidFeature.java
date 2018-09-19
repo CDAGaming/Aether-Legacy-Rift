@@ -16,7 +16,7 @@ public class AetherLiquidFeature extends Feature<LiquidsConfig>
 {
 
 	@Override
-	public boolean generate(IWorld worldIn, IChunkGenerator<? extends IChunkGenSettings> chunkGeneratorIn, Random rand, BlockPos position, LiquidsConfig config)
+	public boolean place(IWorld worldIn, IChunkGenerator<? extends IChunkGenSettings> chunkGeneratorIn, Random rand, BlockPos position, LiquidsConfig config)
 	{
         if (worldIn.getBlockState(position.up()).getBlock() != BlocksAether.holystone)
         {
@@ -83,7 +83,7 @@ public class AetherLiquidFeature extends Feature<LiquidsConfig>
                 if (i == 3 && j == 1)
                 {
                 	worldIn.setBlockState(position, config.field_202459_a.getDefaultState().getBlockState(), 2);
-                	worldIn.getPendingFluidTickList().add(position, config.field_202459_a, 0);
+                	worldIn.getPendingFluidTicks().scheduleTick(position, config.field_202459_a, 0);
                     ++i;
                 }
 

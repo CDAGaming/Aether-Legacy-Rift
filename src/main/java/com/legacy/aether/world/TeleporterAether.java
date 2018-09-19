@@ -70,7 +70,7 @@ public class TeleporterAether extends Teleporter
 
         if (this.destinationCoordinateCache.containsKey(l))
         {
-        	AetherPortalPosition teleporter$portalposition = (AetherPortalPosition)this.destinationCoordinateCache.get(l);
+        	AetherPortalPosition teleporter$portalposition = this.destinationCoordinateCache.get(l);
             d0 = 0.0D;
             blockpos = teleporter$portalposition;
             teleporter$portalposition.lastUpdateTime = this.worldServerInstance.getTotalWorldTime();
@@ -364,7 +364,7 @@ public class TeleporterAether extends Teleporter
             }
         }
 
-        IBlockState iblockstate = BlocksAether.aether_portal.getDefaultState().withProperty(BlockPortal.AXIS, l6 == 0 ? EnumFacing.Axis.Z : EnumFacing.Axis.X);
+        IBlockState iblockstate = BlocksAether.aether_portal.getDefaultState().with(BlockPortal.AXIS, l6 == 0 ? EnumFacing.Axis.Z : EnumFacing.Axis.X);
 
         for (int i8 = 0; i8 < 4; ++i8)
         {

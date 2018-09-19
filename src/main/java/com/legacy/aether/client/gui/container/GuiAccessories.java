@@ -32,7 +32,7 @@ public class GuiAccessories extends GuiContainer
     {
     	super.onGuiClosed();
 
-		Minecraft.getMinecraft().player.connection.sendPacket(new CPacketCustomPayload(Aether.locate("close_accessory_gui"), new PacketBuffer(Unpooled.buffer())));
+		Minecraft.getInstance().player.connection.sendPacket(new CPacketCustomPayload(Aether.locate("close_accessory_gui"), new PacketBuffer(Unpooled.buffer())));
     }
 
 	@Override
@@ -54,7 +54,7 @@ public class GuiAccessories extends GuiContainer
 	@Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY)
     {
-        this.fontRenderer.func_211126_b(I18n.format("container.crafting", new Object[0]), 115, 8, 4210752);
+        this.fontRenderer.drawString(I18n.format("container.crafting"), 115, 8, 4210752);
     }
 
 	@Override

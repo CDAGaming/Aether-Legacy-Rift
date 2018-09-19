@@ -9,6 +9,8 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.StateContainer;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 
 public class BlockAetherDirt extends Block
 {
@@ -17,27 +19,27 @@ public class BlockAetherDirt extends Block
 
 	public BlockAetherDirt() 
 	{
-		super(Block.Builder.create(Material.GROUND).hardnessAndResistance(0.2F, -1.0F).soundType(SoundType.GROUND));
+		super(Block.Builder.create(Material.GROUND).hardnessAndResistance(0.2F, -1.0F).sound(SoundType.GROUND));
 
-		this.setDefaultState(this.getDefaultState().withProperty(DOUBLE_DROP, true));
+		this.setDefaultState(this.getDefaultState().with(DOUBLE_DROP, true));
 	}
 
 	@Override
-	public void addPropertiesToBuilder(StateContainer.Builder<Block, IBlockState> propertyBuilderIn)
+	public void fillStateContainer(StateContainer.Builder<Block, IBlockState> propertyBuilderIn)
 	{
-		propertyBuilderIn.addProperties(DOUBLE_DROP);
+		propertyBuilderIn.add(DOUBLE_DROP);
 	}
 
 	@Override
-	public IBlockState getBlockToPlaceOnUse(BlockItemUseContext context)
+	public IBlockState getStateForPlacement(BlockItemUseContext context)
 	{
-		return super.getBlockToPlaceOnUse(context).withProperty(DOUBLE_DROP, false);
+		return super.getStateForPlacement(context).with(DOUBLE_DROP, false);
 	}
 
 	@Override
-	public int getItemsToDropCount(IBlockState stateIn, Random randIn)
+	public int getItemsToDropCount(IBlockState stateIn, int fortuneIn, World worldIn, BlockPos posIn, Random randomIn)
 	{
-		return stateIn.getValue(DOUBLE_DROP).booleanValue() ? 2 : 1;
+		return stateIn.get(DOUBLE_DROP) ? 2 : 1;
 	}
 
 }

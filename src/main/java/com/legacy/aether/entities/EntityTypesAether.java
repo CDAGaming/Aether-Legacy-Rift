@@ -45,7 +45,7 @@ public class EntityTypesAether implements EntityTypeAdder, ItemAdder
 
 	public EntityType<? extends Entity> register(String name, boolean summonable, Builder<? extends Entity> entityBuilder)
 	{
-		EntityType<? extends Entity> entityType = EntityType.registerEntityType("aether_legacy:" + name, entityBuilder.func_200706_c());
+		EntityType<? extends Entity> entityType = EntityType.register("aether_legacy:" + name, entityBuilder.disableSerialization());
 
 		if (summonable)
 		{

@@ -26,12 +26,12 @@ public class Enchantment
 
 	public Item getInput()
 	{
-		return this.input.getItem();
+		return this.input.asItem();
 	}
 
 	public Item getOutput()
 	{
-		return this.output.getItem();
+		return this.output.asItem();
 	}
 
 	@Override
@@ -41,8 +41,8 @@ public class Enchantment
 		{
 			Enchantment enchantment = (Enchantment) obj;
 
-			boolean inputCheck = this.getInput().getItem() == enchantment.getInput().getItem();
-			boolean outputCheck = this.getOutput().getItem() == enchantment.getOutput().getItem();
+			boolean inputCheck = this.getInput().asItem() == enchantment.getInput().asItem();
+			boolean outputCheck = this.getOutput().asItem() == enchantment.getOutput().asItem();
 
 			return inputCheck && outputCheck;
 		}

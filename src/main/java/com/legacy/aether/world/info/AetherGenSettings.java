@@ -22,25 +22,7 @@ public class AetherGenSettings implements IChunkGenSettings
 	}
 
 	@Override
-	public int func_211726_q() 
-	{
-		return 0;
-	}
-
-	@Override
 	public int func_211727_m() 
-	{
-		return 0;
-	}
-
-	@Override
-	public int func_211728_o() 
-	{
-		return 0;
-	}
-
-	@Override
-	public int func_211729_b() 
 	{
 		return 0;
 	}
@@ -82,8 +64,18 @@ public class AetherGenSettings implements IChunkGenSettings
 	}
 
 	@Override
+	public int getEndCitySeparation() {
+		return 0;
+	}
+
+	@Override
 	public int getMansionDistance() 
 	{
+		return 0;
+	}
+
+	@Override
+	public int getMansionSeparation() {
 		return 0;
 	}
 
@@ -120,6 +112,11 @@ public class AetherGenSettings implements IChunkGenSettings
 	@Override
 	public int getVillageDistance() 
 	{
+		return 0;
+	}
+
+	@Override
+	public int getVillageSeparation() {
 		return 0;
 	}
 

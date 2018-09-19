@@ -23,13 +23,13 @@ public abstract class BlockAetherContainer extends BlockContainer
 	{
 		super(builderIn.needsRandomTick());
 
-		this.setDefaultState(this.getDefaultState().withProperty(POWERED, false));
+		this.setDefaultState(this.getDefaultState().with(POWERED, false));
 	}
 
 	@Override
-	public void addPropertiesToBuilder(StateContainer.Builder<Block, IBlockState> propertyBuilderIn)
+	public void fillStateContainer(StateContainer.Builder<Block, IBlockState> propertyBuilderIn)
 	{
-		propertyBuilderIn.addProperties(POWERED);
+		propertyBuilderIn.add(POWERED);
 	}
 
 	public static void setState(World worldIn, BlockPos posIn, boolean isActive)
@@ -37,7 +37,7 @@ public abstract class BlockAetherContainer extends BlockContainer
         IBlockState iblockstate = worldIn.getBlockState(posIn);
         TileEntity tileentity = worldIn.getTileEntity(posIn);
 
-        worldIn.setBlockState(posIn, iblockstate.withProperty(POWERED, isActive), 3);
+        worldIn.setBlockState(posIn, iblockstate.with(POWERED, isActive), 3);
 
         if (tileentity != null)
         {
@@ -55,7 +55,7 @@ public abstract class BlockAetherContainer extends BlockContainer
 
             if (tileentity instanceof AetherTileEntity)
             {
-                ((AetherTileEntity)tileentity).setCustomName(stackIn.func_200301_q());
+                ((AetherTileEntity)tileentity).setCustomName(stackIn.getDisplayName());
             }
         }
     }

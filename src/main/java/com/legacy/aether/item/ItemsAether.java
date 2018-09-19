@@ -2,8 +2,8 @@ package com.legacy.aether.item;
 
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
-import net.minecraft.util.text.TextFormatting;
 
+import net.minecraft.util.text.TextFormatting;
 import org.dimdev.rift.listener.ItemAdder;
 import org.dimdev.utils.ReflectionUtils;
 
@@ -98,7 +98,7 @@ public class ItemsAether implements ItemAdder
 
 	public Item register(String name, Item item)
 	{
-		Item.registerItem(Aether.locate(name), item);
+		Item.registerItem(Aether.locate(name).toString(), item);
 
 		return item;
 	}

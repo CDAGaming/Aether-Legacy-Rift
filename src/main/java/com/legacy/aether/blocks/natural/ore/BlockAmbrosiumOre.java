@@ -22,27 +22,27 @@ public class BlockAmbrosiumOre extends Block
 
 	public BlockAmbrosiumOre()
 	{
-		super(Block.Builder.create(Material.ROCK).hardnessAndResistance(3.0F, 5.0F).soundType(SoundType.STONE));
+		super(Block.Builder.create(Material.ROCK).hardnessAndResistance(3.0F, 5.0F).sound(SoundType.STONE));
 
-		this.setDefaultState(this.getDefaultState().withProperty(DOUBLE_DROP, true));
+		this.setDefaultState(this.getDefaultState().with(DOUBLE_DROP, true));
 	}
 
 	@Override
-	public IItemProvider getItemProvider(IBlockState stateIn, World worldIn, BlockPos posIn, int fortune)
+	public IItemProvider getItemDropped(IBlockState stateIn, World worldIn, BlockPos posIn, int fortune)
 	{
 		return ItemsAether.ambrosium_shard;
 	}
 
 	@Override
-	public void addPropertiesToBuilder(StateContainer.Builder<Block, IBlockState> propertyBuilderIn)
+	public void fillStateContainer(StateContainer.Builder<Block, IBlockState> propertyBuilderIn)
 	{
-		propertyBuilderIn.addProperties(DOUBLE_DROP);
+		propertyBuilderIn.add(DOUBLE_DROP);
 	}
 
 	@Override
-	public void spawnItems(IBlockState stateIn, World worldIn, BlockPos posIn, float chanceIn, int fortuneIn)
+	public void dropBlockAsItemWithChance(IBlockState stateIn, World worldIn, BlockPos posIn, float chanceIn, int fortuneIn)
 	{
-		super.spawnItems(stateIn, worldIn, posIn, chanceIn, fortuneIn);
+		super.dropBlockAsItemWithChance(stateIn, worldIn, posIn, chanceIn, fortuneIn);
 
 		super.dropXpOnBlockBreak(worldIn, posIn, MathHelper.getInt(new Random(), 0, 2));
 	}
@@ -67,10 +67,9 @@ public class BlockAmbrosiumOre extends Block
         }
     }
 
-	@Override
 	public int getItemsToDropCount(IBlockState stateIn, Random randIn)
 	{
-		return stateIn.getValue(DOUBLE_DROP).booleanValue() ? 2 : 1;
+		return stateIn.get(DOUBLE_DROP) ? 2 : 1;
 	}
 
 }
