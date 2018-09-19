@@ -2,12 +2,13 @@ package com.legacy.aether.item;
 
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
-
 import net.minecraft.util.text.TextFormatting;
+
 import org.dimdev.rift.listener.ItemAdder;
 import org.dimdev.utils.ReflectionUtils;
 
 import com.legacy.aether.Aether;
+import com.legacy.aether.item.material.ItemSkyrootStick;
 import com.legacy.aether.item.tool.AetherMaterialType;
 import com.legacy.aether.item.tool.ItemAetherShovel;
 
@@ -75,6 +76,8 @@ public class ItemsAether implements ItemAdder
 	@Override
 	public void registerItems()
 	{
+		skyroot_stick = register("skyroot_stick", new ItemSkyrootStick());
+
 		skyroot_shovel = register("skyroot_shovel", new ItemAetherShovel(AetherMaterialType.Skyroot, AetherMaterialType.Skyroot.getDefaultTier(), 1.5F, -3.0F));
 		skyroot_pickaxe = register("skyroot_pickaxe", new ItemAetherShovel(AetherMaterialType.Skyroot, AetherMaterialType.Skyroot.getDefaultTier(), 1, -2.8F));
 		skyroot_axe = register("skyroot_axe", new ItemAetherShovel(AetherMaterialType.Skyroot, AetherMaterialType.Skyroot.getDefaultTier(), 6.0F, -3.2F));

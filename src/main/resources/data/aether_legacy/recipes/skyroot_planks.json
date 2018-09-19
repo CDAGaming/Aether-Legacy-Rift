@@ -1,0 +1,21 @@
+{
+  "type": "crafting_shaped",
+  "group": "planks",
+  "pattern": [
+    "#"
+  ],
+  "key": {
+
+    "#": [{
+      "item": "aether_legacy:skyroot_log"
+    },
+
+    {
+      "item": "aether_legacy:golden_oak_log"
+    }]
+  },
+  "result": {
+    "item": "aether_legacy:skyroot_planks",
+    "count": 4
+  }
+}

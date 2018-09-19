@@ -31,5 +31,6 @@
 "block.aether_legacy.white_flower": "White Flower",
 "block.aether_legacy.purple_flower": "Purple Flower",
 "block.aether_legacy.skyroot_sapling": "Skyroot Sapling",
-"block.aether_legacy.golden_oak_sapling": "Golden Oak Sapling"
+"block.aether_legacy.golden_oak_sapling": "Golden Oak Sapling",
+"entity.aether_legacy.aechor_plant": "Aechor Plant"
 }
