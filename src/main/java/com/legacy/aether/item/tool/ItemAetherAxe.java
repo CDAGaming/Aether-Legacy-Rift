@@ -6,6 +6,7 @@ import com.legacy.aether.item.ItemsAether;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.IItemTier;
 import net.minecraft.item.ItemAxe;
@@ -61,9 +62,13 @@ public class ItemAetherAxe extends ItemAxe implements IAetherTool
         {
         	if (world.isAirBlock(blockpos.up()) && !world.isRemote)
         	{
-        		EntityFloatingBlock floatingBlock = new EntityFloatingBlock(world);
+        		EntityFloatingBlock floatingBlock = new EntityFloatingBlock(world, (double)blockpos.getX() + 0.5D, (double)blockpos.getY(), (double)blockpos.getZ() + 0.5D, world.getBlockState(blockpos));
 
         		world.spawnEntity(floatingBlock);
+        	}
+        	else
+        	{
+            	return EnumActionResult.PASS;
         	}
 
         	return EnumActionResult.SUCCESS;
