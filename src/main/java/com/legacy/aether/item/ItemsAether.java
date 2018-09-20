@@ -10,6 +10,8 @@ import org.dimdev.utils.ReflectionUtils;
 import com.legacy.aether.Aether;
 import com.legacy.aether.item.material.ItemSkyrootStick;
 import com.legacy.aether.item.tool.AetherMaterialType;
+import com.legacy.aether.item.tool.ItemAetherAxe;
+import com.legacy.aether.item.tool.ItemAetherPickaxe;
 import com.legacy.aether.item.tool.ItemAetherShovel;
 
 public class ItemsAether implements ItemAdder
@@ -79,24 +81,24 @@ public class ItemsAether implements ItemAdder
 		skyroot_stick = register("skyroot_stick", new ItemSkyrootStick());
 
 		skyroot_shovel = register("skyroot_shovel", new ItemAetherShovel(AetherMaterialType.Skyroot, AetherMaterialType.Skyroot.getDefaultTier(), 1.5F, -3.0F));
-		skyroot_pickaxe = register("skyroot_pickaxe", new ItemAetherShovel(AetherMaterialType.Skyroot, AetherMaterialType.Skyroot.getDefaultTier(), 1, -2.8F));
-		skyroot_axe = register("skyroot_axe", new ItemAetherShovel(AetherMaterialType.Skyroot, AetherMaterialType.Skyroot.getDefaultTier(), 6.0F, -3.2F));
+		skyroot_pickaxe = register("skyroot_pickaxe", new ItemAetherPickaxe(AetherMaterialType.Skyroot, AetherMaterialType.Skyroot.getDefaultTier(), 1, -2.8F));
+		skyroot_axe = register("skyroot_axe", new ItemAetherAxe(AetherMaterialType.Skyroot, AetherMaterialType.Skyroot.getDefaultTier(), 6.0F, -3.2F));
 
 		holystone_shovel = register("holystone_shovel", new ItemAetherShovel(AetherMaterialType.Holystone, AetherMaterialType.Holystone.getDefaultTier(), 1.5F, -3.0F));
-		holystone_pickaxe = register("holystone_pickaxe", new ItemAetherShovel(AetherMaterialType.Holystone, AetherMaterialType.Holystone.getDefaultTier(), 1, -2.8F));
-		holystone_axe = register("holystone_axe", new ItemAetherShovel(AetherMaterialType.Holystone, AetherMaterialType.Holystone.getDefaultTier(), 7.0F, -3.2F));
+		holystone_pickaxe = register("holystone_pickaxe", new ItemAetherPickaxe(AetherMaterialType.Holystone, AetherMaterialType.Holystone.getDefaultTier(), 1, -2.8F));
+		holystone_axe = register("holystone_axe", new ItemAetherAxe(AetherMaterialType.Holystone, AetherMaterialType.Holystone.getDefaultTier(), 7.0F, -3.2F));
 
 		zanite_shovel = register("zanite_shovel", new ItemAetherShovel(AetherMaterialType.Zanite, AetherMaterialType.Zanite.getDefaultTier(), 1.5F, -3.0F));
-		zanite_pickaxe = register("zanite_pickaxe", new ItemAetherShovel(AetherMaterialType.Zanite, AetherMaterialType.Zanite.getDefaultTier(), 1, -2.8F));
-		zanite_axe = register("zanite_axe", new ItemAetherShovel(AetherMaterialType.Zanite, AetherMaterialType.Zanite.getDefaultTier(), 6.0F, -3.1F));
+		zanite_pickaxe = register("zanite_pickaxe", new ItemAetherPickaxe(AetherMaterialType.Zanite, AetherMaterialType.Zanite.getDefaultTier(), 1, -2.8F));
+		zanite_axe = register("zanite_axe", new ItemAetherAxe(AetherMaterialType.Zanite, AetherMaterialType.Zanite.getDefaultTier(), 6.0F, -3.1F));
 
 		gravitite_shovel = register("gravitite_shovel", new ItemAetherShovel(AetherMaterialType.Gravitite, AetherMaterialType.Gravitite.getDefaultTier(), 1.5F, -3.0F));
-		gravitite_pickaxe = register("gravitite_pickaxe", new ItemAetherShovel(AetherMaterialType.Gravitite, AetherMaterialType.Gravitite.getDefaultTier(), 1, -2.8F));
-		gravitite_axe = register("gravitite_axe", new ItemAetherShovel(AetherMaterialType.Gravitite, AetherMaterialType.Gravitite.getDefaultTier(), 5.0F, -3.0F));
+		gravitite_pickaxe = register("gravitite_pickaxe", new ItemAetherPickaxe(AetherMaterialType.Gravitite, AetherMaterialType.Gravitite.getDefaultTier(), 1, -2.8F));
+		gravitite_axe = register("gravitite_axe", new ItemAetherAxe(AetherMaterialType.Gravitite, AetherMaterialType.Gravitite.getDefaultTier(), 5.0F, -3.0F));
 
 		valkyrie_shovel = register("valkyrie_shovel", new ItemAetherShovel(AetherMaterialType.Valkyrie, AETHER_LOOT, AetherMaterialType.Valkyrie.getDefaultTier(), 1.5F, -3.0F));
-		valkyrie_pickaxe = register("valkyrie_pickaxe", new ItemAetherShovel(AetherMaterialType.Valkyrie, AETHER_LOOT, AetherMaterialType.Valkyrie.getDefaultTier(), 1, -2.8F));
-		valkyrie_axe = register("valkyrie_axe", new ItemAetherShovel(AetherMaterialType.Valkyrie, AETHER_LOOT, AetherMaterialType.Valkyrie.getDefaultTier(), 4.0F, -2.9F));
+		valkyrie_pickaxe = register("valkyrie_pickaxe", new ItemAetherPickaxe(AetherMaterialType.Valkyrie, AETHER_LOOT, AetherMaterialType.Valkyrie.getDefaultTier(), 1, -2.8F));
+		valkyrie_axe = register("valkyrie_axe", new ItemAetherAxe(AetherMaterialType.Valkyrie, AETHER_LOOT, AetherMaterialType.Valkyrie.getDefaultTier(), 4.0F, -2.9F));
 	}
 
 	public Item register(String name, Item item)
