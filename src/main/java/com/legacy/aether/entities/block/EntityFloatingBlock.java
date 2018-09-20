@@ -6,6 +6,8 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.MoverType;
+import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTUtil;
 import net.minecraft.network.datasync.DataParameter;
@@ -110,7 +112,7 @@ public class EntityFloatingBlock extends Entity
 
                 if (this.world.getBlockState(blockpos).getBlock() == block)
                 {
-                    this.world.isAirBlock(blockpos);
+                	this.world.setBlockState(blockpos, Blocks.AIR.getDefaultState());
                 }
                 else if (!this.world.isRemote)
                 {
