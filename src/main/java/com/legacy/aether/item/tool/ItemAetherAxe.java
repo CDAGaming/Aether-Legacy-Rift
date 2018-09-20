@@ -1,12 +1,8 @@
 package com.legacy.aether.item.tool;
 
-import com.legacy.aether.entities.block.EntityFloatingBlock;
-import com.legacy.aether.item.ItemsAether;
-
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.IItemTier;
 import net.minecraft.item.ItemAxe;
@@ -16,6 +12,9 @@ import net.minecraft.item.ItemUseContext;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+
+import com.legacy.aether.entities.block.EntityFloatingBlock;
+import com.legacy.aether.item.ItemsAether;
 
 public class ItemAetherAxe extends ItemAxe implements IAetherTool
 {
