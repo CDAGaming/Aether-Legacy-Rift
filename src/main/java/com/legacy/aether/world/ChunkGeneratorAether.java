@@ -1,9 +1,7 @@
 package com.legacy.aether.world;
 
-import com.google.common.collect.Lists;
-import com.legacy.aether.blocks.BlocksAether;
-import com.legacy.aether.world.biome.AetherBiomeProvider;
-import com.legacy.aether.world.info.AetherGenSettings;
+import java.util.List;
+
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.init.Blocks;
@@ -12,6 +10,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldEntitySpawner;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biome.SpawnListEntry;
 import net.minecraft.world.biome.provider.BiomeProvider;
@@ -22,8 +21,9 @@ import net.minecraft.world.gen.Heightmap;
 import net.minecraft.world.gen.NoiseGeneratorOctaves;
 import net.minecraft.world.gen.WorldGenRegion;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.legacy.aether.blocks.BlocksAether;
+import com.legacy.aether.world.biome.AetherBiomeProvider;
+import com.legacy.aether.world.info.AetherGenSettings;
 
 public class ChunkGeneratorAether extends AbstractChunkGenerator<AetherGenSettings> {
 
@@ -183,10 +183,10 @@ public class ChunkGeneratorAether extends AbstractChunkGenerator<AetherGenSettin
     }
 
     @Override
-    public List<SpawnListEntry> getPossibleCreatures(EnumCreatureType arg0, BlockPos arg1) {
-        ArrayList<SpawnListEntry> entires = Lists.newArrayList();
+    public List<SpawnListEntry> getPossibleCreatures(EnumCreatureType typeIn, BlockPos posIn) {
+        Biome biome = this.world.getBiome(posIn);
 
-        return entires;
+        return biome.getSpawnableList(typeIn);
     }
 
     @Override
@@ -214,8 +214,15 @@ public class ChunkGeneratorAether extends AbstractChunkGenerator<AetherGenSettin
     }
 
     @Override
-    public void spawnMobs(WorldGenRegion arg0) {
+    public void spawnMobs(WorldGenRegion regionIn) 
+    {
+        int i = regionIn.getMainChunkX();
+        int j = regionIn.getMainChunkZ();
+        Biome biome = regionIn.getChunk(i, j).getBiomes()[0];
 
+        this.random.setSeed(regionIn.getSeed(), i << 4, j << 4);
+
+        WorldEntitySpawner.performWorldGenSpawning(this.world, biome, i, j, this.random);
     }
 
     @Override

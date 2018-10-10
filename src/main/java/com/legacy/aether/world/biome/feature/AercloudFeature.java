@@ -16,27 +16,29 @@ public class AercloudFeature extends Feature<AercloudConfig>
 	@Override
 	public boolean place(IWorld worldIn, IChunkGenerator<? extends IChunkGenSettings> generatorIn, Random randIn, BlockPos posIn, AercloudConfig configIn)
 	{
-		BlockPos origin = new BlockPos(posIn.getX(), (configIn.isFlat() ? 0 : randIn.nextInt(64)) + configIn.getY(), posIn.getZ());
-        BlockPos.MutableBlockPos position = new BlockPos.MutableBlockPos();
+		BlockPos origin = new BlockPos(posIn.getX() - 14, (configIn.isFlat() ? 0 : randIn.nextInt(64)) + configIn.getY(), posIn.getZ() - 14);
+        BlockPos position = new BlockPos(origin);
 
-		int xTendency = randIn.nextInt(3) - 1;
-		int zTendency = randIn.nextInt(3) - 1;
+        //System.out.println(position);
+		//int xTendency = randIn.nextInt(3) - 1;
+		//int zTendency = randIn.nextInt(3) - 1;
 
 		for (int amount = 0; amount < configIn.cloudAmount(); ++amount)
 		{
 			boolean offsetY = ((randIn.nextBoolean() && !configIn.isFlat()) || (configIn.isFlat() && randIn.nextInt(10) == 0));
 
-			int xOffset = randIn.nextInt(3) - 1 + xTendency;
+			int xOffset = randIn.nextInt(2);
 			int yOffset = (offsetY ? randIn.nextInt(3) - 1 : 0);
-			int zOffset = randIn.nextInt(3) - 1 + zTendency;
+			int zOffset = randIn.nextInt(2);
 
-			position.setPos(origin).add(xOffset, yOffset, zOffset);
+			position = position.add(xOffset, yOffset, zOffset);
+			//position = new BlockPos(origin).add(xOffset, yOffset, zOffset);
 
-			for (int x = position.getX(); x < position.getX() + randIn.nextInt(4) + 3 * configIn.cloudModifier(); ++x)
+			for (int x = position.getX(); x < position.getX() + randIn.nextInt(2) + 3 * configIn.cloudModifier(); ++x)
 			{
 				for (int y = position.getY(); y < position.getY() + randIn.nextInt(1) + 2; ++y)
 				{
-					for (int z = position.getZ(); z < position.getZ() + randIn.nextInt(4) + 3 * configIn.cloudModifier(); ++z)
+					for (int z = position.getZ(); z < position.getZ() + randIn.nextInt(2) + 3 * configIn.cloudModifier(); ++z)
 					{
 						BlockPos pos = new BlockPos(x, y, z);
 

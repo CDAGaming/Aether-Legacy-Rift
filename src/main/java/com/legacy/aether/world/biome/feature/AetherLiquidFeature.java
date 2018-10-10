@@ -83,7 +83,7 @@ public class AetherLiquidFeature extends Feature<LiquidsConfig>
                 if (i == 3 && j == 1)
                 {
                 	worldIn.setBlockState(position, config.field_202459_a.getDefaultState().getBlockState(), 2);
-                	worldIn.getPendingFluidTicks().scheduleTick(position, config.field_202459_a, 0);
+                	worldIn.getPendingFluidTicks().scheduleUpdate(position, config.field_202459_a, 0);
                     ++i;
                 }
 

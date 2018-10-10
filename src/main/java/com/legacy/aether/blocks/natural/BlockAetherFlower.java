@@ -28,9 +28,15 @@ public class BlockAetherFlower extends BlockBush
 	}
 
 	@Override
-	public VoxelShape getCollisionShape(IBlockState blockstateIn, IBlockReader blockReaderIn, BlockPos posIn)
+	public VoxelShape getShape(IBlockState blockstateIn, IBlockReader blockReaderIn, BlockPos posIn)
 	{
 		return ShapeUtils.create(0.3D, 0.0D, 0.3D, 0.7D, 0.6D, 0.7D);
+	}
+
+	@Override
+	public VoxelShape getCollisionShape(IBlockState blockstateIn, IBlockReader blockReaderIn, BlockPos posIn)
+	{
+		return ShapeUtils.create(0.0D, 0.0D, 0.0D, 0.0D, 0.0D, 0.0D);
 	}
 
 	@Override

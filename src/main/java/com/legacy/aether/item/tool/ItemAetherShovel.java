@@ -8,16 +8,16 @@ import net.minecraft.item.ItemSpade;
 public class ItemAetherShovel extends ItemSpade implements IAetherTool
 {
 
-	private final AetherMaterialType material;
+	private final AetherToolType material;
 
-	public ItemAetherShovel(AetherMaterialType material, IItemTier itemTier, float damageVsEntity, float attackSpeed) 
+	public ItemAetherShovel(AetherToolType material, IItemTier itemTier, float damageVsEntity, float attackSpeed) 
 	{
 		super(itemTier, damageVsEntity, attackSpeed, new Builder().group(ItemGroup.TOOLS));
 
 		this.material = material;
 	}
 
-	public ItemAetherShovel(AetherMaterialType material, EnumRarity rarity, IItemTier itemTier, float damageVsEntity, float attackSpeed) 
+	public ItemAetherShovel(AetherToolType material, EnumRarity rarity, IItemTier itemTier, float damageVsEntity, float attackSpeed) 
 	{
 		super(itemTier, damageVsEntity, attackSpeed, new Builder().group(ItemGroup.TOOLS).rarity(rarity));
 
@@ -25,7 +25,7 @@ public class ItemAetherShovel extends ItemSpade implements IAetherTool
 	}
 
 	@Override
-	public AetherMaterialType getMaterial() 
+	public AetherToolType getMaterial() 
 	{
 		return this.material;
 	}

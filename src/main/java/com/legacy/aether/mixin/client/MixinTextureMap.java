@@ -17,15 +17,15 @@ import com.legacy.aether.inventory.InventoryAccessories;
 public class MixinTextureMap 
 {
 
-	@Final private Set<ResourceLocation> sprites;
+	@Final private Set<ResourceLocation> field_195427_i;
 
 	/**
      * @author Modding Legacy
      */
     @Overwrite
-    public void stitch(IResourceManager resourceManager, Iterable<ResourceLocation> resourceList)
+    public void func_195426_a(IResourceManager resourceManager, Iterable<ResourceLocation> resourceList)
     {
-        this.sprites.clear();
+        this.field_195427_i.clear();
 
         resourceList.forEach((p_195423_2_) ->
         {
@@ -37,7 +37,7 @@ public class MixinTextureMap
 			((TextureMap) (Object) this).registerSprite(resourceManager, Aether.locate("item/slots/" + InventoryAccessories.EMPTY_SLOT_NAMES[i]));
 		}
 
-        ((TextureMap) (Object) this).stitch(resourceManager);
+        ((TextureMap) (Object) this).func_195421_b(resourceManager);
     }
 
 }

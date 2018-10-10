@@ -9,8 +9,10 @@
 	],
 	"listeners": [
 		"com.legacy.aether.mixin.init.MixinListener",
+		"com.legacy.aether.client.ClientTickHandler",
 		"com.legacy.aether.client.ClientGuiHandler",
 		"com.legacy.aether.client.rendering.AetherEntityRenders",
+		"com.legacy.aether.sounds.SoundsAether",
 		"com.legacy.aether.tileentity.TileEntityTypesAether",
 		"com.legacy.aether.entities.EntityTypesAether",
 		"com.legacy.aether.blocks.BlocksAether",

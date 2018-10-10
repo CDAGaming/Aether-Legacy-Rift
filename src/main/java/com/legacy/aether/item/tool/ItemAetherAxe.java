@@ -19,18 +19,18 @@ import com.legacy.aether.item.ItemsAether;
 public class ItemAetherAxe extends ItemAxe implements IAetherTool
 {
 
-	private AetherMaterialType material;
+	private AetherToolType material;
 
 	public float[] zaniteHarvestLevels = new float[] {2F, 4F, 6F, 8F, 12F};
 
-	public ItemAetherAxe(AetherMaterialType material, IItemTier itemTier, float damageVsEntity, float attackSpeed) 
+	public ItemAetherAxe(AetherToolType material, IItemTier itemTier, float damageVsEntity, float attackSpeed) 
 	{
 		super(itemTier, damageVsEntity, attackSpeed, new Builder().group(ItemGroup.TOOLS));
 
 		this.material = material;
 	}
 
-	public ItemAetherAxe(AetherMaterialType material, EnumRarity rarity, IItemTier itemTier, float damageVsEntity, float attackSpeed) 
+	public ItemAetherAxe(AetherToolType material, EnumRarity rarity, IItemTier itemTier, float damageVsEntity, float attackSpeed) 
 	{
 		super(itemTier, damageVsEntity, attackSpeed, new Builder().group(ItemGroup.TOOLS).rarity(rarity));
 
@@ -42,7 +42,7 @@ public class ItemAetherAxe extends ItemAxe implements IAetherTool
 	{
 		float original = super.getDestroySpeed(stack, state);
 
-		if (this.getMaterial() == AetherMaterialType.Zanite)
+		if (this.getMaterial() == AetherToolType.Zanite)
 		{
 			return this.calculateIncrease(stack, original);
 		}
@@ -57,7 +57,7 @@ public class ItemAetherAxe extends ItemAxe implements IAetherTool
         BlockPos blockpos = context.getPos();
         IBlockState iblockstate = world.getBlockState(blockpos);
 
-        if (this.getMaterial() == AetherMaterialType.Gravitite && this.getDestroySpeed(context.getItem(), iblockstate) == this.efficiency)
+        if (this.getMaterial() == AetherToolType.Gravitite && this.getDestroySpeed(context.getItem(), iblockstate) == this.efficiency)
         {
         	if (world.isAirBlock(blockpos.up()) && !world.isRemote)
         	{
@@ -79,7 +79,7 @@ public class ItemAetherAxe extends ItemAxe implements IAetherTool
 	@Override
 	public boolean onBlockDestroyed(ItemStack stackIn, World worldIn, IBlockState stateIn, BlockPos posIn, EntityLivingBase entityIn)
 	{
-		if (this.getMaterial() == AetherMaterialType.Holystone && !worldIn.isRemote && worldIn.getRandom().nextInt(100) <= 5)
+		if (this.getMaterial() == AetherToolType.Holystone && !worldIn.isRemote && worldIn.getRandom().nextInt(100) <= 5)
 		{
 			EntityItem entityItem = new EntityItem(worldIn, posIn.getX(), posIn.getY(), posIn.getZ());
 			
@@ -92,7 +92,7 @@ public class ItemAetherAxe extends ItemAxe implements IAetherTool
 	}
 
 	@Override
-	public AetherMaterialType getMaterial() 
+	public AetherToolType getMaterial() 
 	{
 		return this.material;
 	}
@@ -100,7 +100,7 @@ public class ItemAetherAxe extends ItemAxe implements IAetherTool
     private float calculateIncrease(ItemStack tool, float original)
     {
     	boolean AllowedCalculations = !(original != 4.0F);
-    	int current = tool.getDamage();
+    	int current = tool.getItemDamage();
 
     	if (AllowedCalculations)
     	{

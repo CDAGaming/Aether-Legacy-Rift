@@ -14,7 +14,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
 import com.legacy.aether.entities.passive.EntityAetherAnimal;
-import com.legacy.aether.player.IPlayerAether;
+import com.legacy.aether.player.IEntityPlayerAether;
 
 public abstract class EntityMountable extends EntityAetherAnimal
 {
@@ -35,9 +35,9 @@ public abstract class EntityMountable extends EntityAetherAnimal
 	}
 
 	@Override
-	protected void registerData()
+	protected void entityInit()
 	{
-		super.registerData();
+		super.entityInit();
 
 		this.dataManager.register(RIDER_SNEAKING, false);
 	}
@@ -46,13 +46,13 @@ public abstract class EntityMountable extends EntityAetherAnimal
     public boolean canRiderInteract()
     {
         return true;
-    }
+    }*/
 
 	@Override
-    public boolean shouldDismountInWater(Entity rider)
+    public boolean canBeRiddenInWater()
 	{
         return false;
-    }*/
+    }
 
 	public boolean isRiderSneaking()
 	{
@@ -65,10 +65,10 @@ public abstract class EntityMountable extends EntityAetherAnimal
 	}
 
 	@Override
-	public void tick()
+	public void onUpdate()
 	{
 		this.updateRider();
-		super.tick();
+		super.onUpdate();
 
 		if (this.isBeingRidden() && this.isRiding())
 		{
@@ -161,7 +161,7 @@ public abstract class EntityMountable extends EntityAetherAnimal
 		        this.rotationYaw = this.updateRotation(this.rotationYaw, f, 40.0F);
 			}
 
-			if (((IPlayerAether)player).getPlayerAether().isJumping())
+			if (((IEntityPlayerAether)player).getPlayerAether().isJumping())
 			{
 				onMountedJump(strafe, forward);
 			}

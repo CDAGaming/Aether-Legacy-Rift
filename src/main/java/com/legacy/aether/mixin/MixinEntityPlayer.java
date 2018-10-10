@@ -10,12 +10,12 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import com.legacy.aether.player.IPlayerAether;
+import com.legacy.aether.player.IEntityPlayerAether;
 import com.legacy.aether.player.PlayerAether;
 import com.mojang.authlib.GameProfile;
 
 @Mixin(EntityPlayer.class)
-public abstract class MixinEntityPlayer implements IPlayerAether
+public abstract class MixinEntityPlayer implements IEntityPlayerAether
 {
 
 	private PlayerAether playerAether;
@@ -36,7 +36,7 @@ public abstract class MixinEntityPlayer implements IPlayerAether
 		this.playerAether = new PlayerAether((EntityPlayer) (Object) this);
 	}
 
-    @Inject(method = "tick", at = @At("RETURN"))
+    @Inject(method = "onUpdate", at = @At("RETURN"))
 	public void playerUpdate(CallbackInfo ci)
 	{
 		this.playerAether.tick();
@@ -68,11 +68,6 @@ public abstract class MixinEntityPlayer implements IPlayerAether
 	{
 		this.playerAether.damageAccessories(damage);
 	}
-
-    public void setJumping(boolean isJumping)
-    {
-    	this.playerAether.setJumping(isJumping);
-    }
 
     public boolean canBreatheUnderwater()
     {

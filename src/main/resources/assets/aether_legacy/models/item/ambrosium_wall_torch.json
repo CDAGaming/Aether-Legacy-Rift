@@ -1,3 +1,6 @@
 {
-    "parent": "aether_legacy:block/ambrosium_torch"
+	"parent": "item/generated",
+	"textures": {
+		"layer0": "aether_legacy:block/ambrosium_torch"
+	}
 }

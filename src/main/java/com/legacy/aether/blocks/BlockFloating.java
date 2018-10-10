@@ -34,13 +34,13 @@ public class BlockFloating extends Block
 	@Override
 	public void onBlockPlacedBy(World worldIn, BlockPos posIn, IBlockState stateIn, @Nullable EntityLivingBase entityIn, ItemStack itemIn)
 	{
-		worldIn.getPendingBlockTicks().scheduleTick(posIn, this, this.tickRate(worldIn));
+		worldIn.getPendingBlockTicks().scheduleUpdate(posIn, this, this.tickRate(worldIn));
 	}
 
 	@Override
     public IBlockState updatePostPlacement(IBlockState stateIn, EnumFacing facingIn, IBlockState neighborIn, IWorld worldIn, BlockPos posIn, BlockPos neighborPosIn)
     {
-		worldIn.getPendingBlockTicks().scheduleTick(posIn, this, this.tickRate(worldIn));
+		worldIn.getPendingBlockTicks().scheduleUpdate(posIn, this, this.tickRate(worldIn));
 
     	return super.updatePostPlacement(stateIn, facingIn, neighborIn, worldIn, posIn, neighborPosIn);
     }

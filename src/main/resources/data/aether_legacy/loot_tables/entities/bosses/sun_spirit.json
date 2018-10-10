@@ -1,0 +1,22 @@
+{
+    "pools": [
+        {
+            "rolls": 1,
+            "entries": [
+                {
+                    "type": "item",
+                    "name": "aether_legacy:gold_key"
+                }
+			]
+		},
+		{
+			"rolls": 1,
+            "entries": [
+                {
+                    "type": "item",
+                    "name": "aether_legacy:sun_altar"
+                }
+			]
+        }
+    ]
+}

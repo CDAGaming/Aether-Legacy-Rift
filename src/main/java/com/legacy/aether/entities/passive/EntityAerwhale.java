@@ -51,21 +51,13 @@ public class EntityAerwhale extends EntityFlying implements IMob
     }
 
     @Override
-    protected void registerAttributes()
+    protected void applyEntityAttributes()
     {
-        super.registerAttributes();
+        super.applyEntityAttributes();
 
-        this.getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(1.0D);
-        this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(20.0D); 
+        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(1.0D);
+        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(20.0D); 
     }
-
-    /*@Override
-    public boolean getCanSpawnHere()
-    {
-        BlockPos pos = new BlockPos(MathHelper.floor(this.posX), MathHelper.floor(this.getEntityBoundingBox().minY), MathHelper.floor(this.posZ));
-
-        return this.rand.nextInt(65) == 0 && this.world.getCollisionBoxes(this, this.getEntityBoundingBox()).size() == 0 && !this.world.containsAnyLiquid(this.getEntityBoundingBox()) && this.world.getLight(pos) > 8 && super.getCanSpawnHere();
-    }*/
 
     @Override
     public int getMaxSpawnedInChunk()
@@ -74,9 +66,9 @@ public class EntityAerwhale extends EntityFlying implements IMob
     }
 
     @Override
-    public void tick()
+    public void onUpdate()
     {
-    	super.tick();
+    	super.onUpdate();
         this.extinguish();
 
         int i = MathHelper.floor(this.posX);
@@ -377,7 +369,7 @@ public class EntityAerwhale extends EntityFlying implements IMob
             return standard;
         }
 
-        if(movingobjectposition.type == RayTraceResult.Type.BLOCK)
+        if(movingobjectposition.typeOfHit == RayTraceResult.Type.BLOCK)
         {
             double i = movingobjectposition.getBlockPos().getX() - this.posX;
             double j = movingobjectposition.getBlockPos().getY() - this.getEntityBoundingBox().minY;

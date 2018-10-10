@@ -38,7 +38,7 @@ public class TileEntityFreezer extends AetherTileEntity
 	}
 
 	@Override
-	public void tick()
+	public void update()
 	{
 		boolean isActive = this.isFreezing();
 

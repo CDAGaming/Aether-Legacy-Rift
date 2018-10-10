@@ -19,7 +19,11 @@ public class MixinBlockColors
 	{
     	BlockColors colors = info.getReturnValue();
 
-    	colors.register(new AetherColor(), BlocksAether.blue_aercloud, BlocksAether.golden_aercloud);
+    	colors.register(new AetherColor(), BlocksAether.blue_aercloud, BlocksAether.golden_aercloud, 
+    			BlocksAether.white_dyed_aercloud, BlocksAether.orange_dyed_aercloud, BlocksAether.magenta_dyed_aercloud, BlocksAether.light_blue_dyed_aercloud,
+    			BlocksAether.yellow_dyed_aercloud, BlocksAether.lime_dyed_aercloud, BlocksAether.pink_dyed_aercloud, BlocksAether.grey_dyed_aercloud, 
+    			BlocksAether.light_grey_dyed_aercloud, BlocksAether.cyan_dyed_aercloud, BlocksAether.purple_dyed_aercloud, BlocksAether.blue_dyed_aercloud, 
+    			BlocksAether.brown_dyed_aercloud, BlocksAether.green_dyed_aercloud, BlocksAether.red_dyed_aercloud, BlocksAether.black_dyed_aercloud);
 
     	info.setReturnValue(colors);
 	}

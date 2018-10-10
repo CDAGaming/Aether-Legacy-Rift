@@ -13,14 +13,14 @@ import net.minecraft.util.ResourceLocation;
 import com.legacy.aether.Aether;
 import com.legacy.aether.client.gui.button.GuiAccessoryButton;
 import com.legacy.aether.inventory.container.ContainerAccessories;
-import com.legacy.aether.player.IPlayerAether;
+import com.legacy.aether.player.IEntityPlayerAether;
 
 public class GuiAccessories extends GuiContainer
 {
 
 	private static final ResourceLocation TEXTURE = Aether.locate("textures/gui/inventory/accessories.png");
 
-	public GuiAccessories(IPlayerAether playerAetherIn)
+	public GuiAccessories(IEntityPlayerAether playerAetherIn)
 	{
 		super(new ContainerAccessories(playerAetherIn));
 
@@ -32,7 +32,7 @@ public class GuiAccessories extends GuiContainer
     {
     	super.onGuiClosed();
 
-		Minecraft.getInstance().player.connection.sendPacket(new CPacketCustomPayload(Aether.locate("close_accessory_gui"), new PacketBuffer(Unpooled.buffer())));
+		Minecraft.getMinecraft().player.connection.sendPacket(new CPacketCustomPayload(Aether.locate("close_accessory_gui"), new PacketBuffer(Unpooled.buffer())));
     }
 
 	@Override
@@ -44,10 +44,10 @@ public class GuiAccessories extends GuiContainer
 	}
 
 	@Override
-    public void render(int mouseX, int mouseY, float partialTicks)
+    public void drawScreen(int mouseX, int mouseY, float partialTicks)
     {
         this.drawDefaultBackground();
-    	super.render(mouseX, mouseY, partialTicks);
+    	super.drawScreen(mouseX, mouseY, partialTicks);
         this.renderHoveredToolTip(mouseX, mouseY);
     }
 
@@ -60,7 +60,7 @@ public class GuiAccessories extends GuiContainer
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) 
 	{
-		GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 
 		this.mc.getTextureManager().bindTexture(TEXTURE);
 

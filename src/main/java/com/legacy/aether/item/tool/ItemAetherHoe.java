@@ -26,16 +26,16 @@ public class ItemAetherHoe extends ItemHoe implements IAetherTool
 
     protected static final Map<Block, IBlockState> convertableBlocks = Maps.<Block, IBlockState>newHashMap(ImmutableMap.of(Blocks.GRASS_BLOCK, Blocks.FARMLAND.getDefaultState(), Blocks.GRASS_PATH, Blocks.FARMLAND.getDefaultState(), Blocks.DIRT, Blocks.FARMLAND.getDefaultState(), Blocks.COARSE_DIRT, Blocks.DIRT.getDefaultState()));
 
-	private AetherMaterialType material;
+	private AetherToolType material;
 
-	public ItemAetherHoe(AetherMaterialType material, IItemTier itemTier, float attackSpeed)
+	public ItemAetherHoe(AetherToolType material, IItemTier itemTier, float attackSpeed)
 	{
 		super(itemTier, attackSpeed, new Builder().group(ItemGroup.TOOLS));
 
 		this.material = material;
 	}
 
-	public ItemAetherHoe(AetherMaterialType material, EnumRarity rarity, IItemTier itemTier, float attackSpeed)
+	public ItemAetherHoe(AetherToolType material, EnumRarity rarity, IItemTier itemTier, float attackSpeed)
 	{
 		super(itemTier, attackSpeed, new Builder().group(ItemGroup.TOOLS).rarity(rarity));
 
@@ -76,7 +76,7 @@ public class ItemAetherHoe extends ItemHoe implements IAetherTool
     }
 
 	@Override
-	public AetherMaterialType getMaterial() 
+	public AetherToolType getMaterial() 
 	{
 		return this.material;
 	}

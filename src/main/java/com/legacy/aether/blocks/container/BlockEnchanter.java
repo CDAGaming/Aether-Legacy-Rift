@@ -47,9 +47,9 @@ public class BlockEnchanter extends BlockAetherContainer
     }
 
 	@Override
-	public void animateTick(IBlockState stateIn, World worldIn, BlockPos posIn, Random randIn)
+	public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos posIn, Random randIn)
     {
-		if(stateIn.get(POWERED))
+		if(stateIn.getValue(POWERED))
 		{
 			float f = (float)posIn.getX() + 0.5F;
 			float f1 = (float)posIn.getY() + 1.0F + (randIn.nextFloat() * 6F) / 16F;

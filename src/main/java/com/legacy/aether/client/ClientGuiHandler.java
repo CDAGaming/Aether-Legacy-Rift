@@ -10,7 +10,7 @@ import org.dimdev.rift.listener.client.GameGuiAdder;
 import com.legacy.aether.client.gui.container.GuiAccessories;
 import com.legacy.aether.client.gui.container.GuiEnchanter;
 import com.legacy.aether.client.gui.container.GuiFreezer;
-import com.legacy.aether.player.IPlayerAether;
+import com.legacy.aether.player.IEntityPlayerAether;
 
 public class ClientGuiHandler implements GameGuiAdder
 {
@@ -26,15 +26,15 @@ public class ClientGuiHandler implements GameGuiAdder
 	{
 		if ("aether_legacy:enchanter".equals(nameIn))
 		{
-			Minecraft.getInstance().displayGuiScreen(new GuiEnchanter(playerIn.inventory, inventoryIn));
+			Minecraft.getMinecraft().displayGuiScreen(new GuiEnchanter(playerIn.inventory, inventoryIn));
 		}
 		else if ("aether_legacy:freezer".equals(nameIn))
 		{
-			Minecraft.getInstance().displayGuiScreen(new GuiFreezer(playerIn.inventory, inventoryIn));
+			Minecraft.getMinecraft().displayGuiScreen(new GuiFreezer(playerIn.inventory, inventoryIn));
 		}
 		else if ("aether_legacy:accessories".equals(nameIn))
 		{
-			Minecraft.getInstance().displayGuiScreen(new GuiAccessories(((IPlayerAether)playerIn)));
+			Minecraft.getMinecraft().displayGuiScreen(new GuiAccessories(((IEntityPlayerAether)playerIn)));
 		}
 	}
 

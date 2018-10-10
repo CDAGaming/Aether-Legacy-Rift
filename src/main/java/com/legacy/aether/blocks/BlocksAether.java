@@ -1,6 +1,7 @@
 package com.legacy.aether.blocks;
 
 import net.minecraft.block.Block;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemGroup;
@@ -15,6 +16,7 @@ import com.legacy.aether.blocks.container.BlockFreezer;
 import com.legacy.aether.blocks.decorative.BlockAerogel;
 import com.legacy.aether.blocks.decorative.BlockAmbrosiumTorch;
 import com.legacy.aether.blocks.decorative.BlockAmbrosiumTorchWall;
+import com.legacy.aether.blocks.decorative.BlockColoredAercloud;
 import com.legacy.aether.blocks.decorative.BlockHolystoneBrick;
 import com.legacy.aether.blocks.decorative.BlockQuicksoilGlass;
 import com.legacy.aether.blocks.decorative.BlockSkyrootPlanks;
@@ -47,6 +49,12 @@ public class BlocksAether implements BlockAdder, ItemAdder
 
 	public static Block cold_aercloud, blue_aercloud, golden_aercloud, pink_aercloud;
 
+	public static Block white_dyed_aercloud, orange_dyed_aercloud, magenta_dyed_aercloud, light_blue_dyed_aercloud, yellow_dyed_aercloud, lime_dyed_aercloud, pink_dyed_aercloud;
+
+	public static Block grey_dyed_aercloud, light_grey_dyed_aercloud, cyan_dyed_aercloud, purple_dyed_aercloud, blue_dyed_aercloud, brown_dyed_aercloud, green_dyed_aercloud;
+
+	public static Block red_dyed_aercloud, black_dyed_aercloud;
+
 	public static Block quicksoil, icestone;
 
 	public static Block ambrosium_ore, zanite_ore, gravitite_ore;
@@ -67,7 +75,11 @@ public class BlocksAether implements BlockAdder, ItemAdder
 
 	public static Block chest_mimic, treasure_chest;
 
-	public static Block dungeon_trap, dungeon_block, locked_dungeon_block;
+	public static Block carved_stone, angelic_stone, hellfire_stone, sentry_stone, light_angelic_stone, light_hellfire_stone;
+
+	public static Block locked_carved_stone, locked_angelic_stone, locked_hellfire_stone, locked_sentry_stone, locked_light_angelic_stone, locked_light_hellfire_stone;
+
+	public static Block carved_stone_trap, angelic_stone_trap, hellfire_stone_trap, sentry_stone_trap, light_angelic_stone_trap, light_hellfire_stone_trap;
 
 	public static Block purple_flower, white_flower;
 
@@ -109,6 +121,22 @@ public class BlocksAether implements BlockAdder, ItemAdder
 		cold_aercloud = register("cold_aercloud", new BlockAercloud());
 		blue_aercloud = register("blue_aercloud", new BlockAercloud());
 		golden_aercloud = register("golden_aercloud", new BlockAercloud());
+		white_dyed_aercloud = register("white_dyed_aercloud", new BlockColoredAercloud(EnumDyeColor.WHITE));
+		orange_dyed_aercloud = register("orange_dyed_aercloud", new BlockColoredAercloud(EnumDyeColor.ORANGE));
+		magenta_dyed_aercloud = register("magenta_dyed_aercloud", new BlockColoredAercloud(EnumDyeColor.MAGENTA));
+		light_blue_dyed_aercloud = register("light_blue_dyed_aercloud", new BlockColoredAercloud(EnumDyeColor.LIGHT_BLUE));
+		yellow_dyed_aercloud = register("yellow_dyed_aercloud", new BlockColoredAercloud(EnumDyeColor.YELLOW));
+		lime_dyed_aercloud = register("lime_dyed_aercloud", new BlockColoredAercloud(EnumDyeColor.LIME));
+		pink_dyed_aercloud = register("pink_dyed_aercloud", new BlockColoredAercloud(EnumDyeColor.PINK));
+		grey_dyed_aercloud = register("grey_dyed_aercloud", new BlockColoredAercloud(EnumDyeColor.GRAY));
+		light_grey_dyed_aercloud = register("light_grey_dyed_aercloud", new BlockColoredAercloud(EnumDyeColor.LIGHT_GRAY));
+		cyan_dyed_aercloud = register("cyan_dyed_aercloud", new BlockColoredAercloud(EnumDyeColor.CYAN));
+		purple_dyed_aercloud = register("purple_dyed_aercloud", new BlockColoredAercloud(EnumDyeColor.PURPLE));
+		blue_dyed_aercloud = register("blue_dyed_aercloud", new BlockColoredAercloud(EnumDyeColor.BLUE));
+		brown_dyed_aercloud = register("brown_dyed_aercloud", new BlockColoredAercloud(EnumDyeColor.BROWN));
+		green_dyed_aercloud = register("green_dyed_aercloud", new BlockColoredAercloud(EnumDyeColor.GREEN));
+		red_dyed_aercloud = register("red_dyed_aercloud", new BlockColoredAercloud(EnumDyeColor.RED));
+		black_dyed_aercloud = register("black_dyed_aercloud", new BlockColoredAercloud(EnumDyeColor.BLACK));
 		pink_aercloud = register("pink_aercloud", new BlockAercloud());
 		quicksoil = register("quicksoil", new BlockQuicksoil());
 		icestone = register("icestone", new BlockIcestone());
@@ -133,9 +161,30 @@ public class BlocksAether implements BlockAdder, ItemAdder
 		ambrosium_torch_wall = register("ambrosium_wall_torch", new BlockAmbrosiumTorchWall());
 
 		itemBlockList[availableId] = new ItemBlock(ambrosium_torch_wall, new Item.Builder());
-		itemBlockList[availableId - 1] = new ItemWallOrFloor(ambrosium_torch, ambrosium_torch_wall, new Item.Builder().group(ItemGroup.BUILDING_BLOCKS));
+		itemBlockList[availableId - 1] = new ItemWallOrFloor(ambrosium_torch, ambrosium_torch_wall, new Item.Builder());
 
 		aether_portal = register("aether_portal", new BlockAetherPortal());
+
+		/*carved_stone = register("carved_stone", new BlockDungeon(false));
+		angelic_stone = register("angelic_stone", new BlockDungeon(false));
+		hellfire_stone = register("hellfire_stone", new BlockDungeon(false));
+		sentry_stone = register("sentry_stone", new BlockDungeonLight(false));
+		light_angelic_stone = register("light_angelic_stone", new BlockDungeonLight(false));
+		light_hellfire_stone = register("light_hellfire_stone", new BlockDungeonLight(false));
+
+		locked_carved_stone = register("locked_carved_stone", new BlockDungeon(true));
+		locked_angelic_stone = register("locked_angelic_stone", new BlockDungeon(true));
+		locked_hellfire_stone = register("locked_hellfire_stone", new BlockDungeon(true));
+		locked_sentry_stone = register("locked_sentry_stone", new BlockDungeonLight(true));
+		locked_light_angelic_stone = register("locked_light_angelic_stone", new BlockDungeonLight(true));
+		locked_light_hellfire_stone = register("locked_light_hellfire_stone", new BlockDungeonLight(true));
+
+		carved_stone_trap = register("carved_stone_trap", new BlockDungeonTrap(carved_stone.getDefaultState()));
+		angelic_stone_trap = register("angelic_stone_trap", new BlockDungeonTrap(angelic_stone.getDefaultState()));
+		hellfire_stone_trap = register("hellfire_stone_trap", new BlockDungeonTrap(hellfire_stone.getDefaultState()));
+		locked_sentry_stone = register("locked_sentry_stone", new BlockDungeonTrapLight(sentry_stone.getDefaultState()));
+		locked_light_angelic_stone = register("locked_light_angelic_stone", new BlockDungeonTrapLight(light_angelic_stone.getDefaultState()));
+		locked_light_hellfire_stone = register("locked_light_hellfire_stone", new BlockDungeonTrapLight(light_hellfire_stone.getDefaultState()));*/
 
 		purple_flower = register("purple_flower", new BlockAetherFlower());
 		white_flower = register("white_flower", new BlockAetherFlower());

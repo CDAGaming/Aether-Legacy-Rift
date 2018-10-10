@@ -1,5 +1,7 @@
 package com.legacy.aether.world.biome;
 
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Fluids;
 import net.minecraft.util.math.BlockPos;
@@ -19,6 +21,7 @@ import net.minecraft.world.gen.placement.LakeChanceConfig;
 import net.minecraft.world.gen.surfacebuilders.CompositeSurfaceBuilder;
 
 import com.legacy.aether.blocks.BlocksAether;
+import com.legacy.aether.entities.EntityTypesAether;
 import com.legacy.aether.world.biome.builder.AetherSurfaceBuilder;
 import com.legacy.aether.world.biome.builder.AetherSurfaceBuilderConfig;
 import com.legacy.aether.world.biome.feature.AercloudFeature;
@@ -39,7 +42,7 @@ public class AetherBiome extends Biome
 
 	public AetherBiome()
 	{
-		super(new BiomeBuilder().surfaceBuilder(new CompositeSurfaceBuilder<>(AetherBiome.AETHER_SURFACE_BUILDER, AetherBiome.AETHER_SURFACE)).precipitation(RainType.NONE).category(Category.NONE).depth(0.1F).scale(0.2F).temperature(0.5F).downfall(0.0F).waterColor(0xA9F7FF).waterFogColor(0xA9F7FF).parent(null));
+		super(new BiomeBuilder().surfaceBuilder(new CompositeSurfaceBuilder<>(AetherBiome.AETHER_SURFACE_BUILDER, AetherBiome.AETHER_SURFACE)).precipitation(RainType.NONE).category(Category.FOREST).depth(0.1F).scale(0.2F).temperature(0.5F).downfall(0.0F).waterColor(0xA9F7FF).waterFogColor(0xA9F7FF).parent(null));
 
 		this.addFeature(Decoration.LOCAL_MODIFICATIONS, createCompositeFeature(new AetherLakeFeature(), new LakesConfig(Blocks.WATER), Biome.LAKE_WATER, new LakeChanceConfig(10)));
 		this.addFeature(Decoration.LOCAL_MODIFICATIONS, createCompositeFeature(new QuicksoilFeature(), IFeatureConfig.NO_FEATURE_CONFIG, Biome.AT_SURFACE_WITH_CHANCE, new ChanceConfig(2)));
@@ -53,6 +56,14 @@ public class AetherBiome extends Biome
 		this.addFeature(Decoration.VEGETAL_DECORATION, createCompositeFeature(new AercloudFeature(), new AercloudConfig(BlocksAether.blue_aercloud.getDefaultState(), false, 8, 32), Biome.AT_SURFACE_WITH_CHANCE, new ChanceConfig(26)));
 		this.addFeature(Decoration.VEGETAL_DECORATION, createCompositeFeature(new AercloudFeature(), new AercloudConfig(BlocksAether.golden_aercloud.getDefaultState(), false, 4, 96), Biome.AT_SURFACE_WITH_CHANCE, new ChanceConfig(50)));
 		this.addFeature(Decoration.VEGETAL_DECORATION, createCompositeFeature(new AetherLiquidFeature(), new LiquidsConfig(Fluids.WATER), Biome.COUNT_RANGE, new CountRangeConfig(50, 20, 20, 100)));
+
+		this.addSpawn(EnumCreatureType.WATER_CREATURE, new SpawnListEntry(EntityType.COD, 10, 1, 2));
+		this.addSpawn(EnumCreatureType.CREATURE, new SpawnListEntry(EntityTypesAether.AECHOR_PLANT, 8, 3, 3));
+		this.addSpawn(EnumCreatureType.MONSTER, new SpawnListEntry(EntityTypesAether.COCKATRICE, 4, 4, 4));
+		this.addSpawn(EnumCreatureType.CREATURE, new SpawnListEntry(EntityTypesAether.MOA, 10, 3, 3));
+		this.addSpawn(EnumCreatureType.CREATURE, new SpawnListEntry(EntityTypesAether.PHYG, 12, 4, 4));
+		this.addSpawn(EnumCreatureType.CREATURE, new SpawnListEntry(EntityTypesAether.FLYING_COW, 10, 4, 4));
+		this.addSpawn(EnumCreatureType.CREATURE, new SpawnListEntry(EntityTypesAether.AERBUNNY, 11, 3, 3));
 	}
 
 	@Override
@@ -62,13 +73,13 @@ public class AetherBiome extends Biome
     }
 
 	@Override
-    public int getGrassColor(BlockPos pos)
+    public int getGrassColorAtPos(BlockPos pos)
     {
         return 0xb1ffcb;
     }
 
 	@Override
-    public int getFoliageColor(BlockPos pos)
+    public int getFoliageColorAtPos(BlockPos pos)
     {
         return 0xb1ffcb;
     }

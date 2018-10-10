@@ -2,23 +2,29 @@ package com.legacy.aether.entities.hostile;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.IRangedAttackMob;
 import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.EntityAIHurtByTarget;
+import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 
 import com.legacy.aether.blocks.BlocksAether;
 import com.legacy.aether.entities.EntityTypesAether;
-import com.legacy.aether.entities.ai.aechorplant.AechorPlantAIShootPlayer;
 import com.legacy.aether.entities.passive.EntityAetherAnimal;
+import com.legacy.aether.entities.projectile.EntityPoisonNeedle;
+import com.legacy.aether.item.ItemsAether;
+import com.legacy.aether.world.storage.loot.AetherLootTableList;
 
-public class EntityAechorPlant extends EntityAetherAnimal 
+public class EntityAechorPlant extends EntityAetherAnimal implements IRangedAttackMob
 {
 
 	public float sinage;
@@ -38,60 +44,37 @@ public class EntityAechorPlant extends EntityAetherAnimal
 	}
 
 	@Override
-    protected void registerAttributes()
+    protected void initEntityAI()
     {
-        super.registerAttributes();
-
-        this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(15.0D);
-        this.setHealth(20F);
+		super.initEntityAI();
+    	this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false, new Class[0]));
+    	this.targetTasks.addTask(2, new EntityAINearestAttackableTarget<EntityLivingBase>(this, EntityLivingBase.class, true));
     }
 
 	@Override
-    protected void registerData()
+    protected void applyEntityAttributes()
     {
-    	this.tasks.addTask(0, new AechorPlantAIShootPlayer(this));
+        super.applyEntityAttributes();
+        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(20.0D);
     }
 
 	@Override
-    public int getMaxSpawnedInChunk()
-    {
-        return 3;
-    }
-
-	@Override
-	public void livingTick()
+	public void onUpdate()
 	{
-		if(this.getHealth() <= 0)
-		{
-			super.livingTick();
-			return;
-		}
-		else
-		{
-			this.checkDespawn();
-		}
- 
-        if (this.isServerWorld())
-        {
-            this.world.profiler.startSection("newAi");
-            this.updateEntityActionState();
-            this.world.profiler.endSection();
-        }
+		super.onUpdate();
 
-		if(this.hurtTime > 0) 
+		if (this.hurtTime > 0)
 		{
 			this.sinage += 0.9F;
-		} 
+		}
+
+		if (this.getAttackTarget() != null)
+		{
+			this.sinage += 0.3F;
+		}
 		else
 		{
-			if(this.getAttackTarget() != null)
-			{
-				this.sinage += 0.3F;
-			}
-			else 
-			{
-				this.sinage += 0.1F;
-			}
+			this.sinage += 0.1F;
 		}
 
 		if(this.sinage > 3.141593F * 2F) 
@@ -99,87 +82,94 @@ public class EntityAechorPlant extends EntityAetherAnimal
 			this.sinage -= (3.141593F * 2F);
 		}
 
-		if(this.getAttackTarget() == null) 
+		if(this.world.getBlockState(this.getPosition().down()).getBlock() != BlocksAether.aether_grass)
 		{
-			EntityPlayer player = this.world.getNearestAttackablePlayer(this, 10, 2);
-
-			this.setAttackTarget(player);
+			this.setDead();
 		}
+	}
 
-		if(this.world.getBlockState(new BlockPos.MutableBlockPos().setPos(MathHelper.floor(this.posX), MathHelper.floor(this.posY) - 1, MathHelper.floor(this.posZ))).getBlock() != BlocksAether.aether_grass)
-		{
-			//this.setDead();
-		}
+	public boolean canSpawn(IWorld worldIn) 
+	{
+		return this.rand.nextInt(400) == 0;
+	}
+
+	@Override
+	public void setSwingingArms(boolean isSwinging) 
+	{
 
 	}
 
 	@Override
-	public void knockBack(Entity entity, float strength, double xRatio, double zRatio)
+	public void attackEntityWithRangedAttack(EntityLivingBase targetIn, float arg1)
 	{
-		if(this.getHealth() >= 0) 
-		{
-			return;
-		}
+		double x = targetIn.posX - this.posX;
+		double z = targetIn.posZ - this.posZ;
+		double y = 0.1D + (Math.sqrt((x * x) + (z * z) + 0.1D) * 0.5D) + ((this.posY - targetIn.posY) * 0.25D);
 
-		super.knockBack(entity, strength, xRatio, zRatio);
+		double distance = 1.5D / Math.sqrt((x * x) + (z * z) + 0.1D);
+
+		EntityPoisonNeedle poisonNeedle = new EntityPoisonNeedle(this, this.world);
+
+		poisonNeedle.shoot(x * distance, y, z * distance, 0.285F + ((float)y * 0.05F), 1.0F);
+
+        this.playSound(SoundEvents.ENTITY_SKELETON_SHOOT, 1.0F, 1.2F / (this.getRNG().nextFloat() * 0.2F + 0.9F));
+
+		this.world.spawnEntity(poisonNeedle);
 	}
 
 	@Override
     public boolean processInteract(EntityPlayer player, EnumHand hand)
 	{
-		if (!this.world.isRemote && player != null)
+		ItemStack heldItem = player.getHeldItem(hand);
+
+		if (heldItem.getItem() == ItemsAether.skyroot_bucket && !player.capabilities.isCreativeMode)
 		{
-			int dimensionToTravel = player.dimension == 12 ? 0 : 12;
+			heldItem.shrink(1);
 
-			player.getServer().getPlayerList().changePlayerDimension(((EntityPlayerMP)player), dimensionToTravel);
-		}
-
-		//ItemStack heldItem = player.getHeldItem(hand);
-
-		/*if(heldItem != null && !this.world.isRemote)
-		{
-			if (heldItem.getItem() == ItemsAether.skyroot_bucket && EnumSkyrootBucketType.getType(heldItem.getMetadata()) == EnumSkyrootBucketType.Empty && this.poisonRemaining > 0)
+			if (heldItem.isEmpty())
 			{
-	            if (heldItem.getCount() - 1 == 0)
-	            {
-	                player.setHeldItem(hand, new ItemStack(ItemsAether.skyroot_bucket, 1, EnumSkyrootBucketType.Poison.meta));
-	            }
-	            else if (!player.inventory.addItemStackToInventory(new ItemStack(ItemsAether.skyroot_bucket, 1, EnumSkyrootBucketType.Poison.meta)))
-	            {
-	                player.dropItem(new ItemStack(ItemsAether.skyroot_bucket, 1, EnumSkyrootBucketType.Poison.meta), false);
-	            }
-
-	            --this.poisonRemaining;
+				player.setHeldItem(hand, new ItemStack(ItemsAether.skyroot_poison_bucket));
 			}
-		}*/
+			else if (!player.inventory.addItemStackToInventory(new ItemStack(ItemsAether.skyroot_poison_bucket)))
+			{
+				player.dropItem(new ItemStack(ItemsAether.skyroot_poison_bucket), false);
+			}
 
-		return false;
+			return true;
+		}
+		else
+		{
+			return super.processInteract(player, hand);
+		}
 	}
 
 	@Override
-	public void writeEntityToNBT(NBTTagCompound nbttagcompound)
-    {
-        super.writeEntityToNBT(nbttagcompound);
+	public void knockBack(Entity entity, float strength, double xRatio, double zRatio)
+	{
+		if(this.getHealth() <= 0.0F) 
+		{
+			super.knockBack(entity, strength, xRatio, zRatio);
+		}
+	}
 
-		nbttagcompound.setInteger("Size", this.size);
+	@Override
+	public void writeEntityToNBT(NBTTagCompound compound)
+    {
+        super.writeEntityToNBT(compound);
+
+        compound.setInteger("size", this.size);
     }
 
 	@Override
-    public void readEntityFromNBT(NBTTagCompound nbttagcompound)
+    public void readEntityFromNBT(NBTTagCompound compound)
     {
-        super.readEntityFromNBT(nbttagcompound);
+        super.readEntityFromNBT(compound);
 
-		this.size = nbttagcompound.getInteger("Size");
-    }
-
-    @Override
-    protected void dropFewItems(boolean var1, int var2) 
-    {
-    	//this.dropItem(ItemsAether.aechor_petal, 2);
+		this.size = compound.getInteger("size");
     }
 
 	@Override
-	public EntityAgeable createChild(EntityAgeable baby) 
+	public EntityAechorPlant createChild(EntityAgeable entityIn) 
 	{
 		return null;
 	}
@@ -190,16 +180,16 @@ public class EntityAechorPlant extends EntityAetherAnimal
         return SoundEvents.ENTITY_GENERIC_BIG_FALL;
     }
 
-	/*@Override
-	public boolean getCanSpawnHere()
+	@Override
+	public ResourceLocation getLootTable()
 	{
-		return this.rand.nextInt(400) == 0 && super.getCanSpawnHere();
-	}*/
+		return AetherLootTableList.ENTITIES_AECHOR_PLANT;
+	}
 
 	@Override
-    protected boolean canDespawn()
-    {
-        return true;
-    }
+	public boolean canBePushed()
+	{
+		return false;
+	}
 
 }

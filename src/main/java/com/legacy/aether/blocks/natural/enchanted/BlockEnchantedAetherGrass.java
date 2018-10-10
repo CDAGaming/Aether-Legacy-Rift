@@ -34,7 +34,7 @@ public class BlockEnchantedAetherGrass extends Block
         {
             if (worldIn.getLight(posIn.up()) < 4)
             {
-            	worldIn.setBlockState(posIn, BlocksAether.aether_dirt.getDefaultState().with(BlockAetherDirt.DOUBLE_DROP, false));
+            	worldIn.setBlockState(posIn, BlocksAether.aether_dirt.getDefaultState().withProperty(BlockAetherDirt.DOUBLE_DROP, false));
             }
         }
     }

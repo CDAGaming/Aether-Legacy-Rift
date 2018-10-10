@@ -15,12 +15,12 @@ import net.minecraft.world.IInteractionObject;
 import com.legacy.aether.api.AetherAPI;
 import com.legacy.aether.api.accessories.AccessoryType;
 import com.legacy.aether.inventory.container.ContainerAccessories;
-import com.legacy.aether.player.IPlayerAether;
+import com.legacy.aether.player.IEntityPlayerAether;
 
 public class InventoryAccessories implements IInventory, IInteractionObject
 {
 
-	private IPlayerAether playerAether;
+	private IEntityPlayerAether playerAether;
 
     public NonNullList<ItemStack> stacks = NonNullList.withSize(8, ItemStack.EMPTY);
 
@@ -28,7 +28,7 @@ public class InventoryAccessories implements IInventory, IInteractionObject
 
     public AccessoryType[] type = new AccessoryType[] {AccessoryType.PENDANT, AccessoryType.CAPE, AccessoryType.SHIELD, AccessoryType.MISC, AccessoryType.RING, AccessoryType.RING, AccessoryType.GLOVE, AccessoryType.MISC};
 
-    public InventoryAccessories(IPlayerAether playerAetherIn)
+    public InventoryAccessories(IEntityPlayerAether playerAetherIn)
     {
     	this.playerAether = playerAetherIn;
     }
@@ -49,7 +49,7 @@ public class InventoryAccessories implements IInventory, IInteractionObject
 	@Override
 	public Container createContainer(InventoryPlayer inventoryIn, EntityPlayer entityIn) 
 	{
-		return new ContainerAccessories(((IPlayerAether)entityIn));
+		return new ContainerAccessories(((IEntityPlayerAether)entityIn));
 	}
 
 	@Override
@@ -64,10 +64,30 @@ public class InventoryAccessories implements IInventory, IInteractionObject
 		return this.stacks.get(index);
 	}
 
+	private int getAvailableSlot(AccessoryType type)
+	{
+		for (int index = 0; index < this.type.length; ++index)
+		{
+			ItemStack stack = this.getStackInSlot(index);
+
+			if (stack.isEmpty() && AetherAPI.instance().getAccessory(stack).getType() == this.type[index])
+			{
+				return index;
+			}
+		}
+
+		return -1;
+	}
+
 	@Override
 	public void setInventorySlotContents(int index, ItemStack stack) 
 	{
 		this.stacks.set(index, stack);
+	}
+
+	public boolean isAccessoryValidForSlot(AccessoryType type, ItemStack stack)
+	{
+		return AetherAPI.instance().isAccessory(stack) && this.type[this.getAvailableSlot(type)] == AetherAPI.instance().getAccessory(stack).getType();
 	}
 
 	@Override

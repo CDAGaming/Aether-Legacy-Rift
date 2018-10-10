@@ -20,7 +20,7 @@ public class BlockAetherLog extends BlockLog
 	{
 		super(MapColor.WOOD, Block.Builder.create(Material.WOOD).hardnessAndResistance(2.0F, -1.0F).sound(SoundType.WOOD));
 
-		this.setDefaultState(this.getDefaultState().with(DOUBLE_DROP, true).with(AXIS, EnumFacing.Axis.Y));
+		this.setDefaultState(this.getDefaultState().withProperty(DOUBLE_DROP, true).withProperty(AXIS, EnumFacing.Axis.Y));
 	}
 
 	@Override
@@ -34,7 +34,7 @@ public class BlockAetherLog extends BlockLog
 	@Override
 	public IBlockState getStateForPlacement(BlockItemUseContext context)
 	{
-		return super.getStateForPlacement(context).with(DOUBLE_DROP, false);
+		return super.getStateForPlacement(context).withProperty(DOUBLE_DROP, false);
 	}
 
 }

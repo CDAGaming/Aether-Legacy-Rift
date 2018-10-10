@@ -21,7 +21,7 @@ public class BlockAetherDirt extends Block
 	{
 		super(Block.Builder.create(Material.GROUND).hardnessAndResistance(0.2F, -1.0F).sound(SoundType.GROUND));
 
-		this.setDefaultState(this.getDefaultState().with(DOUBLE_DROP, true));
+		this.setDefaultState(this.getDefaultState().withProperty(DOUBLE_DROP, true));
 	}
 
 	@Override
@@ -33,13 +33,13 @@ public class BlockAetherDirt extends Block
 	@Override
 	public IBlockState getStateForPlacement(BlockItemUseContext context)
 	{
-		return super.getStateForPlacement(context).with(DOUBLE_DROP, false);
+		return super.getStateForPlacement(context).withProperty(DOUBLE_DROP, false);
 	}
 
 	@Override
 	public int getItemsToDropCount(IBlockState stateIn, int fortuneIn, World worldIn, BlockPos posIn, Random randomIn)
 	{
-		return stateIn.get(DOUBLE_DROP) ? 2 : 1;
+		return stateIn.getValue(DOUBLE_DROP) ? 2 : 1;
 	}
 
 }

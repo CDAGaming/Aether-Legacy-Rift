@@ -3,7 +3,7 @@
 	"variants": {
 
 		"": {
-			"model": "aether_legacy:block/golden_aercloud"
+			"model": "aether_legacy:block/colored_aercloud"
 		}
 	}
 

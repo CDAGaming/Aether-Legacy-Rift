@@ -24,7 +24,7 @@ public class BlockAmbrosiumOre extends Block
 	{
 		super(Block.Builder.create(Material.ROCK).hardnessAndResistance(3.0F, 5.0F).sound(SoundType.STONE));
 
-		this.setDefaultState(this.getDefaultState().with(DOUBLE_DROP, true));
+		this.setDefaultState(this.getDefaultState().withProperty(DOUBLE_DROP, true));
 	}
 
 	@Override
@@ -44,7 +44,7 @@ public class BlockAmbrosiumOre extends Block
 	{
 		super.dropBlockAsItemWithChance(stateIn, worldIn, posIn, chanceIn, fortuneIn);
 
-		super.dropXpOnBlockBreak(worldIn, posIn, MathHelper.nextInt(new Random(), 0, 2));
+		super.dropXpOnBlockBreak(worldIn, posIn, MathHelper.getInt(new Random(), 0, 2));
 	}
 
 	@Override
@@ -69,7 +69,7 @@ public class BlockAmbrosiumOre extends Block
 
 	public int getItemsToDropCount(IBlockState stateIn, Random randIn)
 	{
-		return stateIn.get(DOUBLE_DROP) ? 2 : 1;
+		return stateIn.getValue(DOUBLE_DROP) ? 2 : 1;
 	}
 
 }
