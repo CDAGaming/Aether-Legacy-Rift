@@ -38,7 +38,7 @@ public class BlockAercloud extends Block
 				double yOffset = posIn.getY() + worldIn.rand.nextDouble();
 				double zOffset = posIn.getZ() + worldIn.rand.nextDouble();
 
-				worldIn.addParticle(Particles.SPLASH, true, xOffset, yOffset, zOffset, 0.0D, 0.0D, 0.0D);
+				worldIn.spawnParticle(Particles.SPLASH, xOffset, yOffset, zOffset, 0.0D, 0.0D, 0.0D);
 			}
 
 			if (entityIn instanceof EntityPlayer && entityIn.isSneaking() && entityIn.motionY < 0.0F)
