@@ -2,6 +2,7 @@ package com.legacy.aether.mixin.client;
 
 import java.util.Set;
 
+import net.minecraft.client.renderer.texture.ITextureObject;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.resources.IResourceManager;
 import net.minecraft.util.ResourceLocation;
@@ -29,15 +30,15 @@ public class MixinTextureMap
 
         resourceList.forEach((p_195423_2_) ->
         {
-        	((TextureMap) (Object) this).registerSprite(resourceManager, p_195423_2_);
+        	((TextureMap) (ITextureObject) this).registerSprite(resourceManager, p_195423_2_);
         });
 
 		for (int i = 0; i < InventoryAccessories.EMPTY_SLOT_NAMES.length; ++i)
 		{
-			((TextureMap) (Object) this).registerSprite(resourceManager, Aether.locate("item/slots/" + InventoryAccessories.EMPTY_SLOT_NAMES[i]));
+			((TextureMap) (ITextureObject) this).registerSprite(resourceManager, Aether.locate("item/slots/" + InventoryAccessories.EMPTY_SLOT_NAMES[i]));
 		}
 
-        ((TextureMap) (Object) this).func_195421_b(resourceManager);
+        ((TextureMap) (ITextureObject) this).func_195421_b(resourceManager);
     }
 
 }
