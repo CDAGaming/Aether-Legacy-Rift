@@ -1,10 +1,7 @@
 {
-
-	"variants": {
-
-		"": {
-			"model": "aether_legacy:block/pink_aercloud"
-		}
-	}
-
+  "variants": {
+    "": {
+      "model": "aether_legacy:block/pink_aercloud"
+    }
+  }
 }

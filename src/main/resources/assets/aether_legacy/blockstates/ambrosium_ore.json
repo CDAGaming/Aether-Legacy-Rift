@@ -1,10 +1,7 @@
 {
-
-	"variants": {
-
-		"": {
-			"model": "aether_legacy:block/ambrosium_ore"
-		}
-	}
-
+  "variants": {
+    "": {
+      "model": "aether_legacy:block/ambrosium_ore"
+    }
+  }
 }

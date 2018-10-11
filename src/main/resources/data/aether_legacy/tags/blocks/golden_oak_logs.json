@@ -1,10 +1,6 @@
 {
-  
-	"replace": false,
-  
-	"values": [
-    
-		"aether_legacy:golden_oak_log"
-	]
-
+  "replace": false,
+  "values": [
+    "aether_legacy:golden_oak_log"
+  ]
 }

@@ -9,23 +9,19 @@ import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 
-public class BlockAerogel extends BlockBreakable
-{
+public class BlockAerogel extends BlockBreakable {
 
-	public BlockAerogel()
-	{
-		super(Block.Builder.create(Material.ROCK).hardnessAndResistance(1.0F, 2000.0F).sound(SoundType.METAL));
-	}
+    public BlockAerogel() {
+        super(Block.Builder.create(Material.ROCK).hardnessAndResistance(1.0F, 2000.0F).sound(SoundType.METAL));
+    }
 
-	@Override
-	public int getOpacity(IBlockState stateIn, IBlockReader blockReaderIn, BlockPos posIn)
-	{
-		return 3;
-	}
+    @Override
+    public int getOpacity(IBlockState stateIn, IBlockReader blockReaderIn, BlockPos posIn) {
+        return 3;
+    }
 
-	@Override
-    public BlockRenderLayer getRenderLayer()
-    {
+    @Override
+    public BlockRenderLayer getRenderLayer() {
         return BlockRenderLayer.TRANSLUCENT;
     }
 

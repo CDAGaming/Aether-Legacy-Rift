@@ -1,28 +1,24 @@
 package com.legacy.aether.world;
 
-import java.util.Map;
-
 import net.minecraft.world.gen.feature.structure.Structure;
-
 import org.dimdev.rift.listener.StructureAdder;
 
-public class StructuresAether implements StructureAdder
-{
+import java.util.Map;
 
-	//public static final Structure<NoFeatureConfig> COLD_AERCLOUD = new ColdAercloudStructure();
+public class StructuresAether implements StructureAdder {
 
-	@Override
-	public void registerStructureNames() 
-	{
-		//StructureIO.registerStructure(ColdAercloudStructure.Start.class, "aether_legacy:cold_aercloud_start");
+    //public static final Structure<NoFeatureConfig> COLD_AERCLOUD = new ColdAercloudStructure();
 
-		//StructureIO.registerStructureComponent(ColdAercloudPiece.class, "aether_legacy:cold_aercloud_piece");
-	}
+    @Override
+    public void registerStructureNames() {
+        //StructureIO.registerStructure(ColdAercloudStructure.Start.class, "aether_legacy:cold_aercloud_start");
 
-	@Override
-	public void addStructuresToMap(Map<String, Structure<?>> map) 
-	{
-		//map.put("aether_legacy:cold_aercloud".toLowerCase(), COLD_AERCLOUD);
-	}
+        //StructureIO.registerStructureComponent(ColdAercloudPiece.class, "aether_legacy:cold_aercloud_piece");
+    }
+
+    @Override
+    public void addStructuresToMap(Map<String, Structure<?>> map) {
+        //map.put("aether_legacy:cold_aercloud".toLowerCase(), COLD_AERCLOUD);
+    }
 
 }

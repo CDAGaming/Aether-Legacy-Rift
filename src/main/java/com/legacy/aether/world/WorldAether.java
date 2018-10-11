@@ -1,49 +1,43 @@
 package com.legacy.aether.world;
 
+import com.legacy.aether.world.biome.AetherBiome;
+import net.minecraft.world.biome.Biome;
+import net.minecraft.world.dimension.DimensionType;
+import org.dimdev.rift.listener.BiomeAdder;
+import org.dimdev.rift.listener.DimensionTypeAdder;
+
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Set;
 import java.util.TreeSet;
 
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.dimension.DimensionType;
+public class WorldAether implements BiomeAdder, DimensionTypeAdder {
 
-import org.dimdev.rift.listener.BiomeAdder;
-import org.dimdev.rift.listener.DimensionTypeAdder;
+    public static AetherBiome aetherBiome;
 
-import com.legacy.aether.world.biome.AetherBiome;
+    public static DimensionType AETHER;
 
-public class WorldAether implements BiomeAdder, DimensionTypeAdder
-{
+    @Override
+    public Set<? extends DimensionType> getDimensionTypes() {
+        Set<DimensionType> dimensions = new TreeSet<>();
 
-	public static AetherBiome aetherBiome;
+        AETHER = DimensionTypeAdder.newDimensionType(12, "aether", "_aether", AetherDimension::new);
 
-	public static DimensionType AETHER;
+        dimensions.add(AETHER);
 
-	@Override
-	public Set<? extends DimensionType> getDimensionTypes()
-	{
-		Set<DimensionType> dimensions = new TreeSet<>();
+        return dimensions;
+    }
 
-		AETHER = DimensionTypeAdder.newDimensionType(12, "aether", "_aether", AetherDimension::new);
+    @Override
+    public void registerBiomes() {
+        aetherBiome = new AetherBiome();
 
-		dimensions.add(AETHER);
+        Biome.registerBiome(525, "aether_legacy:aether_highlands", aetherBiome);
+    }
 
-		return dimensions;
-	}
-
-	@Override
-	public void registerBiomes()
-	{
-		aetherBiome = new AetherBiome();
-
-		Biome.registerBiome(525, "aether_legacy:aether_highlands", aetherBiome);
-	}
-
-	@Override
-	public Collection<Biome> getOverworldBiomes()
-	{
-		return Collections.emptyList();
-	}
+    @Override
+    public Collection<Biome> getOverworldBiomes() {
+        return Collections.emptyList();
+    }
 
 }

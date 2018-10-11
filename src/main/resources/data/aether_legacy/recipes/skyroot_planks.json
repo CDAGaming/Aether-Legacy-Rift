@@ -5,14 +5,14 @@
     "#"
   ],
   "key": {
-
-    "#": [{
-      "item": "aether_legacy:skyroot_log"
-    },
-
-    {
-      "item": "aether_legacy:golden_oak_log"
-    }]
+    "#": [
+      {
+        "item": "aether_legacy:skyroot_log"
+      },
+      {
+        "item": "aether_legacy:golden_oak_log"
+      }
+    ]
   },
   "result": {
     "item": "aether_legacy:skyroot_planks",

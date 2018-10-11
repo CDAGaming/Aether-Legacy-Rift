@@ -1,7 +1,5 @@
 package com.legacy.aether.blocks.natural;
 
-import java.util.Random;
-
 import net.minecraft.block.IGrowable;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.block.trees.AbstractTree;
@@ -11,64 +9,55 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 
-public class BlockAetherSapling extends BlockAetherFlower implements IGrowable
-{
+import java.util.Random;
 
-	private AbstractTree tree;
+public class BlockAetherSapling extends BlockAetherFlower implements IGrowable {
 
-	public BlockAetherSapling(AbstractTree tree)
-	{
-		super();
+    private AbstractTree tree;
 
-		this.tree = tree;
-	}
+    public BlockAetherSapling(AbstractTree tree) {
+        super();
 
-	@Override
-	public void tick(IBlockState stateIn, World worldIn, BlockPos posIn, Random randIn)
-	{
-		if (!worldIn.isRemote)
-		{
-			super.tick(stateIn, worldIn, posIn, randIn);
+        this.tree = tree;
+    }
 
-			if (!worldIn.isAreaLoaded(posIn, 1)) return;
-			if (worldIn.getLight(posIn.up()) >= 9 && randIn.nextInt(30) == 0)
-			{
-				this.growTree(worldIn, posIn, stateIn, randIn);
-			}
-		}
-	}
+    @Override
+    public void tick(IBlockState stateIn, World worldIn, BlockPos posIn, Random randIn) {
+        if (!worldIn.isRemote) {
+            super.tick(stateIn, worldIn, posIn, randIn);
 
-	@Override
-	public VoxelShape getShape(IBlockState blockstateIn, IBlockReader blockReaderIn, BlockPos posIn)
-	{
-		return ShapeUtils.create(0.1D, 0.0D, 0.1D, 0.9D, 0.8D, 0.9D);
-	}
+            if (!worldIn.isAreaLoaded(posIn, 1)) return;
+            if (worldIn.getLight(posIn.up()) >= 9 && randIn.nextInt(30) == 0) {
+                this.growTree(worldIn, posIn, stateIn, randIn);
+            }
+        }
+    }
 
-	@Override
-	public boolean canGrow(IBlockReader worldIn, BlockPos posIn, IBlockState stateIn, boolean isClient)
-	{
-		return true;
-	}
+    @Override
+    public VoxelShape getShape(IBlockState blockstateIn, IBlockReader blockReaderIn, BlockPos posIn) {
+        return ShapeUtils.create(0.1D, 0.0D, 0.1D, 0.9D, 0.8D, 0.9D);
+    }
 
-	@Override
-	public boolean canUseBonemeal(World worldIn, Random randIn, BlockPos posIn, IBlockState stateIn)
-	{
-		return true;
-	}
+    @Override
+    public boolean canGrow(IBlockReader worldIn, BlockPos posIn, IBlockState stateIn, boolean isClient) {
+        return true;
+    }
 
-	@Override
-	public void grow(World worldIn, Random randIn, BlockPos posIn, IBlockState stateIn) 
-	{
-		if (worldIn.rand.nextFloat() < 0.45D)
-        {
+    @Override
+    public boolean canUseBonemeal(World worldIn, Random randIn, BlockPos posIn, IBlockState stateIn) {
+        return true;
+    }
+
+    @Override
+    public void grow(World worldIn, Random randIn, BlockPos posIn, IBlockState stateIn) {
+        if (worldIn.rand.nextFloat() < 0.45D) {
             this.growTree(worldIn, posIn, stateIn, randIn);
         }
-		
-	}
 
-	public void growTree(World worldIn, BlockPos posIn, IBlockState stateIn, Random randIn)
-	{
-		this.tree.spawn(worldIn, posIn, stateIn, randIn);
-	}
+    }
+
+    public void growTree(World worldIn, BlockPos posIn, IBlockState stateIn, Random randIn) {
+        this.tree.spawn(worldIn, posIn, stateIn, randIn);
+    }
 
 }

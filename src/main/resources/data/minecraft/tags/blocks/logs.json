@@ -1,12 +1,7 @@
 {
-  
-	"replace": false,
-  
-	"values": [
-    
-		"#aether_legacy:skyroot_logs",
-
-		"#aether_legacy:golden_oak_logs" 
-	]
-
+  "replace": false,
+  "values": [
+    "#aether_legacy:skyroot_logs",
+    "#aether_legacy:golden_oak_logs"
+  ]
 }

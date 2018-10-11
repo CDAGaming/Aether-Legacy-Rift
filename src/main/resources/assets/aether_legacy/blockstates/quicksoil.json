@@ -1,10 +1,7 @@
 {
-
-	"variants": {
-
-		"": {
-			"model": "aether_legacy:block/quicksoil"
-		}
-	}
-
+  "variants": {
+    "": {
+      "model": "aether_legacy:block/quicksoil"
+    }
+  }
 }

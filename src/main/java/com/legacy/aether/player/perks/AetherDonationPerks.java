@@ -1,19 +1,16 @@
 package com.legacy.aether.player.perks;
 
 
-public class AetherDonationPerks 
-{
+public class AetherDonationPerks {
 
-	private CustomizedMoaSkin moaSkin;
+    private CustomizedMoaSkin moaSkin;
 
-	public AetherDonationPerks()
-	{
-		this.moaSkin = new CustomizedMoaSkin();
-	}
+    public AetherDonationPerks() {
+        this.moaSkin = new CustomizedMoaSkin();
+    }
 
-	public CustomizedMoaSkin getMoaSkin()
-	{
-		return this.moaSkin;
-	}
+    public CustomizedMoaSkin getMoaSkin() {
+        return this.moaSkin;
+    }
 
 }

@@ -1,10 +1,6 @@
 {
-  
-	"replace": false,
-  
-	"values": [
-    
-		"aether_legacy:skyroot_log"
-	]
-
+  "replace": false,
+  "values": [
+    "aether_legacy:skyroot_log"
+  ]
 }

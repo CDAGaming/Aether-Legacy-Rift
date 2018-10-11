@@ -1,10 +1,7 @@
 {
-
-	"variants": {
-
-		"": {
-			"model": "aether_legacy:block/aerogel"
-		}
-	}
-
+  "variants": {
+    "": {
+      "model": "aether_legacy:block/aerogel"
+    }
+  }
 }

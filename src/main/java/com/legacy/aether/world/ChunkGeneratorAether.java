@@ -1,7 +1,8 @@
 package com.legacy.aether.world;
 
-import java.util.List;
-
+import com.legacy.aether.blocks.BlocksAether;
+import com.legacy.aether.world.biome.AetherBiomeProvider;
+import com.legacy.aether.world.info.AetherGenSettings;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.init.Blocks;
@@ -21,19 +22,14 @@ import net.minecraft.world.gen.Heightmap;
 import net.minecraft.world.gen.NoiseGeneratorOctaves;
 import net.minecraft.world.gen.WorldGenRegion;
 
-import com.legacy.aether.blocks.BlocksAether;
-import com.legacy.aether.world.biome.AetherBiomeProvider;
-import com.legacy.aether.world.info.AetherGenSettings;
+import java.util.List;
 
 public class ChunkGeneratorAether extends AbstractChunkGenerator<AetherGenSettings> {
 
-    private NoiseGeneratorOctaves noiseGen1, perlinNoise1;
-
     private final AetherGenSettings chunkGenSettings;
-
     private final AetherBiomeProvider biomeProvider;
-
     private final SharedSeedRandom random;
+    private NoiseGeneratorOctaves noiseGen1, perlinNoise1;
 
     public ChunkGeneratorAether(IWorld world, BiomeProvider biomeProvider) {
         super(world, biomeProvider);
@@ -214,8 +210,7 @@ public class ChunkGeneratorAether extends AbstractChunkGenerator<AetherGenSettin
     }
 
     @Override
-    public void spawnMobs(WorldGenRegion regionIn) 
-    {
+    public void spawnMobs(WorldGenRegion regionIn) {
         int i = regionIn.getMainChunkX();
         int j = regionIn.getMainChunkZ();
         Biome biome = regionIn.getChunk(i, j).getBiomes()[0];

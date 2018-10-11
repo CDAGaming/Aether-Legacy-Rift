@@ -2,11 +2,10 @@ package com.legacy.aether.player;
 
 import net.minecraft.entity.Entity;
 
-public interface IEntityPlayerAether
-{
+public interface IEntityPlayerAether {
 
-	PlayerAether getPlayerAether();
+    PlayerAether getPlayerAether();
 
-	Entity getInstance();
+    Entity getInstance();
 
 }

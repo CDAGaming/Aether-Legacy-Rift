@@ -5,8 +5,7 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.IItemProvider;
 import net.minecraft.util.LazyLoadBase;
 
-public class AetherItemTier implements IItemTier
-{
+public class AetherItemTier implements IItemTier {
 
     private final int harvestLevel;
     private final int maxUses;
@@ -16,8 +15,7 @@ public class AetherItemTier implements IItemTier
 
     private final LazyLoadBase<Ingredient> ingredientLoader;
 
-	public AetherItemTier(int harvestLevel, int maxUses, float efficiencyOnProperMaterial, float damageVsEntity, int enchantability, IItemProvider repairMaterial)
-	{
+    public AetherItemTier(int harvestLevel, int maxUses, float efficiencyOnProperMaterial, float damageVsEntity, int enchantability, IItemProvider repairMaterial) {
         this.harvestLevel = harvestLevel;
         this.maxUses = maxUses;
         this.efficiencyOnProperMaterial = efficiencyOnProperMaterial;
@@ -25,42 +23,36 @@ public class AetherItemTier implements IItemTier
         this.enchantability = enchantability;
 
         this.ingredientLoader = new LazyLoadBase<>(() -> Ingredient.fromItems(repairMaterial));
-	}
+    }
 
-	@Override
-	public Ingredient func_200924_f()
-	{
-		return this.ingredientLoader.getValue();
-	}
+    @Override
+    public Ingredient func_200924_f() {
+        return this.ingredientLoader.getValue();
+    }
 
-	@Override
-	public int getHarvestLevel()
-	{
-		return this.harvestLevel;
-	}
+    @Override
+    public int getHarvestLevel() {
+        return this.harvestLevel;
+    }
 
-	@Override
-	public int getMaxUses()
-	{
-		return this.maxUses;
-	}
+    @Override
+    public int getMaxUses() {
+        return this.maxUses;
+    }
 
-	@Override
-	public int getEnchantability()
-	{
-		return this.enchantability;
-	}
+    @Override
+    public int getEnchantability() {
+        return this.enchantability;
+    }
 
-	@Override
-	public float getEfficiency()
-	{
-		return this.efficiencyOnProperMaterial;
-	}
+    @Override
+    public float getEfficiency() {
+        return this.efficiencyOnProperMaterial;
+    }
 
-	@Override
-	public float getAttackDamage()
-	{
-		return this.damageVsEntity;
-	}
+    @Override
+    public float getAttackDamage() {
+        return this.damageVsEntity;
+    }
 
 }

@@ -4,10 +4,9 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.util.math.BlockPos;
 
-public class EntityAIUpdateState extends EntityAIBase
-{
+public class EntityAIUpdateState extends EntityAIBase {
 
-	private EntityLivingBase entity;
+    private EntityLivingBase entity;
 
     private boolean isStuckWarning = false;
 
@@ -15,39 +14,31 @@ public class EntityAIUpdateState extends EntityAIBase
 
     private BlockPos checkPos = BlockPos.ORIGIN;
 
-	public EntityAIUpdateState(EntityLivingBase entity)
-	{
-		this.entity = entity;
+    public EntityAIUpdateState(EntityLivingBase entity) {
+        this.entity = entity;
         this.setMutexBits(1);
-	}
+    }
 
-	@Override
-    public boolean isInterruptible()
-    {
+    @Override
+    public boolean isInterruptible() {
         return false;
     }
 
-	@Override
-    public void updateTask()
-    {
+    @Override
+    public void updateTask() {
         long curtime = System.currentTimeMillis();
 
-        if (curtime > this.checkTime + 3000L)
-        {
+        if (curtime > this.checkTime + 3000L) {
             double diffx = this.entity.posX - this.checkPos.getX();
             double diffy = this.entity.posY - this.checkPos.getY();
             double diffz = this.entity.posZ - this.checkPos.getZ();
 
             double distanceTravelled = Math.sqrt((diffx * diffx) + (diffy * diffy) + (diffz * diffz));
 
-            if (distanceTravelled < 3D)
-            {
-                if (!this.isStuckWarning)
-                {
-                	this.isStuckWarning = true;
-                }
-                else
-                {
+            if (distanceTravelled < 3D) {
+                if (!this.isStuckWarning) {
+                    this.isStuckWarning = true;
+                } else {
                     this.entity.setDead();
                 }
             }
@@ -57,10 +48,9 @@ public class EntityAIUpdateState extends EntityAIBase
         }
     }
 
-	@Override
-	public boolean shouldExecute()
-	{
-		return !this.entity.isDead;
-	}
+    @Override
+    public boolean shouldExecute() {
+        return !this.entity.isDead;
+    }
 
 }

@@ -1,9 +1,6 @@
 package com.legacy.aether.world.biome.builder;
 
-import java.util.Random;
-
 import com.legacy.aether.blocks.BlocksAether;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
@@ -12,60 +9,49 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.IChunk;
 import net.minecraft.world.gen.surfacebuilders.ISurfaceBuilder;
 
-public class AetherSurfaceBuilder implements ISurfaceBuilder<AetherSurfaceBuilderConfig>
-{
+import java.util.Random;
 
-	@Override
-	public void buildSurface(Random random, IChunk chunk, Biome biome, int x, int z, int y, double position, IBlockState defaultBlock, IBlockState defaultFluid, int waterLevel, long seed, AetherSurfaceBuilderConfig config) 
-	{
-		BlockPos.MutableBlockPos mutedPos = new BlockPos.MutableBlockPos();
+public class AetherSurfaceBuilder implements ISurfaceBuilder<AetherSurfaceBuilderConfig> {
 
-		int chunkX = x - chunk.getPos().getXStart();
-		int chunkZ = z - chunk.getPos().getZStart();
+    @Override
+    public void buildSurface(Random random, IChunk chunk, Biome biome, int x, int z, int y, double position, IBlockState defaultBlock, IBlockState defaultFluid, int waterLevel, long seed, AetherSurfaceBuilderConfig config) {
+        BlockPos.MutableBlockPos mutedPos = new BlockPos.MutableBlockPos();
 
-		int j1 = -1;
-        int i1 = (int)(3.0D + random.nextDouble() * 0.25D);
+        int chunkX = x - chunk.getPos().getXStart();
+        int chunkZ = z - chunk.getPos().getZStart();
 
-		IBlockState top = config.getTop();
-		IBlockState filler = config.getMiddle();
+        int j1 = -1;
+        int i1 = (int) (3.0D + random.nextDouble() * 0.25D);
 
-        for (int chunkY = 127; chunkY >= 0; chunkY--)
-		{
-			Block block = chunk.getBlockState(mutedPos.setPos(chunkX, chunkY, chunkZ)).getBlock();
+        IBlockState top = config.getTop();
+        IBlockState filler = config.getMiddle();
 
-			if (block == Blocks.AIR)
-			{
-				j1 = -1;
-			}
-			else if (block == BlocksAether.holystone)
-			{
-				if (j1 == -1)
-				{
-					if (i1 <= 0)
-					{
-						top = Blocks.AIR.getDefaultState();
-						filler = defaultBlock;
-					}
+        for (int chunkY = 127; chunkY >= 0; chunkY--) {
+            Block block = chunk.getBlockState(mutedPos.setPos(chunkX, chunkY, chunkZ)).getBlock();
 
-					j1 = i1;
+            if (block == Blocks.AIR) {
+                j1 = -1;
+            } else if (block == BlocksAether.holystone) {
+                if (j1 == -1) {
+                    if (i1 <= 0) {
+                        top = Blocks.AIR.getDefaultState();
+                        filler = defaultBlock;
+                    }
 
-					if (chunkY >= 0)
-					{
-						chunk.setBlockState(mutedPos.setPos(chunkX, chunkY, chunkZ), top, false);
-					}
-					else
-					{
-						chunk.setBlockState(mutedPos.setPos(chunkX, chunkY, chunkZ), filler, false);
-					}
-				}
-				else if (j1 > 0)
-				{
-					--j1;
-					chunk.setBlockState(mutedPos.setPos(chunkX, chunkY, chunkZ), filler, false);
-				}
-			}
-		}
+                    j1 = i1;
 
-	}
+                    if (chunkY >= 0) {
+                        chunk.setBlockState(mutedPos.setPos(chunkX, chunkY, chunkZ), top, false);
+                    } else {
+                        chunk.setBlockState(mutedPos.setPos(chunkX, chunkY, chunkZ), filler, false);
+                    }
+                } else if (j1 > 0) {
+                    --j1;
+                    chunk.setBlockState(mutedPos.setPos(chunkX, chunkY, chunkZ), filler, false);
+                }
+            }
+        }
+
+    }
 
 }

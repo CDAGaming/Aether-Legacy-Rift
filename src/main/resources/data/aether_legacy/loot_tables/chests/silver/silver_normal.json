@@ -1,148 +1,148 @@
 {
-    "pools": [
+  "pools": [
+    {
+      "rolls": 3,
+      "entries": [
         {
-            "rolls": 3,
-            "entries": [
-                {
-                    "type": "item",
-                    "name": "aether_legacy:zanite_pickaxe"
-                },
-                {
-                    "type": "item",
-                    "name": "aether_legacy:skyroot_bucket"
-                },
-				{
-                    "type": "item",
-                    "name": "aether_legacy:golden_dart_shooter"
-                },
-				{
-                    "type": "item",
-                    "name": "aether_legacy:white_moa_egg"
-                },
-				{
-                    "type": "item",
-                    "name": "aether_legacy:ambrosium_torch",
-					"functions": [
-                        {
-                            "function": "set_count",
-                            "count": {
-                                "min": 4,
-                                "max": 16
-                            }
-                        }
-					]
-                },
-				{
-                    "type": "item",
-                    "name": "aether_legacy:ambrosium_shard",
-					"functions": [
-                        {
-                            "function": "set_count",
-                            "count": {
-                                "min": 1,
-                                "max": 10
-                            }
-                        }
-					]
-                },
-				{
-                    "type": "item",
-                    "name": "aether_legacy:golden_dart",
-					"functions": [
-                        {
-                            "function": "set_count",
-                            "count": {
-                                "min": 1,
-                                "max": 5
-                            }
-                        }
-					]
-                },
-				{
-                    "type": "item",
-                    "name": "aether_legacy:poison_dart",
-					"functions": [
-                        {
-                            "function": "set_count",
-                            "count": {
-                                "min": 1,
-                                "max": 3
-                            }
-                        }
-					]
-                },
-				{
-                    "type": "item",
-                    "name": "aether_legacy:enchanted_dart",
-					"functions": [
-                        {
-                            "function": "set_count",
-                            "count": {
-                                "min": 1,
-                                "max": 3
-                            }
-                        }
-					]
-                },
-				{
-                    "type": "item",
-                    "name": "aether_legacy:aether_tune",
-					"functions": [
-                        {
-                            "function": "random_chance",
-                            "chance": 0.05
-                        }
-					]
-                },
-				{
-                    "type": "item",
-                    "name": "aether_legacy:ascending_dawn",
-					"functions": [
-                        {
-                            "function": "random_chance",
-                            "chance": 0.1
-                        }
-					]
-                },
-				{
-                    "type": "item",
-                    "name": "aether_legacy:skyroot_poison_bucket"
-                },
-				{
-                    "type": "item",
-                    "name": "aether_legacy:iron_pendant",
-					"functions": [
-                        {
-                            "function": "random_chance",
-                            "chance": 0.25
-                        }
-					]
-                },
-				{
-                    "type": "item",
-                    "name": "aether_legacy:iron_pendant",
-					"functions": [
-                        {
-                            "function": "random_chance",
-                            "chance": 0.1
-                        }
-					]
-                },
-				{
-                    "type": "item",
-                    "name": "aether_legacy:zanite_ring",
-					"functions": [
-                        {
-                            "function": "random_chance",
-                            "chance": 0.07
-                        }
-					]
-                },
-				{
-                    "type": "loot_table",
-                    "name": "aether_legacy:chests/zanite_armor"
-                }
-            ]
+          "type": "item",
+          "name": "aether_legacy:zanite_pickaxe"
+        },
+        {
+          "type": "item",
+          "name": "aether_legacy:skyroot_bucket"
+        },
+        {
+          "type": "item",
+          "name": "aether_legacy:golden_dart_shooter"
+        },
+        {
+          "type": "item",
+          "name": "aether_legacy:white_moa_egg"
+        },
+        {
+          "type": "item",
+          "name": "aether_legacy:ambrosium_torch",
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 4,
+                "max": 16
+              }
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "aether_legacy:ambrosium_shard",
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 1,
+                "max": 10
+              }
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "aether_legacy:golden_dart",
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 1,
+                "max": 5
+              }
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "aether_legacy:poison_dart",
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 1,
+                "max": 3
+              }
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "aether_legacy:enchanted_dart",
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 1,
+                "max": 3
+              }
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "aether_legacy:aether_tune",
+          "functions": [
+            {
+              "function": "random_chance",
+              "chance": 0.05
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "aether_legacy:ascending_dawn",
+          "functions": [
+            {
+              "function": "random_chance",
+              "chance": 0.1
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "aether_legacy:skyroot_poison_bucket"
+        },
+        {
+          "type": "item",
+          "name": "aether_legacy:iron_pendant",
+          "functions": [
+            {
+              "function": "random_chance",
+              "chance": 0.25
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "aether_legacy:iron_pendant",
+          "functions": [
+            {
+              "function": "random_chance",
+              "chance": 0.1
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "aether_legacy:zanite_ring",
+          "functions": [
+            {
+              "function": "random_chance",
+              "chance": 0.07
+            }
+          ]
+        },
+        {
+          "type": "loot_table",
+          "name": "aether_legacy:chests/zanite_armor"
         }
-    ]
+      ]
+    }
+  ]
 }

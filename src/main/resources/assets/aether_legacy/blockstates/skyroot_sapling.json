@@ -1,10 +1,7 @@
 {
-
-	"variants": {
-
-		"": {
-			"model": "aether_legacy:block/skyroot_sapling"
-		}
-	}
-
+  "variants": {
+    "": {
+      "model": "aether_legacy:block/skyroot_sapling"
+    }
+  }
 }

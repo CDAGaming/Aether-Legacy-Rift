@@ -3,62 +3,50 @@ package com.legacy.aether.client.particle;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.world.World;
 
-public class AetherParticle extends Particle
-{
+public class AetherParticle extends Particle {
 
-	public AetherParticle(World worldIn, double posXIn, double posYIn, double posZIn) 
-	{
-		super(worldIn, posXIn, posYIn, posZIn);
-	}
-
-    public AetherParticle(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn)
-    {
-		super(worldIn, xCoordIn, yCoordIn, zCoordIn, xSpeedIn, ySpeedIn, zSpeedIn);
+    public AetherParticle(World worldIn, double posXIn, double posYIn, double posZIn) {
+        super(worldIn, posXIn, posYIn, posZIn);
     }
 
-    public void setMotionX(double motionX)
-    {
-    	this.motionX = motionX;
+    public AetherParticle(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn) {
+        super(worldIn, xCoordIn, yCoordIn, zCoordIn, xSpeedIn, ySpeedIn, zSpeedIn);
     }
 
-    public void setMotionY(double motionY)
-    {
-    	this.motionY = motionY;
+    public double getX() {
+        return this.posX;
     }
 
-    public void setMotionZ(double motionZ)
-    {
-    	this.motionZ = motionZ;
+    public double getY() {
+        return this.posY;
     }
 
-    public double getX()
-    {
-    	return this.posX;
+    public double getZ() {
+        return this.posZ;
     }
 
-    public double getY()
-    {
-    	return this.posY;
+    public double getMotionX() {
+        return this.motionX;
     }
 
-    public double getZ()
-    {
-    	return this.posZ;
+    public void setMotionX(double motionX) {
+        this.motionX = motionX;
     }
 
-    public double getMotionX()
-    {
-    	return this.motionX;
+    public double getMotionY() {
+        return this.motionY;
     }
 
-    public double getMotionY()
-    {
-    	return this.motionY;
+    public void setMotionY(double motionY) {
+        this.motionY = motionY;
     }
 
-    public double getMotionZ()
-    {
-    	return this.motionZ;
+    public double getMotionZ() {
+        return this.motionZ;
+    }
+
+    public void setMotionZ(double motionZ) {
+        this.motionZ = motionZ;
     }
 
 }

@@ -1,50 +1,44 @@
 package com.legacy.aether.client.gui.dialogue.server;
 
-import io.netty.buffer.Unpooled;
-
-import java.util.ArrayList;
-
-import net.minecraft.client.Minecraft;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.network.play.client.CPacketCustomPayload;
-
 import com.google.common.collect.Lists;
 import com.legacy.aether.Aether;
 import com.legacy.aether.client.gui.dialogue.DialogueOption;
 import com.legacy.aether.client.gui.dialogue.GuiDialogue;
+import io.netty.buffer.Unpooled;
+import net.minecraft.client.Minecraft;
+import net.minecraft.network.PacketBuffer;
+import net.minecraft.network.play.client.CPacketCustomPayload;
 
-public class GuiServerDialogue extends GuiDialogue
-{
+import java.util.ArrayList;
 
-	private String dialogueName;
+public class GuiServerDialogue extends GuiDialogue {
 
-	public GuiServerDialogue(String dialogueName, String dialogue, ArrayList<String> dialogueText)
-	{
-		super(dialogue);
+    private String dialogueName;
 
-		this.dialogueName = dialogueName;
+    public GuiServerDialogue(String dialogueName, String dialogue, ArrayList<String> dialogueText) {
+        super(dialogue);
 
-		ArrayList<DialogueOption> dialogueOptions = Lists.newArrayList();
+        this.dialogueName = dialogueName;
 
-		for (String dialogueForOption : dialogueText)
-		{
-			dialogueOptions.add(new DialogueOption(dialogueForOption));
-		}
+        ArrayList<DialogueOption> dialogueOptions = Lists.newArrayList();
 
-        this.addDialogueOptions(dialogueOptions.toArray(new DialogueOption[] {}));
-	}
+        for (String dialogueForOption : dialogueText) {
+            dialogueOptions.add(new DialogueOption(dialogueForOption));
+        }
 
-	@Override
-	public void dialogueClicked(DialogueOption dialogue)
-	{
-		PacketBuffer buffer = new PacketBuffer(Unpooled.buffer());
+        this.addDialogueOptions(dialogueOptions.toArray(new DialogueOption[]{}));
+    }
 
-		buffer.writeString(this.dialogueName);
-		buffer.writeInt(dialogue.getDialogueId());
+    @Override
+    public void dialogueClicked(DialogueOption dialogue) {
+        PacketBuffer buffer = new PacketBuffer(Unpooled.buffer());
 
-		Minecraft.getMinecraft().player.connection.sendPacket(new CPacketCustomPayload(Aether.locate("dialogue_clicked"), buffer));
+        buffer.writeString(this.dialogueName);
+        buffer.writeInt(dialogue.getDialogueId());
 
-		this.dialogueTreeCompleted();
-	}
+        Minecraft.getMinecraft().player.connection.sendPacket(new CPacketCustomPayload(Aether.locate("dialogue_clicked"), buffer));
+
+        this.dialogueTreeCompleted();
+    }
 
 }

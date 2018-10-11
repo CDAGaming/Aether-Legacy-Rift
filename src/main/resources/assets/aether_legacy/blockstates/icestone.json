@@ -1,10 +1,7 @@
 {
-
-	"variants": {
-
-		"": {
-			"model": "aether_legacy:block/icestone"
-		}
-	}
-
+  "variants": {
+    "": {
+      "model": "aether_legacy:block/icestone"
+    }
+  }
 }

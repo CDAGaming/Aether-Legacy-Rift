@@ -7,8 +7,7 @@ import net.minecraft.util.IItemProvider;
 import net.minecraft.util.LazyLoadBase;
 import net.minecraft.util.SoundEvent;
 
-public class AetherArmorMaterial implements IArmorMaterial
-{
+public class AetherArmorMaterial implements IArmorMaterial {
 
     private static final int[] MAX_DAMAGE_ARRAY = new int[]{13, 15, 16, 11};
     private final String name;
@@ -22,8 +21,7 @@ public class AetherArmorMaterial implements IArmorMaterial
     private final float toughness;
     private final LazyLoadBase<Ingredient> ingredientLoader;
 
-    public AetherArmorMaterial(String name, int maxDamageFactor, int[] damageReductionAmountArray, int enchantability, SoundEvent soundEvent, float toughness, IItemProvider repairMaterial)
-    {
+    public AetherArmorMaterial(String name, int maxDamageFactor, int[] damageReductionAmountArray, int enchantability, SoundEvent soundEvent, float toughness, IItemProvider repairMaterial) {
         this.name = name;
         this.maxDamageFactor = maxDamageFactor;
         this.damageReductionAmountArray = damageReductionAmountArray;
@@ -33,46 +31,39 @@ public class AetherArmorMaterial implements IArmorMaterial
         this.ingredientLoader = new LazyLoadBase<>(() -> Ingredient.fromItems(repairMaterial));
     }
 
-	@Override
-	public int func_200896_a(EntityEquipmentSlot slot) 
-	{
+    @Override
+    public int func_200896_a(EntityEquipmentSlot slot) {
         return MAX_DAMAGE_ARRAY[slot.getIndex()] * this.maxDamageFactor;
-	}
+    }
 
-	@Override
-	public int func_200902_b(EntityEquipmentSlot slot)
-	{
+    @Override
+    public int func_200902_b(EntityEquipmentSlot slot) {
         return this.damageReductionAmountArray[slot.getIndex()];
-	}
+    }
 
-	@Override
-	public Ingredient func_200898_c() 
-	{
-		return this.ingredientLoader.getValue();
-	}
+    @Override
+    public Ingredient func_200898_c() {
+        return this.ingredientLoader.getValue();
+    }
 
-	@Override
-	public SoundEvent getSoundEvent()
-	{
-		return this.soundEvent;
-	}
+    @Override
+    public SoundEvent getSoundEvent() {
+        return this.soundEvent;
+    }
 
-	@Override
-	public String getName() 
-	{
-		return this.name;
-	}
+    @Override
+    public String getName() {
+        return this.name;
+    }
 
-	@Override
-	public float getToughness() 
-	{
-		return this.toughness;
-	}
+    @Override
+    public float getToughness() {
+        return this.toughness;
+    }
 
-	@Override
-	public int getEnchantability() 
-	{
-		return this.enchantability;
-	}
+    @Override
+    public int getEnchantability() {
+        return this.enchantability;
+    }
 
 }

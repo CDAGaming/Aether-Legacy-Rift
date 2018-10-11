@@ -1,10 +1,7 @@
 {
-
-	"variants": {
-
-		"": {
-			"model": "aether_legacy:block/purple_flower"
-		}
-	}
-
+  "variants": {
+    "": {
+      "model": "aether_legacy:block/purple_flower"
+    }
+  }
 }

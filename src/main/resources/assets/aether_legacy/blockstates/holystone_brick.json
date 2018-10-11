@@ -1,10 +1,7 @@
 {
-
-	"variants": {
-
-		"": {
-			"model": "aether_legacy:block/holystone_brick"
-		}
-	}
-
+  "variants": {
+    "": {
+      "model": "aether_legacy:block/holystone_brick"
+    }
+  }
 }

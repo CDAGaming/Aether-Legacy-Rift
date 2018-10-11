@@ -1,8 +1,7 @@
 package com.legacy.aether.item.tool;
 
-public interface IAetherTool
-{
+public interface IAetherTool {
 
-	AetherToolType getMaterial();
+    AetherToolType getMaterial();
 
 }

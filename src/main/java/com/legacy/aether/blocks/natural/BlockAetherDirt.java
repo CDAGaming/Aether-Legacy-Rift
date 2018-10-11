@@ -1,7 +1,5 @@
 package com.legacy.aether.blocks.natural;
 
-import java.util.Random;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -12,34 +10,31 @@ import net.minecraft.state.StateContainer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class BlockAetherDirt extends Block
-{
+import java.util.Random;
 
-	public static final BooleanProperty DOUBLE_DROP = BooleanProperty.create("double_drop");
+public class BlockAetherDirt extends Block {
 
-	public BlockAetherDirt() 
-	{
-		super(Block.Builder.create(Material.GROUND).hardnessAndResistance(0.2F, -1.0F).sound(SoundType.GROUND));
+    public static final BooleanProperty DOUBLE_DROP = BooleanProperty.create("double_drop");
 
-		this.setDefaultState(this.getDefaultState().withProperty(DOUBLE_DROP, true));
-	}
+    public BlockAetherDirt() {
+        super(Block.Builder.create(Material.GROUND).hardnessAndResistance(0.2F, -1.0F).sound(SoundType.GROUND));
 
-	@Override
-	public void fillStateContainer(StateContainer.Builder<Block, IBlockState> propertyBuilderIn)
-	{
-		propertyBuilderIn.add(DOUBLE_DROP);
-	}
+        this.setDefaultState(this.getDefaultState().withProperty(DOUBLE_DROP, true));
+    }
 
-	@Override
-	public IBlockState getStateForPlacement(BlockItemUseContext context)
-	{
-		return super.getStateForPlacement(context).withProperty(DOUBLE_DROP, false);
-	}
+    @Override
+    public void fillStateContainer(StateContainer.Builder<Block, IBlockState> propertyBuilderIn) {
+        propertyBuilderIn.add(DOUBLE_DROP);
+    }
 
-	@Override
-	public int getItemsToDropCount(IBlockState stateIn, int fortuneIn, World worldIn, BlockPos posIn, Random randomIn)
-	{
-		return stateIn.getValue(DOUBLE_DROP) ? 2 : 1;
-	}
+    @Override
+    public IBlockState getStateForPlacement(BlockItemUseContext context) {
+        return super.getStateForPlacement(context).withProperty(DOUBLE_DROP, false);
+    }
+
+    @Override
+    public int getItemsToDropCount(IBlockState stateIn, int fortuneIn, World worldIn, BlockPos posIn, Random randomIn) {
+        return stateIn.getValue(DOUBLE_DROP) ? 2 : 1;
+    }
 
 }

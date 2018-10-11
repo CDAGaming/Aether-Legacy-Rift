@@ -1,9 +1,6 @@
 package com.legacy.aether.blocks.natural.ore;
 
-import java.util.Random;
-
 import com.legacy.aether.item.ItemsAether;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -15,61 +12,52 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
-public class BlockAmbrosiumOre extends Block
-{
+import java.util.Random;
 
-	public static final BooleanProperty DOUBLE_DROP = BooleanProperty.create("double_drop");
+public class BlockAmbrosiumOre extends Block {
 
-	public BlockAmbrosiumOre()
-	{
-		super(Block.Builder.create(Material.ROCK).hardnessAndResistance(3.0F, 5.0F).sound(SoundType.STONE));
+    public static final BooleanProperty DOUBLE_DROP = BooleanProperty.create("double_drop");
 
-		this.setDefaultState(this.getDefaultState().withProperty(DOUBLE_DROP, true));
-	}
+    public BlockAmbrosiumOre() {
+        super(Block.Builder.create(Material.ROCK).hardnessAndResistance(3.0F, 5.0F).sound(SoundType.STONE));
 
-	@Override
-	public IItemProvider getItemDropped(IBlockState stateIn, World worldIn, BlockPos posIn, int fortune)
-	{
-		return ItemsAether.ambrosium_shard;
-	}
+        this.setDefaultState(this.getDefaultState().withProperty(DOUBLE_DROP, true));
+    }
 
-	@Override
-	public void fillStateContainer(StateContainer.Builder<Block, IBlockState> propertyBuilderIn)
-	{
-		propertyBuilderIn.add(DOUBLE_DROP);
-	}
+    @Override
+    public IItemProvider getItemDropped(IBlockState stateIn, World worldIn, BlockPos posIn, int fortune) {
+        return ItemsAether.ambrosium_shard;
+    }
 
-	@Override
-	public void dropBlockAsItemWithChance(IBlockState stateIn, World worldIn, BlockPos posIn, float chanceIn, int fortuneIn)
-	{
-		super.dropBlockAsItemWithChance(stateIn, worldIn, posIn, chanceIn, fortuneIn);
+    @Override
+    public void fillStateContainer(StateContainer.Builder<Block, IBlockState> propertyBuilderIn) {
+        propertyBuilderIn.add(DOUBLE_DROP);
+    }
 
-		super.dropXpOnBlockBreak(worldIn, posIn, MathHelper.getInt(new Random(), 0, 2));
-	}
+    @Override
+    public void dropBlockAsItemWithChance(IBlockState stateIn, World worldIn, BlockPos posIn, float chanceIn, int fortuneIn) {
+        super.dropBlockAsItemWithChance(stateIn, worldIn, posIn, chanceIn, fortuneIn);
 
-	@Override
-    public int getItemsToDropCount(IBlockState stateIn, int fortuneIn, World worldIn, BlockPos posIn, Random randomIn)
-    {
-        if (fortuneIn > 0)
-        {
+        super.dropXpOnBlockBreak(worldIn, posIn, MathHelper.getInt(new Random(), 0, 2));
+    }
+
+    @Override
+    public int getItemsToDropCount(IBlockState stateIn, int fortuneIn, World worldIn, BlockPos posIn, Random randomIn) {
+        if (fortuneIn > 0) {
             int i = randomIn.nextInt(fortuneIn + 2) - 1;
 
-            if (i < 0)
-            {
+            if (i < 0) {
                 i = 0;
             }
 
             return this.getItemsToDropCount(stateIn, randomIn) * (i + 1);
-        }
-        else
-        {
+        } else {
             return this.getItemsToDropCount(stateIn, randomIn);
         }
     }
 
-	public int getItemsToDropCount(IBlockState stateIn, Random randIn)
-	{
-		return stateIn.getValue(DOUBLE_DROP) ? 2 : 1;
-	}
+    public int getItemsToDropCount(IBlockState stateIn, Random randIn) {
+        return stateIn.getValue(DOUBLE_DROP) ? 2 : 1;
+    }
 
 }

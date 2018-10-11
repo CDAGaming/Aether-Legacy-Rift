@@ -5,29 +5,25 @@ import net.minecraft.item.IItemTier;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemSpade;
 
-public class ItemAetherShovel extends ItemSpade implements IAetherTool
-{
+public class ItemAetherShovel extends ItemSpade implements IAetherTool {
 
-	private final AetherToolType material;
+    private final AetherToolType material;
 
-	public ItemAetherShovel(AetherToolType material, IItemTier itemTier, float damageVsEntity, float attackSpeed) 
-	{
-		super(itemTier, damageVsEntity, attackSpeed, new Builder().group(ItemGroup.TOOLS));
+    public ItemAetherShovel(AetherToolType material, IItemTier itemTier, float damageVsEntity, float attackSpeed) {
+        super(itemTier, damageVsEntity, attackSpeed, new Builder().group(ItemGroup.TOOLS));
 
-		this.material = material;
-	}
+        this.material = material;
+    }
 
-	public ItemAetherShovel(AetherToolType material, EnumRarity rarity, IItemTier itemTier, float damageVsEntity, float attackSpeed) 
-	{
-		super(itemTier, damageVsEntity, attackSpeed, new Builder().group(ItemGroup.TOOLS).rarity(rarity));
+    public ItemAetherShovel(AetherToolType material, EnumRarity rarity, IItemTier itemTier, float damageVsEntity, float attackSpeed) {
+        super(itemTier, damageVsEntity, attackSpeed, new Builder().group(ItemGroup.TOOLS).rarity(rarity));
 
-		this.material = material;
-	}
+        this.material = material;
+    }
 
-	@Override
-	public AetherToolType getMaterial() 
-	{
-		return this.material;
-	}
+    @Override
+    public AetherToolType getMaterial() {
+        return this.material;
+    }
 
 }

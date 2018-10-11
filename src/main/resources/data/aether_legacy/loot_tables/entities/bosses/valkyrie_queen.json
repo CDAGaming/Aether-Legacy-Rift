@@ -1,108 +1,144 @@
 {
-    "pools": [
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
         {
-            "rolls": 1,
-            "entries": [
-                {
-                    "type": "item",
-                    "name": "aether_legacy:silver_key"
-                }
-			]
-		},
-		{
-			"rolls": 1,
-            "entries": [
-                {
-                    "type": "item",
-                    "name": "minecraft:golden_sword",
-					"functions": [
-                        {
-                            "function": "set_name",
-                            "name": {"italic":"false", "color":"yellow", "text":"Valkyrie Queen's Blade"}
-                        }
-					]
-                },
-				{
-                    "type": "item",
-                    "name": "minecraft:golden_sword",
-					"functions": [
-                        {
-                            "function": "set_name",
-                            "name": {"italic":"false", "color":"yellow", "text":"Sword of Omens"}
-                        }
-					]
-                },
-				{
-                    "type": "item",
-                    "name": "minecraft:golden_sword",
-					"functions": [
-                        {
-                            "function": "set_name",
-                            "name": {"italic":"false", "color":"yellow", "text":"Aerscalibur"}
-                        }
-					]
-                },
-				{
-                    "type": "item",
-                    "name": "minecraft:golden_sword",
-					"functions": [
-                        {
-                            "function": "set_name",
-                            "name": {"italic":"false", "color":"yellow", "text":"Valkyrie's Edge"}
-                        }
-					]
-                },
-				{
-                    "type": "item",
-                    "name": "minecraft:golden_sword",
-					"functions": [
-                        {
-                            "function": "set_name",
-                            "name": {"italic":"false", "color":"yellow", "text":"Loyal Crusader"}
-                        }
-					]
-                },
-				{
-                    "type": "item",
-                    "name": "minecraft:golden_sword",
-					"functions": [
-                        {
-                            "function": "set_name",
-                            "name": {"italic":"false", "color":"yellow", "text":"Bronze Duality"}
-                        }
-					]
-                },
-				{
-                    "type": "item",
-                    "name": "minecraft:golden_sword",
-					"functions": [
-                        {
-                            "function": "set_name",
-                            "name": {"italic":"false", "color":"yellow", "text":"Kaieso Fedeuios"}
-                        }
-					]
-                },
-				{
-                    "type": "item",
-                    "name": "minecraft:golden_sword",
-					"functions": [
-                        {
-                            "function": "set_name",
-                            "name": {"italic":"false", "color":"yellow", "text":"Lucidium"}
-                        }
-					]
-                },
-				{
-                    "type": "item",
-                    "name": "minecraft:golden_sword",
-					"functions": [
-                        {
-                            "function": "set_name",
-                            "name": {"italic":"false", "color":"yellow", "text":"Aumarus Blade"}
-                        }
-					]
-                }
-			]
+          "type": "item",
+          "name": "aether_legacy:silver_key"
         }
-    ]
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "item",
+          "name": "minecraft:golden_sword",
+          "functions": [
+            {
+              "function": "set_name",
+              "name": {
+                "italic": "false",
+                "color": "yellow",
+                "text": "Valkyrie Queen's Blade"
+              }
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:golden_sword",
+          "functions": [
+            {
+              "function": "set_name",
+              "name": {
+                "italic": "false",
+                "color": "yellow",
+                "text": "Sword of Omens"
+              }
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:golden_sword",
+          "functions": [
+            {
+              "function": "set_name",
+              "name": {
+                "italic": "false",
+                "color": "yellow",
+                "text": "Aerscalibur"
+              }
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:golden_sword",
+          "functions": [
+            {
+              "function": "set_name",
+              "name": {
+                "italic": "false",
+                "color": "yellow",
+                "text": "Valkyrie's Edge"
+              }
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:golden_sword",
+          "functions": [
+            {
+              "function": "set_name",
+              "name": {
+                "italic": "false",
+                "color": "yellow",
+                "text": "Loyal Crusader"
+              }
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:golden_sword",
+          "functions": [
+            {
+              "function": "set_name",
+              "name": {
+                "italic": "false",
+                "color": "yellow",
+                "text": "Bronze Duality"
+              }
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:golden_sword",
+          "functions": [
+            {
+              "function": "set_name",
+              "name": {
+                "italic": "false",
+                "color": "yellow",
+                "text": "Kaieso Fedeuios"
+              }
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:golden_sword",
+          "functions": [
+            {
+              "function": "set_name",
+              "name": {
+                "italic": "false",
+                "color": "yellow",
+                "text": "Lucidium"
+              }
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:golden_sword",
+          "functions": [
+            {
+              "function": "set_name",
+              "name": {
+                "italic": "false",
+                "color": "yellow",
+                "text": "Aumarus Blade"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }

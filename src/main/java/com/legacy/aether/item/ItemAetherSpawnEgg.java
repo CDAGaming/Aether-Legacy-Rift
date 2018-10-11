@@ -5,12 +5,10 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemSpawnEgg;
 
-public class ItemAetherSpawnEgg extends ItemSpawnEgg
-{
+public class ItemAetherSpawnEgg extends ItemSpawnEgg {
 
-	public ItemAetherSpawnEgg(EntityType<?> entityType, int primaryEggColor, int seconaryEggColor)
-	{
-		super(entityType, primaryEggColor, seconaryEggColor, new Item.Builder().group(ItemGroup.MISC));
-	}
+    public ItemAetherSpawnEgg(EntityType<?> entityType, int primaryEggColor, int seconaryEggColor) {
+        super(entityType, primaryEggColor, seconaryEggColor, new Item.Builder().group(ItemGroup.MISC));
+    }
 
 }
