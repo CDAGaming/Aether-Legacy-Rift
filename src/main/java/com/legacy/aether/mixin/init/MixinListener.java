@@ -6,11 +6,10 @@ import org.spongepowered.asm.mixin.Mixins;
 
 public class MixinListener implements InitializationListener
 {
-
 	@Override
 	public void onInitialization() 
 	{
-		MixinBootstrap.init(); //???
+		MixinBootstrap.init();
 		Mixins.addConfiguration("mixins.aether_legacy.json");
 	}
 
