@@ -39,17 +39,16 @@ public class MoaRenderer extends RenderLiving<EntityMoa> {
 
     @Override
     protected ResourceLocation getEntityTexture(EntityMoa entity) {
-        EntityMoa moa = (EntityMoa) entity;
 
-        if (moa.isBeingRidden() && moa.getPassengers().get(0) instanceof EntityPlayer) {
-            PlayerAether player = ((IEntityPlayerAether) moa.getPassengers().get(0)).getPlayerAether();
+        if (entity.isBeingRidden() && entity.getPassengers().get(0) instanceof EntityPlayer) {
+            PlayerAether player = ((IEntityPlayerAether) entity.getPassengers().get(0)).getPlayerAether();
 
             if (player != null && !player.donationPerks.getMoaSkin().shouldUseDefualt()) {
                 return null;
             }
         }
 
-        return moa.getMoaType().getTexture(false);
+        return entity.getMoaType().getTexture(false);
     }
 
 }

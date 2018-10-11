@@ -4,6 +4,6 @@ import net.minecraft.entity.Entity;
 
 public interface IPlayerAether {
 
-    public Entity getEntity();
+    Entity getEntity();
 
 }

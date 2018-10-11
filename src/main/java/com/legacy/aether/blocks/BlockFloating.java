@@ -46,7 +46,7 @@ public class BlockFloating extends Block {
     @Override
     public void tick(IBlockState stateIn, World worldIn, BlockPos posIn, Random randIn) {
         if (!worldIn.isRemote) {
-            if (this.constantlyPowered || (!this.constantlyPowered && worldIn.isBlockPowered(posIn))) {
+            if (this.constantlyPowered || worldIn.isBlockPowered(posIn)) {
                 this.checkFloatable(worldIn, posIn);
             }
         }

@@ -35,7 +35,7 @@ public class ChestMimicRenderer extends RenderLiving<EntityChestMimic> {
 
         Calendar calendar = Calendar.getInstance();
 
-        if (calendar.get(2) + 1 == 12 && calendar.get(5) >= 24 && calendar.get(5) <= 26) {
+        if (calendar.get(Calendar.MONTH) + 1 == 12 && calendar.get(Calendar.DATE) >= 24 && calendar.get(Calendar.DATE) <= 26) {
             this.bindTexture(TEXTURE_HEAD);
             this.modelbase.renderHead(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0625F, mimic);
             this.bindTexture(TEXTURE_LEGS);

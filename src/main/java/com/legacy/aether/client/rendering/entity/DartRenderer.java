@@ -43,7 +43,7 @@ public class DartRenderer extends Render<EntityDart> {
         byte i = 1;
         float f2 = 0.0F;
         float f3 = 0.5F;
-        float f4 = (float) (0 + i * 10) / 32.0F;
+        float f4 = (float) (i * 10) / 32.0F;
         float f5 = (float) (5 + i * 10) / 32.0F;
         float f6 = 0.0F;
         float f7 = 0.15625F;
