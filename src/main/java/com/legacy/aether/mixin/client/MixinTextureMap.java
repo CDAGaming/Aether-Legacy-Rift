@@ -13,12 +13,14 @@ import org.spongepowered.asm.mixin.Overwrite;
 
 import com.legacy.aether.Aether;
 import com.legacy.aether.inventory.InventoryAccessories;
+import org.spongepowered.asm.mixin.Shadow;
 
 @Mixin(TextureMap.class)
 public class MixinTextureMap 
 {
 
-	@Final private Set<ResourceLocation> field_195427_i;
+	@Shadow
+    @Final private Set<ResourceLocation> field_195427_i;
 
 	/**
      * @author Modding Legacy
@@ -29,9 +31,7 @@ public class MixinTextureMap
         this.field_195427_i.clear();
 
         resourceList.forEach((p_195423_2_) ->
-        {
-        	((TextureMap) (ITextureObject) this).registerSprite(resourceManager, p_195423_2_);
-        });
+                ((TextureMap) (ITextureObject) this).registerSprite(resourceManager, p_195423_2_));
 
 		for (int i = 0; i < InventoryAccessories.EMPTY_SLOT_NAMES.length; ++i)
 		{
