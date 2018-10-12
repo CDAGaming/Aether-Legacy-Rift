@@ -35,9 +35,9 @@ import com.legacy.aether.client.particle.ParticlePassiveWhirly;
 import com.legacy.aether.entities.EntityTypesAether;
 import com.legacy.aether.player.perks.AetherRankings;
 
-public class EntityWhirlwind extends EntityMob 
+public class EntityWhirlwind //extends EntityMob
 {
-
+/*
 	public static final DataParameter<Boolean> IS_EVIL = EntityDataManager.<Boolean>createKey(EntityWhirlwind.class, DataSerializers.BOOLEAN);
 
 	public static final DataParameter<Integer> COLOR_DATA = EntityDataManager.createKey(EntityWhirlwind.class, DataSerializers.VARINT);
@@ -451,5 +451,5 @@ public class EntityWhirlwind extends EntityMob
     {
         return collidedHorizontally;
     }
-
+*/
 }

@@ -55,8 +55,8 @@ public class BlockFreezer extends BlockAetherContainer
 			float f1 = (float)posIn.getY() + 1.0F + (randIn.nextFloat() * 6F) / 16F;
 			float f2 = (float)posIn.getZ() + 0.5F;
 
-			worldIn.addParticle(Particles.SMOKE, true, f, f1, f2, 0.0D, 0.0D, 0.0D);
-			worldIn.addParticle(Particles.CLOUD, true, f, f1, f2, 0.0D, 0.0D, 0.0D);
+			worldIn.spawnParticle(Particles.SMOKE, f, f1, f2, 0.0D, 0.0D, 0.0D);
+			worldIn.spawnParticle(Particles.CLOUD, f, f1, f2, 0.0D, 0.0D, 0.0D);
 			
 			if (randIn.nextDouble() < 0.1D)
             {
