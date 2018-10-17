@@ -76,7 +76,7 @@ public class PlayerAether implements IPlayerAether
 		{
 			if (this.inPortal && this.portalCooldown <= 0)
 			{
-				int limit = this.getPlayer().getMaxInPortalTime();
+				int limit = 80;
 
 				if (this.timeInPortal++ >= limit)
 				{
@@ -119,7 +119,7 @@ public class PlayerAether implements IPlayerAether
 
 			if (server != null && server.getPlayerList() != null)
 			{
-				AetherTeleportation.travelDimension((EntityPlayerMP) this.player, dimensionToTravel, new TeleporterAether(true, server.getWorld(dimensionToTravel)));
+				AetherTeleportation.travelDimension((EntityPlayerMP) this.player, dimensionToTravel, new TeleporterAether(shouldSpawnPortal, server.getWorld(dimensionToTravel)));
 			}
 		}
 	}
