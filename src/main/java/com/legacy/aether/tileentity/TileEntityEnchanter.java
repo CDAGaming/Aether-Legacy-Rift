@@ -38,7 +38,7 @@ public class TileEntityEnchanter extends AetherTileEntity
 	}
 
 	@Override
-	public void update()
+	public void tick()
 	{
 		boolean isActive = this.isEnchanting();
 
@@ -135,23 +135,23 @@ public class TileEntityEnchanter extends AetherTileEntity
 	}
 
 	@Override
-	public void readFromNBT(NBTTagCompound compound)
+	public void read(NBTTagCompound compound)
 	{
-		super.readFromNBT(compound);
+		super.read(compound);
 
-		this.progress = compound.getInteger("progress");
-		this.powerRemaining = compound.getInteger("powerRemaining");
-		this.ticksRequired = compound.getInteger("ticksRequired");
+		this.progress = compound.getInt("progress");
+		this.powerRemaining = compound.getInt("powerRemaining");
+		this.ticksRequired = compound.getInt("ticksRequired");
 	}
 
 	@Override
-	public NBTTagCompound writeToNBT(NBTTagCompound compound)
+	public NBTTagCompound write(NBTTagCompound compound)
 	{
-		compound.setInteger("progress", this.progress);
-		compound.setInteger("powerRemaining", this.powerRemaining);
-		compound.setInteger("ticksRequired", this.ticksRequired);
+		compound.putInt("progress", this.progress);
+		compound.putInt("powerRemaining", this.powerRemaining);
+		compound.putInt("ticksRequired", this.ticksRequired);
 
-		return super.writeToNBT(compound);
+		return super.write(compound);
 	}
 
 	@Override

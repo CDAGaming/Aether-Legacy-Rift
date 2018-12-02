@@ -62,11 +62,11 @@ public class EntityAerbunny extends EntityAetherAnimal
     }
 
 	@Override
-    protected void applyEntityAttributes()
+    protected void registerAttributes()
     {
-        super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.25D);
-        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(5.0D);
+        super.registerAttributes();
+        this.getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.25D);
+        this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(5.0D);
 	}
 
 	@Override
@@ -101,7 +101,7 @@ public class EntityAerbunny extends EntityAetherAnimal
                 double d1 = this.rand.nextGaussian() * 0.02D;
                 double d2 = this.rand.nextGaussian() * 0.02D;
                 double d3 = 10.0D;
-                this.world.spawnParticle(Particles.CLOUD, this.posX + (double)(this.rand.nextFloat() * this.width * 2.0F) - (double)this.width - d0 * d3, this.posY + (double)(this.rand.nextFloat() * this.height) - d1 * d3, this.posZ + (double)(this.rand.nextFloat() * this.width * 2.0F) - (double)this.width - d2 * d3, d0, d1, d2);
+                this.world.addParticle(Particles.CLOUD, this.posX + (double)(this.rand.nextFloat() * this.width * 2.0F) - (double)this.width - d0 * d3, this.posY + (double)(this.rand.nextFloat() * this.height) - d1 * d3, this.posZ + (double)(this.rand.nextFloat() * this.width * 2.0F) - (double)this.width - d2 * d3, d0, d1, d2);
             }
         }
         else
@@ -137,14 +137,14 @@ public class EntityAerbunny extends EntityAetherAnimal
     }
 
 	@Override
-	protected void entityInit()
+	protected void registerData()
 	{
-		super.entityInit();
+		super.registerData();
         this.dataManager.register(PUFF, new Integer(0));
     }
 
 	@Override
-    public void onUpdate()
+    public void tick()
     {
     	this.setPuffinessClient(this.getPuffinessClient() - 1);
         this.setPuffiness(this.getPuffiness() - 1);
@@ -159,11 +159,11 @@ public class EntityAerbunny extends EntityAetherAnimal
             this.setPuffiness(0);
         }
 
-        super.onUpdate();
+        super.tick();
     }
 
 	@Override
-    public void onLivingUpdate()
+    public void livingTick()
     {
         if (this.onGround)
         {
@@ -201,7 +201,7 @@ public class EntityAerbunny extends EntityAetherAnimal
                     double d5 = (float)posY + height + 0.125F;
                     double d8 = (float)posZ + rand.nextFloat() * 0.25F;
                     float f1 = rand.nextFloat() * 360F;
-                    this.world.spawnParticle(Particles.SMOKE, -Math.sin(0.01745329F * f1) * 0.75D, d5 - 0.25D, Math.cos(0.01745329F * f1) * 0.75D, d2, 0.125D, d8);
+                    this.world.addParticle(Particles.SMOKE, -Math.sin(0.01745329F * f1) * 0.75D, d5 - 0.25D, Math.cos(0.01745329F * f1) * 0.75D, d2, 0.125D, d8);
                 }
             }
 
@@ -213,7 +213,7 @@ public class EntityAerbunny extends EntityAetherAnimal
 
             if(!player.onGround && !player.isElytraFlying())
             {
-            	if (!player.capabilities.isFlying)
+            	if (!player.abilities.isFlying)
             	{
                 	player.motionY += 0.05000000074505806D;
             	}
@@ -233,7 +233,7 @@ public class EntityAerbunny extends EntityAetherAnimal
             }
         }
 
-        super.onLivingUpdate();
+        super.livingTick();
     }
 
     @Override
@@ -264,9 +264,9 @@ public class EntityAerbunny extends EntityAetherAnimal
         {
         	//this.world.playSound(this.posX, this.posY, this.posZ, SoundsAether.aerbunny_lift, SoundCategory.NEUTRAL, 1.0F, (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F, false);
 
-            if (this.isRiding())
+            if (this.isOnePlayerRiding())
             {
-                this.dismountRidingEntity();
+                this.stopRiding();
             }
             else
             {

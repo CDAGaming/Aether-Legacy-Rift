@@ -1,5 +1,6 @@
 package com.legacy.aether.entities;
 
+import com.legacy.aether.Aether;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EntityType.Builder;
@@ -79,8 +80,8 @@ public class EntityTypesAether implements EntityTypeAdder, ItemAdder
 	@Override
 	public void registerItems()
 	{
-		Item.registerItem("aether_legacy:aechor_plant_spawn_egg", new ItemAetherSpawnEgg(AECHOR_PLANT, 0x9fc3f7, 0x29a793));
-		Item.registerItem("aether_legacy:cockatrice_spawn_egg", new ItemAetherSpawnEgg(COCKATRICE, 0x9fc3f7, 0x3d2338));
+		Item.register(Aether.locate("aechor_plant_spawn_egg"), new ItemAetherSpawnEgg(AECHOR_PLANT, 0x9fc3f7, 0x29a793));
+		Item.register(Aether.locate("cockatrice_spawn_egg"), new ItemAetherSpawnEgg(COCKATRICE, 0x9fc3f7, 0x3d2338));
 	}
 
 	public EntityType<? extends Entity> register(String name, Builder<? extends Entity> entityBuilder)

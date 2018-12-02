@@ -28,7 +28,7 @@ public class EntityAIUpdateState extends EntityAIBase
     }
 
 	@Override
-    public void updateTask()
+    public void tick()
     {
         long curtime = System.currentTimeMillis();
 
@@ -48,7 +48,7 @@ public class EntityAIUpdateState extends EntityAIBase
                 }
                 else
                 {
-                    this.entity.setDead();
+                    this.entity.remove();
                 }
             }
 
@@ -60,7 +60,7 @@ public class EntityAIUpdateState extends EntityAIBase
 	@Override
 	public boolean shouldExecute()
 	{
-		return !this.entity.isDead;
+		return !this.entity.removed;
 	}
 
 }

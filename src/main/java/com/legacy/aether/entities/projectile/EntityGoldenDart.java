@@ -26,9 +26,9 @@ public class EntityGoldenDart extends EntityDart
 	}
 
 	@Override
-	protected void entityInit()
+	protected void registerData()
 	{
-		super.entityInit();
+		super.registerData();
 
 		this.setDamage(6.0D);
 	}

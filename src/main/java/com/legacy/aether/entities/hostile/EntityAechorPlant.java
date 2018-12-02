@@ -52,16 +52,16 @@ public class EntityAechorPlant extends EntityAetherAnimal implements IRangedAtta
     }
 
 	@Override
-    protected void applyEntityAttributes()
+    protected void registerAttributes()
     {
-        super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(20.0D);
+        super.registerAttributes();
+        this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(20.0D);
     }
 
 	@Override
-	public void onUpdate()
+	public void tick()
 	{
-		super.onUpdate();
+		super.tick();
 
 		if (this.hurtTime > 0)
 		{
@@ -84,7 +84,7 @@ public class EntityAechorPlant extends EntityAetherAnimal implements IRangedAtta
 
 		if(this.world.getBlockState(this.getPosition().down()).getBlock() != BlocksAether.aether_grass)
 		{
-			this.setDead();
+			this.remove();
 		}
 	}
 
@@ -122,7 +122,7 @@ public class EntityAechorPlant extends EntityAetherAnimal implements IRangedAtta
 	{
 		ItemStack heldItem = player.getHeldItem(hand);
 
-		if (heldItem.getItem() == ItemsAether.skyroot_bucket && !player.capabilities.isCreativeMode)
+		if (heldItem.getItem() == ItemsAether.skyroot_bucket && !player.abilities.isCreativeMode)
 		{
 			heldItem.shrink(1);
 
@@ -153,19 +153,19 @@ public class EntityAechorPlant extends EntityAetherAnimal implements IRangedAtta
 	}
 
 	@Override
-	public void writeEntityToNBT(NBTTagCompound compound)
+	public void writeAdditional(NBTTagCompound compound)
     {
-        super.writeEntityToNBT(compound);
+        super.writeAdditional(compound);
 
-        compound.setInteger("size", this.size);
+        compound.putInt("size", this.size);
     }
 
 	@Override
-    public void readEntityFromNBT(NBTTagCompound compound)
+    public void readAdditional(NBTTagCompound compound)
     {
-        super.readEntityFromNBT(compound);
+        super.readAdditional(compound);
 
-		this.size = compound.getInteger("size");
+		this.size = compound.getInt("size");
     }
 
 	@Override

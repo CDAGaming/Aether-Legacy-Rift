@@ -31,7 +31,7 @@ public class FlyingCowWingModel extends ModelBase
         EntityFlyingCow flyingcow = ((EntityFlyingCow)entityIn);
 
         GlStateManager.pushMatrix();
-        GlStateManager.translate(0.0F, -10.0F * scale, 0.0F);
+        GlStateManager.translatef(0.0F, -10.0F * scale, 0.0F);
 
         float wingBend = -((float)Math.acos((double)flyingcow.wingFold));
 

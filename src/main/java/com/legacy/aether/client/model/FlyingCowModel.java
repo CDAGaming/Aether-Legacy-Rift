@@ -51,8 +51,8 @@ public class FlyingCowModel extends ModelQuadruped
         if (this.isChild)
         {
             float f6 = 2.0F;
-            GlStateManager.scale(1.0F / f6, 1.0F / f6, 1.0F / f6);
-            GlStateManager.translate(0.0F, 24.0F * scale, 0.0F);
+            GlStateManager.scalef(1.0F / f6, 1.0F / f6, 1.0F / f6);
+            GlStateManager.translatef(0.0F, 24.0F * scale, 0.0F);
             this.horn1.render(scale);
             this.horn2.render(scale);
             this.udders.render(scale);

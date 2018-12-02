@@ -31,9 +31,9 @@ public class ChestMimicRenderer extends RenderLiving<EntityChestMimic>
     public void doRender(EntityChestMimic mimic, double x, double y, double z, float pitch, float yaw)
     {
         GlStateManager.pushMatrix();
-        GlStateManager.translate(x, y, z);
-        GlStateManager.rotate(180.0F - pitch, 0.0F, 1.0F, 0.0F);
-        GlStateManager.scale(-1.0F, -1.0F, 1.0F);
+        GlStateManager.translated(x, y, z);
+        GlStateManager.rotatef(180.0F - pitch, 0.0F, 1.0F, 0.0F);
+        GlStateManager.scalef(-1.0F, -1.0F, 1.0F);
 
 		this.modelbase.setRotationAngles(0,0F, 0.0F, 0.0F, 0.0F, 0.0F, mimic);
 

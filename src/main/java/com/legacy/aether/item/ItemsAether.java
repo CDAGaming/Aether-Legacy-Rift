@@ -4,7 +4,6 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
-import net.minecraft.item.Item.Builder;
 import net.minecraft.util.text.TextFormatting;
 
 import org.dimdev.rift.listener.ItemAdder;
@@ -171,7 +170,7 @@ public class ItemsAether implements ItemAdder
 		sentry_boots = register("sentry_boots", new ItemAetherArmor("sentry", AetherArmorType.Valkyrie, AETHER_LOOT, EntityEquipmentSlot.FEET));
 
 		blueberry = register("blueberry", new ItemAetherFood(2, 2.0F));
-		enchanted_blueberry = register("enchanted_blueberry", new ItemAetherFood(new Builder().group(ItemGroup.FOOD).rarity(EnumRarity.RARE), 8, 10.0F));
+		enchanted_blueberry = register("enchanted_blueberry", new ItemAetherFood(new Item.Properties().group(ItemGroup.FOOD).rarity(EnumRarity.RARE), 8, 10.0F));
 		//white_apple = register("white_apple", new ItemWhiteApple());
 		blue_gummy_swet = register("blue_gummy_swet", new ItemGummySwet());
 		golden_gummy_swet = register("golden_gummy_swet", new ItemGummySwet());
@@ -226,7 +225,7 @@ public class ItemsAether implements ItemAdder
 
 	public Item register(String name, Item item)
 	{
-		Item.registerItem(Aether.locate(name).toString(), item);
+		Item.register(Aether.locate(name), item);
 
 		if (item instanceof ItemAccessory)
 		{

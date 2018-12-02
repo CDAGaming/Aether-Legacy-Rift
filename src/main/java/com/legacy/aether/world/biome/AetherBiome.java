@@ -73,13 +73,13 @@ public class AetherBiome extends Biome
     }
 
 	@Override
-    public int getGrassColorAtPos(BlockPos pos)
+    public int getGrassColor(BlockPos pos)
     {
         return 0xb1ffcb;
     }
 
 	@Override
-    public int getFoliageColorAtPos(BlockPos pos)
+    public int getFoliageColor(BlockPos pos)
     {
         return 0xb1ffcb;
     }

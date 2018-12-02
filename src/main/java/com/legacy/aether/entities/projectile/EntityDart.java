@@ -27,13 +27,13 @@ public abstract class EntityDart extends EntityArrow implements IProjectile
 	}
 
 	@Override
-    public void onUpdate()
+    public void tick()
     {
-        super.onUpdate();
+        super.tick();
 
         if (this.ticksInAir == 500)
         {
-        	this.setDead();
+        	this.remove();
         }
 
         if (!this.onGround)

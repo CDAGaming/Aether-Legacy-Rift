@@ -30,14 +30,14 @@ public class ItemAetherHoe extends ItemHoe implements IAetherTool
 
 	public ItemAetherHoe(AetherToolType material, IItemTier itemTier, float attackSpeed)
 	{
-		super(itemTier, attackSpeed, new Builder().group(ItemGroup.TOOLS));
+		super(itemTier, attackSpeed, new Properties().group(ItemGroup.TOOLS));
 
 		this.material = material;
 	}
 
 	public ItemAetherHoe(AetherToolType material, EnumRarity rarity, IItemTier itemTier, float attackSpeed)
 	{
-		super(itemTier, attackSpeed, new Builder().group(ItemGroup.TOOLS).rarity(rarity));
+		super(itemTier, attackSpeed, new Properties().group(ItemGroup.TOOLS).rarity(rarity));
 
 		this.material = material;
 	}

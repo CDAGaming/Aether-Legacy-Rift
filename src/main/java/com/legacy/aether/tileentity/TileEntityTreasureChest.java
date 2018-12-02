@@ -16,21 +16,21 @@ public class TileEntityTreasureChest extends TileEntityChest
     private int kind = 0;
 
     @Override
-    public void readFromNBT(NBTTagCompound par1nbtTagCompound)
+    public void read(NBTTagCompound par1nbtTagCompound)
     {
-        super.readFromNBT(par1nbtTagCompound);
+        super.read(par1nbtTagCompound);
 
         this.locked = par1nbtTagCompound.getBoolean("locked");
-        this.kind = par1nbtTagCompound.getInteger("dungeonType");
+        this.kind = par1nbtTagCompound.getInt("dungeonType");
     }
 
     @Override
-    public NBTTagCompound writeToNBT(NBTTagCompound par1nbtTagCompound)
+    public NBTTagCompound write(NBTTagCompound par1nbtTagCompound)
     {
-    	super.writeToNBT(par1nbtTagCompound);
+    	super.write(par1nbtTagCompound);
  
-    	par1nbtTagCompound.setBoolean("locked", this.locked);
-    	par1nbtTagCompound.setInteger("dungeonType", this.kind);
+    	par1nbtTagCompound.putBoolean("locked", this.locked);
+    	par1nbtTagCompound.putInt("dungeonType", this.kind);
 
         return par1nbtTagCompound;
     }
@@ -54,14 +54,14 @@ public class TileEntityTreasureChest extends TileEntityChest
 
 	public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt)
     {
-        this.readFromNBT(pkt.getNbtCompound());
+        this.read(pkt.getNbtCompound());
     }
 
     @Override
     public SPacketUpdateTileEntity getUpdatePacket()
     {
         NBTTagCompound var1 = new NBTTagCompound();
-        this.writeToNBT(var1);
+        this.write(var1);
         return new SPacketUpdateTileEntity(this.pos, 191, var1);
     }
 

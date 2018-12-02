@@ -64,7 +64,7 @@ public class GuiDialogue extends GuiScreen
 
 	public void addDialogueMessage(String dialogueMessage)
 	{
-		Minecraft.getMinecraft().ingameGUI.getChatGUI().printChatMessage(new TextComponentString(dialogueMessage));
+		Minecraft.getInstance().ingameGUI.getChatGUI().printChatMessage(new TextComponentString(dialogueMessage));
 	}
 
 	public void dialogueTreeCompleted()
@@ -79,9 +79,9 @@ public class GuiDialogue extends GuiScreen
     }
 
 	@Override
-    public void drawScreen(int mouseX, int mouseY, float partialTicks)
+    public void render(int mouseX, int mouseY, float partialTicks)
     {
-    	super.drawScreen(mouseX, mouseY, partialTicks);
+    	super.render(mouseX, mouseY, partialTicks);
 
         int optionWidth = 0;
 

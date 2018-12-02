@@ -24,9 +24,9 @@ public class BlockFloating extends Block
 
 	private boolean constantlyPowered;
 
-	public BlockFloating(Builder builder, boolean constantlyPowered)
+	public BlockFloating(Properties properties, boolean constantlyPowered)
 	{
-		super(builder.needsRandomTick());
+		super(properties.needsRandomTick());
 
 		this.constantlyPowered = constantlyPowered;
 	}
@@ -34,13 +34,13 @@ public class BlockFloating extends Block
 	@Override
 	public void onBlockPlacedBy(World worldIn, BlockPos posIn, IBlockState stateIn, @Nullable EntityLivingBase entityIn, ItemStack itemIn)
 	{
-		worldIn.getPendingBlockTicks().scheduleUpdate(posIn, this, this.tickRate(worldIn));
+		worldIn.getPendingBlockTicks().scheduleTick(posIn, this, this.tickRate(worldIn));
 	}
 
 	@Override
     public IBlockState updatePostPlacement(IBlockState stateIn, EnumFacing facingIn, IBlockState neighborIn, IWorld worldIn, BlockPos posIn, BlockPos neighborPosIn)
     {
-		worldIn.getPendingBlockTicks().scheduleUpdate(posIn, this, this.tickRate(worldIn));
+		worldIn.getPendingBlockTicks().scheduleTick(posIn, this, this.tickRate(worldIn));
 
     	return super.updatePostPlacement(stateIn, facingIn, neighborIn, worldIn, posIn, neighborPosIn);
     }

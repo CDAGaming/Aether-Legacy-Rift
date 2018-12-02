@@ -58,18 +58,18 @@ public class EntityCockatrice extends EntityMob implements IRangedAttackMob
     }
 
 	@Override
-    protected void applyEntityAttributes()
+    protected void registerAttributes()
     {
-        super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.25D);
-		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(20.0D);
-        this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(35.0D);
+        super.registerAttributes();
+        this.getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.25D);
+		this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(20.0D);
+        this.getAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(35.0D);
     }
 
 	@Override
-	public void onUpdate()
+	public void tick()
 	{
-		super.onUpdate();
+		super.tick();
 
 		if (!this.onGround && this.motionY < 0.0D)
 		{
@@ -141,15 +141,15 @@ public class EntityCockatrice extends EntityMob implements IRangedAttackMob
 	}
 
 	@Override
-	public void writeEntityToNBT(NBTTagCompound nbttagcompound)
+	public void writeAdditional(NBTTagCompound nbttagcompound)
 	{
-		super.writeEntityToNBT(nbttagcompound);
+		super.writeAdditional(nbttagcompound);
 	}
 
 	@Override
-	public void readEntityFromNBT(NBTTagCompound nbttagcompound)
+	public void readAdditional(NBTTagCompound nbttagcompound)
 	{
-		super.readEntityFromNBT(nbttagcompound);
+		super.readAdditional(nbttagcompound);
 	}
 
 	@Override

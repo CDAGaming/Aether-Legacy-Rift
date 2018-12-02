@@ -38,9 +38,9 @@ public class DartRenderer extends Render<EntityDart>
         this.bindEntityTexture(dart);
 
         GlStateManager.pushMatrix();
-        GlStateManager.translate(d, d1, d2);
-        GlStateManager.rotate(dart.prevRotationYaw + (dart.rotationYaw - dart.prevRotationYaw) * f1 - 90.0F, 0.0F, 1.0F, 0.0F);
-        GlStateManager.rotate(dart.prevRotationPitch + (dart.rotationPitch - dart.prevRotationPitch) * f1, 0.0F, 0.0F, 1.0F);
+        GlStateManager.translated(d, d1, d2);
+        GlStateManager.rotatef(dart.prevRotationYaw + (dart.rotationYaw - dart.prevRotationYaw) * f1 - 90.0F, 0.0F, 1.0F, 0.0F);
+        GlStateManager.rotatef(dart.prevRotationPitch + (dart.rotationPitch - dart.prevRotationPitch) * f1, 0.0F, 0.0F, 1.0F);
 
         Tessellator tessellator = Tessellator.getInstance();
         BufferBuilder renderWorld = tessellator.getBuffer();
@@ -61,13 +61,13 @@ public class DartRenderer extends Render<EntityDart>
 
         if (f11 > 0.0F)
         {
-        	GlStateManager.rotate(-MathHelper.sin(f11 * 3.0F) * f11, 0.0F, 0.0F, 1.0F);
+        	GlStateManager.rotatef(-MathHelper.sin(f11 * 3.0F) * f11, 0.0F, 0.0F, 1.0F);
         }
 
-        GlStateManager.rotate(45.0F, 1.0F, 0.0F, 0.0F);
-        GlStateManager.scale(0.05625F, 0.05625F, 0.05625F);
-        GlStateManager.translate(-4.0F, 0.0F, 0.0F);
-        GlStateManager.glNormal3f(0.05625F, 0.0F, 0.0F);
+        GlStateManager.rotatef(45.0F, 1.0F, 0.0F, 0.0F);
+        GlStateManager.scalef(0.05625F, 0.05625F, 0.05625F);
+        GlStateManager.translatef(-4.0F, 0.0F, 0.0F);
+        GlStateManager.normal3f(0.05625F, 0.0F, 0.0F);
 
         renderWorld.begin(7, DefaultVertexFormats.POSITION_TEX);
         renderWorld.pos(-7.0D, -2.0D, -2.0D).tex((double)f6, (double)f8).endVertex();
@@ -76,7 +76,7 @@ public class DartRenderer extends Render<EntityDart>
         renderWorld.pos(-7.0D, 2.0D, -2.0D).tex((double)f6, (double)f9).endVertex();
         tessellator.draw();
 
-        GlStateManager.glNormal3f(-0.05625F, 0.0F, 0.0F);
+        GlStateManager.normal3f(-0.05625F, 0.0F, 0.0F);
 
         renderWorld.begin(7, DefaultVertexFormats.POSITION_TEX);
         renderWorld.pos(-7.0D, 2.0D, -2.0D).tex((double)f6, (double)f8).endVertex();
@@ -87,8 +87,8 @@ public class DartRenderer extends Render<EntityDart>
 
         for (int var23 = 0; var23 < 5; ++var23)
         {
-        	GlStateManager.rotate(72.0F, 1.0F, 0.0F, 0.0F);
-            GlStateManager.glNormal3f(0.0F, 0.0F, 0.05625F);
+        	GlStateManager.rotatef(72.0F, 1.0F, 0.0F, 0.0F);
+            GlStateManager.normal3f(0.0F, 0.0F, 0.05625F);
 
             renderWorld.begin(7, DefaultVertexFormats.POSITION_TEX);
             renderWorld.pos(-8.0D, -2.0D, 0.0D).tex((double)f2, (double)f4).endVertex();

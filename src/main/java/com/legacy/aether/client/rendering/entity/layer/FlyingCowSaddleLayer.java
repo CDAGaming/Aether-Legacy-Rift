@@ -23,7 +23,7 @@ public class FlyingCowSaddleLayer implements LayerRenderer<EntityFlyingCow>
     }
 
     @Override
-    public void doRenderLayer(EntityFlyingCow entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale)
+    public void render(EntityFlyingCow entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale)
     {
         if (entitylivingbaseIn.getSaddled())
         {

@@ -37,10 +37,10 @@ public class MixinFirstPersonRenderer
     	{
             GlStateManager.pushMatrix();
             float f = handIn == EnumHandSide.RIGHT ? 1.0F : -1.0F;
-            GlStateManager.rotate(92.0F, 0.0F, 1.0F, 0.0F);
-            GlStateManager.rotate(45.0F, 1.0F, 0.0F, 0.0F);
-            GlStateManager.rotate(f * -41.0F, 0.0F, 0.0F, 1.0F);
-            GlStateManager.translate(f * 0.3F, -1.1F, 0.45F);
+            GlStateManager.rotatef(92.0F, 0.0F, 1.0F, 0.0F);
+            GlStateManager.rotatef(45.0F, 1.0F, 0.0F, 0.0F);
+            GlStateManager.rotatef(f * -41.0F, 0.0F, 0.0F, 1.0F);
+            GlStateManager.translatef(f * 0.3F, -1.1F, 0.45F);
 
             if (handIn == EnumHandSide.RIGHT)
             {

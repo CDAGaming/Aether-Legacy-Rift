@@ -20,9 +20,9 @@ public class BlockTreasureChest extends BlockChest
 
     public BlockTreasureChest()
     {
-        super(Builder.create(Material.ROCK).sound(SoundType.STONE).hardnessAndResistance(-1.0F, -1.0F));
+        super(Properties.create(Material.ROCK).sound(SoundType.STONE).hardnessAndResistance(-1.0F, -1.0F));
 
-        this.setDefaultState(this.getDefaultState().withProperty(FACING, EnumFacing.NORTH).withProperty(TYPE, ChestType.SINGLE).withProperty(WATERLOGGED, false));
+        this.setDefaultState(this.getDefaultState().with(FACING, EnumFacing.NORTH).with(TYPE, ChestType.SINGLE).with(WATERLOGGED, false));
     }
 
 	@Override

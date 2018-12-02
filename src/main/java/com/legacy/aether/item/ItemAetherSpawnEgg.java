@@ -10,7 +10,7 @@ public class ItemAetherSpawnEgg extends ItemSpawnEgg
 
 	public ItemAetherSpawnEgg(EntityType<?> entityType, int primaryEggColor, int seconaryEggColor)
 	{
-		super(entityType, primaryEggColor, seconaryEggColor, new Item.Builder().group(ItemGroup.MISC));
+		super(entityType, primaryEggColor, seconaryEggColor, new Item.Properties().group(ItemGroup.MISC));
 	}
 
 }

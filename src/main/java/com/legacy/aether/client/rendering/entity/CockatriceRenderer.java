@@ -32,7 +32,7 @@ public class CockatriceRenderer extends RenderLiving<EntityCockatrice>
     @Override
     protected void preRenderCallback(EntityCockatrice cockatrice, float f)
     {
-    	GlStateManager.scale(1.8F, 1.8F, 1.8F);
+    	GlStateManager.scalef(1.8F, 1.8F, 1.8F);
     }
 
 	@Override

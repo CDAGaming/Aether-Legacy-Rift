@@ -379,13 +379,13 @@ public abstract class AetherStructurePiece extends StructurePiece
 	}
 
 	@Override
-	protected void readStructureFromNBT(NBTTagCompound compound, TemplateManager templateIn)
+	protected void readAdditional(NBTTagCompound compound, TemplateManager templateIn)
 	{
 
 	}
 
 	@Override
-	protected void writeStructureToNBT(NBTTagCompound compound)
+	protected void writeAdditional(NBTTagCompound compound)
 	{
 
 	}

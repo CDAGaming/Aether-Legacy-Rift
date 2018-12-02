@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.Set;
 import java.util.TreeSet;
 
+import com.legacy.aether.Aether;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.dimension.DimensionType;
 
@@ -21,15 +22,13 @@ public class WorldAether implements BiomeAdder, DimensionTypeAdder
 	public static DimensionType AETHER;
 
 	@Override
-	public Set<? extends DimensionType> getDimensionTypes()
+	public void registerDimensionTypes()
 	{
-		Set<DimensionType> dimensions = new TreeSet<>();
+		//Set<DimensionType> dimensions = new TreeSet<>();
 
-		AETHER = DimensionTypeAdder.newDimensionType(12, "aether", "_aether", AetherDimension::new);
+		AETHER = DimensionTypeAdder.addDimensionType(12, Aether.locate("aether"), "_aether", AetherDimension::new);
 
-		dimensions.add(AETHER);
-
-		return dimensions;
+		//dimensions.add(AETHER);
 	}
 
 	@Override
@@ -37,7 +36,7 @@ public class WorldAether implements BiomeAdder, DimensionTypeAdder
 	{
 		aetherBiome = new AetherBiome();
 
-		Biome.registerBiome(525, "aether_legacy:aether_highlands", aetherBiome);
+		Biome.register(525, "aether_legacy:aether_highlands", aetherBiome);
 	}
 
 	@Override

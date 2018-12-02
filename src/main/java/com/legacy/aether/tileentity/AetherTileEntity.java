@@ -107,29 +107,29 @@ public abstract class AetherTileEntity extends TileEntity implements IInteractio
 	public abstract void onSlotChanged(int index);
 
 	@Override
-	public void readFromNBT(NBTTagCompound compound)
+	public void read(NBTTagCompound compound)
 	{
 		ItemStackHelper.loadAllItems(compound, this.getTileInventory());
 
-        if (compound.hasKey("name", 8))
+        if (compound.contains("name", 8))
         {
             this.customTileName = ITextComponent.Serializer.fromJsonLenient(compound.getString("name"));
         }
 
-		super.readFromNBT(compound);
+		super.read(compound);
 	}
 
 	@Override
-	public NBTTagCompound writeToNBT(NBTTagCompound compound)
+	public NBTTagCompound write(NBTTagCompound compound)
 	{
 		ItemStackHelper.saveAllItems(compound, this.getTileInventory());
 
         if (this.hasCustomName())
         {
-        	compound.setString("name", ITextComponent.Serializer.componentToJson(this.customTileName));
+        	compound.putString("name", ITextComponent.Serializer.toJson(this.customTileName));
         }
 
-		return super.writeToNBT(compound);
+		return super.write(compound);
 	}
 
 	@Override

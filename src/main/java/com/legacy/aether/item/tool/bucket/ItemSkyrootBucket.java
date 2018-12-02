@@ -12,12 +12,12 @@ public class ItemSkyrootBucket extends Item
 
 	public ItemSkyrootBucket()
 	{
-		super(new Builder().maxStackSize(16).group(ItemGroup.TOOLS));
+		super(new Properties().maxStackSize(16).group(ItemGroup.TOOLS));
 	}
 
 	public ItemSkyrootBucket(Item containerIn)
 	{
-		super(new Builder().maxStackSize(1).group(ItemGroup.TOOLS).containerItem(containerIn));
+		super(new Properties().maxStackSize(1).group(ItemGroup.TOOLS).containerItem(containerIn));
 	}
 
 	@Override

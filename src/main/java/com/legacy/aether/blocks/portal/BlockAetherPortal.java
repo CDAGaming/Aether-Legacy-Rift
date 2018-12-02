@@ -15,8 +15,8 @@ import net.minecraft.entity.Entity;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.shapes.ShapeUtils;
 import net.minecraft.util.math.shapes.VoxelShape;
+import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
@@ -26,13 +26,13 @@ public class BlockAetherPortal extends BlockPortal
 
 	public BlockAetherPortal()
 	{
-		super(Builder.create(Material.GLASS).hardnessAndResistance(-1.0F, 900000F));
+		super(Properties.create(Material.GLASS).hardnessAndResistance(-1.0F, 900000F));
 	}
 
 	@Override
 	public VoxelShape getCollisionShape(IBlockState blockstateIn, IBlockReader blockReaderIn, BlockPos posIn)
 	{
-		return ShapeUtils.create(0.0D, 0.0D, 0.0D, 0.0D, 0.0D, 0.0D);
+		return VoxelShapes.create(0.0D, 0.0D, 0.0D, 0.0D, 0.0D, 0.0D);
 	}
 
 	@Override
@@ -66,7 +66,7 @@ public class BlockAetherPortal extends BlockPortal
 	@Override
     public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos)
     {
-        EnumFacing.Axis enumfacing$axis = state.getValue(AXIS);
+        EnumFacing.Axis enumfacing$axis = state.get(AXIS);
 
         if (enumfacing$axis == EnumFacing.Axis.X)
         {

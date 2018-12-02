@@ -32,8 +32,8 @@ public class PhygWingModel extends ModelBase
 
         if (pig.isChild())
         {
-            GlStateManager.scale(1.0F / 2.0F, 1.0F / 2.0F, 1.0F / 2.0F);
-            GlStateManager.translate(0.0F, 24.0F * scale, 0.0F);
+            GlStateManager.scalef(1.0F / 2.0F, 1.0F / 2.0F, 1.0F / 2.0F);
+            GlStateManager.translatef(0.0F, 24.0F * scale, 0.0F);
 
             float wingBend = -((float)Math.acos((double)pig.wingFold));
             float y = 32.0F * pig.wingFold / 4.0F;

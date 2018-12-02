@@ -8,7 +8,7 @@ public class ItemZaniteGemstone extends Item
 
 	public ItemZaniteGemstone() 
 	{
-		super(new Builder().group(ItemGroup.MISC));
+		super(new Properties().group(ItemGroup.MISC));
 	}
 
 }

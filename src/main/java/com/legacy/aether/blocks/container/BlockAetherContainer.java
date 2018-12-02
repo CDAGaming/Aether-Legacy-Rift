@@ -19,11 +19,11 @@ public abstract class BlockAetherContainer extends BlockContainer
 
 	public static final BooleanProperty POWERED = BooleanProperty.create("powered");
 
-	protected BlockAetherContainer(Builder builderIn)
+	protected BlockAetherContainer(Properties propertiesIn)
 	{
-		super(builderIn.needsRandomTick());
+		super(propertiesIn.needsRandomTick());
 
-		this.setDefaultState(this.getDefaultState().withProperty(POWERED, false));
+		this.setDefaultState(this.getDefaultState().with(POWERED, false));
 	}
 
 	@Override
@@ -37,7 +37,7 @@ public abstract class BlockAetherContainer extends BlockContainer
         IBlockState iblockstate = worldIn.getBlockState(posIn);
         TileEntity tileentity = worldIn.getTileEntity(posIn);
 
-        worldIn.setBlockState(posIn, iblockstate.withProperty(POWERED, isActive), 3);
+        worldIn.setBlockState(posIn, iblockstate.with(POWERED, isActive), 3);
 
         if (tileentity != null)
         {

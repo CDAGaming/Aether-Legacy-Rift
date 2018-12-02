@@ -22,7 +22,7 @@ public class EntityAIBunnyHop extends EntityAIBase
     }
 
     @Override
-    public void updateTask()
+    public void tick()
     {
     	if(this.animal.moveForward != 0.0F)
     	{

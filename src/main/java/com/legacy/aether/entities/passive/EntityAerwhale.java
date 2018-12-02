@@ -51,12 +51,12 @@ public class EntityAerwhale extends EntityFlying implements IMob
     }
 
     @Override
-    protected void applyEntityAttributes()
+    protected void registerAttributes()
     {
-        super.applyEntityAttributes();
+        super.registerAttributes();
 
-        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(1.0D);
-        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(20.0D); 
+        this.getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(1.0D);
+        this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(20.0D);
     }
 
     @Override
@@ -66,13 +66,13 @@ public class EntityAerwhale extends EntityFlying implements IMob
     }
 
     @Override
-    public void onUpdate()
+    public void tick()
     {
-    	super.onUpdate();
+    	super.tick();
         this.extinguish();
 
         int i = MathHelper.floor(this.posX);
-        int j = MathHelper.floor(this.getEntityBoundingBox().minY);
+        int j = MathHelper.floor(this.getBoundingBox().minY);
         int k = MathHelper.floor(this.posZ);
         BlockPos position = new BlockPos(i, j, k);
 
@@ -127,7 +127,7 @@ public class EntityAerwhale extends EntityFlying implements IMob
 
         if (this.posY < -64.0D)
         {
-            this.setDead();
+            this.remove();
         }
 
         this.motionYaw += 2F * this.getRNG().nextFloat() - 1F;
@@ -359,7 +359,7 @@ public class EntityAerwhale extends EntityFlying implements IMob
         float f8 = f6;
         float f9 = f3 * f5;
 
-        Vec3d vec3d = new Vec3d(this.posX, this.getEntityBoundingBox().minY, this.posZ);
+        Vec3d vec3d = new Vec3d(this.posX, this.getBoundingBox().minY, this.posZ);
         Vec3d vec3d1 = vec3d.add((double)f7 * standard, (double)f8 * standard, (double)f9 * standard);
 
         RayTraceResult movingobjectposition = this.world.rayTraceBlocks(vec3d, vec3d1, RayTraceFluidMode.NEVER);
@@ -369,10 +369,10 @@ public class EntityAerwhale extends EntityFlying implements IMob
             return standard;
         }
 
-        if(movingobjectposition.typeOfHit == RayTraceResult.Type.BLOCK)
+        if(movingobjectposition.type == RayTraceResult.Type.BLOCK)
         {
             double i = movingobjectposition.getBlockPos().getX() - this.posX;
-            double j = movingobjectposition.getBlockPos().getY() - this.getEntityBoundingBox().minY;
+            double j = movingobjectposition.getBlockPos().getY() - this.getBoundingBox().minY;
             double k = movingobjectposition.getBlockPos().getZ() - this.posZ;
             return Math.sqrt(i * i + j * j + k * k);
         }

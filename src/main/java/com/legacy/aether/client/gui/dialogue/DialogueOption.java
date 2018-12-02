@@ -1,7 +1,7 @@
 package com.legacy.aether.client.gui.dialogue;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.audio.PositionedSoundRecord;
+import net.minecraft.client.audio.SimpleSound;
 import net.minecraft.client.audio.SoundHandler;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.init.SoundEvents;
@@ -18,7 +18,7 @@ public class DialogueOption extends Gui
 
 	private int height, width;
 
-	private Minecraft mc = Minecraft.getMinecraft();
+	private Minecraft mc = Minecraft.getInstance();
 
 	public DialogueOption(String dialogueText)
 	{
@@ -40,7 +40,7 @@ public class DialogueOption extends Gui
 
     public void playPressSound(SoundHandler soundHandlerIn)
     {
-        soundHandlerIn.playSound(PositionedSoundRecord.getMasterRecord(SoundEvents.UI_BUTTON_CLICK, 1.0F));
+        soundHandlerIn.play(SimpleSound.master(SoundEvents.UI_BUTTON_CLICK, 1.0F));
     }
 
 	public void setDialogueText(String dialogueText)

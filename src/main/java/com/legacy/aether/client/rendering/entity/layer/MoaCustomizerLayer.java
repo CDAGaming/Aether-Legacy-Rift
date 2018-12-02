@@ -41,7 +41,7 @@ public class MoaCustomizerLayer implements LayerRenderer<EntityMoa>
 	}
 
 	@Override
-	public void doRenderLayer(EntityMoa moa, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) 
+	public void render(EntityMoa moa, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale)
 	{
 		if (!moa.getPassengers().isEmpty() && moa.getPassengers().get(0) instanceof EntityPlayer)
 		{
@@ -54,7 +54,7 @@ public class MoaCustomizerLayer implements LayerRenderer<EntityMoa>
 				if (moaSkin != null && !moaSkin.shouldUseDefualt())
 				{
 					GlStateManager.pushMatrix();
-					this.renderManager.renderEngine.bindTexture(TEXTURE_UNCHANGED);
+					this.renderManager.textureManager.bindTexture(TEXTURE_UNCHANGED);
 					this.model.render(moa, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
 					GlStateManager.popMatrix();
 
@@ -63,9 +63,9 @@ public class MoaCustomizerLayer implements LayerRenderer<EntityMoa>
 					float green = ((moaSkin.getWingMarkingColor() >> 8) & 0xff) / 255F;
 					float blue = (moaSkin.getWingMarkingColor() & 0xff) / 255F;
 
-					this.renderManager.renderEngine.bindTexture(TEXTURE_WING_MARKINGS);
+					this.renderManager.textureManager.bindTexture(TEXTURE_WING_MARKINGS);
 
-					GlStateManager.color(red, green, blue);
+					GlStateManager.color3f(red, green, blue);
 
 					this.model.render(moa, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
 					GlStateManager.popMatrix();
@@ -75,9 +75,9 @@ public class MoaCustomizerLayer implements LayerRenderer<EntityMoa>
 					green = ((moaSkin.getWingColor() >> 8) & 0xff) / 255F;
 					blue = (moaSkin.getWingColor() & 0xff) / 255F;
 
-					this.renderManager.renderEngine.bindTexture(TEXTURE_WING);
+					this.renderManager.textureManager.bindTexture(TEXTURE_WING);
 
-					GlStateManager.color(red, green, blue);
+					GlStateManager.color3f(red, green, blue);
 
 					this.model.render(moa, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
 					GlStateManager.popMatrix();
@@ -87,9 +87,9 @@ public class MoaCustomizerLayer implements LayerRenderer<EntityMoa>
 					green = ((moaSkin.getMarkingColor() >> 8) & 0xff) / 255F;
 					blue = (moaSkin.getMarkingColor() & 0xff) / 255F;
 
-					this.renderManager.renderEngine.bindTexture(TEXTURE_MARKINGS);
+					this.renderManager.textureManager.bindTexture(TEXTURE_MARKINGS);
 
-					GlStateManager.color(red, green, blue);
+					GlStateManager.color3f(red, green, blue);
 
 					this.model.render(moa, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
 					GlStateManager.popMatrix();
@@ -99,9 +99,9 @@ public class MoaCustomizerLayer implements LayerRenderer<EntityMoa>
 					green = ((moaSkin.getBodyColor() >> 8) & 0xff) / 255F;
 					blue = (moaSkin.getBodyColor() & 0xff) / 255F;
 
-					this.renderManager.renderEngine.bindTexture(TEXTURE_BODY);
+					this.renderManager.textureManager.bindTexture(TEXTURE_BODY);
 
-					GlStateManager.color(red, green, blue);
+					GlStateManager.color3f(red, green, blue);
 
 					this.model.render(moa, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
 					GlStateManager.popMatrix();
@@ -111,9 +111,9 @@ public class MoaCustomizerLayer implements LayerRenderer<EntityMoa>
 					green = ((moaSkin.getEyeColor() >> 8) & 0xff) / 255F;
 					blue = (moaSkin.getEyeColor() & 0xff) / 255F;
 
-					this.renderManager.renderEngine.bindTexture(TEXTURE_EYE);
+					this.renderManager.textureManager.bindTexture(TEXTURE_EYE);
 
-					GlStateManager.color(red, green, blue);
+					GlStateManager.color3f(red, green, blue);
 
 					this.model.render(moa, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
 					GlStateManager.popMatrix();
@@ -123,9 +123,9 @@ public class MoaCustomizerLayer implements LayerRenderer<EntityMoa>
 					green = ((moaSkin.getOutsideColor() >> 8) & 0xff) / 255F;
 					blue = (moaSkin.getOutsideColor() & 0xff) / 255F;
 
-					this.renderManager.renderEngine.bindTexture(TEXTURE_OUTSIDE);
+					this.renderManager.textureManager.bindTexture(TEXTURE_OUTSIDE);
 
-					GlStateManager.color(red, green, blue);
+					GlStateManager.color3f(red, green, blue);
 
 					this.model.render(moa, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
 					

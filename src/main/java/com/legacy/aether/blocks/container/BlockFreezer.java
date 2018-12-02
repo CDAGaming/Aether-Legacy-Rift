@@ -23,7 +23,7 @@ public class BlockFreezer extends BlockAetherContainer
 
 	public BlockFreezer()
 	{
-		super(Builder.create(Material.ROCK).hardnessAndResistance(2.0F, -1.0F));
+		super(Properties.create(Material.ROCK).hardnessAndResistance(2.0F, -1.0F));
 	}
 
 	@Override
@@ -47,16 +47,16 @@ public class BlockFreezer extends BlockAetherContainer
     }
 
 	@Override
-	public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos posIn, Random randIn)
+	public void randomTick(IBlockState stateIn, World worldIn, BlockPos posIn, Random randIn)
     {
-		if(stateIn.getValue(POWERED))
+		if(stateIn.get(POWERED))
 		{
 			float f = (float)posIn.getX() + 0.5F;
 			float f1 = (float)posIn.getY() + 1.0F + (randIn.nextFloat() * 6F) / 16F;
 			float f2 = (float)posIn.getZ() + 0.5F;
 
-			worldIn.spawnParticle(Particles.SMOKE, f, f1, f2, 0.0D, 0.0D, 0.0D);
-			worldIn.spawnParticle(Particles.CLOUD, f, f1, f2, 0.0D, 0.0D, 0.0D);
+			worldIn.addParticle(Particles.SMOKE, f, f1, f2, 0.0D, 0.0D, 0.0D);
+			worldIn.addParticle(Particles.CLOUD, f, f1, f2, 0.0D, 0.0D, 0.0D);
 			
 			if (randIn.nextDouble() < 0.1D)
             {

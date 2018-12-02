@@ -21,7 +21,8 @@ public class PhygSaddleLayer implements LayerRenderer<EntityPhyg>
         this.phygRenderer = phygRendererIn;
     }
 
-    public void doRenderLayer(EntityPhyg entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale)
+    @Override
+    public void render(EntityPhyg entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale)
     {
         if (entitylivingbaseIn.getSaddled())
         {
@@ -31,6 +32,7 @@ public class PhygSaddleLayer implements LayerRenderer<EntityPhyg>
         }
     }
 
+    @Override
     public boolean shouldCombineTextures()
     {
         return false;

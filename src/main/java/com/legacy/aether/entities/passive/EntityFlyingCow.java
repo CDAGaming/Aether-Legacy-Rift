@@ -75,17 +75,17 @@ public class EntityFlyingCow extends EntitySaddleMount
     }
 
 	@Override
-    protected void applyEntityAttributes()
+    protected void registerAttributes()
     {
-        super.applyEntityAttributes();
-		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(10.0D);
-		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.20000000298023224D);
+        super.registerAttributes();
+		this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(10.0D);
+		this.getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.20000000298023224D);
 	}
 
 	@Override
-	public void onUpdate()
+	public void tick()
 	{
-		super.onUpdate();
+		super.tick();
 
 		if (this.motionY < 0.0D && !this.isRiderSneaking())
 		{
@@ -116,18 +116,18 @@ public class EntityFlyingCow extends EntitySaddleMount
 	}
 
 	@Override
-	public void writeEntityToNBT(NBTTagCompound nbttagcompound)
+	public void writeAdditional(NBTTagCompound nbttagcompound)
 	{
-		super.writeEntityToNBT(nbttagcompound);
+		super.writeAdditional(nbttagcompound);
 
-		nbttagcompound.setShort("jumps", (short) this.maxJumps);
-		nbttagcompound.setShort("jumpsRemaining", (short) this.jumpsRemaining);
+		nbttagcompound.putShort("jumps", (short) this.maxJumps);
+		nbttagcompound.putShort("jumpsRemaining", (short) this.jumpsRemaining);
 	}
 
 	@Override
-	public void readEntityFromNBT(NBTTagCompound nbttagcompound)
+	public void readAdditional(NBTTagCompound nbttagcompound)
 	{
-		super.readEntityFromNBT(nbttagcompound);
+		super.readAdditional(nbttagcompound);
 
 		this.maxJumps = nbttagcompound.getShort("jumps");
 		this.jumpsRemaining = nbttagcompound.getShort("jumpsRemaining");
@@ -159,7 +159,7 @@ public class EntityFlyingCow extends EntitySaddleMount
 	{
 		ItemStack heldItem = player.getHeldItem(hand);
 
-		if (heldItem.getItem() == ItemsAether.skyroot_bucket && !player.capabilities.isCreativeMode)
+		if (heldItem.getItem() == ItemsAether.skyroot_bucket && !player.abilities.isCreativeMode)
 		{
 			heldItem.shrink(1);
 
@@ -174,7 +174,7 @@ public class EntityFlyingCow extends EntitySaddleMount
 
 			return true;
 		}
-		else if (heldItem.getItem() == Items.BUCKET && !player.capabilities.isCreativeMode)
+		else if (heldItem.getItem() == Items.BUCKET && !player.abilities.isCreativeMode)
 		{
 			heldItem.shrink(1);
 

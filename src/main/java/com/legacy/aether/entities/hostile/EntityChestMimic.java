@@ -44,19 +44,19 @@ public class EntityChestMimic extends EntityMob
     }
 
     @Override
-    protected void applyEntityAttributes()
+    protected void registerAttributes()
     {
-        super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(8.0D);
-        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.28000000417232513D);
-        this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(3.0D);
-        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(40.0D);   
+        super.registerAttributes();
+        this.getAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(8.0D);
+        this.getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.28000000417232513D);
+        this.getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(3.0D);
+        this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(40.0D);
     }
 
     @Override
-    public void onUpdate()
+    public void tick()
     {
-		super.onUpdate();
+		super.tick();
 
 		this.mouth = (float)((Math.cos((float)ticksExisted / 10F * 3.14159265F)) + 1F) * 0.6F;
 		this.legs *= 0.9F;

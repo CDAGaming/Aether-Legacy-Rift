@@ -19,9 +19,9 @@ public class BlockHolystone extends Block
 
 	public BlockHolystone() 
 	{
-		super(Block.Builder.create(Material.ROCK).hardnessAndResistance(0.5F, -1.0F).sound(SoundType.STONE));
+		super(Block.Properties.create(Material.ROCK).hardnessAndResistance(0.5F, -1.0F).sound(SoundType.STONE));
 
-		this.setDefaultState(this.getDefaultState().withProperty(DOUBLE_DROP, true));
+		this.setDefaultState(this.getDefaultState().with(DOUBLE_DROP, true));
 	}
 
 	@Override
@@ -33,13 +33,13 @@ public class BlockHolystone extends Block
 	@Override
 	public IBlockState getStateForPlacement(BlockItemUseContext context)
 	{
-		return super.getStateForPlacement(context).withProperty(DOUBLE_DROP, false);
+		return super.getStateForPlacement(context).with(DOUBLE_DROP, false);
 	}
 
 	@Override
 	public int getItemsToDropCount(IBlockState stateIn, int fortuneIn, World worldIn, BlockPos posIn, Random randomIn)
 	{
-		return stateIn.getValue(DOUBLE_DROP) ? 2 : 1;
+		return stateIn.get(DOUBLE_DROP) ? 2 : 1;
 	}
 
 }

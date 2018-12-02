@@ -1,11 +1,10 @@
 package com.legacy.aether.api;
 
-import java.util.Random;
+import java.util.*;
 
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.registry.RegistryNamespacedDefaultedByKey;
+import net.minecraft.util.registry.IRegistry;
 
 import com.legacy.aether.api.accessories.Accessory;
 import com.legacy.aether.api.enchantment.Enchantment;
@@ -17,17 +16,18 @@ import com.legacy.aether.api.moa.MoaType;
 public class AetherAPI
 {
 
-	private static final RegistryNamespacedDefaultedByKey<ResourceLocation, Accessory> ACCESSORY_REGISTRY = new RegistryNamespacedDefaultedByKey<ResourceLocation, Accessory>(new ResourceLocation("empty"));
+	private static final HashMap<ResourceLocation, Accessory> ACCESSORY_REGISTRY = new HashMap<>();
+	//new ResourceLocation("empty")
 
-	private static final RegistryNamespacedDefaultedByKey<ResourceLocation, Enchantment> ENCHANTMENT_REGISTRY = new RegistryNamespacedDefaultedByKey<ResourceLocation, Enchantment>(new ResourceLocation("empty"));
+	private static final HashMap<ResourceLocation, Enchantment> ENCHANTMENT_REGISTRY = new HashMap<>();
 
-	private static final RegistryNamespacedDefaultedByKey<ResourceLocation, Freezable> FREEZABLE_REGISTRY = new RegistryNamespacedDefaultedByKey<ResourceLocation, Freezable>(new ResourceLocation("empty"));
+	private static final HashMap<ResourceLocation, Freezable> FREEZABLE_REGISTRY = new HashMap<>();
 
-	private static final RegistryNamespacedDefaultedByKey<ResourceLocation, EnchantmentFuel> ENCHANTMENT_FUEL_REGISTRY = new RegistryNamespacedDefaultedByKey<ResourceLocation, EnchantmentFuel>(new ResourceLocation("empty"));
+	private static final HashMap<ResourceLocation, EnchantmentFuel> ENCHANTMENT_FUEL_REGISTRY = new HashMap<>();
 
-	private static final RegistryNamespacedDefaultedByKey<ResourceLocation, FreezableFuel> FREEZABLE_FUEL_REGISTRY = new RegistryNamespacedDefaultedByKey<ResourceLocation, FreezableFuel>(new ResourceLocation("empty"));
+	private static final HashMap<ResourceLocation, FreezableFuel> FREEZABLE_FUEL_REGISTRY = new HashMap<>();
 
-	private static final RegistryNamespacedDefaultedByKey<ResourceLocation, MoaType> MOA_REGISTRY = new RegistryNamespacedDefaultedByKey<ResourceLocation, MoaType>(new ResourceLocation("empty"));
+	private static final HashMap<ResourceLocation, MoaType> MOA_REGISTRY = new HashMap<>();
 
 	private static int moaListSize;
 
@@ -48,82 +48,85 @@ public class AetherAPI
 
 	public void register(Accessory accessory)
 	{
-		ACCESSORY_REGISTRY.put(Item.REGISTRY.getKey(accessory.getItem()), accessory);
+		ACCESSORY_REGISTRY.put(IRegistry.ITEM.getKey(accessory.getItem()), accessory);
 	}
 
 	public void register(Freezable freezable)
 	{
-		FREEZABLE_REGISTRY.put(Item.REGISTRY.getKey(freezable.getInput()), freezable);
+		FREEZABLE_REGISTRY.put(IRegistry.ITEM.getKey(freezable.getInput()), freezable);
 	}
 
 	public void register(FreezableFuel fuel)
 	{
-		FREEZABLE_FUEL_REGISTRY.put(Item.REGISTRY.getKey(fuel.getFuel()), fuel);
+		FREEZABLE_FUEL_REGISTRY.put(IRegistry.ITEM.getKey(fuel.getFuel()), fuel);
 	}
 
 	public void register(Enchantment enchantment)
 	{
-		ENCHANTMENT_REGISTRY.put(Item.REGISTRY.getKey(enchantment.getInput()), enchantment);
+		ENCHANTMENT_REGISTRY.put(IRegistry.ITEM.getKey(enchantment.getInput()), enchantment);
 	}
 
 	public void register(EnchantmentFuel fuel)
 	{
-		ENCHANTMENT_FUEL_REGISTRY.put(Item.REGISTRY.getKey(fuel.getFuel()), fuel);
+		ENCHANTMENT_FUEL_REGISTRY.put(IRegistry.ITEM.getKey(fuel.getFuel()), fuel);
 	}
 
 	public Accessory getAccessory(ItemStack stack)
 	{
-		return ACCESSORY_REGISTRY.get(Item.REGISTRY.getKey(stack.getItem()));
+		return ACCESSORY_REGISTRY.get(IRegistry.ITEM.getKey(stack.getItem()));
 	}
 
 	public boolean isAccessory(ItemStack stack)
 	{
-		return ACCESSORY_REGISTRY.containsKey(Item.REGISTRY.getKey(stack.getItem()));
+		return ACCESSORY_REGISTRY.containsKey(IRegistry.ITEM.getKey(stack.getItem()));
 	}
 
 	public Freezable getFreezable(ItemStack stack)
 	{
-		return FREEZABLE_REGISTRY.get(Item.REGISTRY.getKey(stack.getItem()));
+		return FREEZABLE_REGISTRY.get(IRegistry.ITEM.getKey(stack.getItem()));
 	}
 
 	public boolean isFreezable(ItemStack stack)
 	{
-		return FREEZABLE_REGISTRY.containsKey(Item.REGISTRY.getKey(stack.getItem()));
+		return FREEZABLE_REGISTRY.containsKey(IRegistry.ITEM.getKey(stack.getItem()));
 	}
 
 	public FreezableFuel getFreezableFuel(ItemStack stack) 
 	{
-		return FREEZABLE_FUEL_REGISTRY.get(Item.REGISTRY.getKey(stack.getItem()));
+		return FREEZABLE_FUEL_REGISTRY.get(IRegistry.ITEM.getKey(stack.getItem()));
 	}
 
 	public boolean isFreezerFuel(ItemStack stack)
 	{
-		return FREEZABLE_FUEL_REGISTRY.containsKey(Item.REGISTRY.getKey(stack.getItem()));
+		return FREEZABLE_FUEL_REGISTRY.containsKey(IRegistry.ITEM.getKey(stack.getItem()));
 	}
 
 	public Enchantment getEnchantment(ItemStack stack)
 	{
-		return ENCHANTMENT_REGISTRY.get(Item.REGISTRY.getKey(stack.getItem()));
+		return ENCHANTMENT_REGISTRY.get(IRegistry.ITEM.getKey(stack.getItem()));
 	}
 
 	public boolean isEnchantable(ItemStack stack)
 	{
-		return ENCHANTMENT_REGISTRY.containsKey(Item.REGISTRY.getKey(stack.getItem()));
+		return ENCHANTMENT_REGISTRY.containsKey(IRegistry.ITEM.getKey(stack.getItem()));
 	}
 
 	public EnchantmentFuel getEnchantmentFuel(ItemStack stack) 
 	{
-		return ENCHANTMENT_FUEL_REGISTRY.get(Item.REGISTRY.getKey(stack.getItem()));
+		return ENCHANTMENT_FUEL_REGISTRY.get(IRegistry.ITEM.getKey(stack.getItem()));
 	}
 
 	public boolean isEnchantmentFuel(ItemStack stack)
 	{
-		return ENCHANTMENT_FUEL_REGISTRY.containsKey(Item.REGISTRY.getKey(stack.getItem()));
+		return ENCHANTMENT_FUEL_REGISTRY.containsKey(IRegistry.ITEM.getKey(stack.getItem()));
 	}
 
-	public MoaType getMoa(Random random)
+	public MoaType getMoa()
 	{
-		return MOA_REGISTRY.getRandom(random);
+		Random random = new Random();
+		MoaType[] rescValues = MOA_REGISTRY.values().toArray(new MoaType[0]);
+
+		return rescValues[random.nextInt(rescValues.length)];
 	}
 
 	public MoaType getMoa(ResourceLocation registryName)
@@ -133,12 +136,24 @@ public class AetherAPI
 
 	public MoaType getMoa(int id)
 	{
-		return MOA_REGISTRY.get(id);
+		MoaType[] rescValues = MOA_REGISTRY.values().toArray(new MoaType[0]);
+
+		return rescValues[id];
 	}
 
 	public int getMoaId(MoaType moa)
 	{
-		return MOA_REGISTRY.getId(moa);
+		boolean isMatch = false;
+		int indexNumber = -1;
+
+		for (MoaType moaType : MOA_REGISTRY.values()) {
+			indexNumber++;
+			if (moa.equals(moaType)) {
+				isMatch = true;
+				break;
+			}
+		}
+		return isMatch ? indexNumber : 0;
 	}
 
 	public int getMoaRegistrySize()

@@ -81,7 +81,7 @@ public class AetherLakeFeature extends Feature<LakesConfig>
                                 return false;
                             }
 
-                            if (k < 4 && !material.isSolid() && worldIn.getBlockState(position.add(k1, k, l2)).getBlock() != config.field_202438_a)
+                            if (k < 4 && !material.isSolid() && worldIn.getBlockState(position.add(k1, k, l2)).getBlock() != config.block)
                             {
                                 return false;
                             }
@@ -98,7 +98,7 @@ public class AetherLakeFeature extends Feature<LakesConfig>
                     {
                         if (aboolean[(l1 * 16 + i3) * 8 + i4])
                         {
-                            worldIn.setBlockState(position.add(l1, i4, i3), i4 >= 4 ? Blocks.AIR.getDefaultState() : config.field_202438_a.getDefaultState(), 2);
+                            worldIn.setBlockState(position.add(l1, i4, i3), i4 >= 4 ? Blocks.AIR.getDefaultState() : config.block.getDefaultState(), 2);
                         }
                     }
                 }

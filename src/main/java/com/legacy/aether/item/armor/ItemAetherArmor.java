@@ -14,14 +14,14 @@ public class ItemAetherArmor extends ItemArmor
 
 	public ItemAetherArmor(AetherArmorType typeIn, EntityEquipmentSlot slotIn) 
 	{
-		super(typeIn.getMaterial(), slotIn, new Builder().group(ItemGroup.COMBAT));
+		super(typeIn.getMaterial(), slotIn, new Properties().group(ItemGroup.COMBAT));
 
 		this.color = typeIn.getColor();
 	}
 
 	public ItemAetherArmor(AetherArmorType typeIn, EnumRarity rarityIn, EntityEquipmentSlot slotIn) 
 	{
-		super(typeIn.getMaterial(), slotIn, new Builder().group(ItemGroup.COMBAT).rarity(rarityIn));
+		super(typeIn.getMaterial(), slotIn, new Properties().group(ItemGroup.COMBAT).rarity(rarityIn));
 
 		this.color = typeIn.getColor();
 	}

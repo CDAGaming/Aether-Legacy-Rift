@@ -13,7 +13,7 @@ public class ItemHealingStone extends ItemAetherFood
 
 	public ItemHealingStone() 
 	{
-		super(new Builder().group(ItemGroup.FOOD).rarity(EnumRarity.RARE), 1, 0.0F);
+		super(new Properties().group(ItemGroup.FOOD).rarity(EnumRarity.RARE), 1, 0.0F);
 
 		this.setAlwaysEdible();
 	}

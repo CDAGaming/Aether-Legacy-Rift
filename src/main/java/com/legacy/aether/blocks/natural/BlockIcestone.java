@@ -13,7 +13,7 @@ public class BlockIcestone extends Block
 
 	public BlockIcestone() 
 	{
-		super(Block.Builder.create(Material.ROCK).hardnessAndResistance(3.0F, -1.0F).sound(SoundType.GLASS));
+		super(Block.Properties.create(Material.ROCK).hardnessAndResistance(3.0F, -1.0F).sound(SoundType.GLASS));
 	}
 
 	@Override

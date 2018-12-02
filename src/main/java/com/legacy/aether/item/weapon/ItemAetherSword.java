@@ -15,14 +15,14 @@ public class ItemAetherSword extends ItemSword implements IAetherTool
 
 	public ItemAetherSword(AetherToolType material, IItemTier itemTier, int damageVsEntity, float attackSpeed) 
 	{
-		super(itemTier, damageVsEntity, attackSpeed, new Builder().group(ItemGroup.COMBAT));
+		super(itemTier, damageVsEntity, attackSpeed, new Properties().group(ItemGroup.COMBAT));
 
 		this.material = material;
 	}
 
 	public ItemAetherSword(AetherToolType material, EnumRarity rarity, IItemTier itemTier, int damageVsEntity, float attackSpeed) 
 	{
-		super(itemTier, damageVsEntity, attackSpeed, new Builder().group(ItemGroup.COMBAT).rarity(rarity));
+		super(itemTier, damageVsEntity, attackSpeed, new Properties().group(ItemGroup.COMBAT).rarity(rarity));
 
 		this.material = material;
 	}

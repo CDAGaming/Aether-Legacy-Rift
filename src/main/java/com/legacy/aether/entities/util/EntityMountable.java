@@ -35,9 +35,9 @@ public abstract class EntityMountable extends EntityAetherAnimal
 	}
 
 	@Override
-	protected void entityInit()
+	protected void registerData()
 	{
-		super.entityInit();
+		super.registerData();
 
 		this.dataManager.register(RIDER_SNEAKING, false);
 	}
@@ -65,16 +65,16 @@ public abstract class EntityMountable extends EntityAetherAnimal
 	}
 
 	@Override
-	public void onUpdate()
+	public void tick()
 	{
 		this.updateRider();
-		super.onUpdate();
+		super.tick();
 
-		if (this.isBeingRidden() && this.isRiding())
+		if (this.isBeingRidden() && this.isOnePlayerRiding())
 		{
 			for (Entity entity : this.getPassengers())
 			{
-				entity.dismountRidingEntity();
+				entity.stopRiding();
 			}
 		}
 	}
@@ -95,7 +95,7 @@ public abstract class EntityMountable extends EntityAetherAnimal
 				if (this.onGround)
 				{
 					passenger.setSneaking(false);
-					passenger.dismountRidingEntity();
+					passenger.stopRiding();
 					
 					return;
 				}

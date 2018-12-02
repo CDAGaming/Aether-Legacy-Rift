@@ -6,8 +6,8 @@ import net.minecraft.block.IGrowable;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.block.trees.AbstractTree;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.shapes.ShapeUtils;
 import net.minecraft.util.math.shapes.VoxelShape;
+import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 
@@ -41,7 +41,7 @@ public class BlockAetherSapling extends BlockAetherFlower implements IGrowable
 	@Override
 	public VoxelShape getShape(IBlockState blockstateIn, IBlockReader blockReaderIn, BlockPos posIn)
 	{
-		return ShapeUtils.create(0.1D, 0.0D, 0.1D, 0.9D, 0.8D, 0.9D);
+		return VoxelShapes.create(0.1D, 0.0D, 0.1D, 0.9D, 0.8D, 0.9D);
 	}
 
 	@Override

@@ -186,7 +186,7 @@ public class ChunkGeneratorAether extends AbstractChunkGenerator<AetherGenSettin
     public List<SpawnListEntry> getPossibleCreatures(EnumCreatureType typeIn, BlockPos posIn) {
         Biome biome = this.world.getBiome(posIn);
 
-        return biome.getSpawnableList(typeIn);
+        return biome.getSpawns(typeIn);
     }
 
     @Override
@@ -196,7 +196,7 @@ public class ChunkGeneratorAether extends AbstractChunkGenerator<AetherGenSettin
         int x = chunkPos.x;
         int z = chunkPos.z;
 
-        this.random.setSeed(x, z);
+        this.random.setSeed(chunkPos.asLong());
 
         Biome[] biomes = this.biomeProvider.getBiomes(x * 16, z * 16, 16, 16);
 
@@ -220,7 +220,7 @@ public class ChunkGeneratorAether extends AbstractChunkGenerator<AetherGenSettin
         int j = regionIn.getMainChunkZ();
         Biome biome = regionIn.getChunk(i, j).getBiomes()[0];
 
-        this.random.setSeed(regionIn.getSeed(), i << 4, j << 4);
+        this.random.setSeed(regionIn.getSeed());
 
         WorldEntitySpawner.performWorldGenSpawning(this.world, biome, i, j, this.random);
     }

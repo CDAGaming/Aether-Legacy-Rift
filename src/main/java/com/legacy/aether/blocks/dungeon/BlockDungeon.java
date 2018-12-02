@@ -9,7 +9,7 @@ public class BlockDungeon extends Block
 
 	public BlockDungeon(boolean isLocked) 
 	{
-		super(Builder.create(Material.ROCK).hardnessAndResistance(isLocked ? -1.0F : 0.5F, 6000000.0F).sound(SoundType.STONE));
+		super(Properties.create(Material.ROCK).hardnessAndResistance(isLocked ? -1.0F : 0.5F, 6000000.0F).sound(SoundType.STONE));
 	}
 
 }

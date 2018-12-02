@@ -73,15 +73,15 @@ public class AerbunnyModel extends ModelBase
         {
             a = 2.0F;
             GlStateManager.pushMatrix();
-            GlStateManager.translate(0.0F, f5, f5);
+            GlStateManager.translatef(0.0F, f5, f5);
             this.a.render(f5);
             this.g.render(f5);
             this.g2.render(f5);
             this.h.render(f5);
             this.h2.render(f5);
             GlStateManager.popMatrix();
-            GlStateManager.scale(1.0F / a, 1.0F / a, 1.0F / a);
-            GlStateManager.translate(0.0F, 18.0F * f5, 0.0F);
+            GlStateManager.scalef(1.0F / a, 1.0F / a, 1.0F / a);
+            GlStateManager.translatef(0.0F, 18.0F * f5, 0.0F);
             this.b.render(f5);
             this.b2.render(f5);
             this.e1.render(f5);
@@ -89,8 +89,8 @@ public class AerbunnyModel extends ModelBase
             this.ff1.render(f5);
             this.ff2.render(f5);
             float a1 = 1.0F + this.puffiness * 0.5F;
-            GlStateManager.translate(0.0F, 1.0F, 0.0F);
-            GlStateManager.scale(a1, a1, a1);
+            GlStateManager.translatef(0.0F, 1.0F, 0.0F);
+            GlStateManager.scalef(a1, a1, a1);
             this.b3.render(f5);
         }
         else
@@ -104,8 +104,8 @@ public class AerbunnyModel extends ModelBase
             this.b2.render(f5);
             GlStateManager.pushMatrix();
             a = 1.0F + this.puffiness * 0.5F;
-            GlStateManager.translate(0.0F, 1.0F, 0.0F);
-            GlStateManager.scale(a, a, a);
+            GlStateManager.translatef(0.0F, 1.0F, 0.0F);
+            GlStateManager.scalef(a, a, a);
             this.b3.render(f5);
             GlStateManager.popMatrix();
             this.e1.render(f5);

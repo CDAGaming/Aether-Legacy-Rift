@@ -12,14 +12,14 @@ public class ItemAetherShovel extends ItemSpade implements IAetherTool
 
 	public ItemAetherShovel(AetherToolType material, IItemTier itemTier, float damageVsEntity, float attackSpeed) 
 	{
-		super(itemTier, damageVsEntity, attackSpeed, new Builder().group(ItemGroup.TOOLS));
+		super(itemTier, damageVsEntity, attackSpeed, new Properties().group(ItemGroup.TOOLS));
 
 		this.material = material;
 	}
 
 	public ItemAetherShovel(AetherToolType material, EnumRarity rarity, IItemTier itemTier, float damageVsEntity, float attackSpeed) 
 	{
-		super(itemTier, damageVsEntity, attackSpeed, new Builder().group(ItemGroup.TOOLS).rarity(rarity));
+		super(itemTier, damageVsEntity, attackSpeed, new Properties().group(ItemGroup.TOOLS).rarity(rarity));
 
 		this.material = material;
 	}

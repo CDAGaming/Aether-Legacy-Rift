@@ -16,7 +16,7 @@ public class BlockAetherLeaves extends BlockLeaves
 
 	public BlockAetherLeaves()
 	{
-		super(Block.Builder.create(Material.GRASS).needsRandomTick().hardnessAndResistance(0.2F, -1.0F).sound(SoundType.PLANT));
+		super(Block.Properties.create(Material.GRASS).needsRandomTick().hardnessAndResistance(0.2F, -1.0F).sound(SoundType.PLANT));
 	}
 
 	@Override

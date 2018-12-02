@@ -172,7 +172,7 @@ public class AetherPortalSize
 
             for (int j = 0; j < this.height; ++j)
             {
-                this.world.setBlockState(blockpos.up(j), BlocksAether.aether_portal.getDefaultState().withProperty(BlockAetherPortal.AXIS, this.axis), 2);
+                this.world.setBlockState(blockpos.up(j), BlocksAether.aether_portal.getDefaultState().with(BlockAetherPortal.AXIS, this.axis), 2);
             }
         }
     }

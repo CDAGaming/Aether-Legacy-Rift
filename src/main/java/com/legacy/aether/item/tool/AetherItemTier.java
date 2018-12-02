@@ -28,7 +28,7 @@ public class AetherItemTier implements IItemTier
 	}
 
 	@Override
-	public Ingredient func_200924_f()
+	public Ingredient getRepairMaterial()
 	{
 		return this.ingredientLoader.getValue();
 	}

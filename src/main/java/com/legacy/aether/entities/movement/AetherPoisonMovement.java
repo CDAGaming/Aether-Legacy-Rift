@@ -21,7 +21,7 @@ public class AetherPoisonMovement
 	{
         int timeUntilHit = this.poisonTime % 50;
 
-        if (this.entity.isDead)
+        if (this.entity.removed)
         {
         	this.poisonTime = 0;
 

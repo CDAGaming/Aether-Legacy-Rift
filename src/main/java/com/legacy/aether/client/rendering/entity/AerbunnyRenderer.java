@@ -26,24 +26,24 @@ public class AerbunnyRenderer extends RenderLiving<EntityAerbunny>
 	@Override
     protected void preRenderCallback(EntityAerbunny entitybunny, float f)
     {
-    	if (!entitybunny.isRiding())
+    	if (!entitybunny.isOnePlayerRiding())
     	{
-    		GlStateManager.translate(0, 0.2D, 0);
+    		GlStateManager.translated(0, 0.2D, 0);
     	}
 
         if (!entitybunny.onGround)
         {
             if (entitybunny.motionY > 0.5D)
             {
-            	GlStateManager.rotate(15.0F, -1.0F, 0.0F, 0.0F);
+            	GlStateManager.rotatef(15.0F, -1.0F, 0.0F, 0.0F);
             }
             else if (entitybunny.motionY < -0.5D)
             {
-            	GlStateManager.rotate(-15.0F, -1.0F, 0.0F, 0.0F);
+            	GlStateManager.rotatef(-15.0F, -1.0F, 0.0F, 0.0F);
             }
             else
             {
-            	GlStateManager.rotate((float)(entitybunny.motionY * 30.0D), -1.0F, 0.0F, 0.0F);
+            	GlStateManager.rotatef((float)(entitybunny.motionY * 30.0D), -1.0F, 0.0F, 0.0F);
             }
         }
 

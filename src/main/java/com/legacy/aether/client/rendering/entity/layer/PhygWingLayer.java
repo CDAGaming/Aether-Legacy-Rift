@@ -24,9 +24,9 @@ public class PhygWingLayer implements LayerRenderer<EntityPhyg>
 	}
 
 	@Override
-	public void doRenderLayer(EntityPhyg phyg, float limbSwing, float prevLimbSwing, float partialTicks, float rotation, float interpolateRotation, float prevRotationPitch, float scale) 
+	public void render(EntityPhyg phyg, float limbSwing, float prevLimbSwing, float partialTicks, float rotation, float interpolateRotation, float prevRotationPitch, float scale)
 	{
-		this.renderManager.renderEngine.bindTexture(TEXTURE_WINGS);
+		this.renderManager.textureManager.bindTexture(TEXTURE_WINGS);
 		this.model.render(phyg, limbSwing, prevLimbSwing, rotation, interpolateRotation, prevRotationPitch, scale);
 	}
 

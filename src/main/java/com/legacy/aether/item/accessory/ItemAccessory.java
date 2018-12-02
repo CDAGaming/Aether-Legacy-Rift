@@ -28,7 +28,7 @@ public class ItemAccessory extends Item
 
 	public ItemAccessory(AccessoryType type, EnumRarity rarity, int color)
 	{
-		super(new Builder().group(ItemGroup.MISC).maxStackSize(1).rarity(rarity));
+		super(new Properties().group(ItemGroup.MISC).maxStackSize(1).rarity(rarity));
 
 		this.type = type;
 		this.color = color;

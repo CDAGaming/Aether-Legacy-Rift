@@ -107,8 +107,8 @@ public class AechorPlantModel extends ModelBase
     public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale)
     {
 		GlStateManager.pushMatrix();
-		GlStateManager.translate(0.0F, 1.2F, 0.0F);
-		GlStateManager.scale(this.size, this.size, this.size);
+		GlStateManager.translatef(0.0F, 1.2F, 0.0F);
+		GlStateManager.scalef(this.size, this.size, this.size);
 
 		for(int i = 0; i < 10; i++) 
 		{

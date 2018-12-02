@@ -24,9 +24,9 @@ public class EntityPoisonNeedle extends EntityPoisonDart
     }
 
 	@Override
-	protected void entityInit()
+	protected void registerData()
 	{
-		super.entityInit();
+		super.registerData();
 
         this.setDamage(0.5D);
     }

@@ -73,9 +73,9 @@ public abstract class EntitySaddleMount extends EntityMountable
 	}
 
 	@Override
-	protected void entityInit()
+	protected void registerData()
 	{
-		super.entityInit();
+		super.registerData();
 
 		this.dataManager.register(SADDLED, false);
 	}
@@ -104,7 +104,7 @@ public abstract class EntitySaddleMount extends EntityMountable
 		{
 			if (heldItem.getItem() == Items.SADDLE && !this.isChild())
 			{
-				if (!entityplayer.capabilities.isCreativeMode)
+				if (!entityplayer.abilities.isCreativeMode)
 				{
 					entityplayer.setHeldItem(hand, ItemStack.EMPTY);
 				}
@@ -121,7 +121,7 @@ public abstract class EntitySaddleMount extends EntityMountable
 		}
 		else
 		{
-			if (!this.isBeingRidden() && !this.isRiding())
+			if (!this.isBeingRidden() && !this.isOnePlayerRiding())
 			{
 				if (!entityplayer.world.isRemote)
 				{
@@ -148,17 +148,17 @@ public abstract class EntitySaddleMount extends EntityMountable
 	}
 
 	@Override
-	public void writeEntityToNBT(NBTTagCompound compound)
+	public void writeAdditional(NBTTagCompound compound)
 	{
-		super.writeEntityToNBT(compound);
+		super.writeAdditional(compound);
 
-		compound.setBoolean("isSaddled", this.getSaddled());
+		compound.putBoolean("isSaddled", this.getSaddled());
 	}
 
 	@Override
-	public void readEntityFromNBT(NBTTagCompound compound)
+	public void readAdditional(NBTTagCompound compound)
 	{
-		super.readEntityFromNBT(compound);
+		super.readAdditional(compound);
 
 		this.setSaddled(compound.getBoolean("isSaddled"));
 	}

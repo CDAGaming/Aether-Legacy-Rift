@@ -23,15 +23,15 @@ public class ParticlePassiveWhirly extends AetherParticle
         this.particleBlue = f;
         this.particleScale = this.rand.nextFloat() * this.rand.nextFloat() * 6.0F + 1.0F;
         this.offsetSize = this.particleScale;
-        this.particleMaxAge = (int)(8.0D / (Math.random() * 0.8D + 0.3D));
-        this.particleMaxAge = (int)((float)this.particleMaxAge * 2.5F);
+        this.maxAge = (int)(8.0D / (Math.random() * 0.8D + 0.3D));
+        this.maxAge = (int)((float)this.maxAge * 2.5F);
         //this.maxAge = (int)(16.0D / ((double)this.rand.nextFloat() * 0.8D + 0.2D)) + 2;
     }
 
     @Override
     public void renderParticle(BufferBuilder buffer, Entity entityIn, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ)
     {
-        float f = ((float)this.particleAge + partialTicks) / (float)this.particleMaxAge * 32.0F;
+        float f = ((float)this.age + partialTicks) / (float)this.maxAge * 32.0F;
         f = MathHelper.clamp(f, 0.0F, 1.0F);
         this.particleScale = this.offsetSize * f;
         super.renderParticle(buffer, entityIn, partialTicks, rotationX, rotationZ, rotationYZ, rotationXY, rotationXZ);
@@ -43,12 +43,12 @@ public class ParticlePassiveWhirly extends AetherParticle
         this.prevPosY = this.posY;
         this.prevPosZ = this.posZ;
 
-        if (this.particleAge++ >= this.particleMaxAge)
+        if (this.age++ >= this.maxAge)
         {
             this.setExpired();
         }
 
-        this.setParticleTextureIndex(7 - this.particleAge * 8 / this.particleMaxAge);
+        this.setParticleTextureIndex(7 - this.age * 8 / this.maxAge);
         this.motionY += 0.004D;
         this.move(this.motionX, this.motionY, this.motionZ);
         this.motionX *= 0.8999999761581421D;

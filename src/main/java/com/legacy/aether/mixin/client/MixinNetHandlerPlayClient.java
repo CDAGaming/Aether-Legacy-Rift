@@ -41,7 +41,7 @@ public class MixinNetHandlerPlayClient
 
 		if (location.getNamespace().equals("aether_legacy"))
 		{
-			EntityPlayer player = Minecraft.getMinecraft().player;
+			EntityPlayer player = Minecraft.getInstance().player;
 			String packetName = location.getPath();
 
 			if ("apply_poison".equals(packetName))
@@ -116,7 +116,7 @@ public class MixinNetHandlerPlayClient
 
                     if (entity3 instanceof EntityLivingBase && aetherEntity instanceof EntityArrow)
                     {
-                        ((EntityArrow)aetherEntity).shootingEntity = entity3;
+                        ((EntityArrow)aetherEntity).shootingEntity = entity3.getUniqueID();
                     }
             	}
 

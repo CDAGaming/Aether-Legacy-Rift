@@ -32,7 +32,7 @@ public class GuiAccessories extends GuiContainer
     {
     	super.onGuiClosed();
 
-		Minecraft.getMinecraft().player.connection.sendPacket(new CPacketCustomPayload(Aether.locate("close_accessory_gui"), new PacketBuffer(Unpooled.buffer())));
+		Minecraft.getInstance().player.connection.sendPacket(new CPacketCustomPayload(Aether.locate("close_accessory_gui"), new PacketBuffer(Unpooled.buffer())));
     }
 
 	@Override
@@ -44,10 +44,10 @@ public class GuiAccessories extends GuiContainer
 	}
 
 	@Override
-    public void drawScreen(int mouseX, int mouseY, float partialTicks)
+    public void render(int mouseX, int mouseY, float partialTicks)
     {
         this.drawDefaultBackground();
-    	super.drawScreen(mouseX, mouseY, partialTicks);
+    	super.render(mouseX, mouseY, partialTicks);
         this.renderHoveredToolTip(mouseX, mouseY);
     }
 
@@ -60,7 +60,7 @@ public class GuiAccessories extends GuiContainer
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) 
 	{
-		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+		GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
 
 		this.mc.getTextureManager().bindTexture(TEXTURE);
 

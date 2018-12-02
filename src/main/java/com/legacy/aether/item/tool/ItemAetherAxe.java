@@ -25,14 +25,14 @@ public class ItemAetherAxe extends ItemAxe implements IAetherTool
 
 	public ItemAetherAxe(AetherToolType material, IItemTier itemTier, float damageVsEntity, float attackSpeed) 
 	{
-		super(itemTier, damageVsEntity, attackSpeed, new Builder().group(ItemGroup.TOOLS));
+		super(itemTier, damageVsEntity, attackSpeed, new Properties().group(ItemGroup.TOOLS));
 
 		this.material = material;
 	}
 
 	public ItemAetherAxe(AetherToolType material, EnumRarity rarity, IItemTier itemTier, float damageVsEntity, float attackSpeed) 
 	{
-		super(itemTier, damageVsEntity, attackSpeed, new Builder().group(ItemGroup.TOOLS).rarity(rarity));
+		super(itemTier, damageVsEntity, attackSpeed, new Properties().group(ItemGroup.TOOLS).rarity(rarity));
 
 		this.material = material;
 	}
@@ -100,7 +100,7 @@ public class ItemAetherAxe extends ItemAxe implements IAetherTool
     private float calculateIncrease(ItemStack tool, float original)
     {
     	boolean AllowedCalculations = !(original != 4.0F);
-    	int current = tool.getItemDamage();
+    	int current = tool.getDamage();
 
     	if (AllowedCalculations)
     	{

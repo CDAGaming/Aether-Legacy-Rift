@@ -19,15 +19,15 @@ public class MixinTextureMap
 {
 
 	@Shadow
-    @Final private Set<ResourceLocation> field_195427_i;
+    @Final private Set<ResourceLocation> sprites;
 
 	/**
      * @author Modding Legacy
      */
     @Overwrite
-    public void func_195426_a(IResourceManager resourceManager, Iterable<ResourceLocation> resourceList)
+    public void stitch(IResourceManager resourceManager, Iterable<ResourceLocation> resourceList)
     {
-        this.field_195427_i.clear();
+        this.sprites.clear();
 
         resourceList.forEach((p_195423_2_) ->
                 ((TextureMap) (Object) this).registerSprite(resourceManager, p_195423_2_));
@@ -37,7 +37,7 @@ public class MixinTextureMap
 			((TextureMap) (Object) this).registerSprite(resourceManager, Aether.locate("item/slots/" + InventoryAccessories.EMPTY_SLOT_NAMES[i]));
 		}
 
-        ((TextureMap) (Object) this).func_195421_b(resourceManager);
+        ((TextureMap) (Object) this).stitch(resourceManager);
     }
 
 }

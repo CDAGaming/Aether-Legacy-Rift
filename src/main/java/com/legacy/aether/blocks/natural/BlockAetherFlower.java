@@ -9,8 +9,8 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.shapes.ShapeUtils;
 import net.minecraft.util.math.shapes.VoxelShape;
+import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 
 public class BlockAetherFlower extends BlockBush
@@ -18,7 +18,7 @@ public class BlockAetherFlower extends BlockBush
 
 	public BlockAetherFlower() 
 	{
-		super(Builder.create(Material.PLANTS).sound(SoundType.PLANT));
+		super(Properties.create(Material.PLANTS).sound(SoundType.PLANT));
 	}
 
 	@Override
@@ -30,13 +30,13 @@ public class BlockAetherFlower extends BlockBush
 	@Override
 	public VoxelShape getShape(IBlockState blockstateIn, IBlockReader blockReaderIn, BlockPos posIn)
 	{
-		return ShapeUtils.create(0.3D, 0.0D, 0.3D, 0.7D, 0.6D, 0.7D);
+		return VoxelShapes.create(0.3D, 0.0D, 0.3D, 0.7D, 0.6D, 0.7D);
 	}
 
 	@Override
 	public VoxelShape getCollisionShape(IBlockState blockstateIn, IBlockReader blockReaderIn, BlockPos posIn)
 	{
-		return ShapeUtils.create(0.0D, 0.0D, 0.0D, 0.0D, 0.0D, 0.0D);
+		return VoxelShapes.create(0.0D, 0.0D, 0.0D, 0.0D, 0.0D, 0.0D);
 	}
 
 	@Override

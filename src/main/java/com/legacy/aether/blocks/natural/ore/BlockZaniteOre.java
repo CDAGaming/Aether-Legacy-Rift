@@ -18,7 +18,7 @@ public class BlockZaniteOre extends Block
 
 	public BlockZaniteOre()
 	{
-		super(Block.Builder.create(Material.ROCK).hardnessAndResistance(3.0F, 5.0F).sound(SoundType.STONE));
+		super(Block.Properties.create(Material.ROCK).hardnessAndResistance(3.0F, 5.0F).sound(SoundType.STONE));
 	}
 
 	@Override
@@ -32,7 +32,7 @@ public class BlockZaniteOre extends Block
 	{
 		super.dropBlockAsItemWithChance(stateIn, worldIn, posIn, chanceIn, fortuneIn);
 
-		super.dropXpOnBlockBreak(worldIn, posIn, MathHelper.getInt(new Random(), 3, 5));
+		super.dropXpOnBlockBreak(worldIn, posIn, MathHelper.getInt(new Random().toString(), 3, 5));
 	}
 
 	@Override

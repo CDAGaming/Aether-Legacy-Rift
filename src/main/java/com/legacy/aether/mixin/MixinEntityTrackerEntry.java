@@ -36,22 +36,22 @@ public class MixinEntityTrackerEntry
 		}
 		else if (this.trackedEntity instanceof EntityGoldenDart)
 		{
-			Entity dart = ((EntityDart) this.trackedEntity).shootingEntity;
+			Entity dart = ((EntityDart) this.trackedEntity);
 			info.setReturnValue(new SPacketSpawnObject(this.trackedEntity, 584, 1 + (dart == null ? this.trackedEntity.getEntityId() : dart.getEntityId())));
 		}
 		else if (this.trackedEntity instanceof EntityEnchantedDart)
 		{
-			Entity dart = ((EntityDart) this.trackedEntity).shootingEntity;
+			Entity dart = ((EntityDart) this.trackedEntity);
 			info.setReturnValue(new SPacketSpawnObject(this.trackedEntity, 585, 1 + (dart == null ? this.trackedEntity.getEntityId() : dart.getEntityId())));
 		}
 		else if (this.trackedEntity instanceof EntityPoisonNeedle)
 		{
-			Entity dart = ((EntityDart) this.trackedEntity).shootingEntity;
+			Entity dart = ((EntityDart) this.trackedEntity);
 			info.setReturnValue(new SPacketSpawnObject(this.trackedEntity, 586, 1 + (dart == null ? this.trackedEntity.getEntityId() : dart.getEntityId())));
 		}
 		else if (this.trackedEntity instanceof EntityPoisonDart)
 		{
-			Entity dart = ((EntityDart) this.trackedEntity).shootingEntity;
+			Entity dart = ((EntityDart) this.trackedEntity);
 			info.setReturnValue(new SPacketSpawnObject(this.trackedEntity, 587, 1 + (dart == null ? this.trackedEntity.getEntityId() : dart.getEntityId())));
 		}
 	}

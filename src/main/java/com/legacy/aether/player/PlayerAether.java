@@ -2,6 +2,7 @@ package com.legacy.aether.player;
 
 import java.util.UUID;
 
+import com.legacy.aether.world.WorldAether;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
@@ -19,6 +20,7 @@ import com.legacy.aether.item.ItemsAether;
 import com.legacy.aether.player.perks.AetherDonationPerks;
 import com.legacy.aether.util.AetherTeleportation;
 import com.legacy.aether.world.TeleporterAether;
+import net.minecraft.world.dimension.DimensionType;
 
 public class PlayerAether implements IPlayerAether
 {
@@ -115,7 +117,7 @@ public class PlayerAether implements IPlayerAether
 		if (!this.player.world.isRemote)
 		{
 			MinecraftServer server = this.player.getServer();
-			int dimensionToTravel = this.player.dimension == 12 ? 0 : 12;
+			DimensionType dimensionToTravel = this.player.dimension == WorldAether.AETHER ? DimensionType.OVERWORLD : WorldAether.AETHER;
 
 			if (server != null && server.getPlayerList() != null)
 			{
@@ -230,26 +232,26 @@ public class PlayerAether implements IPlayerAether
 
 		this.aetherHealth = new AttributeModifier(uuid, "Aether Health Modifier", (this.shardsUsed * 2.0F), 0);
 
-		if (this.getPlayer().getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).getModifier(uuid) != null)
+		if (this.getPlayer().getAttribute(SharedMonsterAttributes.MAX_HEALTH).getModifier(uuid) != null)
 		{
-			this.getPlayer().getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).removeModifier(this.aetherHealth);
+			this.getPlayer().getAttribute(SharedMonsterAttributes.MAX_HEALTH).removeModifier(this.aetherHealth);
 		}
 
-		this.getPlayer().getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).applyModifier(this.aetherHealth);
+		this.getPlayer().getAttribute(SharedMonsterAttributes.MAX_HEALTH).applyModifier(this.aetherHealth);
 	}
 
 	public void writeToNBT(NBTTagCompound compound)
 	{
-		compound.setInteger("shardsUsed", this.shardsUsed);
+		compound.putInt("shardsUsed", this.shardsUsed);
 
-		compound.setTag("accessories", ItemStackHelper.saveAllItems(new NBTTagCompound(), this.accessories.stacks));
+		compound.put("accessories", ItemStackHelper.saveAllItems(new NBTTagCompound(), this.accessories.stacks));
 	}
 
 	public void readFromNBT(NBTTagCompound compound)
 	{
-		this.shardsUsed = compound.getInteger("shardsUsed");
+		this.shardsUsed = compound.getInt("shardsUsed");
 
-		ItemStackHelper.loadAllItems(compound.getCompoundTag("accessories"), this.accessories.stacks);
+		ItemStackHelper.loadAllItems(compound.getCompound("accessories"), this.accessories.stacks);
 	}
 
 	public void copyFrom(PlayerAether that, boolean keepEverything)

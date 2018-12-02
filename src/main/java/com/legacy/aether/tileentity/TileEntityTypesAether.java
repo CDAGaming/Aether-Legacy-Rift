@@ -23,6 +23,6 @@ public class TileEntityTypesAether implements TileEntityTypeAdder
 
 	public TileEntityType<? extends TileEntity> register(String name, Builder<? extends AetherTileEntity> builder)
 	{
-		return TileEntityType.registerTileEntityType("aether_legacy:" + name, builder);
+		return TileEntityType.register("aether_legacy:" + name, builder);
 	}
 }

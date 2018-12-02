@@ -11,7 +11,7 @@ public class BlockGravititeOre extends BlockFloating
 
 	public BlockGravititeOre()
 	{
-		super(Block.Builder.create(Material.ROCK).hardnessAndResistance(3.0F, 5.0F).sound(SoundType.STONE), true);
+		super(Block.Properties.create(Material.ROCK).hardnessAndResistance(3.0F, 5.0F).sound(SoundType.STONE), true);
 	}
 
 }

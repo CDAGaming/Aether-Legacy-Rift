@@ -10,8 +10,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Particles;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.shapes.ShapeUtils;
 import net.minecraft.util.math.shapes.VoxelShape;
+import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 
@@ -22,7 +22,7 @@ public class BlockAercloud extends Block
 
 	public BlockAercloud() 
 	{
-		super(Builder.create(Material.ICE).hardnessAndResistance(0.2F, -1.0F).sound(SoundType.CLOTH));
+		super(Properties.create(Material.ICE).hardnessAndResistance(0.2F, -1.0F).sound(SoundType.CLOTH));
 	}
 
 	@Override
@@ -38,7 +38,7 @@ public class BlockAercloud extends Block
 				double yOffset = posIn.getY() + worldIn.rand.nextDouble();
 				double zOffset = posIn.getZ() + worldIn.rand.nextDouble();
 
-				worldIn.spawnParticle(Particles.SPLASH, xOffset, yOffset, zOffset, 0.0D, 0.0D, 0.0D);
+				worldIn.addParticle(Particles.SPLASH, xOffset, yOffset, zOffset, 0.0D, 0.0D, 0.0D);
 			}
 
 			if (entityIn instanceof EntityPlayer && entityIn.isSneaking() && entityIn.motionY < 0.0F)
@@ -79,7 +79,7 @@ public class BlockAercloud extends Block
 	@Override
 	public VoxelShape getCollisionShape(IBlockState blockstateIn, IBlockReader blockReaderIn, BlockPos posIn)
 	{
-		return this == BlocksAether.blue_aercloud ? ShapeUtils.create(0.0D, 0.0D, 0.0D, 0.0D, 0.0D, 0.0D) : ShapeUtils.create(0.0D, 0.0D, 0.0D, 1.0D, 0.01D, 1.0D);
+		return this == BlocksAether.blue_aercloud ? VoxelShapes.create(0.0D, 0.0D, 0.0D, 0.0D, 0.0D, 0.0D) : VoxelShapes.create(0.0D, 0.0D, 0.0D, 1.0D, 0.01D, 1.0D);
 	}
 
 }

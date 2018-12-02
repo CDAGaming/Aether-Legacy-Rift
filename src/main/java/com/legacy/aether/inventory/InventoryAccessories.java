@@ -111,7 +111,7 @@ public class InventoryAccessories implements IInventory, IInteractionObject
 	@Override
 	public boolean isUsableByPlayer(EntityPlayer playerIn)
 	{
-		return !playerIn.isDead;
+		return !playerIn.removed;
 	}
 
 	@Override

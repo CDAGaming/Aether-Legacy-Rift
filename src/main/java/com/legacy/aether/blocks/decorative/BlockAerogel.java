@@ -14,7 +14,7 @@ public class BlockAerogel extends BlockBreakable
 
 	public BlockAerogel()
 	{
-		super(Block.Builder.create(Material.ROCK).hardnessAndResistance(1.0F, 2000.0F).sound(SoundType.METAL));
+		super(Block.Properties.create(Material.ROCK).hardnessAndResistance(1.0F, 2000.0F).sound(SoundType.METAL));
 	}
 
 	@Override

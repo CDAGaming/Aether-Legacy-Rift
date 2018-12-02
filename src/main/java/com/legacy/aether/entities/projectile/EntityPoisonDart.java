@@ -60,36 +60,36 @@ public class EntityPoisonDart extends EntityDart
 	}
 
 	@Override
-	protected void entityInit()
+	protected void registerData()
 	{
-		super.entityInit();
+		super.registerData();
 
 		this.setDamage(0.0D);
 	}
 
 	@Override
-    public void onUpdate()
+    public void tick()
     {
-        super.onUpdate();
+        super.tick();
 
         if (this.victim != null)
         {
-        	if (this.victim.isDead || this.poison.poisonTime == 0)
+        	if (this.victim.removed || this.poison.poisonTime == 0)
         	{
-        		this.setDead();
+        		this.remove();
 
         		return;
         	}
 
         	if (this.shootingEntity != null)
         	{
-                if (this.shootingEntity.world instanceof WorldServer)
+                if (this.world instanceof WorldServer)
                 {
-                	((WorldServer)this.shootingEntity.world).spawnParticle(new ItemParticleData(Particles.ITEM, new ItemStack(Items.ROSE_RED)), this.victim.posX, this.victim.getEntityBoundingBox().minY + this.victim.height * 0.8D, this.victim.posZ, 2, 0.0D, 0.0D, 0.0D, 0.0625D);
+                	((WorldServer)this.world).spawnParticle(new ItemParticleData(Particles.ITEM, new ItemStack(Items.ROSE_RED)), this.victim.posX, this.victim.getBoundingBox().minY + this.victim.height * 0.8D, this.victim.posZ, 2, 0.0D, 0.0D, 0.0D, 0.0625D);
                 }
         	}
 
-        	this.isDead = false;
+        	this.removed = false;
         	this.poison.tick();
         	this.setInvisible(true);
         	this.setPosition(this.victim.posX, this.victim.posY, this.victim.posZ);
@@ -133,7 +133,7 @@ public class EntityPoisonDart extends EntityDart
         	this.poison.afflictPoison();
     	}
 
-    	this.isDead = false;
+    	this.removed = false;
     }
 
     @Override

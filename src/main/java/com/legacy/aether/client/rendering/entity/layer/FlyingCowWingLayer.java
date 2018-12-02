@@ -24,9 +24,9 @@ public class FlyingCowWingLayer implements LayerRenderer<EntityFlyingCow>
 	}
 
 	@Override
-	public void doRenderLayer(EntityFlyingCow cow, float limbSwing, float prevLimbSwing, float partialTicks, float rotation, float interpolateRotation, float prevRotationPitch, float scale)
+	public void render(EntityFlyingCow cow, float limbSwing, float prevLimbSwing, float partialTicks, float rotation, float interpolateRotation, float prevRotationPitch, float scale)
 	{
-		this.renderManager.renderEngine.bindTexture(TEXTURE);
+		this.renderManager.textureManager.bindTexture(TEXTURE);
 		this.model.render(cow, limbSwing, prevLimbSwing, rotation, interpolateRotation, prevRotationPitch, scale);
 	}
 

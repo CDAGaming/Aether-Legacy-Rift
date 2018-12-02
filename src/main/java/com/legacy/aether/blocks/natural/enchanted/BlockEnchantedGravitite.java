@@ -11,7 +11,7 @@ public class BlockEnchantedGravitite extends BlockFloating
 
 	public BlockEnchantedGravitite()
 	{
-		super(Block.Builder.create(Material.IRON).hardnessAndResistance(5.0F, -1.0F).sound(SoundType.METAL), false);
+		super(Block.Properties.create(Material.IRON).hardnessAndResistance(5.0F, -1.0F).sound(SoundType.METAL), false);
 	}
 
 }

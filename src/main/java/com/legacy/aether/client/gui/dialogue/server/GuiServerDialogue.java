@@ -42,7 +42,7 @@ public class GuiServerDialogue extends GuiDialogue
 		buffer.writeString(this.dialogueName);
 		buffer.writeInt(dialogue.getDialogueId());
 
-		Minecraft.getMinecraft().player.connection.sendPacket(new CPacketCustomPayload(Aether.locate("dialogue_clicked"), buffer));
+		Minecraft.getInstance().player.connection.sendPacket(new CPacketCustomPayload(Aether.locate("dialogue_clicked"), buffer));
 
 		this.dialogueTreeCompleted();
 	}

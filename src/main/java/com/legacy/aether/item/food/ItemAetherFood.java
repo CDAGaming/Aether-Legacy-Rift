@@ -8,10 +8,10 @@ public class ItemAetherFood extends ItemFood
 
 	public ItemAetherFood(int healAmount, float saturationAmount)
 	{
-		this(new Builder().group(ItemGroup.FOOD), healAmount, saturationAmount);
+		this(new Properties().group(ItemGroup.FOOD), healAmount, saturationAmount);
 	}
 
-	public ItemAetherFood(Builder builder, int healAmount, float saturationAmount)
+	public ItemAetherFood(Properties builder, int healAmount, float saturationAmount)
 	{
 		super(healAmount, saturationAmount, false, builder);
 	}

@@ -99,11 +99,11 @@ public class EntityMoa extends EntitySaddleMount
     }
 
 	@Override
-	protected void entityInit()
+	protected void registerData()
 	{
-		super.entityInit();
+		super.registerData();
 
-		MoaType moaType = AetherAPI.instance().getMoa(this.rand);
+		MoaType moaType = AetherAPI.instance().getMoa();
 
 		this.dataManager.register(MOA_TYPE_ID, AetherAPI.instance().getMoaId(moaType));
 		this.dataManager.register(REMAINING_JUMPS, moaType.getMoaProperties().getMaxJumps());
@@ -115,11 +115,11 @@ public class EntityMoa extends EntitySaddleMount
 	}
 
 	@Override
-    protected void applyEntityAttributes()
+    protected void registerAttributes()
     {
-        super.applyEntityAttributes();
-		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(35.0D);
-		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(1.0D);
+        super.registerAttributes();
+		this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(35.0D);
+		this.getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(1.0D);
 	}
 
 	public int getRandomEggTime()
@@ -203,9 +203,9 @@ public class EntityMoa extends EntitySaddleMount
 	}
 
 	@Override
-	public void onUpdate()
+	public void tick()
 	{
-		super.onUpdate();
+		super.tick();
 
 		this.setMaxJumps(this.getMoaType().getMoaProperties().getMaxJumps());
 
@@ -233,7 +233,7 @@ public class EntityMoa extends EntitySaddleMount
 		{
 			if(this.rand.nextInt(10) == 0)
 			{
-				this.world.spawnParticle(Particles.HAPPY_VILLAGER, this.posX + (this.rand.nextDouble() - 0.5D) * (double)this.width, this.posY + 1, this.posZ + (this.rand.nextDouble() - 0.5D) * (double)this.width, 0.0D, 0.0D, 0.0D);
+				this.world.addParticle(Particles.HAPPY_VILLAGER, this.posX + (this.rand.nextDouble() - 0.5D) * (double)this.width, this.posY + 1, this.posZ + (this.rand.nextDouble() - 0.5D) * (double)this.width, 0.0D, 0.0D, 0.0D);
 			}
 		}
 
@@ -360,7 +360,7 @@ public class EntityMoa extends EntitySaddleMount
 			{
 				if (this.getAmountFed() < 3 && currentItem == ItemsAether.aechor_petal)
 				{
-					if (!player.capabilities.isCreativeMode)
+					if (!player.abilities.isCreativeMode)
 					{
 						stack.shrink(1);
 					}
@@ -402,26 +402,26 @@ public class EntityMoa extends EntitySaddleMount
 	}
 
 	@Override
-	public void writeEntityToNBT(NBTTagCompound nbt)
+	public void writeAdditional(NBTTagCompound nbt)
 	{
-		super.writeEntityToNBT(nbt);
+		super.writeAdditional(nbt);
 
-		nbt.setBoolean("playerGrown", this.isPlayerGrown());
-		nbt.setInteger("remainingJumps", this.getRemainingJumps());
-		nbt.setByte("amountFed", this.getAmountFed());
-		nbt.setBoolean("isHungry", this.isHungry());
-		nbt.setBoolean("isSitting", this.isSitting());
-		nbt.setInteger("typeId", AetherAPI.instance().getMoaId(this.getMoaType()));
+		nbt.putBoolean("playerGrown", this.isPlayerGrown());
+		nbt.putInt("remainingJumps", this.getRemainingJumps());
+		nbt.putByte("amountFed", this.getAmountFed());
+		nbt.putBoolean("isHungry", this.isHungry());
+		nbt.putBoolean("isSitting", this.isSitting());
+		nbt.putInt("typeId", AetherAPI.instance().getMoaId(this.getMoaType()));
 	}
 
 	@Override
-	public void readEntityFromNBT(NBTTagCompound nbt)
+	public void readAdditional(NBTTagCompound nbt)
 	{
-		super.readEntityFromNBT(nbt);
+		super.readAdditional(nbt);
 
 		this.setPlayerGrown(nbt.getBoolean("playerGrown"));
-		this.setRemainingJumps(nbt.getInteger("remainingJumps"));
-		this.setMoaType(AetherAPI.instance().getMoa(nbt.getInteger("typeId")));
+		this.setRemainingJumps(nbt.getInt("remainingJumps"));
+		this.setMoaType(AetherAPI.instance().getMoa(nbt.getInt("typeId")));
 		this.setAmountFed(nbt.getByte("amountFed"));
 		this.setHungry(nbt.getBoolean("isHungry"));
 		this.setSitting(nbt.getBoolean("isSitting"));

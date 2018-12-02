@@ -2,6 +2,7 @@ package com.legacy.aether.sounds;
 
 import net.minecraft.util.SoundEvent;
 
+import net.minecraft.util.registry.IRegistry;
 import org.dimdev.rift.listener.SoundAdder;
 
 import com.legacy.aether.Aether;
@@ -43,9 +44,9 @@ public class SoundsAether implements SoundAdder
 
 	public SoundEvent register(String name)
 	{
-		SoundEvent.registerSound("aether_legacy:" + name);
+		SoundEvent.register("aether_legacy:" + name);
 
-		return SoundEvent.REGISTRY.get(Aether.locate(name));
+		return IRegistry.SOUND_EVENT.get(Aether.locate(name));
 	}
 
 }

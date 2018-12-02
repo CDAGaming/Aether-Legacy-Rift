@@ -34,19 +34,19 @@ public class AetherArmorMaterial implements IArmorMaterial
     }
 
 	@Override
-	public int func_200896_a(EntityEquipmentSlot slot) 
+	public int getDurability(EntityEquipmentSlot slot)
 	{
         return MAX_DAMAGE_ARRAY[slot.getIndex()] * this.maxDamageFactor;
 	}
 
 	@Override
-	public int func_200902_b(EntityEquipmentSlot slot)
+	public int getDamageReductionAmount(EntityEquipmentSlot slot)
 	{
         return this.damageReductionAmountArray[slot.getIndex()];
 	}
 
 	@Override
-	public Ingredient func_200898_c() 
+	public Ingredient getRepairMaterial()
 	{
 		return this.ingredientLoader.getValue();
 	}

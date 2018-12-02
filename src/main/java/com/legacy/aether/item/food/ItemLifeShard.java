@@ -18,7 +18,7 @@ public class ItemLifeShard extends Item
 
 	public ItemLifeShard() 
 	{
-		super(new Builder().maxStackSize(1).group(ItemGroup.MISC).rarity(ItemsAether.AETHER_LOOT));
+		super(new Properties().maxStackSize(1).group(ItemGroup.MISC).rarity(ItemsAether.AETHER_LOOT));
 	}
 
 	@Override

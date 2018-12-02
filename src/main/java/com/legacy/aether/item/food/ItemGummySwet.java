@@ -16,7 +16,7 @@ public class ItemGummySwet extends Item
 
 	public ItemGummySwet()
 	{
-		super(new Builder().group(ItemGroup.FOOD).rarity(ItemsAether.AETHER_LOOT));
+		super(new Properties().group(ItemGroup.FOOD).rarity(ItemsAether.AETHER_LOOT));
 	}
 
 	@Override

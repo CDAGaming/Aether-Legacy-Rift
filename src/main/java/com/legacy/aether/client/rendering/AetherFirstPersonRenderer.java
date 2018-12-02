@@ -20,7 +20,7 @@ public class AetherFirstPersonRenderer
 	public static void renderRightGlove(IEntityPlayerAether hook, ItemAccessory gloves)
     {
 		boolean isSlim = ((AbstractClientPlayer)hook.getInstance()).getSkinType().equals("slim");
-		Minecraft.getMinecraft().getRenderManager().renderEngine.bindTexture(gloves.getAccessoryTexture(isSlim));
+		Minecraft.getInstance().getRenderManager().textureManager.bindTexture(gloves.getAccessoryTexture(isSlim));
 
 		int colour = gloves.getColor();
 		float red = ((colour >> 16) & 0xff) / 255F;
@@ -29,7 +29,7 @@ public class AetherFirstPersonRenderer
 
 		if (gloves != ItemsAether.phoenix_gloves)
 		{
-			GlStateManager.color(red, green, blue, 1.0F);
+			GlStateManager.color4f(red, green, blue, 1.0F);
 		}
 
         GlStateManager.enableBlend();
@@ -40,13 +40,13 @@ public class AetherFirstPersonRenderer
         getModel(isSlim).bipedRightArm.render(0.0625F);
         GlStateManager.disableBlend();
 
-        GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+        GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
     }
 
 	public static void renderLeftGlove(IEntityPlayerAether hook, ItemAccessory gloves)
     {
 		boolean isSlim = ((AbstractClientPlayer)hook.getInstance()).getSkinType().equals("slim");
-		Minecraft.getMinecraft().getRenderManager().renderEngine.bindTexture(gloves.getAccessoryTexture(isSlim));
+		Minecraft.getInstance().getRenderManager().textureManager.bindTexture(gloves.getAccessoryTexture(isSlim));
 
 		int colour = gloves.getColor();
 		float red = ((colour >> 16) & 0xff) / 255F;
@@ -55,7 +55,7 @@ public class AetherFirstPersonRenderer
 
 		if (gloves != ItemsAether.phoenix_gloves)
 		{
-			GlStateManager.color(red, green, blue);
+			GlStateManager.color3f(red, green, blue);
 		}
 
         GlStateManager.enableBlend();
@@ -66,7 +66,7 @@ public class AetherFirstPersonRenderer
         getModel(isSlim).bipedLeftArm.render(0.0625F);
         GlStateManager.disableBlend();
 
-        GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+        GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
     }
 
 	private static ModelBiped getModel(boolean isSlim)
