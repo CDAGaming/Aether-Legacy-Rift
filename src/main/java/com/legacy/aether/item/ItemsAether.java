@@ -24,6 +24,7 @@ import com.legacy.aether.item.material.ItemGoldenAmber;
 import com.legacy.aether.item.material.ItemSkyrootStick;
 import com.legacy.aether.item.material.ItemSwetBall;
 import com.legacy.aether.item.material.ItemZaniteGemstone;
+import com.legacy.aether.item.staff.ItemNatureStaff;
 import com.legacy.aether.item.tool.AetherToolType;
 import com.legacy.aether.item.tool.ItemAetherAxe;
 import com.legacy.aether.item.tool.ItemAetherPickaxe;
@@ -219,6 +220,8 @@ public class ItemsAether implements ItemAdder
 		iron_bubble = register("iron_bubble", new ItemAccessory(AccessoryType.RING, AETHER_LOOT));
 
 		life_shard = register("life_shard", new ItemLifeShard());
+
+		nature_staff = register("nature_staff", new ItemNatureStaff());
 
 		moa_egg = register("moa_egg", new ItemMoaEgg());
 	}
