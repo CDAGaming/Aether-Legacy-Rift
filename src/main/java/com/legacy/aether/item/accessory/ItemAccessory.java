@@ -86,7 +86,7 @@ public class ItemAccessory extends Item
 
         if (heldItem != ItemStack.EMPTY)
         {
-        	if (((IEntityPlayerAether)playerIn).getPlayerAether().getAccessories().isAccessoryValidForSlot(this.type, heldItem))
+        	if (((IEntityPlayerAether)playerIn).getPlayerAether().getAccessories().setAccessory(heldItem))
         	{
             	heldItem.shrink(1);
 
@@ -94,7 +94,7 @@ public class ItemAccessory extends Item
         	}
         }
 
-        return new ActionResult<ItemStack>(EnumActionResult.FAIL, heldItem);
+        return new ActionResult<ItemStack>(EnumActionResult.PASS, heldItem);
     }
 
     public ResourceLocation getAccessoryTexture()

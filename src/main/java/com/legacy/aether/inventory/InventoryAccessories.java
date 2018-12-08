@@ -15,6 +15,7 @@ import net.minecraft.world.IInteractionObject;
 import com.legacy.aether.api.AetherAPI;
 import com.legacy.aether.api.accessories.AccessoryType;
 import com.legacy.aether.inventory.container.ContainerAccessories;
+import com.legacy.aether.item.accessory.ItemAccessory;
 import com.legacy.aether.player.IEntityPlayerAether;
 
 public class InventoryAccessories implements IInventory, IInteractionObject
@@ -64,7 +65,7 @@ public class InventoryAccessories implements IInventory, IInteractionObject
 		return this.stacks.get(index);
 	}
 
-	private int getAvailableSlot(AccessoryType type)
+	public int getAvailableSlot(AccessoryType type)
 	{
 		for (int index = 0; index < this.type.length; ++index)
 		{
@@ -77,6 +78,20 @@ public class InventoryAccessories implements IInventory, IInteractionObject
 		}
 
 		return -1;
+	}
+
+	public boolean setAccessory(ItemStack stack)
+	{
+		boolean flag = false;
+		int slot = this.getAvailableSlot(((ItemAccessory)stack.getItem()).getType());
+
+		if (this.getStackInSlot(slot).isEmpty())
+		{
+			this.setInventorySlotContents(slot, stack);
+			flag = true;
+		}
+
+		return flag;
 	}
 
 	@Override
