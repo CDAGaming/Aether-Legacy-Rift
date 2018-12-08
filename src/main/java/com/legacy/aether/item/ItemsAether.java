@@ -35,6 +35,7 @@ import com.legacy.aether.item.tool.ItemParachute;
 import com.legacy.aether.item.tool.bucket.ItemSkyrootBucket;
 import com.legacy.aether.item.util.AetherTier;
 import com.legacy.aether.item.weapon.ItemAetherSword;
+import com.legacy.aether.item.weapon.ItemElementalSword;
 import com.legacy.aether.item.weapon.projectile.ItemDart;
 import com.legacy.aether.item.weapon.projectile.ItemDartShooter;
 import com.legacy.aether.item.weapon.projectile.ItemPhoenixBow;
@@ -210,6 +211,10 @@ public class ItemsAether implements ItemAdder
 		poison_dart_shooter = register("poison_dart_shooter", new ItemDartShooter((ItemDart) poison_dart));
 
 		phoenix_bow = register("phoenix_bow", new ItemPhoenixBow());
+
+		flaming_sword = register("flaming_sword", new ItemElementalSword());
+		lightning_sword = register("lightning_sword", new ItemElementalSword());
+		holy_sword = register("holy_sword", new ItemElementalSword());
 
 		leather_gloves = register("leather_gloves", new ItemAccessory(AccessoryType.GLOVE, 0xC65C35));
 		iron_gloves = register("iron_gloves", new ItemAccessory(AccessoryType.GLOVE));
