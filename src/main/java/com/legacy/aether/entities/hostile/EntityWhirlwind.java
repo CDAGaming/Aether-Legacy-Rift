@@ -17,12 +17,12 @@ import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemDye;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.IItemProvider;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -35,9 +35,9 @@ import com.legacy.aether.client.particle.ParticlePassiveWhirly;
 import com.legacy.aether.entities.EntityTypesAether;
 import com.legacy.aether.player.perks.AetherRankings;
 
-public class EntityWhirlwind //extends EntityMob
+public class EntityWhirlwind extends EntityMob
 {
-/*
+
 	public static final DataParameter<Boolean> IS_EVIL = EntityDataManager.<Boolean>createKey(EntityWhirlwind.class, DataSerializers.BOOLEAN);
 
 	public static final DataParameter<Integer> COLOR_DATA = EntityDataManager.createKey(EntityWhirlwind.class, DataSerializers.VARINT);
@@ -69,25 +69,21 @@ public class EntityWhirlwind //extends EntityMob
         }
     }
 
-    @Override
-    public float getBlockPathWeight(BlockPos pos)
-    {
-    	return this.world.getBlockState(pos.down()).getBlock() == BlocksAether.aether_grass ? 10.0F : this.world.getBrightness(pos) - 0.5F;
-    }
-
 	@Override
-	protected void applyEntityAttributes()
+	protected void registerAttributes()
 	{
-		super.applyEntityAttributes();
-		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(10.0D);
-        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue((this.rand.nextDouble() * 0.025D) + 0.025D);
-        this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(35.0D);
+		super.registerAttributes();
+
+		this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(10.0D);
+        this.getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue((this.rand.nextDouble() * 0.025D) + 0.025D);
+        this.getAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(35.0D);
 	}
 
 	@Override
-	protected void entityInit()
+	protected void registerData()
 	{
-		super.entityInit();
+		super.registerData();
+
 		this.dataManager.register(IS_EVIL, false);
 		this.dataManager.register(COLOR_DATA, Item.getIdFromItem(ItemDye.getItem(EnumDyeColor.WHITE)));
 	}
@@ -120,7 +116,7 @@ public class EntityWhirlwind //extends EntityMob
 	}
 
 	@Override
-    public void onLivingUpdate() 
+    public void livingTick() 
     {
         EntityPlayer closestPlayer = this.findClosestPlayer();
 
@@ -134,18 +130,18 @@ public class EntityWhirlwind //extends EntityMob
 
         if(this.getAttackTarget() == null)
         {
-        	this.motionX = Math.cos(0.01745329F * this.movementAngle) * this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getAttributeValue();
-            this.motionZ = -Math.sin(0.01745329F * this.movementAngle) * this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getAttributeValue();
+        	this.motionX = Math.cos(0.01745329F * this.movementAngle) * this.getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getValue();
+            this.motionZ = -Math.sin(0.01745329F * this.movementAngle) * this.getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getValue();
             this.movementAngle += this.movementCurve;
         } 
         else 
         {
-        	super.onLivingUpdate();
+        	super.livingTick();
         }
 
-        if(this.lifeLeft-- <= 0 || handleWaterMovement()) 
+        if(this.lifeLeft-- <= 0 || this.handleWaterMovement()) 
         {
-            this.setDead();
+        	this.remove();
         }
 
         if (!this.world.isRemote)
@@ -182,7 +178,7 @@ public class EntityWhirlwind //extends EntityMob
             this.updateParticles();
         }
 
-        List<Entity> list = this.world.getEntitiesWithinAABBExcludingEntity(this, this.getEntityBoundingBox().expand(2.5D, 2.5D, 2.5D));
+        List<Entity> list = this.world.getEntitiesWithinAABBExcludingEntity(this, this.getBoundingBox().expand(2.5D, 2.5D, 2.5D));
 
         for(int l = 0; l < list.size(); l++)
         {
@@ -216,7 +212,7 @@ public class EntityWhirlwind //extends EntityMob
 
                 if(entity instanceof EntityWhirlwind)
                 {
-                    entity.setDead();
+                    entity.remove();
 
                     if(!this.isEvil()) 
                     {
@@ -287,10 +283,10 @@ public class EntityWhirlwind //extends EntityMob
                 float f = rand.nextFloat() * 360F;
 
                 AetherParticle particle = new ParticlePassiveWhirly(this.world, -Math.sin(0.01745329F * f) * 0.75D, d4 - 0.25D, Math.cos(0.01745329F * f) * 0.75D, d1, 0.125D, d7);
-                Minecraft.getMinecraft().effectRenderer.addEffect(particle);
+                Minecraft.getInstance().particles.addEffect(particle);
                 this.particles.add(particle);
 
-                particle.setRBGColorF((((color >> 16) & 0xFF) / 255F), (((color >> 8) & 0xFF) / 255F), ((color & 0xFF) / 255F));
+                particle.setColor((((color >> 16) & 0xFF) / 255F), (((color >> 8) & 0xFF) / 255F), ((color & 0xFF) / 255F));
                 particle.setPosition(this.posX, this.posY, this.posZ);
             }
         }
@@ -303,7 +299,7 @@ public class EntityWhirlwind //extends EntityMob
                 double d8 = (float)posZ + rand.nextFloat() * 0.25F;
                 float f1 = rand.nextFloat() * 360F;
                 AetherParticle particle = new ParticleEvilWhirly(this.world, -Math.sin(0.01745329F * f1) * 0.75D, d5 - 0.25D, Math.cos(0.01745329F * f1) * 0.75D, d2, 0.125D, d8, 3.5F);
-                Minecraft.getMinecraft().effectRenderer.addEffect(particle);
+                Minecraft.getInstance().particles.addEffect(particle);
                 this.particles.add(particle);
 
                 particle.setPosition(this.posX, this.posY, this.posZ);
@@ -346,7 +342,7 @@ public class EntityWhirlwind //extends EntityMob
         return MathHelper.sqrt(f * f + f1 * f1 + f2 * f2);
     }
 
-    public Item getRandomDrop() 
+    public IItemProvider getRandomDrop() 
     {
         int i = this.rand.nextInt(100) + 1;
 
@@ -372,17 +368,17 @@ public class EntityWhirlwind //extends EntityMob
 
         if (i >= 80)
         {
-        	return Item.getItemFromBlock(Blocks.PUMPKIN);
+        	return Blocks.PUMPKIN;
         }
 
         if(i >= 75)
         {
-            return Item.getItemFromBlock(Blocks.GRAVEL);
+            return Blocks.GRAVEL;
         }
 
         if(i >= 64)
         {
-            return Item.getItemFromBlock(Blocks.CLAY);
+            return Blocks.CLAY;
         }
 
         if(i >= 52) 
@@ -397,11 +393,11 @@ public class EntityWhirlwind //extends EntityMob
 
         if(i > 20) 
         {
-            return Item.getItemFromBlock(BlocksAether.skyroot_log);
+            return BlocksAether.skyroot_log;
         }
         else
         {
-            return Item.getItemFromBlock(Blocks.SAND);
+            return Blocks.SAND;
         }
     }
 
@@ -410,22 +406,10 @@ public class EntityWhirlwind //extends EntityMob
         return this.world.getClosestPlayerToEntity(this, 16D);
     }
 
-	@Override
-    public void writeEntityToNBT(NBTTagCompound nbttagcompound) 
+    @Override
+    public float getBlockPathWeight(BlockPos pos)
     {
-        super.writeEntityToNBT(nbttagcompound);
-
-        nbttagcompound.setFloat("movementAngle", this.movementAngle);
-        nbttagcompound.setFloat("movementCurve", this.movementCurve);
-    }
-
-	@Override
-    public void readEntityFromNBT(NBTTagCompound nbttagcompound)
-    {
-        super.readEntityFromNBT(nbttagcompound);
-
-        this.movementAngle = nbttagcompound.getFloat("movementAngle");
-        this.movementCurve = nbttagcompound.getFloat("movementCurve");
+    	return this.world.getBlockState(pos.down()).getBlock() == BlocksAether.aether_grass ? 10.0F : this.world.getBrightness(pos) - 0.5F;
     }
 
 	@Override
@@ -451,5 +435,5 @@ public class EntityWhirlwind //extends EntityMob
     {
         return collidedHorizontally;
     }
-*/
+
 }

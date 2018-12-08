@@ -124,5 +124,6 @@
 "item.aether_legacy.iron_bubble": "Iron Bubble",
 "item.aether_legacy.life_shard": "Life Shard",
 "item.aether_legacy.aechor_plant_spawn_egg": "Aechor Plant Spawn Egg",
-"entity.aether_legacy.aechor_plant": "Aechor Plant"
+"entity.aether_legacy.aechor_plant": "Aechor Plant",
+"entity.aether_legacy.whirlwind": "Whirlwind"
 }

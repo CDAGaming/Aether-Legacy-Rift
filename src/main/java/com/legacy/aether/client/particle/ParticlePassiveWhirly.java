@@ -25,6 +25,7 @@ public class ParticlePassiveWhirly extends AetherParticle
         this.offsetSize = this.particleScale;
         this.maxAge = (int)(8.0D / (Math.random() * 0.8D + 0.3D));
         this.maxAge = (int)((float)this.maxAge * 2.5F);
+        this.maxAge = Math.max(this.maxAge, 1);
         //this.maxAge = (int)(16.0D / ((double)this.rand.nextFloat() * 0.8D + 0.2D)) + 2;
     }
 
@@ -37,7 +38,8 @@ public class ParticlePassiveWhirly extends AetherParticle
         super.renderParticle(buffer, entityIn, partialTicks, rotationX, rotationZ, rotationYZ, rotationXY, rotationXZ);
     }
 
-    public void onUpdate()
+    @Override
+    public void tick()
     {
         this.prevPosX = this.posX;
         this.prevPosY = this.posY;

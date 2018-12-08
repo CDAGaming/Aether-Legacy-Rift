@@ -18,13 +18,13 @@ public class ParticleEvilWhirly extends AetherParticle
     public ParticleEvilWhirly(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double p_i46348_8_, double p_i46348_10_, double p_i46348_12_, float p_i46348_14_)
     {
         super(worldIn, xCoordIn, yCoordIn, zCoordIn, 0.0D, 0.0D, 0.0D);
-        this.motionX *= 0.10000000149011612D;
-        this.motionY *= 0.10000000149011612D;
-        this.motionZ *= 0.10000000149011612D;
+        this.motionX *= (double)0.1F;
+        this.motionY *= (double)0.1F;
+        this.motionZ *= (double)0.1F;
         this.motionX += p_i46348_8_;
         this.motionY += p_i46348_10_;
         this.motionZ += p_i46348_12_;
-        float f = (float)(Math.random() * 0.30000001192092896D);
+        float f = (float)(Math.random() * (double)0.3F);
         this.particleRed = f;
         this.particleGreen = f;
         this.particleBlue = f;
@@ -33,11 +33,10 @@ public class ParticleEvilWhirly extends AetherParticle
         this.smokeParticleScale = this.particleScale;
         this.maxAge = (int)(8.0D / (Math.random() * 0.8D + 0.2D));
         this.maxAge = (int)((float)this.maxAge * p_i46348_14_);
+        this.maxAge = Math.max(this.maxAge, 1);
     }
 
-    /**
-     * Renders the particle
-     */
+    @Override
     public void renderParticle(BufferBuilder worldRendererIn, Entity entityIn, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ)
     {
         float f = ((float)this.age + partialTicks) / (float)this.maxAge * 32.0F;
@@ -46,7 +45,8 @@ public class ParticleEvilWhirly extends AetherParticle
         super.renderParticle(worldRendererIn, entityIn, partialTicks, rotationX, rotationZ, rotationYZ, rotationXY, rotationXZ);
     }
 
-    public void onUpdate()
+    @Override
+    public void tick()
     {
         this.prevPosX = this.posX;
         this.prevPosY = this.posY;
@@ -67,14 +67,14 @@ public class ParticleEvilWhirly extends AetherParticle
             this.motionZ *= 1.1D;
         }
 
-        this.motionX *= 0.9599999785423279D;
-        this.motionY *= 0.9599999785423279D;
-        this.motionZ *= 0.9599999785423279D;
+        this.motionX *= (double)0.96F;
+        this.motionY *= (double)0.96F;
+        this.motionZ *= (double)0.96F;
 
         if (this.onGround)
         {
-            this.motionX *= 0.699999988079071D;
-            this.motionZ *= 0.699999988079071D;
+            this.motionX *= (double)0.7F;
+            this.motionZ *= (double)0.7F;
         }
     }
 
