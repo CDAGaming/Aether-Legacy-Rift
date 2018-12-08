@@ -5,6 +5,7 @@ import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IRangedAttackMob;
 import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.EntityAIAttackRanged;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.player.EntityPlayer;
@@ -47,6 +48,7 @@ public class EntityAechorPlant extends EntityAetherAnimal implements IRangedAtta
     protected void initEntityAI()
     {
 		super.initEntityAI();
+        this.tasks.addTask(4, new EntityAIAttackRanged(this, 0.0D, 30, 1.0F));
     	this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false, new Class[0]));
     	this.targetTasks.addTask(2, new EntityAINearestAttackableTarget<EntityLivingBase>(this, EntityLivingBase.class, true));
     }
@@ -55,6 +57,7 @@ public class EntityAechorPlant extends EntityAetherAnimal implements IRangedAtta
     protected void registerAttributes()
     {
         super.registerAttributes();
+
         this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(20.0D);
     }
 
