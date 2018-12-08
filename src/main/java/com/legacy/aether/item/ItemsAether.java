@@ -1,5 +1,6 @@
 package com.legacy.aether.item;
 
+import net.minecraft.init.Fluids;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
@@ -180,7 +181,7 @@ public class ItemsAether implements ItemAdder
 		ginger_bread_man = register("gingerbread_man", new ItemAetherFood(2, 1.0F));
 
 		skyroot_bucket = register("skyroot_bucket", new ItemSkyrootBucket());
-		skyroot_water_bucket = register("skyroot_water_bucket", new ItemSkyrootBucket(skyroot_bucket));
+		skyroot_water_bucket = register("skyroot_water_bucket", new ItemSkyrootBucket(Fluids.WATER, skyroot_bucket));
 		skyroot_milk_bucket = register("skyroot_milk_bucket", new ItemSkyrootBucket(skyroot_bucket));
 		skyroot_poison_bucket = register("skyroot_poison_bucket", new ItemSkyrootBucket(skyroot_bucket));
 		skyroot_remedy_bucket = register("skyroot_remedy_bucket", new ItemSkyrootBucket(skyroot_bucket));
