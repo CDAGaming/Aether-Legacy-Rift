@@ -30,6 +30,7 @@ import com.legacy.aether.item.tool.AetherToolType;
 import com.legacy.aether.item.tool.ItemAetherAxe;
 import com.legacy.aether.item.tool.ItemAetherPickaxe;
 import com.legacy.aether.item.tool.ItemAetherShovel;
+import com.legacy.aether.item.tool.ItemParachute;
 import com.legacy.aether.item.tool.bucket.ItemSkyrootBucket;
 import com.legacy.aether.item.weapon.ItemAetherSword;
 
@@ -68,7 +69,7 @@ public class ItemsAether implements ItemAdder
 
 	public static Item skyroot_bucket, skyroot_water_bucket, skyroot_poison_bucket, skyroot_remedy_bucket, skyroot_milk_bucket;
 
-	public static Item cloud_parachute, golden_parachute;
+	public static Item cloud_parachute, golden_cloud_parachute;
 
 	public static Item bronze_key, silver_key, golden_key, platinum_key;
 
@@ -185,6 +186,9 @@ public class ItemsAether implements ItemAdder
 		skyroot_milk_bucket = register("skyroot_milk_bucket", new ItemSkyrootBucket(skyroot_bucket));
 		skyroot_poison_bucket = register("skyroot_poison_bucket", new ItemSkyrootBucket(skyroot_bucket));
 		skyroot_remedy_bucket = register("skyroot_remedy_bucket", new ItemSkyrootBucket(skyroot_bucket));
+
+		cloud_parachute = register("cloud_parachute", new ItemParachute());
+		golden_cloud_parachute = register("golden_cloud_parachute", new ItemParachute(20));
 
 		leather_gloves = register("leather_gloves", new ItemAccessory(AccessoryType.GLOVE, 0xC65C35));
 		iron_gloves = register("iron_gloves", new ItemAccessory(AccessoryType.GLOVE));
