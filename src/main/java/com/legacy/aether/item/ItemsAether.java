@@ -35,6 +35,7 @@ import com.legacy.aether.item.tool.ItemParachute;
 import com.legacy.aether.item.tool.bucket.ItemSkyrootBucket;
 import com.legacy.aether.item.util.AetherTier;
 import com.legacy.aether.item.weapon.ItemAetherSword;
+import com.legacy.aether.item.weapon.ItemCandyCaneSword;
 import com.legacy.aether.item.weapon.ItemElementalSword;
 import com.legacy.aether.item.weapon.ItemPigSlayer;
 import com.legacy.aether.item.weapon.ItemVampireBlade;
@@ -220,6 +221,7 @@ public class ItemsAether implements ItemAdder
 
 		vampire_blade = register("vampire_blade", new ItemVampireBlade());
 		pig_slayer = register("pig_slayer", new ItemPigSlayer());
+		candy_cane_sword = register("candy_cane_sword", new ItemCandyCaneSword());
 
 		leather_gloves = register("leather_gloves", new ItemAccessory(AccessoryType.GLOVE, 0xC65C35));
 		iron_gloves = register("iron_gloves", new ItemAccessory(AccessoryType.GLOVE));
