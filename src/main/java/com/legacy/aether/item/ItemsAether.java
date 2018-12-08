@@ -34,6 +34,7 @@ import com.legacy.aether.item.tool.ItemAetherShovel;
 import com.legacy.aether.item.tool.ItemParachute;
 import com.legacy.aether.item.tool.bucket.ItemSkyrootBucket;
 import com.legacy.aether.item.weapon.ItemAetherSword;
+import com.legacy.aether.item.weapon.projectile.ItemDart;
 
 public class ItemsAether implements ItemAdder
 {
@@ -195,6 +196,10 @@ public class ItemsAether implements ItemAdder
 		silver_key = register("silver_key", new ItemDungeonKey());
 		golden_key = register("golden_key", new ItemDungeonKey());
 		platinum_key = register("platinum_key", new ItemDungeonKey());
+
+		golden_dart = register("golden_dart", new ItemDart());
+		enchanted_dart = register("enchanted_dart", new ItemDart(EnumRarity.RARE));
+		poison_dart = register("poison_dart", new ItemDart());
 
 		leather_gloves = register("leather_gloves", new ItemAccessory(AccessoryType.GLOVE, 0xC65C35));
 		iron_gloves = register("iron_gloves", new ItemAccessory(AccessoryType.GLOVE));
