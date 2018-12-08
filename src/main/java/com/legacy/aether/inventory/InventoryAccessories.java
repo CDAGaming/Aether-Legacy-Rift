@@ -70,7 +70,7 @@ public class InventoryAccessories implements IInventory, IInteractionObject
 		{
 			ItemStack stack = this.getStackInSlot(index);
 
-			if (stack.isEmpty() && AetherAPI.instance().getAccessory(stack).getType() == this.type[index])
+			if (stack.isEmpty() && type == this.type[index])
 			{
 				return index;
 			}
