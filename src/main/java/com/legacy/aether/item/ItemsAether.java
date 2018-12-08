@@ -26,6 +26,7 @@ import com.legacy.aether.item.material.ItemGoldenAmber;
 import com.legacy.aether.item.material.ItemSkyrootStick;
 import com.legacy.aether.item.material.ItemSwetBall;
 import com.legacy.aether.item.material.ItemZaniteGemstone;
+import com.legacy.aether.item.staff.ItemCloudStaff;
 import com.legacy.aether.item.staff.ItemNatureStaff;
 import com.legacy.aether.item.tool.AetherToolType;
 import com.legacy.aether.item.tool.ItemAetherAxe;
@@ -237,6 +238,7 @@ public class ItemsAether implements ItemAdder
 
 		life_shard = register("life_shard", new ItemLifeShard());
 
+		cloud_staff = register("cloud_staff", new ItemCloudStaff());
 		nature_staff = register("nature_staff", new ItemNatureStaff());
 
 		moa_egg = register("moa_egg", new ItemMoaEgg());
