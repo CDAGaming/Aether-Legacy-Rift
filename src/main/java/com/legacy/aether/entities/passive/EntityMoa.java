@@ -383,6 +383,7 @@ public class EntityMoa extends EntitySaddleMount
 				stack.damageItem(2, player);
 
 				this.setSitting(this.isSitting() ? false : true);
+
 				if (!this.world.isRemote)
 				{
 					this.spawnExplosionParticle();

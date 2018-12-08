@@ -1,22 +1,33 @@
 package com.legacy.aether.mixin;
 
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.passive.EntityPig;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Overwrite;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import com.legacy.aether.entities.util.EntityMountable;
 import com.legacy.aether.player.IEntityPlayerAether;
 import com.legacy.aether.player.PlayerAether;
 import com.mojang.authlib.GameProfile;
 
 @Mixin(EntityPlayer.class)
-public abstract class MixinEntityPlayer implements IEntityPlayerAether
+public abstract class MixinEntityPlayer extends EntityLivingBase implements IEntityPlayerAether
 {
+
+	protected MixinEntityPlayer(EntityType<?> type, World p_i48577_2_)
+	{
+		super(type, p_i48577_2_);
+	}
 
 	private PlayerAether playerAether;
 
@@ -68,6 +79,43 @@ public abstract class MixinEntityPlayer implements IEntityPlayerAether
 	{
 		this.playerAether.damageAccessories(damage);
 	}
+
+    @Overwrite
+    public void updateRidden()
+    {
+    	EntityPlayer player = (EntityPlayer) (Object) this;
+
+        if (!player.world.isRemote && !(player.getRidingEntity() instanceof EntityMountable) && player.isSneaking() && player.isPassenger())
+        {
+        	player.stopRiding();
+            player.setSneaking(false);
+        }
+        else
+        {
+            double d0 = player.posX;
+            double d1 = player.posY;
+            double d2 = player.posZ;
+            float f = player.rotationYaw;
+            float f1 = player.rotationPitch;
+            super.updateRidden();
+            player.prevCameraYaw = player.cameraYaw;
+            player.cameraYaw = 0.0F;
+            this.addMountedMovementStat(player.posX - d0, player.posY - d1, player.posZ - d2);
+
+            if (player.getRidingEntity() instanceof EntityPig)
+            {
+            	player.rotationPitch = f1;
+            	player.rotationYaw = f;
+            	player.renderYawOffset = ((EntityPig)player.getRidingEntity()).renderYawOffset;
+            }
+        }
+    }
+
+    @Shadow
+    private void addMountedMovementStat(double x, double y, double z)
+    {
+    	
+    }
 
     public boolean canBreatheUnderwater()
     {

@@ -3,25 +3,20 @@ package com.legacy.aether.mixin;
 import net.minecraft.entity.EntityLivingBase;
 
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.Shadow;
 
-import com.legacy.aether.player.IEntityPlayerAether;
+import com.legacy.aether.player.IEntityHook;
 
 @Mixin(EntityLivingBase.class)
-public abstract class MixinEntityLivingBase
+public abstract class MixinEntityLivingBase implements IEntityHook
 {
 
-    @Inject(method = "setJumping", at = @At("RETURN"))
-	public void checkJumping(boolean isJumping, CallbackInfo ci)
-	{
-		EntityLivingBase entity = (EntityLivingBase) (Object) this;
+	@Shadow
+    protected boolean isJumping;
 
-		if (entity instanceof IEntityPlayerAether)
-		{
-			((IEntityPlayerAether)entity).getPlayerAether().setJumping(isJumping);
-		}
-	}
+    public boolean checkIsJumping()
+    {
+    	return this.isJumping;
+    }
 
 }

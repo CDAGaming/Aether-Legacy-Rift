@@ -68,15 +68,8 @@ public abstract class EntityMountable extends EntityAetherAnimal
 	public void tick()
 	{
 		this.updateRider();
-		super.tick();
 
-		if (this.isBeingRidden() && this.isOnePlayerRiding())
-		{
-			for (Entity entity : this.getPassengers())
-			{
-				entity.stopRiding();
-			}
-		}
+		super.tick();
 	}
 
 	public void updateRider()
@@ -94,8 +87,8 @@ public abstract class EntityMountable extends EntityAetherAnimal
 			{
 				if (this.onGround)
 				{
-					passenger.setSneaking(false);
 					passenger.stopRiding();
+					passenger.setSneaking(false);
 					
 					return;
 				}

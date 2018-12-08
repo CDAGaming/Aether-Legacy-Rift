@@ -52,6 +52,8 @@ public class PlayerAether implements IPlayerAether
 
 	public void tick()
 	{
+		this.setJumping(((IEntityHook)this.player).checkIsJumping());
+
 		if (this.getPlayer().world.isRemote)
 		{
 			this.prevPortalAnimTime = this.portalAnimTime;
