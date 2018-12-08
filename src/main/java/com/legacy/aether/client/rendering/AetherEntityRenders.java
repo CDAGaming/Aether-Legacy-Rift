@@ -18,6 +18,7 @@ import com.legacy.aether.client.rendering.entity.FloatingBlockRenderer;
 import com.legacy.aether.client.rendering.entity.FlyingCowRenderer;
 import com.legacy.aether.client.rendering.entity.MiniCloudRenderer;
 import com.legacy.aether.client.rendering.entity.MoaRenderer;
+import com.legacy.aether.client.rendering.entity.PhoenixArrowRenderer;
 import com.legacy.aether.client.rendering.entity.PhygRenderer;
 import com.legacy.aether.client.rendering.entity.SheepuffRenderer;
 import com.legacy.aether.client.rendering.entity.WhirlwindRenderer;
@@ -34,6 +35,7 @@ import com.legacy.aether.entities.passive.EntityMoa;
 import com.legacy.aether.entities.passive.EntityPhyg;
 import com.legacy.aether.entities.passive.EntitySheepuff;
 import com.legacy.aether.entities.projectile.EntityDart;
+import com.legacy.aether.entities.projectile.EntityPhoenixArrow;
 
 public class AetherEntityRenders implements EntityRendererAdder
 {
@@ -54,6 +56,7 @@ public class AetherEntityRenders implements EntityRendererAdder
 		entityRenderMap.put(EntityChestMimic.class, new ChestMimicRenderer(renderManager));
 		entityRenderMap.put(EntityFloatingBlock.class, new FloatingBlockRenderer(renderManager));
 		entityRenderMap.put(EntityWhirlwind.class, new WhirlwindRenderer(renderManager));
+		entityRenderMap.put(EntityPhoenixArrow.class, new PhoenixArrowRenderer(renderManager));
 	}
 
 }

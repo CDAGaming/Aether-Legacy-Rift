@@ -18,6 +18,7 @@ import com.legacy.aether.entities.passive.EntityMiniCloud;
 import com.legacy.aether.entities.projectile.EntityDart;
 import com.legacy.aether.entities.projectile.EntityEnchantedDart;
 import com.legacy.aether.entities.projectile.EntityGoldenDart;
+import com.legacy.aether.entities.projectile.EntityPhoenixArrow;
 import com.legacy.aether.entities.projectile.EntityPoisonDart;
 import com.legacy.aether.entities.projectile.EntityPoisonNeedle;
 import com.legacy.aether.entities.projectile.crystal.EntityCrystal;
@@ -38,23 +39,23 @@ public class MixinEntityTrackerEntry
 		}
 		else if (this.trackedEntity instanceof EntityGoldenDart)
 		{
-			Entity dart = ((EntityDart) this.trackedEntity);
-			info.setReturnValue(new SPacketSpawnObject(this.trackedEntity, 584, 1 + (dart == null ? this.trackedEntity.getEntityId() : dart.getEntityId())));
+			EntityDart dart = ((EntityDart) this.trackedEntity);
+			info.setReturnValue(new SPacketSpawnObject(this.trackedEntity, 584, 1 + (dart.func_212360_k() == null ? this.trackedEntity.getEntityId() : dart.func_212360_k().getEntityId())));
 		}
 		else if (this.trackedEntity instanceof EntityEnchantedDart)
 		{
-			Entity dart = ((EntityDart) this.trackedEntity);
-			info.setReturnValue(new SPacketSpawnObject(this.trackedEntity, 585, 1 + (dart == null ? this.trackedEntity.getEntityId() : dart.getEntityId())));
+			EntityDart dart = ((EntityDart) this.trackedEntity);
+			info.setReturnValue(new SPacketSpawnObject(this.trackedEntity, 585, 1 + (dart.func_212360_k() == null ? this.trackedEntity.getEntityId() : dart.func_212360_k().getEntityId())));
 		}
 		else if (this.trackedEntity instanceof EntityPoisonNeedle)
 		{
-			Entity dart = ((EntityDart) this.trackedEntity);
-			info.setReturnValue(new SPacketSpawnObject(this.trackedEntity, 586, 1 + (dart == null ? this.trackedEntity.getEntityId() : dart.getEntityId())));
+			EntityDart dart = ((EntityDart) this.trackedEntity);
+			info.setReturnValue(new SPacketSpawnObject(this.trackedEntity, 586, 1 + (dart.func_212360_k() == null ? this.trackedEntity.getEntityId() : dart.func_212360_k().getEntityId())));
 		}
 		else if (this.trackedEntity instanceof EntityPoisonDart)
 		{
-			Entity dart = ((EntityDart) this.trackedEntity);
-			info.setReturnValue(new SPacketSpawnObject(this.trackedEntity, 587, 1 + (dart == null ? this.trackedEntity.getEntityId() : dart.getEntityId())));
+			EntityDart dart = ((EntityDart) this.trackedEntity);
+			info.setReturnValue(new SPacketSpawnObject(this.trackedEntity, 587, 1 + (dart.func_212360_k() == null ? this.trackedEntity.getEntityId() : dart.func_212360_k().getEntityId())));
 		}
 		else if (this.trackedEntity instanceof EntityMiniCloud)
 		{
@@ -65,6 +66,11 @@ public class MixinEntityTrackerEntry
 		{
 			EntityCrystal crystal = ((EntityCrystal) this.trackedEntity);
 			info.setReturnValue(new SPacketSpawnObject(this.trackedEntity, 590 + crystal.getCrystalType().getId(), 1 + (crystal.getAttackTarget() == null ? this.trackedEntity.getEntityId() : crystal.getAttackTarget().getEntityId())));
+		}
+		else if (this.trackedEntity instanceof EntityPhoenixArrow)
+		{
+			EntityPhoenixArrow arrow = ((EntityPhoenixArrow) this.trackedEntity);
+			info.setReturnValue(new SPacketSpawnObject(this.trackedEntity, 593, 1 + (arrow.func_212360_k() == null ? this.trackedEntity.getEntityId() : arrow.func_212360_k().getEntityId())));
 		}
 	}
 

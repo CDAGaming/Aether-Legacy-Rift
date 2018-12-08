@@ -23,6 +23,7 @@ import com.legacy.aether.entities.block.EntityFloatingBlock;
 import com.legacy.aether.entities.passive.EntityMiniCloud;
 import com.legacy.aether.entities.projectile.EntityEnchantedDart;
 import com.legacy.aether.entities.projectile.EntityGoldenDart;
+import com.legacy.aether.entities.projectile.EntityPhoenixArrow;
 import com.legacy.aether.entities.projectile.EntityPoisonDart;
 import com.legacy.aether.entities.projectile.EntityPoisonNeedle;
 import com.legacy.aether.entities.projectile.crystal.EntityCrystal;
@@ -111,6 +112,10 @@ public class MixinNetHandlerPlayClient
     	{
     		aetherEntity = new EntityCrystal(this.world, d0, d1, d2, (EntityPlayer) this.world.getEntityByID(packetIn.getData()));
     		packetIn.setData(0);
+    	}
+    	else if (packetIn.getType() == 593)
+    	{
+    		aetherEntity = new EntityPhoenixArrow(this.world, d0, d1, d2);
     	}
 
         if (aetherEntity != null)

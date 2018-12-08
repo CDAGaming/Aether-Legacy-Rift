@@ -26,6 +26,7 @@ import com.legacy.aether.entities.passive.EntityPhyg;
 import com.legacy.aether.entities.passive.EntitySheepuff;
 import com.legacy.aether.entities.projectile.EntityEnchantedDart;
 import com.legacy.aether.entities.projectile.EntityGoldenDart;
+import com.legacy.aether.entities.projectile.EntityPhoenixArrow;
 import com.legacy.aether.entities.projectile.EntityPoisonDart;
 import com.legacy.aether.entities.projectile.EntityPoisonNeedle;
 import com.legacy.aether.entities.projectile.crystal.EntityCrystal;
@@ -71,6 +72,8 @@ public class EntityTypesAether implements EntityTypeAdder, ItemAdder
 
 	public static EntityType<EntityCrystal> CRYSTAL;
 
+	public static EntityType<EntityPhoenixArrow> PHOENIX_ARROW;
+
 	@Override
 	@SuppressWarnings("unchecked")
 	public void registerEntityTypes() 
@@ -93,6 +96,7 @@ public class EntityTypesAether implements EntityTypeAdder, ItemAdder
 		MINI_CLOUD = (EntityType<EntityMiniCloud>) register("mini_cloud", Builder.create(EntityMiniCloud.class, EntityMiniCloud::new));
 		FIRE_MINION = (EntityType<EntityFireMinion>) register("fire_minion", Builder.create(EntityFireMinion.class, EntityFireMinion::new));
 		CRYSTAL = (EntityType<EntityCrystal>) register("crystal", Builder.create(EntityCrystal.class, EntityCrystal::new));
+		PHOENIX_ARROW = (EntityType<EntityPhoenixArrow>) register("phoenix_arrow", Builder.create(EntityPhoenixArrow.class, EntityPhoenixArrow::new));
 
 		AetherMoaTypes.initialization();
 	}
