@@ -1,6 +1,7 @@
 package com.legacy.aether.entities;
 
 import com.legacy.aether.Aether;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EntityType.Builder;
@@ -13,11 +14,13 @@ import com.legacy.aether.entities.block.EntityFloatingBlock;
 import com.legacy.aether.entities.hostile.EntityAechorPlant;
 import com.legacy.aether.entities.hostile.EntityChestMimic;
 import com.legacy.aether.entities.hostile.EntityCockatrice;
+import com.legacy.aether.entities.hostile.EntityWhirlwind;
 //import com.legacy.aether.entities.hostile.EntityWhirlwind;
 import com.legacy.aether.entities.passive.EntityAerbunny;
 import com.legacy.aether.entities.passive.EntityFlyingCow;
 import com.legacy.aether.entities.passive.EntityMoa;
 import com.legacy.aether.entities.passive.EntityPhyg;
+import com.legacy.aether.entities.passive.EntitySheepuff;
 import com.legacy.aether.entities.projectile.EntityEnchantedDart;
 import com.legacy.aether.entities.projectile.EntityGoldenDart;
 import com.legacy.aether.entities.projectile.EntityPoisonDart;
@@ -38,6 +41,8 @@ public class EntityTypesAether implements EntityTypeAdder, ItemAdder
 
 	public static EntityType<EntityPhyg> PHYG;
 
+	public static EntityType<EntitySheepuff> SHEEPUFF;
+
 	public static EntityType<EntityCockatrice> COCKATRICE;
 
 	public static EntityType<EntityChestMimic> CHEST_MIMIC;
@@ -52,7 +57,7 @@ public class EntityTypesAether implements EntityTypeAdder, ItemAdder
 
 	public static EntityType<EntityPoisonNeedle> POISON_NEEDLE;
 
-	//public static EntityType<EntityWhirlwind> WHIRLWIND;
+	public static EntityType<EntityWhirlwind> WHIRLWIND;
 
 	public static EntityType<Entity> AERWHALE; // TEST
 
@@ -64,6 +69,7 @@ public class EntityTypesAether implements EntityTypeAdder, ItemAdder
 		FLYING_COW = (EntityType<EntityFlyingCow>) register("flying_cow", Builder.create(EntityFlyingCow.class, EntityFlyingCow::new));
 		MOA = (EntityType<EntityMoa>) register("moa", Builder.create(EntityMoa.class, EntityMoa::new));
 		PHYG = (EntityType<EntityPhyg>) register("phyg", Builder.create(EntityPhyg.class, EntityPhyg::new));
+		SHEEPUFF = (EntityType<EntitySheepuff>) register("sheepuff", Builder.create(EntitySheepuff.class, EntitySheepuff::new));
 		AERBUNNY = (EntityType<EntityAerbunny>) register("aerbunny", Builder.create(EntityAerbunny.class, EntityAerbunny::new));
 		COCKATRICE = (EntityType<EntityCockatrice>) register("cockatrice", Builder.create(EntityCockatrice.class, EntityCockatrice::new));
 		CHEST_MIMIC = (EntityType<EntityChestMimic>) register("chest_mimic", Builder.create(EntityChestMimic.class, EntityChestMimic::new));
@@ -72,7 +78,7 @@ public class EntityTypesAether implements EntityTypeAdder, ItemAdder
 		POISON_DART = (EntityType<EntityPoisonDart>) register("poison_dart", Builder.create(EntityPoisonDart.class, EntityPoisonDart::new));
 		POISON_NEEDLE = (EntityType<EntityPoisonNeedle>) register("poison_needle", Builder.create(EntityPoisonNeedle.class, EntityPoisonNeedle::new));
 		FLOATING_BLOCK = (EntityType<EntityFloatingBlock>) register("floating_block", Builder.create(EntityFloatingBlock.class, EntityFloatingBlock::new));
-		//WHIRLWIND = (EntityType<EntityWhirlwind>) register("whirlwind", Builder.create(EntityWhirlwind.class, EntityWhirlwind::new));
+		WHIRLWIND = (EntityType<EntityWhirlwind>) register("whirlwind", Builder.create(EntityWhirlwind.class, EntityWhirlwind::new));
 
 		AetherMoaTypes.initialization();
 	}
