@@ -17,6 +17,7 @@ import com.legacy.aether.client.rendering.entity.FloatingBlockRenderer;
 import com.legacy.aether.client.rendering.entity.FlyingCowRenderer;
 import com.legacy.aether.client.rendering.entity.MoaRenderer;
 import com.legacy.aether.client.rendering.entity.PhygRenderer;
+import com.legacy.aether.client.rendering.entity.SheepuffRenderer;
 import com.legacy.aether.client.rendering.entity.WhirlwindRenderer;
 import com.legacy.aether.entities.block.EntityFloatingBlock;
 import com.legacy.aether.entities.hostile.EntityAechorPlant;
@@ -27,6 +28,7 @@ import com.legacy.aether.entities.passive.EntityAerbunny;
 import com.legacy.aether.entities.passive.EntityFlyingCow;
 import com.legacy.aether.entities.passive.EntityMoa;
 import com.legacy.aether.entities.passive.EntityPhyg;
+import com.legacy.aether.entities.passive.EntitySheepuff;
 import com.legacy.aether.entities.projectile.EntityDart;
 
 public class AetherEntityRenders implements EntityRendererAdder
@@ -41,6 +43,7 @@ public class AetherEntityRenders implements EntityRendererAdder
 		entityRenderMap.put(EntityAechorPlant.class, new AechorPlantRenderer(renderManager));
 		entityRenderMap.put(EntityFlyingCow.class, new FlyingCowRenderer(renderManager));
 		entityRenderMap.put(EntityPhyg.class, new PhygRenderer(renderManager));
+		entityRenderMap.put(EntitySheepuff.class, new SheepuffRenderer(renderManager));
 		entityRenderMap.put(EntityCockatrice.class, new CockatriceRenderer(renderManager));
 		entityRenderMap.put(EntityChestMimic.class, new ChestMimicRenderer(renderManager));
 		entityRenderMap.put(EntityFloatingBlock.class, new FloatingBlockRenderer(renderManager));
