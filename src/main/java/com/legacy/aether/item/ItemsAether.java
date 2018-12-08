@@ -15,6 +15,7 @@ import com.legacy.aether.api.accessories.AccessoryType;
 import com.legacy.aether.item.accessory.ItemAccessory;
 import com.legacy.aether.item.armor.AetherArmorType;
 import com.legacy.aether.item.armor.ItemAetherArmor;
+import com.legacy.aether.item.dungeon.ItemDungeonKey;
 import com.legacy.aether.item.food.ItemAetherFood;
 import com.legacy.aether.item.food.ItemGummySwet;
 import com.legacy.aether.item.food.ItemHealingStone;
@@ -189,6 +190,11 @@ public class ItemsAether implements ItemAdder
 
 		cloud_parachute = register("cloud_parachute", new ItemParachute());
 		golden_cloud_parachute = register("golden_cloud_parachute", new ItemParachute(20));
+
+		bronze_key = register("bronze_key", new ItemDungeonKey());
+		silver_key = register("silver_key", new ItemDungeonKey());
+		golden_key = register("golden_key", new ItemDungeonKey());
+		platinum_key = register("platinum_key", new ItemDungeonKey());
 
 		leather_gloves = register("leather_gloves", new ItemAccessory(AccessoryType.GLOVE, 0xC65C35));
 		iron_gloves = register("iron_gloves", new ItemAccessory(AccessoryType.GLOVE));
