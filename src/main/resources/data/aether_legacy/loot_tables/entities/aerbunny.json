@@ -71,6 +71,7 @@
                     "type": "item",
                     "name": "minecraft:string",
                     "weight": 1,
+                    "functions": [
                         {
                             "function": "looting_enchant",
                             "count": {
