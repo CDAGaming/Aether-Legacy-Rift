@@ -1,8 +1,10 @@
 package com.legacy.aether.player;
 
+import java.util.ArrayList;
 import java.util.UUID;
 
 import com.legacy.aether.world.WorldAether;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
@@ -20,6 +22,7 @@ import com.legacy.aether.item.ItemsAether;
 import com.legacy.aether.player.perks.AetherDonationPerks;
 import com.legacy.aether.util.AetherTeleportation;
 import com.legacy.aether.world.TeleporterAether;
+
 import net.minecraft.world.dimension.DimensionType;
 
 public class PlayerAether implements IPlayerAether
@@ -37,6 +40,8 @@ public class PlayerAether implements IPlayerAether
 
 	public boolean hasTeleported = false, inPortal = false;
 
+	public final ArrayList<Entity> clouds = new ArrayList<Entity>(2);
+
 	private AttributeModifier aetherHealth;
 
 	private InventoryAccessories accessories;
@@ -52,6 +57,16 @@ public class PlayerAether implements IPlayerAether
 
 	public void tick()
 	{
+		for (int i = 0; i < this.clouds.size(); ++i) 
+		{
+			Entity entity = this.clouds.get(i);
+
+			if (entity.removed) 
+			{
+				this.clouds.remove(i);
+			}
+		}
+
 		this.setJumping(((IEntityHook)this.player).checkIsJumping());
 
 		if (this.getPlayer().world.isRemote)
