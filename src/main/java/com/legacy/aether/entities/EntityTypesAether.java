@@ -17,6 +17,7 @@ import com.legacy.aether.entities.hostile.EntityCockatrice;
 import com.legacy.aether.entities.hostile.EntityWhirlwind;
 //import com.legacy.aether.entities.hostile.EntityWhirlwind;
 import com.legacy.aether.entities.passive.EntityAerbunny;
+import com.legacy.aether.entities.passive.EntityAerwhale;
 import com.legacy.aether.entities.passive.EntityFlyingCow;
 import com.legacy.aether.entities.passive.EntityMoa;
 import com.legacy.aether.entities.passive.EntityPhyg;
@@ -59,12 +60,13 @@ public class EntityTypesAether implements EntityTypeAdder, ItemAdder
 
 	public static EntityType<EntityWhirlwind> WHIRLWIND;
 
-	public static EntityType<Entity> AERWHALE; // TEST
+	public static EntityType<EntityAerwhale> AERWHALE;
 
 	@Override
 	@SuppressWarnings("unchecked")
 	public void registerEntityTypes() 
 	{
+		AERWHALE = (EntityType<EntityAerwhale>) register("aerwhale", Builder.create(EntityAerwhale.class, EntityAerwhale::new));
 		AECHOR_PLANT = (EntityType<EntityAechorPlant>) register("aechor_plant", Builder.create(EntityAechorPlant.class, EntityAechorPlant::new));
 		FLYING_COW = (EntityType<EntityFlyingCow>) register("flying_cow", Builder.create(EntityFlyingCow.class, EntityFlyingCow::new));
 		MOA = (EntityType<EntityMoa>) register("moa", Builder.create(EntityMoa.class, EntityMoa::new));
