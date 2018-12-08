@@ -17,6 +17,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.server.MinecraftServer;
 
 import com.legacy.aether.api.player.IPlayerAether;
+import com.legacy.aether.entities.movement.AetherPoisonMovement;
 import com.legacy.aether.inventory.InventoryAccessories;
 import com.legacy.aether.item.ItemsAether;
 import com.legacy.aether.player.perks.AetherDonationPerks;
@@ -46,12 +47,15 @@ public class PlayerAether implements IPlayerAether
 
 	private InventoryAccessories accessories;
 
+	private AetherPoisonMovement poisonMovement;
+
 	public AetherDonationPerks donationPerks;
 
 	public PlayerAether(EntityPlayer player)
 	{
 		this.player = player;
 		this.donationPerks = new AetherDonationPerks();
+		this.poisonMovement = new AetherPoisonMovement(player);
 		this.accessories = new InventoryAccessories((IEntityPlayerAether) player);
 	}
 
@@ -66,6 +70,8 @@ public class PlayerAether implements IPlayerAether
 				this.clouds.remove(i);
 			}
 		}
+
+		this.poisonMovement.tick();
 
 		this.setJumping(((IEntityHook)this.player).checkIsJumping());
 
@@ -296,12 +302,12 @@ public class PlayerAether implements IPlayerAether
 
 	public void applyCure(int cureAmount)
 	{
-		
+		this.poisonMovement.curePoison(cureAmount);
 	}
 
 	public void applyPoison(int poisonAmount)
 	{
-		
+		this.poisonMovement.afflictPoison(poisonAmount);
 	}
 
 	public void setInPortal()

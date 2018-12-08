@@ -119,7 +119,7 @@ public class EntityPoisonDart extends EntityDart
 
             if (!this.world.isRemote)
             {
-            	((IEntityPlayerAether)ent).getPlayerAether().applyPoison(502);
+            	((IEntityPlayerAether)ent).getPlayerAether().applyPoison(500);
 
             	PacketBuffer buffer = new PacketBuffer(Unpooled.buffer());
 
@@ -130,7 +130,7 @@ public class EntityPoisonDart extends EntityDart
     	}
     	else
     	{
-        	this.poison.afflictPoison();
+        	this.poison.afflictPoison(500);
     	}
 
     	this.removed = false;
