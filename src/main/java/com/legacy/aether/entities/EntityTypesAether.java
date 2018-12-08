@@ -11,6 +11,7 @@ import org.dimdev.rift.listener.EntityTypeAdder;
 import org.dimdev.rift.listener.ItemAdder;
 
 import com.legacy.aether.entities.block.EntityFloatingBlock;
+import com.legacy.aether.entities.bosses.EntityFireMinion;
 import com.legacy.aether.entities.hostile.EntityAechorPlant;
 import com.legacy.aether.entities.hostile.EntityChestMimic;
 import com.legacy.aether.entities.hostile.EntityCockatrice;
@@ -65,6 +66,8 @@ public class EntityTypesAether implements EntityTypeAdder, ItemAdder
 
 	public static EntityType<EntityMiniCloud> MINI_CLOUD;
 
+	public static EntityType<EntityFireMinion> FIRE_MINION;
+
 	@Override
 	@SuppressWarnings("unchecked")
 	public void registerEntityTypes() 
@@ -85,6 +88,7 @@ public class EntityTypesAether implements EntityTypeAdder, ItemAdder
 		FLOATING_BLOCK = (EntityType<EntityFloatingBlock>) register("floating_block", Builder.create(EntityFloatingBlock.class, EntityFloatingBlock::new));
 		WHIRLWIND = (EntityType<EntityWhirlwind>) register("whirlwind", Builder.create(EntityWhirlwind.class, EntityWhirlwind::new));
 		MINI_CLOUD = (EntityType<EntityMiniCloud>) register("mini_cloud", Builder.create(EntityMiniCloud.class, EntityMiniCloud::new));
+		FIRE_MINION = (EntityType<EntityFireMinion>) register("fire_minion", Builder.create(EntityFireMinion.class, EntityFireMinion::new));
 
 		AetherMoaTypes.initialization();
 	}
