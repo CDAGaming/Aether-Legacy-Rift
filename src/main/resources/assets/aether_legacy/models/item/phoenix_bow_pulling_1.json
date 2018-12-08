@@ -1,0 +1,6 @@
+{
+	"parent": "aether_legacy:item/phoenix_bow",
+	"textures": {
+		"layer0": "aether_legacy:item/weapon/phoenix_bow_pulling_1"
+	}
+}
