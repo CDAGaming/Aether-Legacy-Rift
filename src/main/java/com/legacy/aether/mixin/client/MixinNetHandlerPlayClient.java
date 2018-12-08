@@ -20,6 +20,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import com.legacy.aether.entities.block.EntityFloatingBlock;
+import com.legacy.aether.entities.passive.EntityMiniCloud;
 import com.legacy.aether.entities.projectile.EntityEnchantedDart;
 import com.legacy.aether.entities.projectile.EntityGoldenDart;
 import com.legacy.aether.entities.projectile.EntityPoisonDart;
@@ -84,7 +85,17 @@ public class MixinNetHandlerPlayClient
     	{
     		aetherEntity = new EntityPoisonDart(this.world, d0, d1, d2);
     	}
- 
+    	else if (packetIn.getType() == 588)
+    	{
+    		aetherEntity = new EntityMiniCloud(this.world, (EntityPlayer) this.world.getEntityByID(packetIn.getData()), 0);
+    		packetIn.setData(0);
+    	}
+    	else if (packetIn.getType() == 589)
+    	{
+    		aetherEntity = new EntityMiniCloud(this.world, (EntityPlayer) this.world.getEntityByID(packetIn.getData()), 1);
+    		packetIn.setData(0);
+    	}
+
         if (aetherEntity != null)
         {
             EntityTracker.updateServerPosition(aetherEntity, d0, d1, d2);

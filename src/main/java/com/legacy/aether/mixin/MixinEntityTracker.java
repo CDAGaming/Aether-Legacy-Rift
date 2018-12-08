@@ -6,6 +6,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import com.legacy.aether.entities.block.EntityFloatingBlock;
+import com.legacy.aether.entities.passive.EntityMiniCloud;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityTracker;
@@ -20,6 +21,10 @@ public class MixinEntityTracker
 		if (entityIn instanceof EntityFloatingBlock)
 		{
 			((EntityTracker) (Object) this).track(entityIn, 160, 20, true);
+		}
+		else if (entityIn instanceof EntityMiniCloud)
+		{
+			((EntityTracker) (Object) this).track(entityIn, 80, 3, true);
 		}
 	}
 

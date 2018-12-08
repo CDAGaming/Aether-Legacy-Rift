@@ -19,6 +19,7 @@ import com.legacy.aether.entities.hostile.EntityWhirlwind;
 import com.legacy.aether.entities.passive.EntityAerbunny;
 import com.legacy.aether.entities.passive.EntityAerwhale;
 import com.legacy.aether.entities.passive.EntityFlyingCow;
+import com.legacy.aether.entities.passive.EntityMiniCloud;
 import com.legacy.aether.entities.passive.EntityMoa;
 import com.legacy.aether.entities.passive.EntityPhyg;
 import com.legacy.aether.entities.passive.EntitySheepuff;
@@ -62,6 +63,8 @@ public class EntityTypesAether implements EntityTypeAdder, ItemAdder
 
 	public static EntityType<EntityAerwhale> AERWHALE;
 
+	public static EntityType<EntityMiniCloud> MINI_CLOUD;
+
 	@Override
 	@SuppressWarnings("unchecked")
 	public void registerEntityTypes() 
@@ -81,6 +84,7 @@ public class EntityTypesAether implements EntityTypeAdder, ItemAdder
 		POISON_NEEDLE = (EntityType<EntityPoisonNeedle>) register("poison_needle", Builder.create(EntityPoisonNeedle.class, EntityPoisonNeedle::new));
 		FLOATING_BLOCK = (EntityType<EntityFloatingBlock>) register("floating_block", Builder.create(EntityFloatingBlock.class, EntityFloatingBlock::new));
 		WHIRLWIND = (EntityType<EntityWhirlwind>) register("whirlwind", Builder.create(EntityWhirlwind.class, EntityWhirlwind::new));
+		MINI_CLOUD = (EntityType<EntityMiniCloud>) register("mini_cloud", Builder.create(EntityMiniCloud.class, EntityMiniCloud::new));
 
 		AetherMoaTypes.initialization();
 	}

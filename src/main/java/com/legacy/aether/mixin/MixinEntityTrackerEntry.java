@@ -14,6 +14,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import com.legacy.aether.entities.block.EntityFloatingBlock;
+import com.legacy.aether.entities.passive.EntityMiniCloud;
 import com.legacy.aether.entities.projectile.EntityDart;
 import com.legacy.aether.entities.projectile.EntityEnchantedDart;
 import com.legacy.aether.entities.projectile.EntityGoldenDart;
@@ -53,6 +54,11 @@ public class MixinEntityTrackerEntry
 		{
 			Entity dart = ((EntityDart) this.trackedEntity);
 			info.setReturnValue(new SPacketSpawnObject(this.trackedEntity, 587, 1 + (dart == null ? this.trackedEntity.getEntityId() : dart.getEntityId())));
+		}
+		else if (this.trackedEntity instanceof EntityMiniCloud)
+		{
+			EntityMiniCloud cloud = ((EntityMiniCloud) this.trackedEntity);
+			info.setReturnValue(new SPacketSpawnObject(this.trackedEntity, 588 + cloud.getDirection(), 1 + (cloud.getOwner() == null ? this.trackedEntity.getEntityId() : cloud.getOwner().getEntityId())));
 		}
 	}
 
