@@ -20,6 +20,7 @@ import com.legacy.aether.entities.projectile.EntityEnchantedDart;
 import com.legacy.aether.entities.projectile.EntityGoldenDart;
 import com.legacy.aether.entities.projectile.EntityPoisonDart;
 import com.legacy.aether.entities.projectile.EntityPoisonNeedle;
+import com.legacy.aether.entities.projectile.crystal.EntityCrystal;
 
 @Mixin(EntityTrackerEntry.class)
 public class MixinEntityTrackerEntry 
@@ -59,6 +60,11 @@ public class MixinEntityTrackerEntry
 		{
 			EntityMiniCloud cloud = ((EntityMiniCloud) this.trackedEntity);
 			info.setReturnValue(new SPacketSpawnObject(this.trackedEntity, 588 + cloud.getDirection(), 1 + (cloud.getOwner() == null ? this.trackedEntity.getEntityId() : cloud.getOwner().getEntityId())));
+		}
+		else if (this.trackedEntity instanceof EntityCrystal)
+		{
+			EntityCrystal crystal = ((EntityCrystal) this.trackedEntity);
+			info.setReturnValue(new SPacketSpawnObject(this.trackedEntity, 590 + crystal.getCrystalType().getId(), 1 + (crystal.getAttackTarget() == null ? this.trackedEntity.getEntityId() : crystal.getAttackTarget().getEntityId())));
 		}
 	}
 

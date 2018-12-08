@@ -28,6 +28,7 @@ import com.legacy.aether.entities.projectile.EntityEnchantedDart;
 import com.legacy.aether.entities.projectile.EntityGoldenDart;
 import com.legacy.aether.entities.projectile.EntityPoisonDart;
 import com.legacy.aether.entities.projectile.EntityPoisonNeedle;
+import com.legacy.aether.entities.projectile.crystal.EntityCrystal;
 import com.legacy.aether.entities.util.AetherMoaTypes;
 import com.legacy.aether.item.ItemAetherSpawnEgg;
 
@@ -68,6 +69,8 @@ public class EntityTypesAether implements EntityTypeAdder, ItemAdder
 
 	public static EntityType<EntityFireMinion> FIRE_MINION;
 
+	public static EntityType<EntityCrystal> CRYSTAL;
+
 	@Override
 	@SuppressWarnings("unchecked")
 	public void registerEntityTypes() 
@@ -89,6 +92,7 @@ public class EntityTypesAether implements EntityTypeAdder, ItemAdder
 		WHIRLWIND = (EntityType<EntityWhirlwind>) register("whirlwind", Builder.create(EntityWhirlwind.class, EntityWhirlwind::new));
 		MINI_CLOUD = (EntityType<EntityMiniCloud>) register("mini_cloud", Builder.create(EntityMiniCloud.class, EntityMiniCloud::new));
 		FIRE_MINION = (EntityType<EntityFireMinion>) register("fire_minion", Builder.create(EntityFireMinion.class, EntityFireMinion::new));
+		CRYSTAL = (EntityType<EntityCrystal>) register("crystal", Builder.create(EntityCrystal.class, EntityCrystal::new));
 
 		AetherMoaTypes.initialization();
 	}

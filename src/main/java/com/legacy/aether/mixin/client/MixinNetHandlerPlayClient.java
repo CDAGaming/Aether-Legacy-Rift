@@ -25,6 +25,8 @@ import com.legacy.aether.entities.projectile.EntityEnchantedDart;
 import com.legacy.aether.entities.projectile.EntityGoldenDart;
 import com.legacy.aether.entities.projectile.EntityPoisonDart;
 import com.legacy.aether.entities.projectile.EntityPoisonNeedle;
+import com.legacy.aether.entities.projectile.crystal.EntityCrystal;
+import com.legacy.aether.entities.projectile.crystal.EnumCrystalType;
 import com.legacy.aether.player.IEntityPlayerAether;
 import com.legacy.aether.util.AetherSPacketCustomPayload;
 
@@ -93,6 +95,21 @@ public class MixinNetHandlerPlayClient
     	else if (packetIn.getType() == 589)
     	{
     		aetherEntity = new EntityMiniCloud(this.world, (EntityPlayer) this.world.getEntityByID(packetIn.getData()), 1);
+    		packetIn.setData(0);
+    	}
+    	else if (packetIn.getType() == 590)
+    	{
+    		aetherEntity = new EntityCrystal(this.world, d0, d1, d2, EnumCrystalType.FIRE);
+    		packetIn.setData(0);
+    	}
+    	else if (packetIn.getType() == 591)
+    	{
+    		aetherEntity = new EntityCrystal(this.world, d0, d1, d2, EnumCrystalType.ICE);
+    		packetIn.setData(0);
+    	}
+    	else if (packetIn.getType() == 592)
+    	{
+    		aetherEntity = new EntityCrystal(this.world, d0, d1, d2, (EntityPlayer) this.world.getEntityByID(packetIn.getData()));
     		packetIn.setData(0);
     	}
 
