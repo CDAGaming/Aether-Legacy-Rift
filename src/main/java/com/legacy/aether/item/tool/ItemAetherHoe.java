@@ -2,16 +2,12 @@ package com.legacy.aether.item.tool;
 
 import java.util.Map;
 
-import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.Maps;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.EnumRarity;
-import net.minecraft.item.IItemTier;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemHoe;
 import net.minecraft.item.ItemUseContext;
@@ -21,23 +17,27 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.Maps;
+import com.legacy.aether.item.util.AetherTier;
+
 public class ItemAetherHoe extends ItemHoe implements IAetherTool
 {
 
     protected static final Map<Block, IBlockState> convertableBlocks = Maps.<Block, IBlockState>newHashMap(ImmutableMap.of(Blocks.GRASS_BLOCK, Blocks.FARMLAND.getDefaultState(), Blocks.GRASS_PATH, Blocks.FARMLAND.getDefaultState(), Blocks.DIRT, Blocks.FARMLAND.getDefaultState(), Blocks.COARSE_DIRT, Blocks.DIRT.getDefaultState()));
 
-	private AetherToolType material;
+	private AetherTier material;
 
-	public ItemAetherHoe(AetherToolType material, IItemTier itemTier, float attackSpeed)
+	public ItemAetherHoe(AetherTier material, float attackSpeed)
 	{
-		super(itemTier, attackSpeed, new Properties().group(ItemGroup.TOOLS));
+		super(material.getDefaultTier(), attackSpeed, new Properties().group(ItemGroup.TOOLS));
 
 		this.material = material;
 	}
 
-	public ItemAetherHoe(AetherToolType material, EnumRarity rarity, IItemTier itemTier, float attackSpeed)
+	public ItemAetherHoe(AetherTier material, EnumRarity rarity, float attackSpeed)
 	{
-		super(itemTier, attackSpeed, new Properties().group(ItemGroup.TOOLS).rarity(rarity));
+		super(material.getDefaultTier(), attackSpeed, new Properties().group(ItemGroup.TOOLS).rarity(rarity));
 
 		this.material = material;
 	}
@@ -76,7 +76,7 @@ public class ItemAetherHoe extends ItemHoe implements IAetherTool
     }
 
 	@Override
-	public AetherToolType getMaterial() 
+	public AetherTier getMaterial() 
 	{
 		return this.material;
 	}

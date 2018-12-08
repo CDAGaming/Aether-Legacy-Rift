@@ -4,7 +4,6 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.EnumRarity;
-import net.minecraft.item.IItemTier;
 import net.minecraft.item.ItemAxe;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
@@ -15,24 +14,25 @@ import net.minecraft.world.World;
 
 import com.legacy.aether.entities.block.EntityFloatingBlock;
 import com.legacy.aether.item.ItemsAether;
+import com.legacy.aether.item.util.AetherTier;
 
 public class ItemAetherAxe extends ItemAxe implements IAetherTool
 {
 
-	private AetherToolType material;
+	private AetherTier material;
 
 	public float[] zaniteHarvestLevels = new float[] {2F, 4F, 6F, 8F, 12F};
 
-	public ItemAetherAxe(AetherToolType material, IItemTier itemTier, float damageVsEntity, float attackSpeed) 
+	public ItemAetherAxe(AetherTier material, float damageVsEntity, float attackSpeed) 
 	{
-		super(itemTier, damageVsEntity, attackSpeed, new Properties().group(ItemGroup.TOOLS));
+		super(material.getDefaultTier(), damageVsEntity, attackSpeed, new Properties().group(ItemGroup.TOOLS));
 
 		this.material = material;
 	}
 
-	public ItemAetherAxe(AetherToolType material, EnumRarity rarity, IItemTier itemTier, float damageVsEntity, float attackSpeed) 
+	public ItemAetherAxe(AetherTier material, EnumRarity rarity, float damageVsEntity, float attackSpeed) 
 	{
-		super(itemTier, damageVsEntity, attackSpeed, new Properties().group(ItemGroup.TOOLS).rarity(rarity));
+		super(material.getDefaultTier(), damageVsEntity, attackSpeed, new Properties().group(ItemGroup.TOOLS).rarity(rarity));
 
 		this.material = material;
 	}
@@ -42,7 +42,7 @@ public class ItemAetherAxe extends ItemAxe implements IAetherTool
 	{
 		float original = super.getDestroySpeed(stack, state);
 
-		if (this.getMaterial() == AetherToolType.Zanite)
+		if (this.getMaterial() == AetherTier.Zanite)
 		{
 			return this.calculateIncrease(stack, original);
 		}
@@ -57,7 +57,7 @@ public class ItemAetherAxe extends ItemAxe implements IAetherTool
         BlockPos blockpos = context.getPos();
         IBlockState iblockstate = world.getBlockState(blockpos);
 
-        if (this.getMaterial() == AetherToolType.Gravitite && this.getDestroySpeed(context.getItem(), iblockstate) == this.efficiency)
+        if (this.getMaterial() == AetherTier.Gravitite && this.getDestroySpeed(context.getItem(), iblockstate) == this.efficiency)
         {
         	if (world.isAirBlock(blockpos.up()) && !world.isRemote)
         	{
@@ -79,7 +79,7 @@ public class ItemAetherAxe extends ItemAxe implements IAetherTool
 	@Override
 	public boolean onBlockDestroyed(ItemStack stackIn, World worldIn, IBlockState stateIn, BlockPos posIn, EntityLivingBase entityIn)
 	{
-		if (this.getMaterial() == AetherToolType.Holystone && !worldIn.isRemote && worldIn.getRandom().nextInt(100) <= 5)
+		if (this.getMaterial() == AetherTier.Holystone && !worldIn.isRemote && worldIn.getRandom().nextInt(100) <= 5)
 		{
 			EntityItem entityItem = new EntityItem(worldIn, posIn.getX(), posIn.getY(), posIn.getZ());
 			
@@ -92,7 +92,7 @@ public class ItemAetherAxe extends ItemAxe implements IAetherTool
 	}
 
 	@Override
-	public AetherToolType getMaterial() 
+	public AetherTier getMaterial() 
 	{
 		return this.material;
 	}

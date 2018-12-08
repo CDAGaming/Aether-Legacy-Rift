@@ -1,36 +1,28 @@
 package com.legacy.aether.item.weapon;
 
-import com.legacy.aether.item.tool.AetherToolType;
-import com.legacy.aether.item.tool.IAetherTool;
-
 import net.minecraft.item.EnumRarity;
-import net.minecraft.item.IItemTier;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemSword;
 
-public class ItemAetherSword extends ItemSword implements IAetherTool
+import com.legacy.aether.item.util.AetherTier;
+
+public class ItemAetherSword extends ItemSword
 {
 
-	private final AetherToolType material;
+	private final AetherTier material;
 
-	public ItemAetherSword(AetherToolType material, IItemTier itemTier, int damageVsEntity, float attackSpeed) 
+	public ItemAetherSword(AetherTier material, int damageVsEntity, float attackSpeed) 
 	{
-		super(itemTier, damageVsEntity, attackSpeed, new Properties().group(ItemGroup.COMBAT));
+		super(material.getDefaultTier(), damageVsEntity, attackSpeed, new Properties().group(ItemGroup.COMBAT));
 
 		this.material = material;
 	}
 
-	public ItemAetherSword(AetherToolType material, EnumRarity rarity, IItemTier itemTier, int damageVsEntity, float attackSpeed) 
+	public ItemAetherSword(AetherTier material, EnumRarity rarity, int damageVsEntity, float attackSpeed) 
 	{
-		super(itemTier, damageVsEntity, attackSpeed, new Properties().group(ItemGroup.COMBAT).rarity(rarity));
+		super(material.getDefaultTier(), damageVsEntity, attackSpeed, new Properties().group(ItemGroup.COMBAT).rarity(rarity));
 
 		this.material = material;
-	}
-
-	@Override
-	public AetherToolType getMaterial()
-	{
-		return this.material;
 	}
 
 }

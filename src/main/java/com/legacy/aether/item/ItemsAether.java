@@ -28,12 +28,12 @@ import com.legacy.aether.item.material.ItemSwetBall;
 import com.legacy.aether.item.material.ItemZaniteGemstone;
 import com.legacy.aether.item.staff.ItemCloudStaff;
 import com.legacy.aether.item.staff.ItemNatureStaff;
-import com.legacy.aether.item.tool.AetherToolType;
 import com.legacy.aether.item.tool.ItemAetherAxe;
 import com.legacy.aether.item.tool.ItemAetherPickaxe;
 import com.legacy.aether.item.tool.ItemAetherShovel;
 import com.legacy.aether.item.tool.ItemParachute;
 import com.legacy.aether.item.tool.bucket.ItemSkyrootBucket;
+import com.legacy.aether.item.util.AetherTier;
 import com.legacy.aether.item.weapon.ItemAetherSword;
 import com.legacy.aether.item.weapon.projectile.ItemDart;
 import com.legacy.aether.item.weapon.projectile.ItemDartShooter;
@@ -122,29 +122,29 @@ public class ItemsAether implements ItemAdder
 
 		skyroot_stick = register("skyroot_stick", new ItemSkyrootStick());
 
-		skyroot_shovel = register("skyroot_shovel", new ItemAetherShovel(AetherToolType.Skyroot, AetherToolType.Skyroot.getDefaultTier(), 1.5F, -3.0F));
-		skyroot_pickaxe = register("skyroot_pickaxe", new ItemAetherPickaxe(AetherToolType.Skyroot, AetherToolType.Skyroot.getDefaultTier(), 1, -2.8F));
-		skyroot_axe = register("skyroot_axe", new ItemAetherAxe(AetherToolType.Skyroot, AetherToolType.Skyroot.getDefaultTier(), 6.0F, -3.2F));
-		skyroot_sword = register("skyroot_sword", new ItemAetherSword(AetherToolType.Skyroot, AetherToolType.Skyroot.getDefaultTier(), 0, 0));
+		skyroot_shovel = register("skyroot_shovel", new ItemAetherShovel(AetherTier.Skyroot, 1.5F, -3.0F));
+		skyroot_pickaxe = register("skyroot_pickaxe", new ItemAetherPickaxe(AetherTier.Skyroot, 1, -2.8F));
+		skyroot_axe = register("skyroot_axe", new ItemAetherAxe(AetherTier.Skyroot, 6.0F, -3.2F));
+		skyroot_sword = register("skyroot_sword", new ItemAetherSword(AetherTier.Skyroot, 3, -2.4F));
 
-		holystone_shovel = register("holystone_shovel", new ItemAetherShovel(AetherToolType.Holystone, AetherToolType.Holystone.getDefaultTier(), 1.5F, -3.0F));
-		holystone_pickaxe = register("holystone_pickaxe", new ItemAetherPickaxe(AetherToolType.Holystone, AetherToolType.Holystone.getDefaultTier(), 1, -2.8F));
-		holystone_axe = register("holystone_axe", new ItemAetherAxe(AetherToolType.Holystone, AetherToolType.Holystone.getDefaultTier(), 7.0F, -3.2F));
-		holystone_sword = register("holystone_sword", new ItemAetherSword(AetherToolType.Holystone, AetherToolType.Holystone.getDefaultTier(), 0, 0));
+		holystone_shovel = register("holystone_shovel", new ItemAetherShovel(AetherTier.Holystone, 1.5F, -3.0F));
+		holystone_pickaxe = register("holystone_pickaxe", new ItemAetherPickaxe(AetherTier.Holystone, 1, -2.8F));
+		holystone_axe = register("holystone_axe", new ItemAetherAxe(AetherTier.Holystone, 7.0F, -3.2F));
+		holystone_sword = register("holystone_sword", new ItemAetherSword(AetherTier.Holystone, 3, -2.4F));
 
-		zanite_shovel = register("zanite_shovel", new ItemAetherShovel(AetherToolType.Zanite, AetherToolType.Zanite.getDefaultTier(), 1.5F, -3.0F));
-		zanite_pickaxe = register("zanite_pickaxe", new ItemAetherPickaxe(AetherToolType.Zanite, AetherToolType.Zanite.getDefaultTier(), 1, -2.8F));
-		zanite_axe = register("zanite_axe", new ItemAetherAxe(AetherToolType.Zanite, AetherToolType.Zanite.getDefaultTier(), 6.0F, -3.1F));
-		zanite_sword = register("zanite_sword", new ItemAetherSword(AetherToolType.Zanite, AetherToolType.Zanite.getDefaultTier(), 0, 0));
+		zanite_shovel = register("zanite_shovel", new ItemAetherShovel(AetherTier.Zanite, 1.5F, -3.0F));
+		zanite_pickaxe = register("zanite_pickaxe", new ItemAetherPickaxe(AetherTier.Zanite, 1, -2.8F));
+		zanite_axe = register("zanite_axe", new ItemAetherAxe(AetherTier.Zanite, 6.0F, -3.1F));
+		zanite_sword = register("zanite_sword", new ItemAetherSword(AetherTier.Zanite, 3, -2.4F));
 
-		gravitite_shovel = register("gravitite_shovel", new ItemAetherShovel(AetherToolType.Gravitite, EnumRarity.RARE, AetherToolType.Gravitite.getDefaultTier(), 1.5F, -3.0F));
-		gravitite_pickaxe = register("gravitite_pickaxe", new ItemAetherPickaxe(AetherToolType.Gravitite, EnumRarity.RARE, AetherToolType.Gravitite.getDefaultTier(), 1, -2.8F));
-		gravitite_axe = register("gravitite_axe", new ItemAetherAxe(AetherToolType.Gravitite, EnumRarity.RARE, AetherToolType.Gravitite.getDefaultTier(), 5.0F, -3.0F));
-		gravitite_sword = register("gravitite_sword", new ItemAetherSword(AetherToolType.Gravitite, EnumRarity.RARE, AetherToolType.Gravitite.getDefaultTier(), 0, 0));
+		gravitite_shovel = register("gravitite_shovel", new ItemAetherShovel(AetherTier.Gravitite, EnumRarity.RARE, 1.5F, -3.0F));
+		gravitite_pickaxe = register("gravitite_pickaxe", new ItemAetherPickaxe(AetherTier.Gravitite, EnumRarity.RARE, 1, -2.8F));
+		gravitite_axe = register("gravitite_axe", new ItemAetherAxe(AetherTier.Gravitite, EnumRarity.RARE, 5.0F, -3.0F));
+		gravitite_sword = register("gravitite_sword", new ItemAetherSword(AetherTier.Gravitite, EnumRarity.RARE, 3, -2.4F));
 
-		valkyrie_shovel = register("valkyrie_shovel", new ItemAetherShovel(AetherToolType.Valkyrie, AETHER_LOOT, AetherToolType.Valkyrie.getDefaultTier(), 1.5F, -3.0F));
-		valkyrie_pickaxe = register("valkyrie_pickaxe", new ItemAetherPickaxe(AetherToolType.Valkyrie, AETHER_LOOT, AetherToolType.Valkyrie.getDefaultTier(), 1, -2.8F));
-		valkyrie_axe = register("valkyrie_axe", new ItemAetherAxe(AetherToolType.Valkyrie, AETHER_LOOT, AetherToolType.Valkyrie.getDefaultTier(), 4.0F, -2.9F));
+		valkyrie_shovel = register("valkyrie_shovel", new ItemAetherShovel(AetherTier.Valkyrie, AETHER_LOOT, 1.5F, -3.0F));
+		valkyrie_pickaxe = register("valkyrie_pickaxe", new ItemAetherPickaxe(AetherTier.Valkyrie, AETHER_LOOT, 1, -2.8F));
+		valkyrie_axe = register("valkyrie_axe", new ItemAetherAxe(AetherTier.Valkyrie, AETHER_LOOT, 4.0F, -2.9F));
 
 		zanite_helmet = register("zanite_helmet", new ItemAetherArmor(AetherArmorType.Zanite, EntityEquipmentSlot.HEAD));
 		zanite_chestplate = register("zanite_chestplate", new ItemAetherArmor(AetherArmorType.Zanite, EntityEquipmentSlot.CHEST));

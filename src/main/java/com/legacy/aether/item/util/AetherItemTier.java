@@ -1,4 +1,4 @@
-package com.legacy.aether.item.tool;
+package com.legacy.aether.item.util;
 
 import net.minecraft.item.IItemTier;
 import net.minecraft.item.crafting.Ingredient;
