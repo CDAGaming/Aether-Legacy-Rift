@@ -1,8 +1,9 @@
 package com.legacy.aether.sounds;
 
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
-
 import net.minecraft.util.registry.IRegistry;
+
 import org.dimdev.rift.listener.SoundAdder;
 
 import com.legacy.aether.Aether;
@@ -28,7 +29,7 @@ public class SoundsAether implements SoundAdder
 
 	public static SoundEvent sun_spirit_shoot;
 
-	public static SoundEvent aether_tune, ascending_dawn, welcoming_skies;
+	public static SoundEvent aether_tune, ascending_dawn, welcoming_skies, legacy;
 
 	public static SoundEvent achievement_gen, achievement_bronze, achievement_silver;
 
@@ -39,14 +40,63 @@ public class SoundsAether implements SoundAdder
 	@Override
 	public void registerSounds()
 	{
+		moa_say = register(Aether.locate("aemob.moa.say"));
+		moa_flap = register(Aether.locate("aemob.moa.flap"));
 
+		sheepuff_say = register(Aether.locate("aemob.sheepuff.say"));
+		sheepuff_hurt = register(Aether.locate("aemob.sheepuff.hurt"));
+		sheepuff_death = register(Aether.locate("aemob.sheepuff.death"));
+
+		flyingcow_say = register(Aether.locate("aemob.flyingcow.say"));
+		flyingcow_hurt = register(Aether.locate("aemob.flyingcow.hurt"));
+		flyingcow_death = register(Aether.locate("aemob.flyingcow.death"));
+
+		phyg_say = register(Aether.locate("aemob.phyg.say"));
+		phyg_hurt = register(Aether.locate("aemob.phyg.hurt"));
+		phyg_death = register(Aether.locate("aemob.phyg.death"));
+
+		aerbunny_hurt = register(Aether.locate("aemob.aerbunny.hurt"));
+		aerbunny_death = register(Aether.locate("aemob.aerbunny.death"));
+		aerbunny_lift = register(Aether.locate("aemob.aerbunny.lift"));
+
+		aerwhale_call = register(Aether.locate("aemob.aerwhale.call"));
+		aerwhale_death = register(Aether.locate("aemob.aerwhale.death"));
+
+		zephyr_call = register(Aether.locate("aemob.zephyr.call"));
+		zephyr_shoot = register(Aether.locate("aemob.zephyr.shoot"));
+
+		slider_awaken = register(Aether.locate("aeboss.slider.awaken"));
+		slider_collide = register(Aether.locate("aeboss.slider.collide"));
+		slider_move = register(Aether.locate("aeboss.slider.move"));
+		slider_death = register(Aether.locate("aeboss.slider.death"));
+
+		sun_spirit_shoot = register(Aether.locate("aeboss.sun_spirit.shoot"));
+
+		projectile_shoot = register(Aether.locate("projectile.shoot"));
+		dart_shooter_shoot = register(Aether.locate("projectile.dart_shooter.shoot"));
+
+		aether_tune = register(Aether.locate("records.aether_tune"));
+		ascending_dawn = register(Aether.locate("records.ascending_dawn"));
+		welcoming_skies = register(Aether.locate("records.welcoming_skies"));
+		legacy = register(Aether.locate("records.legacy"));
+
+		achievement_gen = register(Aether.locate("achievement"));
+		achievement_bronze = register(Aether.locate("achievement_bronze"));
+		achievement_silver = register(Aether.locate("achievement_silver"));
+
+		aether1 = register(Aether.locate("music.aether1"));
+		aether2 = register(Aether.locate("music.aether2"));
+		aether3 = register(Aether.locate("music.aether3"));
+		aether4 = register(Aether.locate("music.aether4"));
+
+		aether_menu = register(Aether.locate("music.menu"));
 	}
 
-	public SoundEvent register(String name)
+	public SoundEvent register(ResourceLocation location)
 	{
-		SoundEvent.register("aether_legacy:" + name);
+		SoundEvent.register(location.toString());
 
-		return IRegistry.SOUND_EVENT.get(Aether.locate(name));
+		return IRegistry.SOUND_EVENT.get(location);
 	}
 
 }
