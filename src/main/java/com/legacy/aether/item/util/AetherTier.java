@@ -11,7 +11,7 @@ public enum AetherTier
 	Zanite(new AetherItemTier(2, 250, 6.0F, 2.0F, 14, ItemsAether.zanite_gemstone)),
 	Gravitite(new AetherItemTier(3, 1561, 8.0F, 3.0F, 10, BlocksAether.enchanted_gravitite)),
 	Valkyrie(new AetherItemTier(4, 2164, 10.0F, 4.0F, 8, null)),
-	Elemental(new AetherItemTier(4, 2164, 10.0F, 4.0F, 8, null));
+	Legendary(new AetherItemTier(4, 2164, 10.0F, 4.0F, 8, null));
 
 	private final AetherItemTier defaultTier;
 

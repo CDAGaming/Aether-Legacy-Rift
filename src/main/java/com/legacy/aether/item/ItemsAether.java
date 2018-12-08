@@ -36,6 +36,7 @@ import com.legacy.aether.item.tool.bucket.ItemSkyrootBucket;
 import com.legacy.aether.item.util.AetherTier;
 import com.legacy.aether.item.weapon.ItemAetherSword;
 import com.legacy.aether.item.weapon.ItemElementalSword;
+import com.legacy.aether.item.weapon.ItemVampireBlade;
 import com.legacy.aether.item.weapon.projectile.ItemDart;
 import com.legacy.aether.item.weapon.projectile.ItemDartShooter;
 import com.legacy.aether.item.weapon.projectile.ItemPhoenixBow;
@@ -215,6 +216,8 @@ public class ItemsAether implements ItemAdder
 		flaming_sword = register("flaming_sword", new ItemElementalSword());
 		lightning_sword = register("lightning_sword", new ItemElementalSword());
 		holy_sword = register("holy_sword", new ItemElementalSword());
+
+		vampire_blade = register("vampire_blade", new ItemVampireBlade());
 
 		leather_gloves = register("leather_gloves", new ItemAccessory(AccessoryType.GLOVE, 0xC65C35));
 		iron_gloves = register("iron_gloves", new ItemAccessory(AccessoryType.GLOVE));

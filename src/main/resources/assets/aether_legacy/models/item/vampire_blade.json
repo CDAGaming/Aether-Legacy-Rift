@@ -1,0 +1,7 @@
+{
+	"parent": "item/handheld",
+	"textures": {
+		"layer0": "aether_legacy:item/weapon/vampire_blade"
+	}
+
+}

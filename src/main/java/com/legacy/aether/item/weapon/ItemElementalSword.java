@@ -13,7 +13,7 @@ public class ItemElementalSword extends ItemAetherSword
 
 	public ItemElementalSword() 
 	{
-		super(AetherTier.Elemental, ItemsAether.AETHER_LOOT, 4, -2.4F);
+		super(AetherTier.Legendary, ItemsAether.AETHER_LOOT, 4, -2.4F);
 	}
 
 	@Override
