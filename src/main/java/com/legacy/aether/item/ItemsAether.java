@@ -37,6 +37,7 @@ import com.legacy.aether.item.tool.bucket.ItemSkyrootBucket;
 import com.legacy.aether.item.weapon.ItemAetherSword;
 import com.legacy.aether.item.weapon.projectile.ItemDart;
 import com.legacy.aether.item.weapon.projectile.ItemDartShooter;
+import com.legacy.aether.sounds.SoundsAether;
 
 public class ItemsAether implements ItemAdder
 {
@@ -103,7 +104,7 @@ public class ItemsAether implements ItemAdder
 
 	public static Item sentry_boots, lightning_knife;
 
-	public static Item aether_tune, ascending_dawn, welcoming_skies;
+	public static Item aether_tune, ascending_dawn, welcoming_skies, legacy;
 
 	public static Item repulsion_shield;
 
@@ -247,6 +248,11 @@ public class ItemsAether implements ItemAdder
 		nature_staff = register("nature_staff", new ItemNatureStaff());
 
 		moa_egg = register("moa_egg", new ItemMoaEgg());
+
+		aether_tune = register("aether_tune", new ItemAetherDisc(20, SoundsAether.aether_tune));
+		ascending_dawn = register("ascending_dawn", new ItemAetherDisc(12, SoundsAether.ascending_dawn));
+		welcoming_skies = register("welcoming_skies", new ItemAetherDisc(10, SoundsAether.welcoming_skies));
+		legacy = register("legacy", new ItemAetherDisc(6, SoundsAether.legacy));
 	}
 
 	public Item register(String name, Item item)
