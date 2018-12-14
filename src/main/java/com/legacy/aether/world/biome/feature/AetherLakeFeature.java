@@ -2,25 +2,25 @@ package com.legacy.aether.world.biome.feature;
 
 import java.util.Random;
 
-import net.minecraft.block.material.Material;
-import net.minecraft.init.Blocks;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.Material;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.EnumLightType;
 import net.minecraft.world.IWorld;
-import net.minecraft.world.gen.IChunkGenSettings;
-import net.minecraft.world.gen.IChunkGenerator;
-import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.feature.LakesConfig;
 
 import com.legacy.aether.blocks.BlocksAether;
+import net.minecraft.world.LightType;
+import net.minecraft.world.gen.chunk.ChunkGenerator;
+import net.minecraft.world.gen.chunk.ChunkGeneratorSettings;
+import net.minecraft.world.gen.config.feature.LakeFeatureConfig;
+import net.minecraft.world.gen.feature.Feature;
 
-public class AetherLakeFeature extends Feature<LakesConfig>
+public class AetherLakeFeature extends Feature<LakeFeatureConfig>
 {
 
 	@Override
-	public boolean place(IWorld worldIn, IChunkGenerator<? extends IChunkGenSettings> chunkGeneratorIn, Random rand, BlockPos position, LakesConfig config)
+	public boolean generate(IWorld worldIn, ChunkGenerator<? extends ChunkGeneratorSettings> chunkGeneratorIn, Random rand, BlockPos position, LakeFeatureConfig config)
 	{
-		for (position = position.add(-8, 0, -8); position.getY() > 5 && worldIn.isAirBlock(position); position = position.down())
+		for (position = position.add(-8, 0, -8); position.getY() > 5 && worldIn.isAir(position); position = position.down())
         {
             ;
         }
@@ -81,7 +81,7 @@ public class AetherLakeFeature extends Feature<LakesConfig>
                                 return false;
                             }
 
-                            if (k < 4 && !material.isSolid() && worldIn.getBlockState(position.add(k1, k, l2)).getBlock() != config.block)
+                            if (k < 4 && !material.isSolid() && worldIn.getBlockState(position.add(k1, k, l2)) != config.state)
                             {
                                 return false;
                             }
@@ -98,7 +98,7 @@ public class AetherLakeFeature extends Feature<LakesConfig>
                     {
                         if (aboolean[(l1 * 16 + i3) * 8 + i4])
                         {
-                            worldIn.setBlockState(position.add(l1, i4, i3), i4 >= 4 ? Blocks.AIR.getDefaultState() : config.block.getDefaultState(), 2);
+                            worldIn.setBlockState(position.add(l1, i4, i3), i4 >= 4 ? Blocks.AIR.getDefaultState() : config.state, 2);
                         }
                     }
                 }
@@ -114,7 +114,7 @@ public class AetherLakeFeature extends Feature<LakesConfig>
                         {
                             BlockPos blockpos = position.add(i2, j4 - 1, j3);
 
-                            if (worldIn.getBlockState(blockpos).getBlock() == BlocksAether.aether_dirt && worldIn.getLightFor(EnumLightType.SKY, position.add(i2, j4, j3)) > 0)
+                            if (worldIn.getBlockState(blockpos).getBlock() == BlocksAether.aether_dirt && worldIn.getLightLevel(LightType.SKY, position.add(i2, j4, j3)) > 0)
                             {
                                 worldIn.setBlockState(blockpos, BlocksAether.aether_grass.getDefaultState(), 2);
                             }

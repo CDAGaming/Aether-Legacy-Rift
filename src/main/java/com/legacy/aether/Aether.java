@@ -1,19 +1,18 @@
 package com.legacy.aether;
 
-import org.dimdev.riftloader.listener.InitializationListener;
+import net.fabricmc.api.ModInitializer;
+import net.minecraft.util.Identifier;
 
-import net.minecraft.util.ResourceLocation;
-
-public class Aether implements InitializationListener
+public class Aether implements ModInitializer
 {
 
-	public static ResourceLocation locate(String location)
+	public static Identifier locate(String location)
 	{
-		return new ResourceLocation("aether_legacy", location);
+		return new Identifier("aether_legacy", location);
 	}
 
 	@Override
-	public void onInitialization() 
+	public void onInitialize()
 	{
 
 	}

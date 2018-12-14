@@ -5,20 +5,19 @@ import java.util.Random;
 import com.legacy.aether.blocks.BlocksAether;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Blocks;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.util.math.MutableIntBoundingBox;
 import net.minecraft.world.biome.Biome;
-import net.minecraft.world.chunk.IChunk;
-import net.minecraft.world.gen.surfacebuilders.ISurfaceBuilder;
+import net.minecraft.world.chunk.Chunk;
+import net.minecraft.world.gen.surfacebuilder.SurfaceBuilder;
 
-public class AetherSurfaceBuilder implements ISurfaceBuilder<AetherSurfaceBuilderConfig>
-{
+public class AetherSurfaceBuilder extends SurfaceBuilder<AetherSurfaceBuilderConfig> {
 
 	@Override
-	public void buildSurface(Random random, IChunk chunk, Biome biome, int x, int z, int y, double position, IBlockState defaultBlock, IBlockState defaultFluid, int waterLevel, long seed, AetherSurfaceBuilderConfig config) 
+	public void generate(Random random, Chunk chunk, Biome biome, int x, int z, int y, double position, BlockState defaultBlock, BlockState defaultFluid, int waterLevel, long seed, AetherSurfaceBuilderConfig config)
 	{
-		BlockPos.MutableBlockPos mutedPos = new BlockPos.MutableBlockPos();
+		MutableIntBoundingBox mutedPos = new MutableIntBoundingBox();
 
 		int chunkX = x - chunk.getPos().getXStart();
 		int chunkZ = z - chunk.getPos().getZStart();
@@ -26,8 +25,8 @@ public class AetherSurfaceBuilder implements ISurfaceBuilder<AetherSurfaceBuilde
 		int j1 = -1;
         int i1 = (int)(3.0D + random.nextDouble() * 0.25D);
 
-		IBlockState top = config.getTop();
-		IBlockState filler = config.getMiddle();
+		BlockState top = config.getTop();
+		BlockState filler = config.getMiddle();
 
         for (int chunkY = 127; chunkY >= 0; chunkY--)
 		{

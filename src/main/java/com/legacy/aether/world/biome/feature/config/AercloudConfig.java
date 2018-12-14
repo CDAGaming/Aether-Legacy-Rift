@@ -1,12 +1,14 @@
 package com.legacy.aether.world.biome.feature.config;
 
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.world.gen.feature.IFeatureConfig;
+import com.mojang.datafixers.Dynamic;
+import com.mojang.datafixers.types.DynamicOps;
+import net.minecraft.block.BlockState;
+import net.minecraft.world.gen.config.feature.FeatureConfig;
 
-public class AercloudConfig implements IFeatureConfig
+public class AercloudConfig implements FeatureConfig
 {
 
-	private IBlockState state;
+	private BlockState state;
 
 	private boolean isFlat;
 
@@ -14,7 +16,7 @@ public class AercloudConfig implements IFeatureConfig
 
 	private int y;
 
-	public AercloudConfig(IBlockState state, boolean isFlat, int amount, int y)
+	public AercloudConfig(BlockState state, boolean isFlat, int amount, int y)
 	{
 		this.state = state;
 		this.isFlat = isFlat;
@@ -22,7 +24,7 @@ public class AercloudConfig implements IFeatureConfig
 		this.y = y;
 	}
 
-	public IBlockState getCloudState()
+	public BlockState getCloudState()
 	{
 		return this.state;
 	}
@@ -47,4 +49,8 @@ public class AercloudConfig implements IFeatureConfig
 		return this.isFlat;
 	}
 
+	@Override
+	public <T> Dynamic<T> serialize(DynamicOps<T> dynamicOps) {
+		return null; // TODO? (1.14 Stub)
+	}
 }

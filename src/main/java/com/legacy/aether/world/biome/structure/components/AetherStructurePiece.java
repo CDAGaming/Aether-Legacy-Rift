@@ -3,26 +3,22 @@ package com.legacy.aether.world.biome.structure.components;
 import java.util.Random;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.init.Blocks;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.sortme.StructurePiece;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.ChunkPos;
-import net.minecraft.util.math.MutableBoundingBox;
+import net.minecraft.util.math.BoundingBox;
+import net.minecraft.util.math.MutableIntBoundingBox;
 import net.minecraft.world.IWorld;
-import net.minecraft.world.gen.feature.structure.StructurePiece;
-import net.minecraft.world.gen.feature.template.TemplateManager;
+import net.minecraft.world.chunk.ChunkPos;
 
-public abstract class AetherStructurePiece extends StructurePiece
-{
+public abstract class AetherStructurePiece implements StructurePiece {
 
     public int chance;
 
-    public IBlockState airState = Blocks.AIR.getDefaultState(), blockState, extraBlockState;
+    public BlockState airState = Blocks.AIR.getDefaultState(), blockState, extraBlockState;
 
     public boolean replaceAir, replaceSolid;
 
@@ -30,20 +26,20 @@ public abstract class AetherStructurePiece extends StructurePiece
 
 	public Random random;
 
-	public MutableBoundingBox structureBoundingBox;
+	public MutableIntBoundingBox structureBoundingBox;
 
 	public ChunkPos chunkPos;
 
     private int startX, startY, startZ;
 
-    public void setBlocks(IBlockState blockState)
+    public void setBlocks(BlockState blockState)
     {
         this.blockState = blockState;
         this.extraBlockState = null;
         this.chance = 0;
     }
 
-    public void setBlocks(IBlockState blockState, IBlockState extraBlockState, int chance)
+    public void setBlocks(BlockState blockState, BlockState extraBlockState, int chance)
     {
         this.blockState = blockState;
         this.extraBlockState = extraBlockState;
@@ -151,8 +147,8 @@ public abstract class AetherStructurePiece extends StructurePiece
 
     public void addHollowBox(int x, int y, int z, int xRange, int yRange, int zRange)
     {
-    	IBlockState temp1 = this.blockState;
-    	IBlockState temp2 = this.extraBlockState;
+    	BlockState temp1 = this.blockState;
+    	BlockState temp2 = this.extraBlockState;
 
         this.setBlocks(this.airState, this.airState, this.chance);
         this.addSolidBox(x, y, z, xRange, yRange, zRange);
@@ -167,8 +163,8 @@ public abstract class AetherStructurePiece extends StructurePiece
 
     public void addSquareTube(int x, int y, int z, int xRange, int yRange, int zRange, int angel)
     {
-    	IBlockState temp1 = this.blockState;
-    	IBlockState temp2 = this.extraBlockState;
+    	BlockState temp1 = this.blockState;
+    	BlockState temp2 = this.extraBlockState;
 
         this.setBlocks(this.airState, this.airState, this.chance);
         this.addSolidBox(x, y, z, xRange, yRange, zRange);
@@ -261,22 +257,22 @@ public abstract class AetherStructurePiece extends StructurePiece
         return !this.structureBoundingBox.isVecInside(blockpos) ? null : this.world.getTileEntity(blockpos);
     }
 
-    public IBlockState getBlockStateWithOffset(int x, int y, int z)
+    public BlockState getBlockStateWithOffset(int x, int y, int z)
     {
     	return this.getBlockStateFromPos(this.world, x + this.startX, y + this.startY, z + this.startZ, this.structureBoundingBox);
     }
 
-    public IBlockState getBlockState(int x, int y, int z)
+    public BlockState getBlockState(int x, int y, int z)
     {
     	return this.getBlockStateFromPos(this.world, x, y, z, this.structureBoundingBox);
     }
 
-	public void setBlockWithOffset(int x, int y, int z, IBlockState state)
+	public void setBlockWithOffset(int x, int y, int z, BlockState state)
 	{
 		this.setBlockState(this.world, state, x + this.startX, y + this.startY, z + this.startZ, this.structureBoundingBox);
 	}
 
-	public void setBlock(int x, int y, int z, IBlockState state)
+	public void setBlock(int x, int y, int z, BlockState state)
 	{
 		this.setBlockState(this.world, state, x, y, z, this.structureBoundingBox);
 	}
@@ -368,7 +364,7 @@ public abstract class AetherStructurePiece extends StructurePiece
 	public abstract boolean generate();
 
 	@Override
-	public boolean addComponentParts(IWorld worldIn, Random randIn, MutableBoundingBox boundingBoxIn, ChunkPos chunkPosIn)
+	public boolean addComponentParts(IWorld worldIn, Random randIn, MutableIntBoundingBox boundingBoxIn, ChunkPos chunkPosIn)
 	{
 		this.world = worldIn;
 		this.random = randIn;
@@ -379,13 +375,13 @@ public abstract class AetherStructurePiece extends StructurePiece
 	}
 
 	@Override
-	protected void readAdditional(NBTTagCompound compound, TemplateManager templateIn)
+	protected void readAdditional(CompoundTag compound, TemplateManager templateIn)
 	{
 
 	}
 
 	@Override
-	protected void writeAdditional(NBTTagCompound compound)
+	protected void writeAdditional(CompoundTag compound)
 	{
 
 	}

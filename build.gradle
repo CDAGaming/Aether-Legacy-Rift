@@ -1,22 +1,20 @@
+import net.fabricmc.loom.LoomGradlePlugin
+
 buildscript {
     repositories {
         jcenter()
-        maven { url 'https://www.jitpack.io' }
-        maven { url 'https://www.dimdev.org/maven/' }
-        maven { url 'https://files.minecraftforge.net/maven' }
+        maven { url 'https://maven.fabricmc.net/' }
         maven { url 'https://plugins.gradle.org/m2/' }
         maven { url 'http://repo.spongepowered.org/maven' }
     }
     dependencies {
-        classpath 'com.github.Chocohead:ForgeGradle:moderniser-SNAPSHOT'
+        classpath 'net.fabricmc:fabric-loom:0.1.0-SNAPSHOT'
         classpath 'gradle.plugin.com.github.breadmoirai:github-release:2.0.1'
-        classpath 'org.spongepowered:mixingradle:0.6-SNAPSHOT'
     }
 }
 
-apply plugin: 'net.minecraftforge.gradle.tweaker-client'
+apply plugin: LoomGradlePlugin
 apply plugin: 'java'
-apply plugin: 'org.spongepowered.mixin'
 apply plugin: 'maven-publish'
 apply plugin: 'com.github.breadmoirai.github-release'
 
@@ -24,16 +22,15 @@ group 'com.legacy.aether'
 version '1.0.1'
 archivesBaseName = 'aether_legacy'
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+allprojects {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
 
 repositories {
     mavenCentral()
-    maven { url 'https://libraries.minecraft.net/' }
-    maven { url 'https://www.dimdev.org/maven/' }
-    maven { url 'https://files.minecraftforge.net/maven' }
-    maven { url 'https://www.jitpack.io' }
-    maven { url 'http://repo.strezz.org/artifactory/list/Strezz-Central' }
+    maven { url = "https://libraries.minecraft.net/" }
+    maven { url = "https://maven.fabricmc.net/" }
 }
 
 configurations {
@@ -42,10 +39,16 @@ configurations {
 
 dependencies {
     ecj 'org.eclipse.jdt.core.compiler:ecj:4.6.1'
-    implementation 'com.github.Chocohead:Rift:jitpack-SNAPSHOT:dev'
     implementation('net.minecraft:launchwrapper:1.12') { transitive = false }
     implementation 'org.ow2.asm:asm:6.2'
     implementation 'org.ow2.asm:asm-commons:6.2'
+	
+	minecraft "com.mojang:minecraft:18w50a"
+    mappings "net.fabricmc:yarn:18w50a.7"
+    modCompile "net.fabricmc:fabric-loader:0.2.0.65"
+
+    // Fabric API. This is technically optional, but you probably want it anyway.
+    modCompile "net.fabricmc:fabric:0.1.1.47"
 }
 
 compileJava {
@@ -57,13 +60,5 @@ compileJava {
 }
 
 minecraft {
-    version = '1.13.2'
-    mappings = 'snapshot_20181130'
-    runDir = 'run'
-    tweakClass = 'org.dimdev.riftloader.launch.RiftLoaderClientTweaker'
-}
-
-mixin {
-    defaultObfuscationEnv notch
-    add sourceSets.main, 'mixins.aether_legacy.refmap.json'
+    // N/A
 }

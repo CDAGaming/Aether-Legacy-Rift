@@ -1,26 +1,18 @@
 package com.legacy.aether.world;
 
-import java.util.Random;
-
 import com.legacy.aether.blocks.BlocksAether;
 import com.legacy.aether.blocks.portal.BlockAetherPortal;
 import com.legacy.aether.world.info.AetherPortalPosition;
-
 import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
 import it.unimi.dsi.fastutil.longs.Long2ObjectOpenHashMap;
-import net.minecraft.block.BlockPortal;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.block.state.pattern.BlockPattern;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.init.Blocks;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.Teleporter;
-import net.minecraft.world.WorldServer;
+import net.minecraft.world.chunk.ChunkPos;
+
+import java.util.Random;
 
 public class TeleporterAether extends Teleporter
 {
@@ -29,11 +21,11 @@ public class TeleporterAether extends Teleporter
 
     private final Random random;
 
-    private final WorldServer worldServerInstance;
+    private final ServerWorld worldServerInstance;
 
     private final Long2ObjectMap<AetherPortalPosition> destinationCoordinateCache = new Long2ObjectOpenHashMap<AetherPortalPosition>(4096);
 
-	public TeleporterAether(boolean portalSpawn, WorldServer worldIn) 
+	public TeleporterAether(boolean portalSpawn, ServerWorld worldIn)
 	{
 		super(worldIn);
 
@@ -46,7 +38,7 @@ public class TeleporterAether extends Teleporter
     {
     	if (!this.portalSpawn)
     	{
-    		entityIn.setPositionAndUpdate(entityIn.posX, 256, entityIn.posZ);
+    		entityIn.setPositionAnglesAndUpdate(entityIn.getPos().getX(), 256, entityIn.posZ);
 
     		return;
     	}
@@ -62,8 +54,8 @@ public class TeleporterAether extends Teleporter
     public boolean placeInExistingPortal(Entity entityIn, float rotationYaw)
     {
         double d0 = -1.0D;
-        int j = MathHelper.floor(entityIn.posX);
-        int k = MathHelper.floor(entityIn.posZ);
+        int j = MathHelper.floor(entityIn.getPos().getX());
+        int k = MathHelper.floor(entityIn.getPos().getZ());
         boolean flag = true;
         BlockPos blockpos = BlockPos.ORIGIN;
         long l = ChunkPos.asLong(j, k);

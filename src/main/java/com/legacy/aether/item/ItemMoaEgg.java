@@ -1,29 +1,26 @@
 package com.legacy.aether.item;
 
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUseContext;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.NonNullList;
+import net.minecraft.item.*;
 
 import com.legacy.aether.api.AetherAPI;
 import com.legacy.aether.api.moa.MoaType;
 import com.legacy.aether.entities.passive.EntityMoa;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.DefaultedList;
 
 public class ItemMoaEgg extends Item
 {
 
 	public ItemMoaEgg()
 	{
-		super(new Properties().maxStackSize(1).group(ItemGroup.MISC));
+		super(new Item.Settings().stackSize(1).itemGroup(ItemGroup.MISC));
 	}
 
 	@Override
-    public EnumActionResult onItemUse(ItemUseContext contextIn)
+    public ActionResult useOnBlock(ItemUsageContext contextIn)
     {
-		if (contextIn.getPlayer().abilities.isCreativeMode)
+		if (contextIn.getPlayer().abilities.creativeMode)
 		{
 			EntityMoa moa = new EntityMoa(contextIn.getWorld(), AetherAPI.instance().getMoa(contextIn.getItem().getTag().getInt("moaType")));
 
@@ -35,19 +32,19 @@ public class ItemMoaEgg extends Item
 				contextIn.getWorld().spawnEntity(moa);
 			}
 			
-			return EnumActionResult.SUCCESS;
+			return ActionResult.SUCCESS;
 		}
 
-        return super.onItemUse(contextIn);
+        return super.useOnBlock(contextIn);
     }
 
 	@Override
-    public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> subItems)
+    public void addStacksForDisplay(ItemGroup group, DefaultedList<ItemStack> subItems)
 	{
 		for (int moaTypeSize = 0; moaTypeSize < AetherAPI.instance().getMoaRegistrySize(); ++moaTypeSize)
 		{
 			ItemStack stack = new ItemStack(this);
-			NBTTagCompound compound = new NBTTagCompound();
+			CompoundTag compound = new CompoundTag();
 			MoaType moaType = AetherAPI.instance().getMoa(moaTypeSize);
 
 			if (moaType.getItemGroup() == group || group == ItemGroup.SEARCH)
@@ -61,7 +58,7 @@ public class ItemMoaEgg extends Item
 	}
 
 	@Override
-	public boolean shouldSyncTag()
+	public boolean requiresClientSync()
 	{
 		return true;
 	}
@@ -73,7 +70,7 @@ public class ItemMoaEgg extends Item
 
 	public MoaType getMoaType(ItemStack stack)
 	{
-		NBTTagCompound tag = stack.getTag();
+		CompoundTag tag = stack.getTag();
 
 		if (tag != null)
 		{
@@ -88,9 +85,9 @@ public class ItemMoaEgg extends Item
 	@Override
 	public String getTranslationKey(ItemStack stack)
 	{
-		NBTTagCompound tag = stack.getTag();
+		CompoundTag tag = stack.getTag();
 
-		if (tag != null && stack.getTag().contains("moaType"))
+		if (tag != null && stack.getTag().containsKey("moaType"))
 		{
 			MoaType moaType = AetherAPI.instance().getMoa(tag.getInt("moaType"));
 
@@ -104,7 +101,7 @@ public class ItemMoaEgg extends Item
 	{
 		ItemStack stack = new ItemStack(ItemsAether.moa_egg);
 
-		NBTTagCompound tag = new NBTTagCompound();
+		CompoundTag tag = new CompoundTag();
 
 		tag.putInt("moaType", AetherAPI.instance().getMoaId(type));
 

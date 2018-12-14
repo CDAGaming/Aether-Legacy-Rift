@@ -6,14 +6,12 @@ import java.util.UUID;
 import com.legacy.aether.world.WorldAether;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.attributes.AttributeModifier;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.inventory.ItemStackHelper;
+import net.minecraft.entity.attribute.EntityAttributeModifier;
+import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.MinecraftServer;
 
 import com.legacy.aether.api.player.IPlayerAether;
@@ -24,12 +22,13 @@ import com.legacy.aether.player.perks.AetherDonationPerks;
 import com.legacy.aether.util.AetherTeleportation;
 import com.legacy.aether.world.TeleporterAether;
 
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.world.dimension.DimensionType;
 
 public class PlayerAether implements IPlayerAether
 {
 
-	private EntityPlayer player;
+	private PlayerEntity player;
 
 	private int shardsUsed;
 
@@ -43,7 +42,7 @@ public class PlayerAether implements IPlayerAether
 
 	public final ArrayList<Entity> clouds = new ArrayList<Entity>(2);
 
-	private AttributeModifier aetherHealth;
+	private EntityAttributeModifier aetherHealth;
 
 	private InventoryAccessories accessories;
 
@@ -51,7 +50,7 @@ public class PlayerAether implements IPlayerAether
 
 	public AetherDonationPerks donationPerks;
 
-	public PlayerAether(EntityPlayer player)
+	public PlayerAether(PlayerEntity player)
 	{
 		this.player = player;
 		this.donationPerks = new AetherDonationPerks();
@@ -144,7 +143,7 @@ public class PlayerAether implements IPlayerAether
 
 			if (server != null && server.getPlayerList() != null)
 			{
-				AetherTeleportation.travelDimension((EntityPlayerMP) this.player, dimensionToTravel, new TeleporterAether(shouldSpawnPortal, server.getWorld(dimensionToTravel)));
+				AetherTeleportation.travelDimension((ServerPlayerEntity) this.player, dimensionToTravel, new TeleporterAether(shouldSpawnPortal, server.getWorld(dimensionToTravel)));
 			}
 		}
 	}
@@ -190,7 +189,7 @@ public class PlayerAether implements IPlayerAether
 	{
 		for (int index = 0; index < 4; index++)
 		{
-			if (this.getPlayer().inventory.armorInventory.get(index).getItem() == item)
+			if (this.getPlayer().inventory.armor.get(index).getItem() == item)
 			{
 				return true;
 			}
@@ -253,24 +252,24 @@ public class PlayerAether implements IPlayerAether
 
 		++this.shardsUsed;
 
-		this.aetherHealth = new AttributeModifier(uuid, "Aether Health Modifier", (this.shardsUsed * 2.0F), 0);
+		this.aetherHealth = new EntityAttributeModifier(uuid, "Aether Health Modifier", (this.shardsUsed * 2.0), EntityAttributeModifier.Operation.ADDITION);
 
-		if (this.getPlayer().getAttribute(SharedMonsterAttributes.MAX_HEALTH).getModifier(uuid) != null)
+		if (this.getPlayer().getAttributeInstance(EntityAttributes.MAX_HEALTH).getModifier(uuid) != null)
 		{
-			this.getPlayer().getAttribute(SharedMonsterAttributes.MAX_HEALTH).removeModifier(this.aetherHealth);
+			this.getPlayer().getAttributeInstance(EntityAttributes.MAX_HEALTH).removeModifier(this.aetherHealth);
 		}
 
-		this.getPlayer().getAttribute(SharedMonsterAttributes.MAX_HEALTH).applyModifier(this.aetherHealth);
+		this.getPlayer().getAttributeInstance(EntityAttributes.MAX_HEALTH).addModifier(this.aetherHealth);
 	}
 
-	public void writeToNBT(NBTTagCompound compound)
+	public void writeToNBT(CompoundTag compound)
 	{
 		compound.putInt("shardsUsed", this.shardsUsed);
 
 		compound.put("accessories", ItemStackHelper.saveAllItems(new NBTTagCompound(), this.accessories.stacks));
 	}
 
-	public void readFromNBT(NBTTagCompound compound)
+	public void readFromNBT(CompoundTag compound)
 	{
 		this.shardsUsed = compound.getInt("shardsUsed");
 
@@ -279,7 +278,7 @@ public class PlayerAether implements IPlayerAether
 
 	public void copyFrom(PlayerAether that, boolean keepEverything)
 	{
-		NBTTagCompound compound = new NBTTagCompound();
+		CompoundTag compound = new CompoundTag();
 
 		that.writeToNBT(compound);
 		this.readFromNBT(compound);
@@ -335,7 +334,7 @@ public class PlayerAether implements IPlayerAether
 		return this.accessories;
 	}
 
-	public EntityPlayer getPlayer()
+	public PlayerEntity getPlayer()
 	{
 		return this.player;
 	}

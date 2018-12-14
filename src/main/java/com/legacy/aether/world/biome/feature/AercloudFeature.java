@@ -4,8 +4,8 @@ import java.util.Random;
 
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
-import net.minecraft.world.gen.IChunkGenSettings;
-import net.minecraft.world.gen.IChunkGenerator;
+import net.minecraft.world.gen.chunk.ChunkGenerator;
+import net.minecraft.world.gen.chunk.ChunkGeneratorSettings;
 import net.minecraft.world.gen.feature.Feature;
 
 import com.legacy.aether.world.biome.feature.config.AercloudConfig;
@@ -14,7 +14,7 @@ public class AercloudFeature extends Feature<AercloudConfig>
 {
 
 	@Override
-	public boolean place(IWorld worldIn, IChunkGenerator<? extends IChunkGenSettings> generatorIn, Random randIn, BlockPos posIn, AercloudConfig configIn)
+	public boolean generate(IWorld worldIn, ChunkGenerator<? extends ChunkGeneratorSettings> generatorIn, Random randIn, BlockPos posIn, AercloudConfig configIn)
 	{
 		BlockPos origin = new BlockPos(posIn.getX() - 14, (configIn.isFlat() ? 0 : randIn.nextInt(64)) + configIn.getY(), posIn.getZ() - 14);
         BlockPos position = new BlockPos(origin);
@@ -42,11 +42,11 @@ public class AercloudFeature extends Feature<AercloudConfig>
 					{
 						BlockPos pos = new BlockPos(x, y, z);
 
-						if (worldIn.isAirBlock(pos))
+						if (worldIn.isAir(pos))
 						{
 							if (Math.abs(x - position.getX()) + Math.abs(y - position.getY()) + Math.abs(z - position.getZ()) < 4 * configIn.cloudModifier() + randIn.nextInt(2))
 							{
-								this.setBlockState(worldIn, pos, configIn.getCloudState());
+								this.method_13153(worldIn, pos, configIn.getCloudState());
 							}
 						}
 					}

@@ -2,20 +2,20 @@ package com.legacy.aether.world.biome.builder;
 
 import com.legacy.aether.blocks.BlocksAether;
 
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.world.gen.surfacebuilders.ISurfaceBuilderConfig;
+import net.minecraft.block.BlockState;
+import net.minecraft.world.gen.config.surfacebuilder.SurfaceConfig;
 
-public class AetherSurfaceBuilderConfig implements ISurfaceBuilderConfig
+public class AetherSurfaceBuilderConfig implements SurfaceConfig
 {
 
 	@Override
-	public IBlockState getMiddle()
+	public BlockState getUnderMaterial()
 	{
 		return BlocksAether.aether_dirt.getDefaultState();
 	}
 
 	@Override
-	public IBlockState getTop() 
+	public BlockState getTopMaterial()
 	{
 		return BlocksAether.aether_grass.getDefaultState();
 	}

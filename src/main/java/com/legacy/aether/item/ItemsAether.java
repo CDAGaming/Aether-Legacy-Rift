@@ -1,14 +1,7 @@
 package com.legacy.aether.item;
 
-import net.minecraft.init.Fluids;
-import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
-import net.minecraft.util.text.TextFormatting;
-
-import org.dimdev.rift.listener.ItemAdder;
-import org.dimdev.utils.ReflectionUtils;
 
 import com.legacy.aether.Aether;
 import com.legacy.aether.api.accessories.AccessoryType;
@@ -43,11 +36,14 @@ import com.legacy.aether.item.weapon.projectile.ItemDart;
 import com.legacy.aether.item.weapon.projectile.ItemDartShooter;
 import com.legacy.aether.item.weapon.projectile.ItemPhoenixBow;
 import com.legacy.aether.sounds.SoundsAether;
+import net.minecraft.text.TextFormat;
+import net.minecraft.util.Rarity;
+import net.minecraft.util.registry.Registry;
 
-public class ItemsAether implements ItemAdder
+public class ItemsAether
 {
 
-	public static final EnumRarity AETHER_LOOT = ReflectionUtils.makeEnumInstance(EnumRarity.class, new Object[] {"AETHER_LOOT", -1, TextFormatting.GREEN});
+	public static final Rarity AETHER_LOOT = ReflectionUtils.makeEnumInstance(Rarity.class, new Object[] {"AETHER_LOOT", -1, TextFormat.GREEN});
 
 	public static Item zanite_gemstone, ambrosium_shard, golden_amber, aechor_petal, swet_ball;
 
@@ -272,7 +268,7 @@ public class ItemsAether implements ItemAdder
 
 	public Item register(String name, Item item)
 	{
-		Item.register(Aether.locate(name), item);
+		Registry.ITEM.register(Aether.locate(name), item);
 
 		if (item instanceof ItemAccessory)
 		{

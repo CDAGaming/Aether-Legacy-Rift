@@ -1,12 +1,9 @@
 package com.legacy.aether.sounds;
 
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.registry.IRegistry;
-
-import org.dimdev.rift.listener.SoundAdder;
-
 import com.legacy.aether.Aether;
+import net.minecraft.sound.SoundEvent;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registry;
 
 public class SoundsAether implements SoundAdder
 {
@@ -92,11 +89,11 @@ public class SoundsAether implements SoundAdder
 		aether_menu = register(Aether.locate("music.menu"));
 	}
 
-	public SoundEvent register(ResourceLocation location)
+	public SoundEvent register(Identifier location)
 	{
-		SoundEvent.register(location.toString());
+		Registry.register(Registry.SOUND_EVENT, location.toString(), new SoundEvent(location));
 
-		return IRegistry.SOUND_EVENT.get(location);
+		return Registry.SOUND_EVENT.get(location);
 	}
 
 }

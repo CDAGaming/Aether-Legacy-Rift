@@ -1,0 +1,14 @@
+{
+	"id": "aether_legacy",
+	"name": "Aether Legacy",
+	"description": "This is an example description! Tell everyone what your mod is about!",
+	"version": "1.0.0",
+	"side": "universal",
+	"initializer": "com.legacy.aether.Aether",
+	"requires": {
+		"fabric": "*"
+	},
+	"mixins": {
+		"common": "mixins.aether_legacy.json"
+	}
+}

@@ -1,16 +1,18 @@
 package com.legacy.aether.item;
 
 import net.minecraft.item.EnumRarity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemRecord;
-import net.minecraft.util.SoundEvent;
+import net.minecraft.item.RecordItem;
+import net.minecraft.sound.SoundEvent;
+import net.minecraft.util.Rarity;
 
-public class ItemAetherDisc extends ItemRecord
+public class ItemAetherDisc extends RecordItem
 {
 
-	public ItemAetherDisc(int comparatorValueIn, SoundEvent soundIn) 
+	public ItemAetherDisc(int comparatorValueIn, SoundEvent soundIn)
 	{
-		super(comparatorValueIn, soundIn, new Properties().defaultMaxDamage(1).group(ItemGroup.MISC).rarity(EnumRarity.RARE));
+		super(comparatorValueIn, soundIn, new Settings().defaultMaxDamage(1).group(ItemGroup.MISC).rarity(Rarity.RARE));
 	}
 
 }

@@ -1,13 +1,13 @@
 package com.legacy.aether.util;
 
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.PacketByteBuf;
 
 public interface AetherSPacketCustomPayload
 {
 
-    public ResourceLocation getChannelName();
+    public Identifier getChannelName();
 
-    public PacketBuffer getData();
+    public PacketByteBuf getData();
 
 }
