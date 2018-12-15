@@ -1,12 +1,11 @@
 package com.legacy.aether.client.rendering.color;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.renderer.color.IBlockColor;
-import net.minecraft.client.renderer.color.IItemColor;
+import net.minecraft.block.BlockState;
+import net.minecraft.client.render.block.BlockColorMapper;
+import net.minecraft.client.render.item.ItemColorMapper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IWorldReaderBase;
 
 import com.legacy.aether.blocks.BlocksAether;
 import com.legacy.aether.blocks.decorative.BlockColoredAercloud;
@@ -14,12 +13,13 @@ import com.legacy.aether.item.ItemMoaEgg;
 import com.legacy.aether.item.ItemsAether;
 import com.legacy.aether.item.accessory.ItemAccessory;
 import com.legacy.aether.item.armor.ItemAetherArmor;
+import net.minecraft.world.ExtendedBlockView;
 
-public class AetherColor implements IBlockColor, IItemColor
+public class AetherColor implements BlockColorMapper, ItemColorMapper
 {
 
 	@Override
-	public int getColor(IBlockState blockstate, IWorldReaderBase world, BlockPos pos, int renderPass) 
+	public int getColor(BlockState blockstate, ExtendedBlockView world, BlockPos pos, int renderPass)
 	{
 		Block block = blockstate.getBlock();
 

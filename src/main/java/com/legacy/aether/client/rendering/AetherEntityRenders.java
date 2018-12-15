@@ -2,10 +2,6 @@ package com.legacy.aether.client.rendering;
 
 import java.util.Map;
 
-import org.dimdev.rift.listener.client.EntityRendererAdder;
-
-import net.minecraft.client.renderer.entity.Render;
-import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.Entity;
 
 import com.legacy.aether.client.rendering.entity.AechorPlantRenderer;
@@ -41,7 +37,7 @@ public class AetherEntityRenders implements EntityRendererAdder
 {
 
 	@Override
-	public void addEntityRenderers(Map<Class<? extends Entity>, Render<? extends Entity>> entityRenderMap, RenderManager renderManager) 
+	public void addEntityRenderers(Map<Class<? extends Entity>, Render<? extends Entity>> entityRenderMap, RenderManager renderManager)
 	{
 		entityRenderMap.put(EntityDart.class, new DartRenderer(renderManager));
 		entityRenderMap.put(EntityMiniCloud.class, new MiniCloudRenderer(renderManager));

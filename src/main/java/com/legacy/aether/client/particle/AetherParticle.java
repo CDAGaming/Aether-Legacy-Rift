@@ -18,17 +18,17 @@ public class AetherParticle extends Particle
 
     public void setMotionX(double motionX)
     {
-    	this.motionX = motionX;
+    	this.velocityX = motionX;
     }
 
     public void setMotionY(double motionY)
     {
-    	this.motionY = motionY;
+    	this.velocityY = motionY;
     }
 
     public void setMotionZ(double motionZ)
     {
-    	this.motionZ = motionZ;
+    	this.velocityZ = motionZ;
     }
 
     public double getX()
@@ -48,17 +48,17 @@ public class AetherParticle extends Particle
 
     public double getMotionX()
     {
-    	return this.motionX;
+    	return this.velocityX;
     }
 
     public double getMotionY()
     {
-    	return this.motionY;
+    	return this.velocityY;
     }
 
     public double getMotionZ()
     {
-    	return this.motionZ;
+    	return this.velocityZ;
     }
 
 }

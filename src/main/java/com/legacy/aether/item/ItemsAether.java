@@ -202,7 +202,7 @@ public class ItemsAether
 		platinum_key = register("platinum_key", new ItemDungeonKey());
 
 		golden_dart = register("golden_dart", new ItemDart());
-		enchanted_dart = register("enchanted_dart", new ItemDart(EnumRarity.RARE));
+		enchanted_dart = register("enchanted_dart", new ItemDart(Rarity.RARE));
 		poison_dart = register("poison_dart", new ItemDart());
 
 		golden_dart_shooter = register("golden_dart_shooter", new ItemDartShooter((ItemDart) golden_dart));
@@ -239,7 +239,7 @@ public class ItemsAether
 		iron_pendant = register("iron_pendant", new ItemAccessory(AccessoryType.PENDANT));
 		golden_pendant = register("golden_pendant", new ItemAccessory(AccessoryType.PENDANT, 0xEAEE57));
 		zanite_pendant = register("zanite_pendant", new ItemAccessory(AccessoryType.PENDANT, 0x711AE8));
-		ice_pendant = register("ice_pendant", new ItemAccessory(AccessoryType.PENDANT, EnumRarity.RARE, 0x95E6E7));
+		ice_pendant = register("ice_pendant", new ItemAccessory(AccessoryType.PENDANT, Rarity.RARE, 0x95E6E7));
 
 		white_cape = register("white_cape", new ItemAccessory(AccessoryType.RING));
 		red_cape = register("red_cape", new ItemAccessory(AccessoryType.RING, 0xE81111));

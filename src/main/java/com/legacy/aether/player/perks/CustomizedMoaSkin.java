@@ -1,8 +1,8 @@
 package com.legacy.aether.player.perks;
 
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.util.PacketByteBuf;
 
-public class CustomizedMoaSkin 
+public class CustomizedMoaSkin
 {
 
 	private boolean shouldDefualt;
@@ -30,7 +30,7 @@ public class CustomizedMoaSkin
 		this.shouldDefualt = true;
 	}
 
-	public void writeMoaSkin(PacketBuffer buf)
+	public void writeMoaSkin(PacketByteBuf buf)
 	{
 		buf.writeBoolean(this.shouldDefualt);
 		buf.writeBoolean(this.wingMarkingGlow);
@@ -44,7 +44,7 @@ public class CustomizedMoaSkin
 		buf.writeInt(this.outsideColor);
 	}
 
-	public static CustomizedMoaSkin readMoaSkin(PacketBuffer buf)
+	public static CustomizedMoaSkin readMoaSkin(PacketByteBuf buf)
 	{
 		CustomizedMoaSkin skin = new CustomizedMoaSkin();
 

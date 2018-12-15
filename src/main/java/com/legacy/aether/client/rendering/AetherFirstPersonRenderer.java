@@ -1,14 +1,11 @@
 package com.legacy.aether.client.rendering;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.AbstractClientPlayer;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.entity.model.ModelBiped;
-import net.minecraft.client.renderer.entity.model.ModelPlayer;
-
 import com.legacy.aether.item.ItemsAether;
 import com.legacy.aether.item.accessory.ItemAccessory;
 import com.legacy.aether.player.IEntityPlayerAether;
+import com.mojang.blaze3d.platform.GlStateManager;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.model.Model;
 
 public class AetherFirstPersonRenderer
 {
@@ -20,7 +17,7 @@ public class AetherFirstPersonRenderer
 	public static void renderRightGlove(IEntityPlayerAether hook, ItemAccessory gloves)
     {
 		boolean isSlim = ((AbstractClientPlayer)hook.getInstance()).getSkinType().equals("slim");
-		Minecraft.getInstance().getRenderManager().textureManager.bindTexture(gloves.getAccessoryTexture(isSlim));
+		MinecraftClient.getInstance().getEntityRenderManager().textureManager.bindTexture(gloves.getAccessoryTexture(isSlim));
 
 		int colour = gloves.getColor();
 		float red = ((colour >> 16) & 0xff) / 255F;
@@ -46,7 +43,7 @@ public class AetherFirstPersonRenderer
 	public static void renderLeftGlove(IEntityPlayerAether hook, ItemAccessory gloves)
     {
 		boolean isSlim = ((AbstractClientPlayer)hook.getInstance()).getSkinType().equals("slim");
-		Minecraft.getInstance().getRenderManager().textureManager.bindTexture(gloves.getAccessoryTexture(isSlim));
+		MinecraftClient.getInstance().getEntityRenderManager().textureManager.bindTexture(gloves.getAccessoryTexture(isSlim));
 
 		int colour = gloves.getColor();
 		float red = ((colour >> 16) & 0xff) / 255F;
@@ -69,7 +66,7 @@ public class AetherFirstPersonRenderer
         GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
     }
 
-	private static ModelBiped getModel(boolean isSlim)
+	private static Model getModel(boolean isSlim)
 	{
 		return isSlim ? slimGloveModel : gloveModel;
 	}

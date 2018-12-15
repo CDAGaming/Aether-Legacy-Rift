@@ -102,7 +102,7 @@ public class InventoryAccessories implements Inventory, InteractionObject
 	}
 
 	@Override
-	public boolean isItemValidForSlot(int index, ItemStack stack)
+	public boolean isValidInvStack(int index, ItemStack stack)
 	{
 		return AetherAPI.instance().isAccessory(stack) && this.type[index] == AetherAPI.instance().getAccessory(stack).getType();
 	}
@@ -126,7 +126,7 @@ public class InventoryAccessories implements Inventory, InteractionObject
 	}
 
 	@Override
-	public int getInventoryStackLimit()
+	public int getInvMaxStackAmount()
 	{
 		return 1;
 	}
@@ -168,13 +168,13 @@ public class InventoryAccessories implements Inventory, InteractionObject
 	}
 
 	@Override
-	public void openInventory(PlayerEntity playerIn)
+	public void onInvOpen(PlayerEntity playerIn)
 	{
 
 	}
 
 	@Override
-	public void closeInventory(PlayerEntity playerIn)
+	public void onInvClose(PlayerEntity playerIn)
 	{
 
 	}
@@ -186,19 +186,19 @@ public class InventoryAccessories implements Inventory, InteractionObject
 	}
 
 	@Override
-	public void setField(int id, int value)
+	public void setInvProperty(int id, int value)
 	{
 
 	}
 
 	@Override
-	public int getField(int id) 
+	public int getInvProperty(int id)
 	{
 		return 0;
 	}
 
 	@Override
-	public int getFieldCount() 
+	public int getInvPropertyCount()
 	{
 		return 0;
 	}

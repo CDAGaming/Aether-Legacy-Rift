@@ -1,15 +1,10 @@
 package com.legacy.aether.client;
 
-import net.minecraft.client.Minecraft;
-import org.dimdev.rift.listener.client.ClientTickable;
-
-public class ClientTickHandler implements ClientTickable
+public class ClientTickHandler
 {
-
-	@Override
-	public void clientTick(final Minecraft minecraftIn)
+	public void clientTick()
 	{
-
+		// TODO: Addto Main Class in ClientTickRegistry - 1.14 Stub
 	}
 
 }
