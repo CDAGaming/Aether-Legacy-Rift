@@ -105,7 +105,7 @@ public class PlayerAether implements IPlayerAether
 				if (this.timeInPortal++ >= limit)
 				{
 					this.timeInPortal = limit;
-					this.portalCooldown = this.getPlayer().getPortalCooldown();
+					this.portalCooldown = this.getPlayer().portalCooldown;
 					this.teleportPlayer(true);
 				}
 
@@ -266,7 +266,7 @@ public class PlayerAether implements IPlayerAether
 	{
 		compound.putInt("shardsUsed", this.shardsUsed);
 
-		compound.put("accessories", ItemStackHelper.saveAllItems(new NBTTagCompound(), this.accessories.stacks));
+		compound.put("accessories", ItemStackHelper.saveAllItems(new CompoundTag(), this.accessories.stacks));
 	}
 
 	public void readFromNBT(CompoundTag compound)
@@ -294,7 +294,7 @@ public class PlayerAether implements IPlayerAether
 
 			if (!stack.isEmpty())
 			{
-				stack.damageItem((int) damage, this.getPlayer());
+				stack.applyDamage((int) damage, this.getPlayer());
 			}
 		}
 	}

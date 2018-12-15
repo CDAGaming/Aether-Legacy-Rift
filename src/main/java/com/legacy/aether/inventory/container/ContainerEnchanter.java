@@ -1,11 +1,10 @@
 package com.legacy.aether.inventory.container;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.Container;
-import net.minecraft.inventory.IContainerListener;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.Slot;
+import net.minecraft.container.Container;
+import net.minecraft.container.ContainerListener;
+import net.minecraft.container.Slot;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 
 import com.legacy.aether.api.AetherAPI;
@@ -14,11 +13,11 @@ import com.legacy.aether.inventory.slot.SlotOutput;
 public class ContainerEnchanter extends Container
 {
 
-	private IInventory enchanter;
+	private Inventory enchanter;
 
 	public int progress, ticksRequired, powerRemaining;
 
-	public ContainerEnchanter(InventoryPlayer inventoryIn, IInventory enchanterIn)
+	public ContainerEnchanter(Inventory inventoryIn, Inventory enchanterIn)
 	{
 		this.enchanter = enchanterIn;
 
@@ -41,114 +40,113 @@ public class ContainerEnchanter extends Container
 	}
 
 	@Override
-	public boolean canInteractWith(EntityPlayer playerIn) 
+	public boolean canUse(PlayerEntity playerIn)
 	{
-		return this.enchanter.isUsableByPlayer(playerIn);
+		return this.enchanter.canPlayerUseInv(playerIn);
 	}
 
     @Override
-    public void addListener(IContainerListener listenerIn)
+    public void addListener(ContainerListener listenerIn)
     {
         super.addListener(listenerIn);
-
-        listenerIn.sendAllWindowProperties(this, this.enchanter);
+        listenerIn.onContainerInvRegistered(this, this.enchanter);
     }
 
 	@Override
-	public void updateProgressBar(int id, int value)
+	public void setProperty(int id, int value)
 	{
-		this.enchanter.setField(id, value);
+		this.enchanter.setInvProperty(id, value);
 	}
 
     @Override
-    public void detectAndSendChanges()
+    public void sendContentUpdates()
     {
-        super.detectAndSendChanges();
+        super.sendContentUpdates();
 
-		for (IContainerListener listener : this.listeners) {
+		for (ContainerListener listener : this.listeners) {
 
-			if (this.progress != this.enchanter.getField(0)) {
-				listener.sendWindowProperty(this, 0, this.enchanter.getField(0));
-			} else if (this.powerRemaining != this.enchanter.getField(1)) {
-				listener.sendWindowProperty(this, 1, this.enchanter.getField(1));
-			} else if (this.ticksRequired != this.enchanter.getField(2)) {
-				listener.sendWindowProperty(this, 2, this.enchanter.getField(2));
+			if (this.progress != this.enchanter.getInvProperty(0)) {
+				listener.onContainerPropertyUpdate(this, 0, this.enchanter.getInvProperty(0));
+			} else if (this.powerRemaining != this.enchanter.getInvProperty(1)) {
+				listener.onContainerPropertyUpdate(this, 1, this.enchanter.getInvProperty(1));
+			} else if (this.ticksRequired != this.enchanter.getInvProperty(2)) {
+				listener.onContainerPropertyUpdate(this, 2, this.enchanter.getInvProperty(2));
 			}
 		}
 
-        this.progress = this.enchanter.getField(0);
-        this.powerRemaining = this.enchanter.getField(1);
-        this.ticksRequired = this.enchanter.getField(2);
+        this.progress = this.enchanter.getInvProperty(0);
+        this.powerRemaining = this.enchanter.getInvProperty(1);
+        this.ticksRequired = this.enchanter.getInvProperty(2);
     }
 
 	@Override
-	public ItemStack transferStackInSlot(EntityPlayer par1EntityPlayer, int par2)
+	public ItemStack transferSlot(PlayerEntity par1EntityPlayer, int par2)
 	{
 		ItemStack itemstack = ItemStack.EMPTY;
-		Slot slot = this.inventorySlots.get(par2);
+		Slot slot = this.slotList.get(par2);
 
-		if (slot != null && slot.getHasStack())
+		if (slot != null && slot.hasStack())
 		{
 			ItemStack itemstack1 = slot.getStack();
 			itemstack = itemstack1.copy();
 
 			if (par2 == 2)
 			{
-				if (!this.mergeItemStack(itemstack1, 3, 39, true))
+				if (!this.insertItem(itemstack1, 3, 39, true))
 				{
 					return ItemStack.EMPTY;
 				}
 
-				slot.onSlotChange(itemstack1, itemstack);
+				slot.onStackChanged(itemstack1, itemstack);
 			}
 			else if (par2 != 1 && par2 != 0)
 			{
 				if (AetherAPI.instance().isEnchantable(itemstack))
 				{
-					if (!this.mergeItemStack(itemstack1, 0, 1, false))
+					if (!this.insertItem(itemstack1, 0, 1, false))
 					{
 						return ItemStack.EMPTY;
 					}
 				}
 				else if (AetherAPI.instance().isEnchantmentFuel(itemstack1))
 				{
-					if (!this.mergeItemStack(itemstack1, 1, 2, false))
+					if (!this.insertItem(itemstack1, 1, 2, false))
 					{
 						return ItemStack.EMPTY;
 					}
 				}
 				else if (par2 >= 3 && par2 < 30)
 				{
-					if (!this.mergeItemStack(itemstack1, 30, 39, false))
+					if (!this.insertItem(itemstack1, 30, 39, false))
 					{
 						return ItemStack.EMPTY;
 					}
 				}
-				else if (par2 >= 30 && par2 < 39 && !this.mergeItemStack(itemstack1, 3, 30, false))
+				else if (par2 >= 30 && par2 < 39 && !this.insertItem(itemstack1, 3, 30, false))
 				{
 					return ItemStack.EMPTY;
 				}
 			}
-			else if (!this.mergeItemStack(itemstack1, 3, 39, false))
+			else if (!this.insertItem(itemstack1, 3, 39, false))
 			{
 				return ItemStack.EMPTY;
 			}
 
-			if (itemstack1.getCount() == 0)
+			if (itemstack1.getAmount() == 0)
 			{
-				slot.putStack(ItemStack.EMPTY);
+				slot.setStack(ItemStack.EMPTY);
 			}
 			else
 			{
-				slot.onSlotChanged();
+				slot.markDirty(); // TODO: ?
 			}
 
-			if (itemstack1.getCount() == itemstack.getCount())
+			if (itemstack1.getAmount() == itemstack.getAmount())
 			{
 				return ItemStack.EMPTY;
 			}
 
-            slot.onTake(par1EntityPlayer, itemstack1);
+            slot.onTakeItem(par1EntityPlayer, itemstack1);
 		}
 
 		return itemstack;

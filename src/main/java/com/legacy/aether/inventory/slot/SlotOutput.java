@@ -1,19 +1,19 @@
 package com.legacy.aether.inventory.slot;
 
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.Slot;
+import net.minecraft.container.Slot;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 
 public class SlotOutput extends Slot
 {
 
-	public SlotOutput(IInventory inventoryIn, int indexIn, int xIn, int yIn) 
+	public SlotOutput(Inventory inventoryIn, int indexIn, int xIn, int yIn)
 	{
 		super(inventoryIn, indexIn, xIn, yIn);
 	}
 
 	@Override
-	public boolean isItemValid(ItemStack stackIn)
+	public boolean canInsert(ItemStack stackIn)
 	{
 		return false;
 	}

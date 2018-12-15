@@ -41,8 +41,8 @@ public class Enchantment
 		{
 			Enchantment enchantment = (Enchantment) obj;
 
-			boolean inputCheck = this.getInput().asItem() == enchantment.getInput().asItem();
-			boolean outputCheck = this.getOutput().asItem() == enchantment.getOutput().asItem();
+			boolean inputCheck = this.getInput() == enchantment.getInput();
+			boolean outputCheck = this.getOutput() == enchantment.getOutput();
 
 			return inputCheck && outputCheck;
 		}

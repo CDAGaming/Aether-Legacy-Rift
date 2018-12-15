@@ -4,8 +4,8 @@ import com.legacy.aether.api.AetherAPI;
 import com.legacy.aether.api.accessories.AccessoryType;
 import com.legacy.aether.inventory.InventoryAccessories;
 
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.Slot;
+import net.minecraft.container.Slot;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 
 public class SlotAccessory extends Slot
@@ -15,7 +15,7 @@ public class SlotAccessory extends Slot
 
 	private AccessoryType type;
 
-	public SlotAccessory(IInventory inventoryIn, int indexIn, AccessoryType typeIn, int xIn, int zIn) 
+	public SlotAccessory(InventoryAccessories inventoryIn, int indexIn, AccessoryType typeIn, int xIn, int zIn)
 	{
 		super(inventoryIn, indexIn, xIn, zIn);
 
@@ -24,13 +24,13 @@ public class SlotAccessory extends Slot
 	}
 
 	@Override
-	public boolean isItemValid(ItemStack stackIn)
+	public boolean canInsert(ItemStack stackIn)
 	{
 		return AetherAPI.instance().isAccessory(stackIn) && AetherAPI.instance().getAccessory(stackIn).getType() == this.getType();
 	}
 
 	@Override
-    public String getSlotTexture()
+    public String getBackgroundSprite()
     {
         return "aether_legacy:item/slots/" + InventoryAccessories.EMPTY_SLOT_NAMES[this.slotIndex];
     }

@@ -1,29 +1,25 @@
 package com.legacy.aether.inventory;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.Container;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.InventoryHelper;
-import net.minecraft.inventory.ItemStackHelper;
+import net.minecraft.container.Container;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextComponentString;
-import net.minecraft.world.IInteractionObject;
 
 import com.legacy.aether.api.AetherAPI;
 import com.legacy.aether.api.accessories.AccessoryType;
 import com.legacy.aether.inventory.container.ContainerAccessories;
 import com.legacy.aether.item.accessory.ItemAccessory;
 import com.legacy.aether.player.IEntityPlayerAether;
+import net.minecraft.text.StringTextComponent;
+import net.minecraft.text.TextComponent;
+import net.minecraft.util.DefaultedList;
 
-public class InventoryAccessories implements IInventory, IInteractionObject
+public class InventoryAccessories implements Inventory, InteractionObject
 {
 
 	private IEntityPlayerAether playerAether;
 
-    public NonNullList<ItemStack> stacks = NonNullList.withSize(8, ItemStack.EMPTY);
+    public DefaultedList<ItemStack> stacks = DefaultedList.create(8, ItemStack.EMPTY);
 
     public static final String[] EMPTY_SLOT_NAMES = new String[] {"pendant", "cape", "shield", "misc", "ring", "ring", "gloves", "misc"};
 
@@ -48,7 +44,7 @@ public class InventoryAccessories implements IInventory, IInteractionObject
 	}
 
 	@Override
-	public Container createContainer(InventoryPlayer inventoryIn, EntityPlayer entityIn) 
+	public Container createContainer(Inventory inventoryIn, PlayerEntity entityIn)
 	{
 		return new ContainerAccessories(((IEntityPlayerAether)entityIn));
 	}
@@ -60,7 +56,7 @@ public class InventoryAccessories implements IInventory, IInteractionObject
 	}
 
 	@Override
-	public ItemStack getStackInSlot(int index) 
+	public ItemStack getInvStack(int index)
 	{
 		return this.stacks.get(index);
 	}
@@ -69,7 +65,7 @@ public class InventoryAccessories implements IInventory, IInteractionObject
 	{
 		for (int index = 0; index < this.type.length; ++index)
 		{
-			ItemStack stack = this.getStackInSlot(index);
+			ItemStack stack = this.getInvStack(index);
 
 			if (stack.isEmpty() && type == this.type[index])
 			{
@@ -85,9 +81,9 @@ public class InventoryAccessories implements IInventory, IInteractionObject
 		boolean flag = false;
 		int slot = this.getAvailableSlot(((ItemAccessory)stack.getItem()).getType());
 
-		if (this.getStackInSlot(slot).isEmpty())
+		if (this.getInvStack(slot).isEmpty())
 		{
-			this.setInventorySlotContents(slot, stack);
+			this.setInvStack(slot, stack);
 			flag = true;
 		}
 
@@ -95,7 +91,7 @@ public class InventoryAccessories implements IInventory, IInteractionObject
 	}
 
 	@Override
-	public void setInventorySlotContents(int index, ItemStack stack) 
+	public void setInvStack(int index, ItemStack stack)
 	{
 		this.stacks.set(index, stack);
 	}
@@ -112,19 +108,19 @@ public class InventoryAccessories implements IInventory, IInteractionObject
 	}
 
 	@Override
-	public ItemStack decrStackSize(int index, int count) 
+	public ItemStack takeInvStack(int index, int count)
 	{
 		return ItemStackHelper.getAndSplit(this.stacks, index, count);
 	}
 
 	@Override
-	public ItemStack removeStackFromSlot(int index) 
+	public ItemStack removeInvStack(int index)
 	{
 		return ItemStackHelper.getAndRemove(this.stacks, index);
 	}
 
 	@Override
-	public boolean isUsableByPlayer(EntityPlayer playerIn)
+	public boolean canPlayerUseInv(PlayerEntity playerIn)
 	{
 		return !playerIn.removed;
 	}
@@ -136,13 +132,13 @@ public class InventoryAccessories implements IInventory, IInteractionObject
 	}
 
 	@Override
-	public int getSizeInventory() 
+	public int getInvSize()
 	{
 		return this.stacks.size();
 	}
 
 	@Override
-	public void clear() 
+	public void clearInv()
 	{
 		ItemStack itemstack;
 
@@ -158,7 +154,7 @@ public class InventoryAccessories implements IInventory, IInteractionObject
 	}
 
 	@Override
-	public boolean isEmpty() 
+	public boolean isInvEmpty()
 	{
 		for (ItemStack stacks : this.stacks)
 		{
@@ -172,13 +168,13 @@ public class InventoryAccessories implements IInventory, IInteractionObject
 	}
 
 	@Override
-	public void openInventory(EntityPlayer playerIn)
+	public void openInventory(PlayerEntity playerIn)
 	{
 
 	}
 
 	@Override
-	public void closeInventory(EntityPlayer playerIn)
+	public void closeInventory(PlayerEntity playerIn)
 	{
 
 	}
@@ -208,15 +204,15 @@ public class InventoryAccessories implements IInventory, IInteractionObject
 	}
 
 	@Override
-	public ITextComponent getCustomName() 
+	public TextComponent getCustomName()
 	{
 		return this.getName();
 	}
 
 	@Override
-	public ITextComponent getName() 
+	public TextComponent getName()
 	{
-		return new TextComponentString("Accessories");
+		return new StringTextComponent("Accessories");
 	}
 
 	@Override

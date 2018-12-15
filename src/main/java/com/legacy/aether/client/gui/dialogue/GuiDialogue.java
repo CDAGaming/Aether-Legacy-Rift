@@ -1,12 +1,12 @@
 package com.legacy.aether.client.gui.dialogue;
 
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.Gui;
+import net.minecraft.text.StringTextComponent;
+
 import java.util.ArrayList;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.util.text.TextComponentString;
-
-public class GuiDialogue extends GuiScreen
+public class GuiDialogue extends Gui
 {
 
 	private ArrayList<DialogueOption> dialogueOptions = new ArrayList<DialogueOption>();
@@ -48,7 +48,7 @@ public class GuiDialogue extends GuiScreen
         {
             option.setDialogueId(lineNumber);
             option.setXPosition((this.width / 2) - (option.getWidth() / 2));
-            option.setYPosition((this.height / 2) + this.fontRenderer.listFormattedStringToWidth(this.dialogue, 300).size() * 12 + 12 * lineNumber);
+            option.setYPosition((this.height / 2) + this.fontRenderer.wrapStringToWidthAsList(this.dialogue, 300).size() * 12 + 12 * lineNumber);
 
             lineNumber++;
         }
@@ -64,28 +64,28 @@ public class GuiDialogue extends GuiScreen
 
 	public void addDialogueMessage(String dialogueMessage)
 	{
-		Minecraft.getInstance().ingameGUI.getChatGUI().printChatMessage(new TextComponentString(dialogueMessage));
+		MinecraftClient.getInstance().hudInGame.getHudChat().addMessage(new StringTextComponent(dialogueMessage));
 	}
 
 	public void dialogueTreeCompleted()
 	{
-		this.mc.displayGuiScreen(null);
+		this.client.openGui(null);
 	}
 
     @Override
-    public boolean doesGuiPauseGame() 
+    public boolean isPauseScreen()
     {
         return false;
     }
 
 	@Override
-    public void render(int mouseX, int mouseY, float partialTicks)
+    public void draw(int mouseX, int mouseY, float partialTicks)
     {
-    	super.render(mouseX, mouseY, partialTicks);
+    	super.draw(mouseX, mouseY, partialTicks);
 
         int optionWidth = 0;
 
-        for (String theDialogue : this.fontRenderer.listFormattedStringToWidth(this.dialogue, 300))
+        for (String theDialogue : this.fontRenderer.wrapStringToWidthAsList(this.dialogue, 300))
         {
             int stringWidth = this.fontRenderer.getStringWidth(theDialogue);
 
@@ -109,7 +109,7 @@ public class GuiDialogue extends GuiScreen
 	    	{
 	    		if (dialogue.isMouseOver(mouseX, mouseY))
 	    		{
-	    			dialogue.playPressSound(this.mc.getSoundHandler());
+	    			dialogue.playPressSound(this.client.getSoundLoader());
 	    			this.dialogueClicked(dialogue);
 	    		}
 	    	}

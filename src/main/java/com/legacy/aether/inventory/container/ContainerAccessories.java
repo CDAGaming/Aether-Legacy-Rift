@@ -3,31 +3,31 @@ package com.legacy.aether.inventory.container;
 import com.legacy.aether.api.accessories.AccessoryType;
 import com.legacy.aether.inventory.slot.SlotAccessory;
 import com.legacy.aether.player.IEntityPlayerAether;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.ContainerPlayer;
-import net.minecraft.inventory.Slot;
+import net.minecraft.container.PlayerContainer;
+import net.minecraft.container.Slot;
+import net.minecraft.entity.player.PlayerEntity;
 
-public class ContainerAccessories extends ContainerPlayer
+public class ContainerAccessories extends PlayerContainer
 {
 
 	public ContainerAccessories(IEntityPlayerAether playerAetherIn)
 	{
-		super(((EntityPlayer)playerAetherIn.getInstance()).inventory, !playerAetherIn.getInstance().world.isRemote, (EntityPlayer) playerAetherIn.getInstance());
+		super(((PlayerEntity)playerAetherIn.getInstance()).inventory, !playerAetherIn.getInstance().world.isRemote, (PlayerEntity) playerAetherIn.getInstance());
 
-		for (Slot slot : this.inventorySlots)
+		for (Slot slot : this.slotList)
 		{
-			if (slot.slotNumber > 0 && slot.slotNumber < 5)
+			if (slot.id > 0 && slot.id < 5)
 			{
-				slot.xPos += 18;
+				slot.xPosition += 18;
 			}
 
-			if (slot.slotNumber > 4 && slot.slotNumber < 9)
+			if (slot.id > 4 && slot.id < 9)
 			{
-				slot.xPos += 51;
+				slot.xPosition += 51;
 			}
-			else if (slot.slotNumber == 45)
+			else if (slot.id == 45)
 			{
-				slot.xPos += 39;
+				slot.xPosition += 39;
 			}
 		}
 

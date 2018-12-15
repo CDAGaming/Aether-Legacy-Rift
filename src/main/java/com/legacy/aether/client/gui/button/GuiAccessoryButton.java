@@ -1,28 +1,28 @@
 package com.legacy.aether.client.gui.button;
 
+import com.mojang.blaze3d.platform.GlStateManager;
 import io.netty.buffer.Unpooled;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.gui.inventory.GuiInventory;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.network.play.client.CPacketCustomPayload;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.Gui;
+import net.minecraft.client.gui.ingame.InventoryGui;
+import net.minecraft.client.gui.widget.ButtonWidget;
+import net.minecraft.client.network.packet.CustomPayloadClientPacket;
+import net.minecraft.util.Identifier;
 
 import com.legacy.aether.Aether;
 import com.legacy.aether.client.gui.container.GuiAccessories;
+import net.minecraft.util.PacketByteBuf;
 
-public class GuiAccessoryButton extends GuiButton
+public class GuiAccessoryButton extends ButtonWidget
 {
 
-	private static final ResourceLocation TEXTURE = Aether.locate("textures/gui/inventory/button/cloud.png");
+	private static final Identifier TEXTURE = Aether.locate("textures/gui/inventory/button/cloud.png");
 
-	private static final ResourceLocation HOVERED_TEXTURE = Aether.locate("textures/gui/inventory/button/cloud_hover.png");
+	private static final Identifier HOVERED_TEXTURE = Aether.locate("textures/gui/inventory/button/cloud_hover.png");
 
-	private GuiScreen screen;
+	private Gui screen;
 
-	public GuiAccessoryButton(GuiScreen screen, int xIn, int yIn)
+	public GuiAccessoryButton(Gui screen, int xIn, int yIn)
 	{
 		super(18067, xIn, yIn, 12, 12, "");
 
@@ -38,20 +38,20 @@ public class GuiAccessoryButton extends GuiButton
 	}
 
 	@Override
-	public void onClick(double mouseX, double mouseY)
+	public void onPressed(double mouseX, double mouseY)
 	{
 		if (this.screen instanceof GuiAccessories)
 		{
-			Minecraft.getInstance().displayGuiScreen(new GuiInventory(Minecraft.getInstance().player));
+			MinecraftClient.getInstance().openGui(new InventoryGui(MinecraftClient.getInstance().player));
 		}
 		else
 		{
-			Minecraft.getInstance().player.connection.sendPacket(new CPacketCustomPayload(Aether.locate("open_accessory_gui"), new PacketBuffer(Unpooled.buffer())));
+			MinecraftClient.getInstance().player.networkHandler.sendPacket(new CustomPayloadClientPacket(Aether.locate("open_accessory_gui"), new PacketByteBuf(Unpooled.buffer())));
 		}
 	}
 
 	@Override
-    public void render(int mouseX, int mouseY, float partialTicks)
+    public void draw(int mouseX, int mouseY, float partialTicks)
     {
         this.hovered = mouseX >= this.x && mouseY >= this.y && mouseX < this.x + this.width && mouseY < this.y + this.height;
 
@@ -60,11 +60,12 @@ public class GuiAccessoryButton extends GuiButton
             GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
             GlStateManager.pushMatrix();
             int i = this.getHoverState(this.hovered);
-            Minecraft.getInstance().getTextureManager().bindTexture(i == 2 ? HOVERED_TEXTURE : TEXTURE);
+            MinecraftClient.getInstance().getTextureManager().bindTexture(i == 2 ? HOVERED_TEXTURE : TEXTURE);
             GlStateManager.enableBlend();
 
-            drawModalRectWithCustomSizedTexture(this.x - 1, this.y, 0, 0, 14, 14, 14, 14);
+            drawTexturedRect(this.x - 1, this.y, 0, 0, 14, 14, 14, 14);
 
+            // TODO: UP UP - 1.14
             GlStateManager.popMatrix();
     	}
     }

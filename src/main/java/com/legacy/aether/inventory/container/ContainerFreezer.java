@@ -1,11 +1,10 @@
 package com.legacy.aether.inventory.container;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.Container;
-import net.minecraft.inventory.IContainerListener;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.Slot;
+import net.minecraft.container.Container;
+import net.minecraft.container.ContainerListener;
+import net.minecraft.container.Slot;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 
 import com.legacy.aether.api.AetherAPI;
@@ -14,11 +13,11 @@ import com.legacy.aether.inventory.slot.SlotOutput;
 public class ContainerFreezer extends Container
 {
 
-	private IInventory freezer;
+	private Inventory freezer;
 
 	public int progress, ticksRequired, powerRemaining;
 
-	public ContainerFreezer(InventoryPlayer inventoryIn, IInventory freezerIn)
+	public ContainerFreezer(Inventory inventoryIn, Inventory freezerIn)
 	{
 		this.freezer = freezerIn;
 
@@ -41,114 +40,114 @@ public class ContainerFreezer extends Container
 	}
 
 	@Override
-	public boolean canInteractWith(EntityPlayer playerIn) 
+	public boolean canUse(PlayerEntity playerIn)
 	{
-		return this.freezer.isUsableByPlayer(playerIn);
+		return this.freezer.canPlayerUseInv(playerIn);
 	}
 
     @Override
-    public void addListener(IContainerListener listenerIn)
+    public void addListener(ContainerListener listenerIn)
     {
         super.addListener(listenerIn);
 
-        listenerIn.sendAllWindowProperties(this, this.freezer);
+        listenerIn.onContainerInvRegistered(this, this.freezer);
     }
 
 	@Override
-	public void updateProgressBar(int id, int value)
+	public void setProperty(int id, int value)
 	{
-		this.freezer.setField(id, value);
+		this.freezer.setInvProperty(id, value);
 	}
 
     @Override
-    public void detectAndSendChanges()
+    public void sendContentUpdates()
     {
-        super.detectAndSendChanges();
+        super.sendContentUpdates();
 
-		for (IContainerListener listener : this.listeners) {
+		for (ContainerListener listener : this.listeners) {
 
-			if (this.progress != this.freezer.getField(0)) {
-				listener.sendWindowProperty(this, 0, this.freezer.getField(0));
-			} else if (this.powerRemaining != this.freezer.getField(1)) {
-				listener.sendWindowProperty(this, 1, this.freezer.getField(1));
-			} else if (this.ticksRequired != this.freezer.getField(2)) {
-				listener.sendWindowProperty(this, 2, this.freezer.getField(2));
+			if (this.progress != this.freezer.getInvProperty(0)) {
+				listener.onContainerPropertyUpdate(this, 0, this.freezer.getInvProperty(0));
+			} else if (this.powerRemaining != this.freezer.getInvProperty(1)) {
+				listener.onContainerPropertyUpdate(this, 1, this.freezer.getInvProperty(1));
+			} else if (this.ticksRequired != this.freezer.getInvProperty(2)) {
+				listener.onContainerPropertyUpdate(this, 2, this.freezer.getInvProperty(2));
 			}
 		}
 
-        this.progress = this.freezer.getField(0);
-        this.powerRemaining = this.freezer.getField(1);
-        this.ticksRequired = this.freezer.getField(2);
+        this.progress = this.freezer.getInvProperty(0);
+        this.powerRemaining = this.freezer.getInvProperty(1);
+        this.ticksRequired = this.freezer.getInvProperty(2);
     }
 
 	@Override
-	public ItemStack transferStackInSlot(EntityPlayer par1EntityPlayer, int par2)
+	public ItemStack transferSlot(PlayerEntity par1EntityPlayer, int par2)
 	{
 		ItemStack itemstack = ItemStack.EMPTY;
-		Slot slot = this.inventorySlots.get(par2);
+		Slot slot = this.slotList.get(par2);
 
-		if (slot != null && slot.getHasStack())
+		if (slot != null && slot.hasStack())
 		{
 			ItemStack itemstack1 = slot.getStack();
 			itemstack = itemstack1.copy();
 
 			if (par2 == 2)
 			{
-				if (!this.mergeItemStack(itemstack1, 3, 39, true))
+				if (!this.insertItem(itemstack1, 3, 39, true))
 				{
 					return ItemStack.EMPTY;
 				}
 
-				slot.onSlotChange(itemstack1, itemstack);
+				slot.onStackChanged(itemstack1, itemstack);
 			}
 			else if (par2 != 1 && par2 != 0)
 			{
 				if (AetherAPI.instance().isFreezable(itemstack))
 				{
-					if (!this.mergeItemStack(itemstack1, 0, 1, false))
+					if (!this.insertItem(itemstack1, 0, 1, false))
 					{
 						return ItemStack.EMPTY;
 					}
 				}
 				else if (AetherAPI.instance().isFreezerFuel(itemstack1))
 				{
-					if (!this.mergeItemStack(itemstack1, 1, 2, false))
+					if (!this.insertItem(itemstack1, 1, 2, false))
 					{
 						return ItemStack.EMPTY;
 					}
 				}
 				else if (par2 >= 3 && par2 < 30)
 				{
-					if (!this.mergeItemStack(itemstack1, 30, 39, false))
+					if (!this.insertItem(itemstack1, 30, 39, false))
 					{
 						return ItemStack.EMPTY;
 					}
 				}
-				else if (par2 >= 30 && par2 < 39 && !this.mergeItemStack(itemstack1, 3, 30, false))
+				else if (par2 >= 30 && par2 < 39 && !this.insertItem(itemstack1, 3, 30, false))
 				{
 					return ItemStack.EMPTY;
 				}
 			}
-			else if (!this.mergeItemStack(itemstack1, 3, 39, false))
+			else if (!this.insertItem(itemstack1, 3, 39, false))
 			{
 				return ItemStack.EMPTY;
 			}
 
-			if (itemstack1.getCount() == 0)
+			if (itemstack1.getAmount() == 0)
 			{
-				slot.putStack(ItemStack.EMPTY);
+				slot.setStack(ItemStack.EMPTY);
 			}
 			else
 			{
-				slot.onSlotChanged();
+				slot.markDirty(); // TODO: ?
 			}
 
-			if (itemstack1.getCount() == itemstack.getCount())
+			if (itemstack1.getAmount() == itemstack.getAmount())
 			{
 				return ItemStack.EMPTY;
 			}
 
-            slot.onTake(par1EntityPlayer, itemstack1);
+            slot.onTakeItem(par1EntityPlayer, itemstack1);
 		}
 
 		return itemstack;
