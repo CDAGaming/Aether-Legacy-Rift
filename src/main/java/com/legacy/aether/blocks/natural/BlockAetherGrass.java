@@ -3,13 +3,9 @@ package com.legacy.aether.blocks.natural;
 import java.util.Random;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.state.BooleanProperty;
-import net.minecraft.state.StateContainer;
-import net.minecraft.util.IItemProvider;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Material;
+import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -22,19 +18,19 @@ public class BlockAetherGrass extends Block
 
 	public BlockAetherGrass() 
 	{
-		super(Block.Properties.create(Material.GRASS).needsRandomTick().hardnessAndResistance(0.2F, -1.0F).sound(SoundType.PLANT));
+		super(Block.Settings.of(Material.ORGANIC).needsRandomTick().strength(0.2F, -1.0F).sound(SoundType.PLANT));
 
 		this.setDefaultState(this.getDefaultState().with(DOUBLE_DROP, true));
 	}
 
 	@Override
-	public IItemProvider getItemDropped(IBlockState stateIn, World worldIn, BlockPos posIn, int fortune)
+	public IItemProvider getItemDropped(BlockState stateIn, World worldIn, BlockPos posIn, int fortune)
 	{
 		return BlocksAether.aether_dirt;
 	}
 
 	@Override
-	public void fillStateContainer(StateContainer.Builder<Block, IBlockState> propertyBuilderIn)
+	public void fillStateContainer(StateContainer.Builder<Block, BlockState> propertyBuilderIn)
 	{
 		propertyBuilderIn.add(DOUBLE_DROP);
 	}
@@ -46,13 +42,13 @@ public class BlockAetherGrass extends Block
 	}
 
 	@Override
-	public int quantityDropped(IBlockState stateIn, Random randIn)
+	public int quantityDropped(BlockState stateIn, Random randIn)
 	{
 		return stateIn.get(DOUBLE_DROP) ? 2 : 1;
 	}
  
 	@Override
-	public void tick(IBlockState stateIn, World worldIn, BlockPos posIn, Random randIn)
+	public void tick(BlockState stateIn, World worldIn, BlockPos posIn, Random randIn)
 	{
 		if (worldIn.isRemote)
 		{
@@ -64,7 +60,7 @@ public class BlockAetherGrass extends Block
 			for (int i = 0; i < 4; ++i)
 			{
                 BlockPos blockpos = posIn.add(randIn.nextInt(3) - 1, randIn.nextInt(5) - 3, randIn.nextInt(3) - 1);
-                IBlockState iblockstate1 = worldIn.getBlockState(blockpos);
+                BlockState iblockstate1 = worldIn.getBlockState(blockpos);
 
                 if (blockpos.getY() >= 0 && blockpos.getY() < 256 && !worldIn.isBlockLoaded(blockpos))
                 {

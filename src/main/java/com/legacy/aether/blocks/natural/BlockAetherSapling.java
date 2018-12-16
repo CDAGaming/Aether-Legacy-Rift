@@ -2,13 +2,10 @@ package com.legacy.aether.blocks.natural;
 
 import java.util.Random;
 
-import net.minecraft.block.IGrowable;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.block.trees.AbstractTree;
+import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.util.math.shapes.VoxelShapes;
-import net.minecraft.world.IBlockReader;
+import net.minecraft.util.shape.VoxelShape;
+import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.World;
 
 public class BlockAetherSapling extends BlockAetherFlower implements IGrowable
@@ -24,7 +21,7 @@ public class BlockAetherSapling extends BlockAetherFlower implements IGrowable
 	}
 
 	@Override
-	public void tick(IBlockState stateIn, World worldIn, BlockPos posIn, Random randIn)
+	public void tick(BlockState stateIn, World worldIn, BlockPos posIn, Random randIn)
 	{
 		if (!worldIn.isRemote)
 		{
@@ -39,34 +36,34 @@ public class BlockAetherSapling extends BlockAetherFlower implements IGrowable
 	}
 
 	@Override
-	public VoxelShape getShape(IBlockState blockstateIn, IBlockReader blockReaderIn, BlockPos posIn)
+	public VoxelShape getShape(BlockState blockstateIn, IBlockReader blockReaderIn, BlockPos posIn)
 	{
 		return VoxelShapes.create(0.1D, 0.0D, 0.1D, 0.9D, 0.8D, 0.9D);
 	}
 
 	@Override
-	public boolean canGrow(IBlockReader worldIn, BlockPos posIn, IBlockState stateIn, boolean isClient)
+	public boolean canGrow(IBlockReader worldIn, BlockPos posIn, BlockState stateIn, boolean isClient)
 	{
 		return true;
 	}
 
 	@Override
-	public boolean canUseBonemeal(World worldIn, Random randIn, BlockPos posIn, IBlockState stateIn)
+	public boolean canUseBonemeal(World worldIn, Random randIn, BlockPos posIn, BlockState stateIn)
 	{
 		return true;
 	}
 
 	@Override
-	public void grow(World worldIn, Random randIn, BlockPos posIn, IBlockState stateIn) 
+	public void grow(World worldIn, Random randIn, BlockPos posIn, BlockState stateIn)
 	{
-		if (worldIn.rand.nextFloat() < 0.45D)
+		if (worldIn.random.nextFloat() < 0.45D)
         {
             this.growTree(worldIn, posIn, stateIn, randIn);
         }
 		
 	}
 
-	public void growTree(World worldIn, BlockPos posIn, IBlockState stateIn, Random randIn)
+	public void growTree(World worldIn, BlockPos posIn, BlockState stateIn, Random randIn)
 	{
 		this.tree.spawn(worldIn, posIn, stateIn, randIn);
 	}

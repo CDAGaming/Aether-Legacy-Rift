@@ -5,17 +5,13 @@ import java.util.Random;
 import com.legacy.aether.entities.block.EntityFloatingBlock;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.init.Blocks;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
-import net.minecraft.world.IWorldReaderBase;
 import net.minecraft.world.World;
-
-import javax.annotation.Nullable;
 
 public class BlockFloating extends Block
 {
@@ -24,7 +20,7 @@ public class BlockFloating extends Block
 
 	private boolean constantlyPowered;
 
-	public BlockFloating(Properties properties, boolean constantlyPowered)
+	public BlockFloating(Settings properties, boolean constantlyPowered)
 	{
 		super(properties.needsRandomTick());
 
@@ -32,21 +28,21 @@ public class BlockFloating extends Block
 	}
 
 	@Override
-	public void onBlockPlacedBy(World worldIn, BlockPos posIn, IBlockState stateIn, @Nullable EntityLivingBase entityIn, ItemStack itemIn)
+	public void onBlockPlacedBy(World worldIn, BlockPos posIn, BlockState stateIn, LivingEntity entityIn, ItemStack itemIn)
 	{
-		worldIn.getPendingBlockTicks().scheduleTick(posIn, this, this.tickRate(worldIn));
+		worldIn.getBlockTickScheduler().schedule(posIn, this, this.tickRate(worldIn));
 	}
 
 	@Override
-    public IBlockState updatePostPlacement(IBlockState stateIn, EnumFacing facingIn, IBlockState neighborIn, IWorld worldIn, BlockPos posIn, BlockPos neighborPosIn)
+    public BlockState updatePostPlacement(BlockState stateIn, EnumFacing facingIn, BlockState neighborIn, IWorld worldIn, BlockPos posIn, BlockPos neighborPosIn)
     {
-		worldIn.getPendingBlockTicks().scheduleTick(posIn, this, this.tickRate(worldIn));
+		worldIn.getBlockTickScheduler().schedule(posIn, this, this.tickRate(worldIn));
 
     	return super.updatePostPlacement(stateIn, facingIn, neighborIn, worldIn, posIn, neighborPosIn);
     }
 
 	@Override
-	public void tick(IBlockState stateIn, World worldIn, BlockPos posIn, Random randIn)
+	public void randomDisplayTick(BlockState stateIn, World worldIn, BlockPos posIn, Random randIn)
 	{
 		if (!worldIn.isRemote)
 		{
@@ -76,7 +72,7 @@ public class BlockFloating extends Block
             {
                 if (worldIn.getBlockState(posIn).getBlock() == this)
                 {
-                    worldIn.isAirBlock(posIn);
+                    worldIn.isAir(posIn);
                 }
 
                 BlockPos blockpos;
@@ -86,7 +82,7 @@ public class BlockFloating extends Block
                     ;
                 }
 
-                if (blockpos.getY() < worldIn.getActualHeight())
+                if (blockpos.getY() < worldIn.getHeight())
                 {
                     worldIn.setBlockState(blockpos.up(), this.getDefaultState());
                 }
@@ -99,7 +95,7 @@ public class BlockFloating extends Block
 
     }
 
-    public void onStopFloating(World worldIn, BlockPos posIn, IBlockState stateIn, IBlockState ceilingStateIn)
+    public void onStopFloating(World worldIn, BlockPos posIn, BlockState stateIn, BlockState ceilingStateIn)
     {
 
     }
@@ -110,7 +106,7 @@ public class BlockFloating extends Block
 		return 2;
 	}
 
-	public static boolean canFloatThrough(IBlockState state)
+	public static boolean canFloatThrough(BlockState state)
 	{
 		return state.isAir() || state.getBlock() == Blocks.FIRE || state.getMaterial().isLiquid();
 	}

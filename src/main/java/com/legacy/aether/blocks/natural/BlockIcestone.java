@@ -1,10 +1,9 @@
 package com.legacy.aether.blocks.natural;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Blocks;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.Material;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -13,11 +12,11 @@ public class BlockIcestone extends Block
 
 	public BlockIcestone() 
 	{
-		super(Block.Properties.create(Material.ROCK).hardnessAndResistance(3.0F, -1.0F).sound(SoundType.GLASS));
+		super(Block.Settings.of(Material.EARTH).strength(3.0F, -1.0F).sound(SoundType.GLASS));
 	}
 
 	@Override
-	public void onBlockAdded(IBlockState stateIn, World worldIn, BlockPos posIn, IBlockState neighborStateIn)
+	public void onBlockAdded(BlockState stateIn, World worldIn, BlockPos posIn, BlockState neighborStateIn)
 	{
 		for (int x = posIn.getX() - 3; x <= (posIn.getX() + 3); ++x)
 		{

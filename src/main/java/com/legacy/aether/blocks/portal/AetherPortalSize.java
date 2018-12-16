@@ -1,10 +1,10 @@
 package com.legacy.aether.blocks.portal;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
-import net.minecraft.init.Blocks;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.Material;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.world.IWorld;
 
 import com.legacy.aether.blocks.BlocksAether;
@@ -13,28 +13,28 @@ public class AetherPortalSize
 {
 
 	private final IWorld world;
-    private final EnumFacing.Axis axis;
-    public final EnumFacing rightDir;
-    public final EnumFacing leftDir;
+    private final Direction.Axis axis;
+    public final Direction rightDir;
+    public final Direction leftDir;
     public int portalBlockCount;
     public BlockPos bottomLeft;
     public int height;
     public int width;
 
-    public AetherPortalSize(IWorld worldIn, BlockPos position, EnumFacing.Axis axis)
+    public AetherPortalSize(IWorld worldIn, BlockPos position, Direction.Axis axis)
     {
         this.world = worldIn;
         this.axis = axis;
 
-        if (axis == EnumFacing.Axis.X)
+        if (axis == Direction.Axis.X)
         {
-            this.leftDir = EnumFacing.EAST;
-            this.rightDir = EnumFacing.WEST;
+            this.leftDir = Direction.EAST;
+            this.rightDir = Direction.WEST;
         }
         else
         {
-            this.leftDir = EnumFacing.NORTH;
-            this.rightDir = EnumFacing.SOUTH;
+            this.leftDir = Direction.NORTH;
+            this.rightDir = Direction.SOUTH;
         }
 
         for (BlockPos blockpos = position; position.getY() > blockpos.getY() - 21 && position.getY() > 0 && this.isEmptyBlock(worldIn.getBlockState(position.down()).getBlock()); position = position.down())
@@ -62,7 +62,7 @@ public class AetherPortalSize
         }
     }
 
-    protected int getDistanceUntilEdge(BlockPos position, EnumFacing axis)
+    protected int getDistanceUntilEdge(BlockPos position, Direction axis)
     {
         int i;
 

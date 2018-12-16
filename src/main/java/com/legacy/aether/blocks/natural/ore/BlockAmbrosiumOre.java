@@ -5,12 +5,9 @@ import java.util.Random;
 import com.legacy.aether.item.ItemsAether;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.state.BooleanProperty;
-import net.minecraft.state.StateContainer;
-import net.minecraft.util.IItemProvider;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Material;
+import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
@@ -22,25 +19,25 @@ public class BlockAmbrosiumOre extends Block
 
 	public BlockAmbrosiumOre()
 	{
-		super(Block.Properties.create(Material.ROCK).hardnessAndResistance(3.0F, 5.0F).sound(SoundType.STONE));
+		super(Block.Settings.of(Material.EARTH).strength(3.0F, 5.0F).sound(SoundType.STONE));
 
 		this.setDefaultState(this.getDefaultState().with(DOUBLE_DROP, true));
 	}
 
 	@Override
-	public IItemProvider getItemDropped(IBlockState stateIn, World worldIn, BlockPos posIn, int fortune)
+	public IItemProvider getItemDropped(BlockState stateIn, World worldIn, BlockPos posIn, int fortune)
 	{
 		return ItemsAether.ambrosium_shard;
 	}
 
 	@Override
-	public void fillStateContainer(StateContainer.Builder<Block, IBlockState> propertyBuilderIn)
+	public void fillStateContainer(StateContainer.Builder<Block, BlockState> propertyBuilderIn)
 	{
 		propertyBuilderIn.add(DOUBLE_DROP);
 	}
 
 	@Override
-	public void dropBlockAsItemWithChance(IBlockState stateIn, World worldIn, BlockPos posIn, float chanceIn, int fortuneIn)
+	public void dropBlockAsItemWithChance(BlockState stateIn, World worldIn, BlockPos posIn, float chanceIn, int fortuneIn)
 	{
 		super.dropBlockAsItemWithChance(stateIn, worldIn, posIn, chanceIn, fortuneIn);
 
@@ -48,7 +45,7 @@ public class BlockAmbrosiumOre extends Block
 	}
 
 	@Override
-    public int getItemsToDropCount(IBlockState stateIn, int fortuneIn, World worldIn, BlockPos posIn, Random randomIn)
+    public int getItemsToDropCount(BlockState stateIn, int fortuneIn, World worldIn, BlockPos posIn, Random randomIn)
     {
         if (fortuneIn > 0)
         {
@@ -67,7 +64,7 @@ public class BlockAmbrosiumOre extends Block
         }
     }
 
-	public int getItemsToDropCount(IBlockState stateIn, Random randIn)
+	public int getItemsToDropCount(BlockState stateIn, Random randIn)
 	{
 		return stateIn.get(DOUBLE_DROP) ? 2 : 1;
 	}

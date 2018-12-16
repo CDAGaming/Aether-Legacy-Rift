@@ -3,38 +3,35 @@ package com.legacy.aether.blocks.natural;
 import com.legacy.aether.blocks.BlocksAether;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockBush;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Blocks;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.Material;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.util.math.shapes.VoxelShapes;
-import net.minecraft.world.IBlockReader;
+import net.minecraft.util.shape.VoxelShape;
+import net.minecraft.util.shape.VoxelShapes;
 
 public class BlockAetherFlower extends BlockBush
 {
 
 	public BlockAetherFlower() 
 	{
-		super(Properties.create(Material.PLANTS).sound(SoundType.PLANT));
+		super(Block.Settings.of(Material.PLANT).sound(SoundType.PLANT));
 	}
 
 	@Override
-	public boolean isValidGround(IBlockState stateIn, IBlockReader worldIn, BlockPos posIn)
+	public boolean isValidGround(BlockState stateIn, IBlockReader worldIn, BlockPos posIn)
 	{
 		return stateIn.getBlock() == BlocksAether.aether_grass || stateIn.getBlock() == BlocksAether.aether_dirt || stateIn.getBlock() == Blocks.GRASS || stateIn.getBlock() == Blocks.DIRT;
 	}
 
 	@Override
-	public VoxelShape getShape(IBlockState blockstateIn, IBlockReader blockReaderIn, BlockPos posIn)
+	public VoxelShape getShape(BlockState blockstateIn, IBlockReader blockReaderIn, BlockPos posIn)
 	{
-		return VoxelShapes.create(0.3D, 0.0D, 0.3D, 0.7D, 0.6D, 0.7D);
+		return VoxelShapes.cube(0.3D, 0.0D, 0.3D, 0.7D, 0.6D, 0.7D);
 	}
 
 	@Override
-	public VoxelShape getCollisionShape(IBlockState blockstateIn, IBlockReader blockReaderIn, BlockPos posIn)
+	public VoxelShape getCollisionShape(BlockState blockstateIn, IBlockReader blockReaderIn, BlockPos posIn)
 	{
 		return VoxelShapes.create(0.0D, 0.0D, 0.0D, 0.0D, 0.0D, 0.0D);
 	}
