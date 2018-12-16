@@ -8,7 +8,7 @@ public class ItemSkyrootStick extends Item
 
 	public ItemSkyrootStick() 
 	{
-		super(new Properties().group(ItemGroup.MISC));
+		super(new Settings().itemGroup(ItemGroup.MISC));
 	}
 
 }

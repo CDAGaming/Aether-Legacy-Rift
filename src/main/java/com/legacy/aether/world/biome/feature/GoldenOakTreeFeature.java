@@ -5,6 +5,7 @@ import java.util.Set;
 
 import com.legacy.aether.blocks.BlocksAether;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
@@ -17,7 +18,7 @@ public class GoldenOakTreeFeature extends AetherTreeFeature
 	{
 		int height = 9;
 
-        IBlockState ground = worldIn.getBlockState(posIn.down());
+        BlockState ground = worldIn.getBlockState(posIn.down());
 
         if(ground.getBlock() != BlocksAether.aether_grass && ground.getBlock() != BlocksAether.aether_dirt)
         {

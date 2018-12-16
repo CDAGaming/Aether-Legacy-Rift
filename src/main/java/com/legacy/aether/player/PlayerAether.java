@@ -64,7 +64,7 @@ public class PlayerAether implements IPlayerAether
 		{
 			Entity entity = this.clouds.get(i);
 
-			if (entity.removed) 
+			if (entity.invalid)
 			{
 				this.clouds.remove(i);
 			}
@@ -157,7 +157,7 @@ public class PlayerAether implements IPlayerAether
 
 		for (int index = 0; index < 8; index++)
 		{
-			if (this.getAccessories().getStackInSlot(index).getItem() == item)
+			if (this.getAccessories().getInvStack(index).getItem() == item)
 			{
 				count++;
 			}
@@ -173,7 +173,7 @@ public class PlayerAether implements IPlayerAether
 	{
 		for (int index = 0; index < 8; index++)
 		{
-			if (this.getAccessories().getStackInSlot(index).getItem() == item)
+			if (this.getAccessories().getInvStack(index).getItem() == item)
 			{
 				return true;
 			}
@@ -288,7 +288,7 @@ public class PlayerAether implements IPlayerAether
 
 	public void damageAccessories(float damage)
 	{
-		for (int i = 0; i < this.accessories.getSizeInventory(); ++i)
+		for (int i = 0; i < this.accessories.getInvSize(); ++i)
 		{
 			ItemStack stack = this.accessories.stacks.get(i);
 

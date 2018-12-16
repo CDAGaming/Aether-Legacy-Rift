@@ -8,6 +8,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.gen.IChunkGenSettings;
 import net.minecraft.world.gen.IChunkGenerator;
+import net.minecraft.world.gen.chunk.ChunkGenerator;
+import net.minecraft.world.gen.chunk.ChunkGeneratorSettings;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
 
@@ -15,7 +17,7 @@ public class QuicksoilFeature extends Feature<NoFeatureConfig>
 {
 
 	@Override
-	public boolean place(IWorld worldIn, IChunkGenerator<? extends IChunkGenSettings> chunkGeneratorIn, Random rand, BlockPos posIn, NoFeatureConfig config)
+	public boolean place(IWorld worldIn, ChunkGenerator<? extends ChunkGeneratorSettings> chunkGeneratorIn, Random rand, BlockPos posIn, NoFeatureConfig config)
 	{
 		BlockPos spawnPos = BlockPos.ORIGIN;
 

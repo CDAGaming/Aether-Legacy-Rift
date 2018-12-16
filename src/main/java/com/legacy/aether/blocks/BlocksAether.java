@@ -1,14 +1,12 @@
 package com.legacy.aether.blocks;
 
 import net.minecraft.block.Block;
-import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemWallOrFloor;
 
-import org.dimdev.rift.listener.BlockAdder;
-import org.dimdev.rift.listener.ItemAdder;
+import net.minecraft.item.block.BlockItem;
+import net.minecraft.item.block.WallStandingBlockItem;
+import net.minecraft.util.DyeColor;
+import net.minecraft.util.registry.Registry;
 
 import com.legacy.aether.Aether;
 import com.legacy.aether.blocks.container.BlockEnchanter;
@@ -40,7 +38,7 @@ import com.legacy.aether.blocks.natural.tree.GoldenOakTree;
 import com.legacy.aether.blocks.natural.tree.SkyrootTree;
 import com.legacy.aether.blocks.portal.BlockAetherPortal;
 
-public class BlocksAether implements BlockAdder, ItemAdder
+public class BlocksAether
 {
 
 	public static Block aether_grass, enchanted_aether_grass, aether_dirt;
@@ -109,7 +107,6 @@ public class BlocksAether implements BlockAdder, ItemAdder
 
 	public static final Item[] itemBlockList = new Item[blockList.length];
 
-	@Override
 	public void registerBlocks()
 	{
 		aether_grass = register("aether_grass", new BlockAetherGrass());
@@ -121,22 +118,22 @@ public class BlocksAether implements BlockAdder, ItemAdder
 		cold_aercloud = register("cold_aercloud", new BlockAercloud());
 		blue_aercloud = register("blue_aercloud", new BlockAercloud());
 		golden_aercloud = register("golden_aercloud", new BlockAercloud());
-		white_dyed_aercloud = register("white_dyed_aercloud", new BlockColoredAercloud(EnumDyeColor.WHITE));
-		orange_dyed_aercloud = register("orange_dyed_aercloud", new BlockColoredAercloud(EnumDyeColor.ORANGE));
-		magenta_dyed_aercloud = register("magenta_dyed_aercloud", new BlockColoredAercloud(EnumDyeColor.MAGENTA));
-		light_blue_dyed_aercloud = register("light_blue_dyed_aercloud", new BlockColoredAercloud(EnumDyeColor.LIGHT_BLUE));
-		yellow_dyed_aercloud = register("yellow_dyed_aercloud", new BlockColoredAercloud(EnumDyeColor.YELLOW));
-		lime_dyed_aercloud = register("lime_dyed_aercloud", new BlockColoredAercloud(EnumDyeColor.LIME));
-		pink_dyed_aercloud = register("pink_dyed_aercloud", new BlockColoredAercloud(EnumDyeColor.PINK));
-		grey_dyed_aercloud = register("grey_dyed_aercloud", new BlockColoredAercloud(EnumDyeColor.GRAY));
-		light_grey_dyed_aercloud = register("light_grey_dyed_aercloud", new BlockColoredAercloud(EnumDyeColor.LIGHT_GRAY));
-		cyan_dyed_aercloud = register("cyan_dyed_aercloud", new BlockColoredAercloud(EnumDyeColor.CYAN));
-		purple_dyed_aercloud = register("purple_dyed_aercloud", new BlockColoredAercloud(EnumDyeColor.PURPLE));
-		blue_dyed_aercloud = register("blue_dyed_aercloud", new BlockColoredAercloud(EnumDyeColor.BLUE));
-		brown_dyed_aercloud = register("brown_dyed_aercloud", new BlockColoredAercloud(EnumDyeColor.BROWN));
-		green_dyed_aercloud = register("green_dyed_aercloud", new BlockColoredAercloud(EnumDyeColor.GREEN));
-		red_dyed_aercloud = register("red_dyed_aercloud", new BlockColoredAercloud(EnumDyeColor.RED));
-		black_dyed_aercloud = register("black_dyed_aercloud", new BlockColoredAercloud(EnumDyeColor.BLACK));
+		white_dyed_aercloud = register("white_dyed_aercloud", new BlockColoredAercloud(DyeColor.WHITE));
+		orange_dyed_aercloud = register("orange_dyed_aercloud", new BlockColoredAercloud(DyeColor.ORANGE));
+		magenta_dyed_aercloud = register("magenta_dyed_aercloud", new BlockColoredAercloud(DyeColor.MAGENTA));
+		light_blue_dyed_aercloud = register("light_blue_dyed_aercloud", new BlockColoredAercloud(DyeColor.LIGHT_BLUE));
+		yellow_dyed_aercloud = register("yellow_dyed_aercloud", new BlockColoredAercloud(DyeColor.YELLOW));
+		lime_dyed_aercloud = register("lime_dyed_aercloud", new BlockColoredAercloud(DyeColor.LIME));
+		pink_dyed_aercloud = register("pink_dyed_aercloud", new BlockColoredAercloud(DyeColor.PINK));
+		grey_dyed_aercloud = register("grey_dyed_aercloud", new BlockColoredAercloud(DyeColor.GRAY));
+		light_grey_dyed_aercloud = register("light_grey_dyed_aercloud", new BlockColoredAercloud(DyeColor.LIGHT_GRAY));
+		cyan_dyed_aercloud = register("cyan_dyed_aercloud", new BlockColoredAercloud(DyeColor.CYAN));
+		purple_dyed_aercloud = register("purple_dyed_aercloud", new BlockColoredAercloud(DyeColor.PURPLE));
+		blue_dyed_aercloud = register("blue_dyed_aercloud", new BlockColoredAercloud(DyeColor.BLUE));
+		brown_dyed_aercloud = register("brown_dyed_aercloud", new BlockColoredAercloud(DyeColor.BROWN));
+		green_dyed_aercloud = register("green_dyed_aercloud", new BlockColoredAercloud(DyeColor.GREEN));
+		red_dyed_aercloud = register("red_dyed_aercloud", new BlockColoredAercloud(DyeColor.RED));
+		black_dyed_aercloud = register("black_dyed_aercloud", new BlockColoredAercloud(DyeColor.BLACK));
 		pink_aercloud = register("pink_aercloud", new BlockAercloud());
 		quicksoil = register("quicksoil", new BlockQuicksoil());
 		icestone = register("icestone", new BlockIcestone());
@@ -160,8 +157,8 @@ public class BlocksAether implements BlockAdder, ItemAdder
 		ambrosium_torch = register("ambrosium_torch", new BlockAmbrosiumTorch());
 		ambrosium_torch_wall = register("ambrosium_wall_torch", new BlockAmbrosiumTorchWall());
 
-		itemBlockList[availableId] = new ItemBlock(ambrosium_torch_wall, new Item.Properties());
-		itemBlockList[availableId - 1] = new ItemWallOrFloor(ambrosium_torch, ambrosium_torch_wall, new Item.Properties());
+		itemBlockList[availableId] = new BlockItem(ambrosium_torch_wall, new Item.Settings());
+		itemBlockList[availableId - 1] = new WallStandingBlockItem(ambrosium_torch, ambrosium_torch_wall, new Item.Settings());
 
 		aether_portal = register("aether_portal", new BlockAetherPortal());
 
@@ -192,7 +189,6 @@ public class BlocksAether implements BlockAdder, ItemAdder
 		golden_oak_sapling = register("golden_oak_sapling", new BlockAetherSapling(new GoldenOakTree()));
 	}
 
-	@Override
 	public void registerItems()
 	{
 		for (int i = 0; i < blockList.length; ++i)
@@ -207,18 +203,20 @@ public class BlocksAether implements BlockAdder, ItemAdder
 
 			if (itemBlock == null)
 			{
-				Item.register(block, ItemGroup.BUILDING_BLOCKS);
+				// TODO
+				Registry.register(Registry.BLOCK, block.getTranslationKey(), block);
 			}
 			else
 			{
-				Item.register(block, itemBlock);
+				// TODO
+				Registry.register(Registry.ITEM, block.toString(), itemBlock);
 			}
 		}
 	}
 
 	public static Block register(String name, Block block)
 	{
-		Block.register(Aether.locate(name), block);
+		Registry.register(Registry.BLOCK, name, block);
 
 		blockList[availableId] = block;
 
@@ -227,7 +225,7 @@ public class BlocksAether implements BlockAdder, ItemAdder
 		return block;
 	}
 
-	public static Block register(String name, Block block, ItemBlock itemBlock)
+	public static Block register(String name, Block block, BlockItem itemBlock)
 	{
 		itemBlockList[availableId] = itemBlock;
 

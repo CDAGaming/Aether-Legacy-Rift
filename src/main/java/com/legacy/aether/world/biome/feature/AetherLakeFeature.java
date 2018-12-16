@@ -1,7 +1,9 @@
 package com.legacy.aether.world.biome.feature;
 
 import java.util.Random;
+import java.util.function.Function;
 
+import com.mojang.datafixers.Dynamic;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.Material;
 import net.minecraft.util.math.BlockPos;
@@ -17,7 +19,15 @@ import net.minecraft.world.gen.feature.Feature;
 public class AetherLakeFeature extends Feature<LakeFeatureConfig>
 {
 
-	@Override
+    public AetherLakeFeature(Function<Dynamic<?>, ? extends LakeFeatureConfig> function) {
+        super(function);
+    }
+
+    public AetherLakeFeature(Function<Dynamic<?>, ? extends LakeFeatureConfig> function, boolean b) {
+        super(function, b);
+    }
+
+    @Override
 	public boolean generate(IWorld worldIn, ChunkGenerator<? extends ChunkGeneratorSettings> chunkGeneratorIn, Random rand, BlockPos position, LakeFeatureConfig config)
 	{
 		for (position = position.add(-8, 0, -8); position.getY() > 5 && worldIn.isAir(position); position = position.down())

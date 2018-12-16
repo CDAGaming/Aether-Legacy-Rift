@@ -1,11 +1,11 @@
 package com.legacy.aether.item.armor;
 
-import net.minecraft.init.Blocks;
-import net.minecraft.init.SoundEvents;
-import net.minecraft.item.IArmorMaterial;
+import net.minecraft.block.Blocks;
+import net.minecraft.class_1741;
 
 import com.legacy.aether.blocks.BlocksAether;
 import com.legacy.aether.item.ItemsAether;
+import net.minecraft.sound.SoundEvents;
 
 public enum AetherArmorType 
 {
@@ -17,17 +17,17 @@ public enum AetherArmorType
 	Obsidian(new AetherArmorMaterial("obsidian", 38, new int[] {4, 8, 10, 4}, 6, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 2.0F, Blocks.AIR), 0x1B1447),
 	Valkyrie(new AetherArmorMaterial("valkyrie", 35, new int[] {4, 8, 10, 4}, 10, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 1.5F, Blocks.AIR), 0xDDDDDD);
 
-	private IArmorMaterial material;
+	private class_1741 material;
 
 	private int color;
 
-	AetherArmorType(IArmorMaterial materialIn)
+	AetherArmorType(class_1741 materialIn)
 	{
 		this.color = 0xDDDDDD;
 		this.material = materialIn;
 	}
 
-	AetherArmorType(IArmorMaterial materialIn, int colorIn)
+	AetherArmorType(class_1741 materialIn, int colorIn)
 	{
 		this.color = colorIn;
 		this.material = materialIn;
@@ -38,7 +38,7 @@ public enum AetherArmorType
 		return this.color;
 	}
 
-	public IArmorMaterial getMaterial()
+	public class_1741 getMaterial()
 	{
 		return this.material;
 	}

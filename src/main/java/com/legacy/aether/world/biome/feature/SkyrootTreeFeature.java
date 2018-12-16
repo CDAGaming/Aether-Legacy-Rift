@@ -3,7 +3,7 @@ package com.legacy.aether.world.biome.feature;
 import java.util.Random;
 import java.util.Set;
 
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
 
@@ -17,7 +17,7 @@ public class SkyrootTreeFeature extends AetherTreeFeature
 	{
 	    int l = randomIn.nextInt(3) + 4;
 
-        IBlockState ground = worldIn.getBlockState(posIn.down());
+        BlockState ground = worldIn.getBlockState(posIn.down());
 
         if(ground.getBlock() != BlocksAether.aether_grass && ground.getBlock() != BlocksAether.aether_dirt)
         {
@@ -49,7 +49,7 @@ public class SkyrootTreeFeature extends AetherTreeFeature
 
         for(int l1 = 0; l1 < l; l1++)
         {
-            IBlockState state = worldIn.getBlockState(posIn.up(l1));
+            BlockState state = worldIn.getBlockState(posIn.up(l1));
 
             if (state.isAir() || this.canGrowInto(state.getBlock()))
             {

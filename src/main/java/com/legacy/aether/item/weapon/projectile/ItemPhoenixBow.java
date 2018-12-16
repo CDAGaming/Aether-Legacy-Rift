@@ -1,34 +1,29 @@
 package com.legacy.aether.item.weapon.projectile;
 
 import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.projectile.EntityArrow;
-import net.minecraft.init.Enchantments;
-import net.minecraft.init.Items;
-import net.minecraft.init.SoundEvents;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemBow;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemSpectralArrow;
-import net.minecraft.item.ItemStack;
-import net.minecraft.stats.StatList;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundCategory;
+import net.minecraft.enchantment.Enchantments;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.projectile.ArrowEntity;
+import net.minecraft.entity.projectile.ProjectileEntity;
+import net.minecraft.item.*;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.Hand;
+import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 
 import com.legacy.aether.entities.projectile.EntityPhoenixArrow;
 import com.legacy.aether.item.ItemsAether;
 
-public class ItemPhoenixBow extends ItemBow
+public class ItemPhoenixBow extends BowItem
 {
 
 	public ItemPhoenixBow()
 	{
-		super(new Item.Properties().defaultMaxDamage(384).group(ItemGroup.COMBAT));
+		super(new Item.Settings().defaultMaxDamage(384).group(ItemGroup.COMBAT));
 
-        this.addPropertyOverride(new ResourceLocation("pull"), (p_210310_0_, p_210310_1_, p_210310_2_) ->
+        this.addPropertyOverride(new Identifier("pull"), (p_210310_0_, p_210310_1_, p_210310_2_) ->
         {
             if (p_210310_2_ == null)
             {
@@ -42,12 +37,12 @@ public class ItemPhoenixBow extends ItemBow
 	}
 
 	@Override
-    public void onPlayerStoppedUsing(ItemStack stack, World worldIn, EntityLivingBase entityLiving, int timeLeft)
+    public void onPlayerStoppedUsing(ItemStack stack, World worldIn, LivingEntity entityLiving, int timeLeft)
     {
-        if (entityLiving instanceof EntityPlayer)
+        if (entityLiving instanceof PlayerEntity)
         {
-            EntityPlayer entityplayer = (EntityPlayer)entityLiving;
-            boolean flag = entityplayer.abilities.isCreativeMode || EnchantmentHelper.getEnchantmentLevel(Enchantments.INFINITY, stack) > 0;
+            PlayerEntity entityplayer = (PlayerEntity) entityLiving;
+            boolean flag = entityplayer.abilities.creativeMode || EnchantmentHelper.getLevel(Enchantments.INFINITY, stack) > 0;
             ItemStack itemstack = this.findAmmo(entityplayer);
 
             if (!itemstack.isEmpty() || flag)
@@ -66,7 +61,7 @@ public class ItemPhoenixBow extends ItemBow
 
                     if (!worldIn.isRemote)
                     {
-                        EntityArrow entityarrow = this.createArrow(worldIn, itemstack.getItem() instanceof ItemSpectralArrow, itemstack, entityplayer);
+                        ArrowEntity entityarrow = this.createArrow(worldIn, itemstack.getItem() instanceof SpectralArrowItem, itemstack, entityplayer);
                         entityarrow.shoot(entityplayer, entityplayer.rotationPitch, entityplayer.rotationYaw, 0.0F, f * 3.0F, 1.0F);
 
                         if (f == 1.0F)
@@ -74,44 +69,44 @@ public class ItemPhoenixBow extends ItemBow
                             entityarrow.setIsCritical(true);
                         }
 
-                        int j = EnchantmentHelper.getEnchantmentLevel(Enchantments.POWER, stack);
+                        int j = EnchantmentHelper.getLevel(Enchantments.POWER, stack);
 
                         if (j > 0)
                         {
                             entityarrow.setDamage(entityarrow.getDamage() + (double)j * 0.5D + 0.5D);
                         }
 
-                        int k = EnchantmentHelper.getEnchantmentLevel(Enchantments.PUNCH, stack);
+                        int k = EnchantmentHelper.getLevel(Enchantments.PUNCH, stack);
 
                         if (k > 0)
                         {
                             entityarrow.setKnockbackStrength(k);
                         }
 
-                        if (EnchantmentHelper.getEnchantmentLevel(Enchantments.FLAME, stack) > 0)
+                        if (EnchantmentHelper.getLevel(Enchantments.FLAME, stack) > 0)
                         {
-                            entityarrow.setFire(100);
+                            entityarrow.setOnFireFor(100);
                         }
 
-                        stack.damageItem(1, entityplayer);
+                        stack.applyDamage(1, entityplayer);
 
-                        if (flag1 || entityplayer.abilities.isCreativeMode && (itemstack.getItem() == Items.SPECTRAL_ARROW || itemstack.getItem() == Items.TIPPED_ARROW))
+                        if (flag1 || entityplayer.abilities.creativeMode && (itemstack.getItem() == Items.SPECTRAL_ARROW || itemstack.getItem() == Items.TIPPED_ARROW))
                         {
-                            entityarrow.pickupStatus = EntityArrow.PickupStatus.CREATIVE_ONLY;
+                            entityarrow.pickupType = ArrowEntity.PickupType.CREATIVE_PICKUP;
                         }
 
                         worldIn.spawnEntity(entityarrow);
                     }
 
-                    worldIn.playSound((EntityPlayer)null, entityplayer.posX, entityplayer.posY, entityplayer.posZ, SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 1.0F, 1.0F / (random.nextFloat() * 0.4F + 1.2F) + f * 0.5F);
+                    worldIn.playSound((PlayerEntity) null, entityplayer.getPos().getX(), entityplayer.getPos().getY(), entityplayer.getPos().getZ(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYER, 1.0F, 1.0F / (random.nextFloat() * 0.4F + 1.2F) + f * 0.5F);
 
-                    if (!flag1 && !entityplayer.abilities.isCreativeMode)
+                    if (!flag1 && !entityplayer.abilities.creativeMode)
                     {
                         itemstack.shrink(1);
 
                         if (itemstack.isEmpty())
                         {
-                            entityplayer.inventory.deleteStack(itemstack);
+                            entityplayer.inventory.removeOne(itemstack);
                         }
                     }
 
@@ -121,7 +116,7 @@ public class ItemPhoenixBow extends ItemBow
         }
     }
 
-    private EntityArrow createArrow(World worldIn, boolean isSpectral, ItemStack stack, EntityLivingBase shooter)
+    private ArrowEntity createArrow(World worldIn, boolean isSpectral, ItemStack stack, LivingEntity shooter)
     {
         EntityPhoenixArrow entityPhoenixArrow = new EntityPhoenixArrow(worldIn, shooter, isSpectral);
 
@@ -130,21 +125,21 @@ public class ItemPhoenixBow extends ItemBow
         return entityPhoenixArrow;
     }
 
-    private ItemStack findAmmo(EntityPlayer player)
+    private ItemStack findAmmo(PlayerEntity player)
     {
-        if (this.isArrow(player.getHeldItem(EnumHand.OFF_HAND)))
+        if (this.isArrow(player.getStackInHand(Hand.OFF)))
         {
-            return player.getHeldItem(EnumHand.OFF_HAND);
+            return player.getStackInHand(Hand.OFF);
         }
-        else if (this.isArrow(player.getHeldItem(EnumHand.MAIN_HAND)))
+        else if (this.isArrow(player.getStackInHand(Hand.MAIN)))
         {
-            return player.getHeldItem(EnumHand.MAIN_HAND);
+            return player.getStackInHand(Hand.MAIN);
         }
         else
         {
-            for (int i = 0; i < player.inventory.getSizeInventory(); ++i)
+            for (int i = 0; i < player.inventory.getInvSize(); ++i)
             {
-                ItemStack itemstack = player.inventory.getStackInSlot(i);
+                ItemStack itemstack = player.inventory.getInvStack(i);
 
                 if (this.isArrow(itemstack))
                 {

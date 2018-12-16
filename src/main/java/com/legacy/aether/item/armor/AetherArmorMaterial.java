@@ -1,13 +1,12 @@
 package com.legacy.aether.item.armor;
 
-import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.IArmorMaterial;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.IItemProvider;
-import net.minecraft.util.LazyLoadBase;
-import net.minecraft.util.SoundEvent;
+import net.minecraft.class_1741;
+import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.item.ItemContainer;
+import net.minecraft.recipe.Ingredient;
+import net.minecraft.sound.SoundEvent;
 
-public class AetherArmorMaterial implements IArmorMaterial
+public class AetherArmorMaterial implements class_1741
 {
 
     private static final int[] MAX_DAMAGE_ARRAY = new int[]{13, 15, 16, 11};
@@ -22,7 +21,7 @@ public class AetherArmorMaterial implements IArmorMaterial
     private final float toughness;
     private final LazyLoadBase<Ingredient> ingredientLoader;
 
-    public AetherArmorMaterial(String name, int maxDamageFactor, int[] damageReductionAmountArray, int enchantability, SoundEvent soundEvent, float toughness, IItemProvider repairMaterial)
+    public AetherArmorMaterial(String name, int maxDamageFactor, int[] damageReductionAmountArray, int enchantability, SoundEvent soundEvent, float toughness, ItemContainer repairMaterial)
     {
         this.name = name;
         this.maxDamageFactor = maxDamageFactor;
@@ -30,47 +29,47 @@ public class AetherArmorMaterial implements IArmorMaterial
         this.enchantability = enchantability;
         this.soundEvent = soundEvent;
         this.toughness = toughness;
-        this.ingredientLoader = new LazyLoadBase<>(() -> Ingredient.fromItems(repairMaterial));
+        this.ingredientLoader = new LazyLoadBase<>(() -> Ingredient.ofItems(repairMaterial));
     }
 
 	@Override
-	public int getDurability(EntityEquipmentSlot slot)
+	public int getDurability(EquipmentSlot slot)
 	{
         return MAX_DAMAGE_ARRAY[slot.getIndex()] * this.maxDamageFactor;
 	}
 
 	@Override
-	public int getDamageReductionAmount(EntityEquipmentSlot slot)
+	public int getDamageReductionAmount(EquipmentSlot slot)
 	{
         return this.damageReductionAmountArray[slot.getIndex()];
 	}
 
 	@Override
-	public Ingredient getRepairMaterial()
+	public Ingredient method_7695()
 	{
 		return this.ingredientLoader.getValue();
 	}
 
 	@Override
-	public SoundEvent getSoundEvent()
+	public SoundEvent method_7698()
 	{
 		return this.soundEvent;
 	}
 
 	@Override
-	public String getName() 
+	public String method_7694()
 	{
 		return this.name;
 	}
 
 	@Override
-	public float getToughness() 
+	public float method_7700()
 	{
 		return this.toughness;
 	}
 
 	@Override
-	public int getEnchantability() 
+	public int method_7699()
 	{
 		return this.enchantability;
 	}

@@ -8,7 +8,7 @@ public class ItemSwetBall extends Item
 
 	public ItemSwetBall() 
 	{
-		super(new Properties().group(ItemGroup.MISC));
+		super(new Settings().itemGroup(ItemGroup.MISC));
 	}
 
 }

@@ -3,60 +3,60 @@ package com.legacy.aether.item.tool;
 import java.util.Map;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.SoundEvents;
-import net.minecraft.item.EnumRarity;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.HoeItem;
 import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemHoe;
-import net.minecraft.item.ItemUseContext;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.SoundCategory;
+import net.minecraft.item.ItemUsageContext;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Rarity;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
 import com.legacy.aether.item.util.AetherTier;
 
-public class ItemAetherHoe extends ItemHoe implements IAetherTool
+public class ItemAetherHoe extends HoeItem implements IAetherTool
 {
 
-    protected static final Map<Block, IBlockState> convertableBlocks = Maps.<Block, IBlockState>newHashMap(ImmutableMap.of(Blocks.GRASS_BLOCK, Blocks.FARMLAND.getDefaultState(), Blocks.GRASS_PATH, Blocks.FARMLAND.getDefaultState(), Blocks.DIRT, Blocks.FARMLAND.getDefaultState(), Blocks.COARSE_DIRT, Blocks.DIRT.getDefaultState()));
+    protected static final Map<Block, BlockState> convertableBlocks = Maps.<Block, BlockState>newHashMap(ImmutableMap.of(Blocks.GRASS_BLOCK, Blocks.FARMLAND.getDefaultState(), Blocks.GRASS_PATH, Blocks.FARMLAND.getDefaultState(), Blocks.DIRT, Blocks.FARMLAND.getDefaultState(), Blocks.COARSE_DIRT, Blocks.DIRT.getDefaultState()));
 
 	private AetherTier material;
 
 	public ItemAetherHoe(AetherTier material, float attackSpeed)
 	{
-		super(material.getDefaultTier(), attackSpeed, new Properties().group(ItemGroup.TOOLS));
+		super(material.getDefaultTier(), attackSpeed, new Settings().itemGroup(ItemGroup.TOOLS));
 
 		this.material = material;
 	}
 
-	public ItemAetherHoe(AetherTier material, EnumRarity rarity, float attackSpeed)
+	public ItemAetherHoe(AetherTier material, Rarity rarity, float attackSpeed)
 	{
-		super(material.getDefaultTier(), attackSpeed, new Properties().group(ItemGroup.TOOLS).rarity(rarity));
+		super(material.getDefaultTier(), attackSpeed, new Settings().itemGroup(ItemGroup.TOOLS).rarity(rarity));
 
 		this.material = material;
 	}
 
 	@Override
-    public EnumActionResult onItemUse(ItemUseContext context)
+    public ActionResult useOnBlock(ItemUsageContext context)
     {
         World world = context.getWorld();
         BlockPos blockpos = context.getPos();
 
-        if (context.getFace() != EnumFacing.DOWN && world.isAirBlock(blockpos.up()))
+        if (context.getFacing() != Direction.DOWN && world.isAir(blockpos.up()))
         {
-            IBlockState iblockstate = convertableBlocks.get(world.getBlockState(blockpos).getBlock());
+            BlockState iblockstate = convertableBlocks.get(world.getBlockState(blockpos).getBlock());
 
             if (iblockstate != null)
             {
-                EntityPlayer entityplayer = context.getPlayer();
+                PlayerEntity entityplayer = context.getPlayer();
 
-                world.playSound(entityplayer, blockpos, SoundEvents.ITEM_HOE_TILL, SoundCategory.BLOCKS, 1.0F, 1.0F);
+                world.playSound(entityplayer, blockpos, SoundEvents.ITEM_HOE_TILL, SoundCategory.BLOCK, 1.0F, 1.0F);
 
                 if (!world.isRemote)
                 {
@@ -64,15 +64,15 @@ public class ItemAetherHoe extends ItemHoe implements IAetherTool
 
                     if (entityplayer != null)
                     {
-                    	context.getItem().damageItem(1, entityplayer);
+                    	context.getItemStack().applyDamage(1, entityplayer);
                     }
                 }
 
-                return EnumActionResult.SUCCESS;
+                return ActionResult.SUCCESS;
             }
         }
 
-        return EnumActionResult.PASS;
+        return ActionResult.PASS;
     }
 
 	@Override

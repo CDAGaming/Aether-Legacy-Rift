@@ -1,7 +1,9 @@
 package com.legacy.aether.world.biome.feature;
 
 import java.util.Random;
+import java.util.function.Function;
 
+import com.mojang.datafixers.Dynamic;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
@@ -12,6 +14,14 @@ import com.legacy.aether.world.biome.feature.config.AercloudConfig;
 
 public class AercloudFeature extends Feature<AercloudConfig>
 {
+
+	public AercloudFeature(Function<Dynamic<?>, ? extends AercloudConfig> function) {
+		super(function);
+	}
+
+	public AercloudFeature(Function<Dynamic<?>, ? extends AercloudConfig> function, boolean b) {
+		super(function, b);
+	}
 
 	@Override
 	public boolean generate(IWorld worldIn, ChunkGenerator<? extends ChunkGeneratorSettings> generatorIn, Random randIn, BlockPos posIn, AercloudConfig configIn)

@@ -5,12 +5,15 @@ import com.legacy.aether.player.IEntityPlayerAether;
 import com.legacy.aether.player.PlayerAether;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.Hand;
+import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
 
 public class ItemCloudStaff extends Item
@@ -18,18 +21,18 @@ public class ItemCloudStaff extends Item
 
 	public ItemCloudStaff() 
 	{
-		super(new Properties().maxStackSize(1).defaultMaxDamage(60).group(ItemGroup.TOOLS));
+		super(new Settings().stackSize(1).durability(60).itemGroup(ItemGroup.TOOLS));
 	}
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn)
+    public TypedActionResult<ItemStack> use(World worldIn, PlayerEntity playerIn, Hand handIn)
     {
-    	ItemStack heldItem = playerIn.getHeldItem(handIn);
+    	ItemStack heldItem = playerIn.getStackInHand(handIn);
 		PlayerAether playerAether = ((IEntityPlayerAether)playerIn).getPlayerAether();
 
     	if (worldIn.isRemote)
     	{
-    		return super.onItemRightClick(worldIn, playerIn, handIn);
+    		return super.use(worldIn, playerIn, handIn);
     	}
 
     	if (playerAether.clouds.isEmpty())
@@ -43,12 +46,12 @@ public class ItemCloudStaff extends Item
 			worldIn.spawnEntity(leftCloud);
 			worldIn.spawnEntity(rightCloud);
 
-    		heldItem.damageItem(1, playerIn);
+    		heldItem.applyDamage(1, playerIn);
 
-            return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, heldItem);
+            return new TypedActionResult<ItemStack>(ActionResult.SUCCESS, heldItem);
     	}
 
-		return super.onItemRightClick(worldIn, playerIn, handIn);
+		return super.use(worldIn, playerIn, handIn);
     }
 
 }

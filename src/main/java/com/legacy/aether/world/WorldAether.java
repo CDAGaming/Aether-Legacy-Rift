@@ -6,6 +6,9 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import com.legacy.aether.Aether;
+import net.fabricmc.fabric.client.render.EntityRendererRegistry;
+import net.fabricmc.fabric.impl.registry.BootstrapBiomeRegistryListener;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.dimension.DimensionType;
 
@@ -26,7 +29,8 @@ public class WorldAether implements BiomeAdder, DimensionTypeAdder
 	{
 		//Set<DimensionType> dimensions = new TreeSet<>();
 
-		AETHER = DimensionTypeAdder.addDimensionType(12, Aether.locate("aether"), "_aether", AetherDimension::new);
+		//AETHER; // TODO
+		Registry.set(Registry.DIMENSION, 12, "_aether", AETHER);
 
 		//dimensions.add(AETHER);
 	}
@@ -36,7 +40,7 @@ public class WorldAether implements BiomeAdder, DimensionTypeAdder
 	{
 		aetherBiome = new AetherBiome();
 
-		Biome.register(525, "aether_legacy:aether_highlands", aetherBiome);
+		Registry.set(Registry.BIOME, 525, "aether_legacy:aether_highlands", aetherBiome);
 	}
 
 	@Override

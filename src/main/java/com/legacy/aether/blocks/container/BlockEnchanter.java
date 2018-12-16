@@ -2,18 +2,9 @@ package com.legacy.aether.blocks.container;
 
 import java.util.Random;
 
-import net.minecraft.block.material.Material;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Particles;
-import net.minecraft.init.SoundEvents;
-import net.minecraft.inventory.InventoryHelper;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.SoundCategory;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Material;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 
 import com.legacy.aether.tileentity.TileEntityEnchanter;
@@ -27,7 +18,7 @@ public class BlockEnchanter extends BlockAetherContainer
 	}
 
 	@Override
-    public boolean onBlockActivated(IBlockState stateIn, World worldIn, BlockPos posIn, EntityPlayer playerIn, EnumHand handIn, EnumFacing facingIn, float hitX, float hitY, float hitZ)
+    public boolean onBlockActivated(BlockState stateIn, World worldIn, BlockPos posIn, EntityPlayer playerIn, EnumHand handIn, EnumFacing facingIn, float hitX, float hitY, float hitZ)
     {
         if (worldIn.isRemote)
         {

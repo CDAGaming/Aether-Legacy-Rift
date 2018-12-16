@@ -1,12 +1,13 @@
 package com.legacy.aether.item.weapon;
 
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.init.Particles;
+import net.minecraft.client.particle.Particle;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.DamageSource;
 
 import com.legacy.aether.item.ItemsAether;
 import com.legacy.aether.item.util.AetherTier;
+import net.minecraft.particle.ParticleTypes;
 
 public class ItemPigSlayer extends ItemAetherSword
 {
@@ -17,7 +18,7 @@ public class ItemPigSlayer extends ItemAetherSword
 	}
 
 	@Override
-	public boolean hitEntity(ItemStack itemstack, EntityLivingBase entityliving, EntityLivingBase entityliving1)
+	public boolean onEntityDamaged(ItemStack itemstack, LivingEntity entityliving, LivingEntity entityliving1)
 	{
 		if (entityliving == null || entityliving1 == null)
 		{
@@ -32,23 +33,24 @@ public class ItemPigSlayer extends ItemAetherSword
 			{
 				entityliving.hurtTime = 0;
 				entityliving.setHealth(1.0F);
-				entityliving.attackEntityFrom(DamageSource.causeMobDamage(entityliving1), 9999.0F);
+				entityliving.damage(DamageSource.mob(entityliving1), 9999.0F);
 			}
 
 			for (int j = 0; j < 20; ++j)
 			{
-				double d = entityliving.world.rand.nextGaussian() * 0.02D;
-				double d1 = entityliving.world.rand.nextGaussian() * 0.02D;
-				double d2 = entityliving.world.rand.nextGaussian() * 0.02D;
+				double d = entityliving.world.random.nextGaussian() * 0.02D;
+				double d1 = entityliving.world.random.nextGaussian() * 0.02D;
+				double d2 = entityliving.world.random.nextGaussian() * 0.02D;
 				double d3 = 5.0D;
 
-				entityliving.world.addParticle(Particles.FLAME, (entityliving.posX + (double)(entityliving.world.rand.nextFloat() * entityliving.width * 2.0F)) - (double)entityliving.width - d * d3, (entityliving.posY + (double)(entityliving.world.rand.nextFloat() * entityliving.height)) - d1 * d3, (entityliving.posZ + (double)(entityliving.world.rand.nextFloat() * entityliving.width * 2.0F)) - (double)entityliving.width - d2 * d3, d, d1, d2);
+				// TODO: Either this of 8496, idk /shrug - 1.14
+				entityliving.world.method_8406(ParticleTypes.FLAME, (entityliving.getPos().getX() + (double)(entityliving.world.random.nextFloat() * entityliving.width * 2.0F)) - (double)entityliving.width - d * d3, (entityliving.getPos().getY() + (double)(entityliving.world.random.nextFloat() * entityliving.height)) - d1 * d3, (entityliving.getPos().getZ() + (double)(entityliving.world.random.nextFloat() * entityliving.width * 2.0F)) - (double)entityliving.width - d2 * d3, d, d1, d2);
 			}
 
-			entityliving.remove();
+			entityliving.invalidate();
 		}
 
-		return super.hitEntity(itemstack, entityliving, entityliving1);
+		return super.onEntityDamaged(itemstack, entityliving, entityliving1);
 	}
 
 }

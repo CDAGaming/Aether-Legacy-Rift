@@ -8,7 +8,7 @@ public class ItemNatureStaff extends Item
 
 	public ItemNatureStaff() 
 	{
-		super(new Properties().maxStackSize(1).defaultMaxDamage(100).group(ItemGroup.TOOLS));
+		super(new Settings().stackSize(1).durability(100).itemGroup(ItemGroup.TOOLS));
 	}
 
 }

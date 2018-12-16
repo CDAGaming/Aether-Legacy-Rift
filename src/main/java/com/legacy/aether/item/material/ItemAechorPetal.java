@@ -8,7 +8,7 @@ public class ItemAechorPetal extends Item
 
 	public ItemAechorPetal()
 	{
-		super(new Properties().group(ItemGroup.MISC));
+		super(new Settings().itemGroup(ItemGroup.MISC));
 	}
 
 }

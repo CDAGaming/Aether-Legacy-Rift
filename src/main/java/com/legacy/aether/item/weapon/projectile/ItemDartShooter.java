@@ -7,17 +7,18 @@ import com.legacy.aether.entities.projectile.EntityPoisonDart;
 import com.legacy.aether.item.ItemsAether;
 import com.legacy.aether.sounds.SoundsAether;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.projectile.EntityArrow;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.EnumRarity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.projectile.ArrowEntity;
+import net.minecraft.entity.projectile.ProjectileEntity;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.SoundCategory;
+import net.minecraft.util.Hand;
+import net.minecraft.util.Rarity;
+import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
 
 public class ItemDartShooter extends Item
@@ -27,29 +28,29 @@ public class ItemDartShooter extends Item
 
 	public ItemDartShooter(ItemDart dart)
 	{
-		super(new Properties().maxStackSize(1).group(ItemGroup.COMBAT));
+		super(new Settings().stackSize(1).itemGroup(ItemGroup.COMBAT));
 
 		this.dart = dart;
 	}
 
 	@Override
-    public EnumRarity getRarity(ItemStack stack)
+    public Rarity getRarity(ItemStack stack)
     {
-    	return stack.getItem() == ItemsAether.enchanted_dart_shooter ? EnumRarity.RARE : super.getRarity(stack);
+    	return stack.getItem() == ItemsAether.enchanted_dart_shooter ? Rarity.RARE : super.getRarity(stack);
     }
 
-	private ItemStack consumeItem(EntityPlayer player)
+	private ItemStack consumeItem(PlayerEntity player)
 	{
-		IInventory inv = player.inventory;
+		Inventory inv = player.inventory;
 
-		if (!player.abilities.isCreativeMode)
+		if (!player.abilities.creativeMode)
 		{
 			return new ItemStack(this.dart);
 		}
 
-		for (int i = 0; i < inv.getSizeInventory(); i++)
+		for (int i = 0; i < inv.getInvSize(); i++)
 		{
-			ItemStack stack = inv.getStackInSlot(i);
+			ItemStack stack = inv.getInvStack(i);
 
 			if (stack.isEmpty())
 			{
@@ -60,12 +61,12 @@ public class ItemDartShooter extends Item
 			{
 				stack.shrink(1);
 
-				if (stack.getCount() == 0)
+				if (stack.getAmount() == 0)
 				{
 					stack = ItemStack.EMPTY;
 				}
 
-				inv.setInventorySlotContents(i, stack);
+				inv.setInvStack(i, stack);
 
 				return new ItemStack(this.dart);
 			}
@@ -75,13 +76,13 @@ public class ItemDartShooter extends Item
 	}
 
 	@Override
-    public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn)
+    public TypedActionResult<ItemStack> use(World worldIn, PlayerEntity playerIn, Hand handIn)
 	{
 		ItemStack dartStack = this.consumeItem(playerIn);
 
 		if (!dartStack.isEmpty())
 		{
-			worldIn.playSound((EntityPlayer)null, playerIn.posX, playerIn.posY, playerIn.posZ, SoundsAether.dart_shooter_shoot, SoundCategory.PLAYERS, 1.0F, 1.0F / (worldIn.rand.nextFloat() * 0.4F + 0.8F));
+			worldIn.playSound((PlayerEntity) null, playerIn.getPos().getX(), playerIn.getPos().getY(), playerIn.getPos().getZ(), SoundsAether.dart_shooter_shoot, SoundCategory.PLAYER, 1.0F, 1.0F / (worldIn.random.nextFloat() * 0.4F + 0.8F));
 
 			EntityDart dart = null;
 
@@ -104,20 +105,20 @@ public class ItemDartShooter extends Item
 
 				worldIn.spawnEntity(dart);
 
-				if (!(playerIn.abilities.isCreativeMode))
+				if (!(playerIn.abilities.creativeMode))
 				{
-					dart.pickupStatus = EntityArrow.PickupStatus.ALLOWED;
+					dart.pickupStatus = ArrowEntity.PickupType.PICKUP;
 				}
-				if ((playerIn.abilities.isCreativeMode))
+				if ((playerIn.abilities.creativeMode))
 				{
-					dart.pickupStatus = EntityArrow.PickupStatus.CREATIVE_ONLY;
+					dart.pickupStatus = ArrowEntity.PickupType.CREATIVE_PICKUP;
 				}
 			}
 
-			return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, playerIn.getHeldItem(handIn));
+			return new TypedActionResult<ItemStack>(ActionResult.SUCCESS, playerIn.getStackInHand(handIn));
 		}
 
-		return super.onItemRightClick(worldIn, playerIn, handIn);
+		return super.use(worldIn, playerIn, handIn);
 	}
 
 }

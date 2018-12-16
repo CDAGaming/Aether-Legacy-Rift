@@ -1,20 +1,20 @@
 package com.legacy.aether.item.weapon.projectile;
 
-import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
+import net.minecraft.util.Rarity;
 
 public class ItemDart extends Item
 {
 
 	public ItemDart() 
 	{
-		super(new Properties().group(ItemGroup.COMBAT));
+		super(new Settings().itemGroup(ItemGroup.COMBAT));
 	}
 
-	public ItemDart(EnumRarity rarity) 
+	public ItemDart(Rarity rarity)
 	{
-		super(new Properties().rarity(rarity).group(ItemGroup.COMBAT));
+		super(new Settings().rarity(rarity).itemGroup(ItemGroup.COMBAT));
 	}
 
 }

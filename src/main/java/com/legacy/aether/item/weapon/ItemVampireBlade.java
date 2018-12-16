@@ -1,7 +1,7 @@
 package com.legacy.aether.item.weapon;
 
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 
 import com.legacy.aether.item.ItemsAether;
@@ -16,21 +16,21 @@ public class ItemVampireBlade extends ItemAetherSword
 	}
 
     @Override
-    public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker)
+    public boolean onEntityDamaged(ItemStack stack, LivingEntity target, LivingEntity attacker)
     {
-    	if (!(attacker instanceof EntityPlayer))
+    	if (!(attacker instanceof PlayerEntity))
     	{
-    		return super.hitEntity(stack, target, attacker);
+    		return super.onEntityDamaged(stack, target, attacker);
     	}
 
-		EntityPlayer player = (EntityPlayer)attacker;
+		PlayerEntity player = (PlayerEntity) attacker;
 
-		if(player.getHealth() < player.getMaxHealth())
+		if(player.getHealth() < player.getHealthMaximum())
 		{
 			player.heal(1.0F);
 		}
 
-        return super.hitEntity(stack, target, attacker);
+        return super.onEntityDamaged(stack, target, attacker);
     }
 
 }

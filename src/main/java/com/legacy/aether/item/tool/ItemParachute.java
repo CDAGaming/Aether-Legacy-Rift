@@ -1,11 +1,12 @@
 package com.legacy.aether.item.tool;
 
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.Hand;
+import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
 
 public class ItemParachute extends Item
@@ -13,16 +14,16 @@ public class ItemParachute extends Item
 
 	public ItemParachute(int maxDamage)
 	{
-		super(new Properties().maxStackSize(1).defaultMaxDamage(maxDamage).group(ItemGroup.TOOLS));
+		super(new Settings().stackSize(1).durability(maxDamage).itemGroup(ItemGroup.TOOLS));
 	}
 
 	public ItemParachute()
 	{
-		super(new Properties().maxStackSize(1).group(ItemGroup.TOOLS));
+		super(new Settings().stackSize(1).itemGroup(ItemGroup.TOOLS));
 	}
 
 	@Override
-    public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn)
+    public TypedActionResult<ItemStack> use(World worldIn, PlayerEntity playerIn, Hand handIn)
     {
     	/*if(EntityParachute.entityHasRoomForCloud(world, entityplayer))
     	{
@@ -40,7 +41,7 @@ public class ItemParachute extends Item
 	        return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemstack);
     	}*/
 
-        return super.onItemRightClick(worldIn, playerIn, handIn);
+        return super.use(worldIn, playerIn, handIn);
     }
 
 }

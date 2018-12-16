@@ -1,14 +1,10 @@
 package com.legacy.aether.item.accessory;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.EnumRarity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.*;
 import net.minecraft.world.World;
 
 import com.legacy.aether.Aether;
@@ -24,11 +20,11 @@ public class ItemAccessory extends Item
 
 	private AccessoryType type;
 
-	private ResourceLocation texture, texture_slim;
+	private Identifier texture, texture_slim;
 
-	public ItemAccessory(AccessoryType type, EnumRarity rarity, int color)
+	public ItemAccessory(AccessoryType type, Rarity rarity, int color)
 	{
-		super(new Properties().group(ItemGroup.MISC).maxStackSize(1).rarity(rarity));
+		super(new Settings().itemGroup(ItemGroup.MISC).stackSize(1).rarity(rarity));
 
 		this.type = type;
 		this.color = color;
@@ -36,7 +32,7 @@ public class ItemAccessory extends Item
 		this.texture_slim = Aether.locate("textures/armor/accessory_base_slim.png");
 	}
 
-	public ItemAccessory(String material, AccessoryType type, EnumRarity rarity, int color)
+	public ItemAccessory(String material, AccessoryType type, Rarity rarity, int color)
 	{
 		this(type, rarity, color);
 
@@ -46,32 +42,32 @@ public class ItemAccessory extends Item
 
 	public ItemAccessory(AccessoryType type)
 	{
-		this(type, EnumRarity.COMMON, 0xDDDDDD);
+		this(type, Rarity.COMMON, 0xDDDDDD);
 	}
 
-	public ItemAccessory(AccessoryType type, EnumRarity rarity)
+	public ItemAccessory(AccessoryType type, Rarity rarity)
 	{
 		this(type, rarity, 0xDDDDDD);
 	}
 
 	public ItemAccessory(AccessoryType type, int color)
 	{
-		this(type, EnumRarity.COMMON, color);
+		this(type, Rarity.COMMON, color);
 	}
 
 	public ItemAccessory(String material, AccessoryType type)
 	{
-		this(material, type, EnumRarity.COMMON, 0xDDDDDD);
+		this(material, type, Rarity.COMMON, 0xDDDDDD);
 	}
 
-	public ItemAccessory(String material, AccessoryType type, EnumRarity rarity)
+	public ItemAccessory(String material, AccessoryType type, Rarity rarity)
 	{
 		this(material, type, rarity, 0xDDDDDD);
 	}
 
 	public ItemAccessory(String material, AccessoryType type, int color)
 	{
-		this(material, type, EnumRarity.COMMON, color);
+		this(material, type, Rarity.COMMON, color);
 	}
 
 	public void register()
@@ -80,9 +76,9 @@ public class ItemAccessory extends Item
 	}
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn)
+    public TypedActionResult<ItemStack> use(World worldIn, PlayerEntity playerIn, Hand handIn)
     {
-    	ItemStack heldItem = playerIn.getHeldItem(handIn);
+    	ItemStack heldItem = playerIn.getStackInHand(handIn);
 
         if (heldItem != ItemStack.EMPTY)
         {
@@ -90,19 +86,19 @@ public class ItemAccessory extends Item
         	{
             	heldItem.shrink(1);
 
-                return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, heldItem);
+                return new TypedActionResult<ItemStack>(ActionResult.SUCCESS, heldItem);
         	}
         }
 
-        return new ActionResult<ItemStack>(EnumActionResult.PASS, heldItem);
+        return new TypedActionResult<ItemStack>(ActionResult.PASS, heldItem);
     }
 
-    public ResourceLocation getAccessoryTexture()
+    public Identifier getAccessoryTexture()
     {
     	return this.getAccessoryTexture(false);
     }
 
-    public ResourceLocation getAccessoryTexture(boolean isSlim)
+    public Identifier getAccessoryTexture(boolean isSlim)
     {
     	return isSlim ? this.texture_slim : this.texture;
     }

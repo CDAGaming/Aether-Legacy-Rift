@@ -3,6 +3,8 @@ package com.legacy.aether.blocks.container;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.container.Container;
+import net.minecraft.container.ContainerProvider;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.BooleanProperty;
@@ -14,12 +16,12 @@ import net.minecraft.world.World;
 
 import com.legacy.aether.tileentity.AetherTileEntity;
 
-public abstract class BlockAetherContainer extends BlockContainer
+public abstract class BlockAetherContainer extends ContainerProvider
 {
 
 	public static final BooleanProperty POWERED = BooleanProperty.create("powered");
 
-	protected BlockAetherContainer(Properties propertiesIn)
+	protected BlockAetherContainer(Block.Settings propertiesIn)
 	{
 		super(propertiesIn.needsRandomTick());
 

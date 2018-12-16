@@ -1,32 +1,18 @@
 package com.legacy.aether.item.tool.bucket;
 
-import javax.annotation.Nullable;
-
-import net.minecraft.advancements.CriteriaTriggers;
-import net.minecraft.block.IBucketPickupHandler;
-import net.minecraft.block.ILiquidContainer;
-import net.minecraft.block.material.Material;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.fluid.FlowingFluid;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Material;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.Fluid;
-import net.minecraft.init.Fluids;
-import net.minecraft.init.Particles;
-import net.minecraft.init.SoundEvents;
-import net.minecraft.item.EnumAction;
-import net.minecraft.item.EnumRarity;
+import net.minecraft.fluid.Fluids;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.stats.StatList;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.SoundCategory;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 
@@ -41,51 +27,51 @@ public class ItemSkyrootBucket extends Item
 
 	public ItemSkyrootBucket()
 	{
-		super(new Properties().maxStackSize(16).group(ItemGroup.TOOLS));
+		super(new Settings().stackSize(16).itemGroup(ItemGroup.TOOLS));
 
 		this.containedBlock = Fluids.EMPTY;
 	}
 
 	public ItemSkyrootBucket(Item containerIn)
 	{
-		super(new Properties().maxStackSize(1).group(ItemGroup.TOOLS).containerItem(containerIn));
+		super(new Settings().stackSize(1).itemGroup(ItemGroup.TOOLS).containerItem(containerIn));
 
 		this.containedBlock = Fluids.EMPTY;
 	}
 
 	public ItemSkyrootBucket(Fluid containedFluidIn, Item containerIn)
 	{
-		super(new Properties().maxStackSize(1).group(ItemGroup.TOOLS).containerItem(containerIn));
+		super(new Settings().stackSize(1).itemGroup(ItemGroup.TOOLS).containerItem(containerIn));
 
 		this.containedBlock = containedFluidIn;
 	}
 
 	@Override
-    public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn)
+    public TypedActionResult<ItemStack> use(World worldIn, PlayerEntity playerIn, Hand handIn)
     {
-        ItemStack itemstack = playerIn.getHeldItem(handIn);
+        ItemStack itemstack = playerIn.getStackInHand(handIn);
         RayTraceResult raytraceresult = this.rayTrace(worldIn, playerIn, this.containedBlock == Fluids.EMPTY);
 
         if (itemstack.getItem() != ItemsAether.skyroot_water_bucket && itemstack.getItem() != ItemsAether.skyroot_bucket)
         {
-        	playerIn.setActiveHand(handIn);
+        	playerIn.setCurrentHand(handIn);
 
-            return new ActionResult<ItemStack>(EnumActionResult.PASS, itemstack);
+            return new TypedActionResult<ItemStack>(ActionResult.PASS, itemstack);
         }
 
         if (raytraceresult == null)
         {
-            return new ActionResult<ItemStack>(EnumActionResult.PASS, itemstack);
+            return new TypedActionResult<ItemStack>(ActionResult.PASS, itemstack);
         }
         else if (raytraceresult.type == RayTraceResult.Type.BLOCK)
         {
             BlockPos blockpos = raytraceresult.getBlockPos();
 
-            if (worldIn.isBlockModifiable(playerIn, blockpos) && playerIn.canPlayerEdit(blockpos, raytraceresult.sideHit, itemstack))
+            if (worldIn.canPlayerModifyAt(playerIn, blockpos) && playerIn.canPlayerEdit(blockpos, raytraceresult.sideHit, itemstack))
             {
                 if (this.containedBlock == Fluids.EMPTY)
                 {
-                    IBlockState iblockstate1 = worldIn.getBlockState(blockpos);
+                    BlockState iblockstate1 = worldIn.getBlockState(blockpos);
 
                     if (iblockstate1.getBlock() instanceof IBucketPickupHandler)
                     {
@@ -99,71 +85,71 @@ public class ItemSkyrootBucket extends Item
 
                             if (!worldIn.isRemote)
                             {
-                                CriteriaTriggers.FILLED_BUCKET.func_204817_a((EntityPlayerMP)playerIn, new ItemStack(ItemsAether.skyroot_water_bucket));
+                                CriteriaTriggers.FILLED_BUCKET.func_204817_a((PlayerEntity)playerIn, new ItemStack(ItemsAether.skyroot_water_bucket));
                             }
 
-                            return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemstack1);
+                            return new TypedActionResult<ItemStack>(ActionResult.SUCCESS, itemstack1);
                         }
                     }
 
-                    return new ActionResult<ItemStack>(EnumActionResult.FAIL, itemstack);
+                    return new TypedActionResult<ItemStack>(ActionResult.FAILURE, itemstack);
                 }
                 else
                 {
-                    IBlockState iblockstate = worldIn.getBlockState(blockpos);
+                    BlockState iblockstate = worldIn.getBlockState(blockpos);
                     BlockPos blockpos1 = this.getPlacementPosition(iblockstate, blockpos, raytraceresult);
 
                     if (this.tryPlaceContainedLiquid(playerIn, worldIn, blockpos1, raytraceresult))
                     {
                         this.onLiquidPlaced(worldIn, itemstack, blockpos1);
 
-                        if (playerIn instanceof EntityPlayerMP)
+                        if (playerIn instanceof PlayerEntity)
                         {
-                            CriteriaTriggers.PLACED_BLOCK.trigger((EntityPlayerMP)playerIn, blockpos1, itemstack);
+                            CriteriaTriggers.PLACED_BLOCK.trigger((PlayerEntity)playerIn, blockpos1, itemstack);
                         }
 
                         playerIn.addStat(StatList.ITEM_USED.get(this));
-                        return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, this.emptyBucket(itemstack, playerIn));
+                        return new TypedActionResult<ItemStack>(ActionResult.SUCCESS, this.emptyBucket(itemstack, playerIn));
                     }
                     else
                     {
-                        return new ActionResult<ItemStack>(EnumActionResult.FAIL, itemstack);
+                        return new TypedActionResult<ItemStack>(ActionResult.FAILURE, itemstack);
                     }
                 }
             }
             else
             {
-                return new ActionResult<ItemStack>(EnumActionResult.FAIL, itemstack);
+                return new TypedActionResult<ItemStack>(ActionResult.FAILURE, itemstack);
             }
         }
         else
         {
-            return new ActionResult<ItemStack>(EnumActionResult.PASS, itemstack);
+            return new TypedActionResult<ItemStack>(ActionResult.PASS, itemstack);
         }
     }
 
-    public ItemStack onItemUseFinish(ItemStack stack, World worldIn, EntityLivingBase entityLiving)
+    public ItemStack onItemUseFinish(ItemStack stack, World worldIn, LivingEntity entityLiving)
     {
-    	if (entityLiving instanceof EntityPlayer)
+    	if (entityLiving instanceof PlayerEntity)
     	{
-    		return this.onBucketContentsConsumed(stack, worldIn, (EntityPlayer) entityLiving);
+    		return this.onBucketContentsConsumed(stack, worldIn, (PlayerEntity) entityLiving);
     	}
 
     	return super.onItemUseFinish(stack, worldIn, entityLiving);
     }
 
-	public ItemStack onBucketContentsConsumed(ItemStack itemstack, World world, EntityPlayer entityplayer)
+	public ItemStack onBucketContentsConsumed(ItemStack itemstack, World world, PlayerEntity entityplayer)
 	{
 		PlayerAether player = ((IEntityPlayerAether)entityplayer).getPlayerAether();
 
-        if (entityplayer instanceof EntityPlayerMP)
+        if (entityplayer instanceof PlayerEntity)
         {
-            EntityPlayerMP entityplayermp = (EntityPlayerMP)entityplayer;
+            PlayerEntity entityplayermp = (PlayerEntity) entityplayer;
             CriteriaTriggers.CONSUME_ITEM.trigger(entityplayermp, itemstack);
             entityplayermp.addStat(StatList.ITEM_USED.get(this));
         }
 
-		if (!entityplayer.abilities.isCreativeMode)
+		if (!entityplayer.abilities.creativeMode)
 		{
 			itemstack.shrink(1);
 		}
@@ -194,24 +180,24 @@ public class ItemSkyrootBucket extends Item
     }
 
 	@Override
-    public EnumAction getUseAction(ItemStack stack)
+    public UseAction getUseAction(ItemStack stack)
     {
         if (stack.getItem() != ItemsAether.skyroot_water_bucket && stack.getItem() != ItemsAether.skyroot_bucket)
         {
-        	return EnumAction.DRINK;
+        	return UseAction.DRINK;
         }
 
-        return EnumAction.NONE;
+        return UseAction.NONE;
     }
 
-    private BlockPos getPlacementPosition(IBlockState p_210768_1_, BlockPos p_210768_2_, RayTraceResult p_210768_3_)
+    private BlockPos getPlacementPosition(BlockState p_210768_1_, BlockPos p_210768_2_, RayTraceResult p_210768_3_)
     {
         return p_210768_1_.getBlock() instanceof ILiquidContainer ? p_210768_2_ : p_210768_3_.getBlockPos().offset(p_210768_3_.sideHit);
     }
 
-    protected ItemStack emptyBucket(ItemStack p_203790_1_, EntityPlayer p_203790_2_)
+    protected ItemStack emptyBucket(ItemStack p_203790_1_, PlayerEntity p_203790_2_)
     {
-        return !p_203790_2_.abilities.isCreativeMode ? new ItemStack(ItemsAether.skyroot_bucket) : p_203790_1_;
+        return !p_203790_2_.abilities.creativeMode ? new ItemStack(ItemsAether.skyroot_bucket) : p_203790_1_;
     }
 
     public void onLiquidPlaced(World worldIn, ItemStack p_203792_2_, BlockPos pos)
@@ -219,9 +205,9 @@ public class ItemSkyrootBucket extends Item
 
     }
 
-    private ItemStack fillBucket(ItemStack emptyBuckets, EntityPlayer player, Item fullBucket)
+    private ItemStack fillBucket(ItemStack emptyBuckets, PlayerEntity player, Item fullBucket)
     {
-        if (player.abilities.isCreativeMode)
+        if (player.abilities.creativeMode)
         {
             return emptyBuckets;
         }
@@ -245,7 +231,7 @@ public class ItemSkyrootBucket extends Item
         }
     }
 
-    public boolean tryPlaceContainedLiquid(@Nullable EntityPlayer player, World worldIn, BlockPos posIn, @Nullable RayTraceResult p_180616_4_)
+    public boolean tryPlaceContainedLiquid(PlayerEntity player, World worldIn, BlockPos posIn, RayTraceResult p_180616_4_)
     {
         if (!(this.containedBlock instanceof FlowingFluid))
         {
@@ -253,12 +239,12 @@ public class ItemSkyrootBucket extends Item
         }
         else
         {
-            IBlockState iblockstate = worldIn.getBlockState(posIn);
+            BlockState iblockstate = worldIn.getBlockState(posIn);
             Material material = iblockstate.getMaterial();
             boolean flag = !material.isSolid();
             boolean flag1 = material.isReplaceable();
 
-            if (worldIn.isAirBlock(posIn) || flag || flag1 || iblockstate.getBlock() instanceof ILiquidContainer && ((ILiquidContainer)iblockstate.getBlock()).canContainFluid(worldIn, posIn, iblockstate, this.containedBlock))
+            if (worldIn.isAir(posIn) || flag || flag1 || iblockstate.getBlock() instanceof ILiquidContainer && ((ILiquidContainer)iblockstate.getBlock()).canContainFluid(worldIn, posIn, iblockstate, this.containedBlock))
             {
                 if (worldIn.dimension.doesWaterVaporize())
                 {
@@ -299,15 +285,15 @@ public class ItemSkyrootBucket extends Item
         }
     }
 
-    protected void playEmptySound(@Nullable EntityPlayer player, IWorld worldIn, BlockPos pos)
+    protected void playEmptySound(PlayerEntity player, IWorld worldIn, BlockPos pos)
     {
-        worldIn.playSound(player, pos, SoundEvents.ITEM_BUCKET_EMPTY, SoundCategory.BLOCKS, 1.0F, 1.0F);
+        worldIn.playSound(player, pos, SoundEvents.ITEM_BUCKET_EMPTY, SoundCategory.BLOCK, 1.0F, 1.0F);
     }
 
 	@Override
-    public EnumRarity getRarity(ItemStack stack)
+    public Rarity getRarity(ItemStack stack)
     {
-    	return stack.getItem() == ItemsAether.skyroot_remedy_bucket ? EnumRarity.RARE : super.getRarity(stack);
+    	return stack.getItem() == ItemsAether.skyroot_remedy_bucket ? Rarity.RARE : super.getRarity(stack);
     }
 
 }

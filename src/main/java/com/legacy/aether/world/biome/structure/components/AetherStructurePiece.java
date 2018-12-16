@@ -254,6 +254,7 @@ public abstract class AetherStructurePiece implements StructurePiece {
     {
         BlockPos blockpos = new BlockPos(this.getActualX(x, z), this.getActualY(y), this.getActualZ(x, z));
 
+        // TODO: Either BlockState, BlockEntity, or method_xxx (idk - 1.14)
         return !this.structureBoundingBox.isVecInside(blockpos) ? null : this.world.getTileEntity(blockpos);
     }
 

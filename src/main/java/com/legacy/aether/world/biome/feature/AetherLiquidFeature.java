@@ -2,21 +2,19 @@ package com.legacy.aether.world.biome.feature;
 
 import java.util.Random;
 
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
-import net.minecraft.world.gen.IChunkGenSettings;
-import net.minecraft.world.gen.IChunkGenerator;
-import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.feature.LiquidsConfig;
 
 import com.legacy.aether.blocks.BlocksAether;
+import net.minecraft.world.gen.chunk.ChunkGenerator;
+import net.minecraft.world.gen.chunk.ChunkGeneratorSettings;
 
 public class AetherLiquidFeature extends Feature<LiquidsConfig>
 {
 
 	@Override
-	public boolean place(IWorld worldIn, IChunkGenerator<? extends IChunkGenSettings> chunkGeneratorIn, Random rand, BlockPos position, LiquidsConfig config)
+	public boolean place(IWorld worldIn, ChunkGenerator<? extends ChunkGeneratorSettings> chunkGeneratorIn, Random rand, BlockPos position, LiquidsConfig config)
 	{
         if (worldIn.getBlockState(position.up()).getBlock() != BlocksAether.holystone)
         {
@@ -28,7 +26,7 @@ public class AetherLiquidFeature extends Feature<LiquidsConfig>
         }
         else
         {
-            IBlockState iblockstate = worldIn.getBlockState(position);
+            BlockState iblockstate = worldIn.getBlockState(position);
 
             if (!iblockstate.isAir() && iblockstate.getBlock() != BlocksAether.holystone)
             {
@@ -60,22 +58,22 @@ public class AetherLiquidFeature extends Feature<LiquidsConfig>
 
                 int j = 0;
 
-                if (worldIn.isAirBlock(position.west()))
+                if (worldIn.isAir(position.west()))
                 {
                     ++j;
                 }
 
-                if (worldIn.isAirBlock(position.east()))
+                if (worldIn.isAir(position.east()))
                 {
                     ++j;
                 }
 
-                if (worldIn.isAirBlock(position.north()))
+                if (worldIn.isAir(position.north()))
                 {
                     ++j;
                 }
 
-                if (worldIn.isAirBlock(position.south()))
+                if (worldIn.isAir(position.south()))
                 {
                     ++j;
                 }
@@ -83,7 +81,7 @@ public class AetherLiquidFeature extends Feature<LiquidsConfig>
                 if (i == 3 && j == 1)
                 {
                 	worldIn.setBlockState(position, config.fluid.getDefaultState().getBlockState(), 2);
-                	worldIn.getPendingFluidTicks().scheduleTick(position, config.fluid, 0);
+                	worldIn.getFluidTickScheduler().schedule(position, config.fluid, 0);
                     ++i;
                 }
 

@@ -1,49 +1,46 @@
 package com.legacy.aether.world;
 
 import java.util.List;
+import java.util.Random;
 
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.EnumCreatureType;
-import net.minecraft.init.Blocks;
-import net.minecraft.util.SharedSeedRandom;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.entity.EntityCategory;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.ChunkPos;
+import net.minecraft.util.math.noise.OctaveSimplexNoiseSampler;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldEntitySpawner;
 import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.Biome.SpawnListEntry;
-import net.minecraft.world.biome.provider.BiomeProvider;
+import net.minecraft.world.biome.source.BiomeSource;
+import net.minecraft.world.chunk.Chunk;
+import net.minecraft.world.chunk.ChunkPos;
 import net.minecraft.world.chunk.ChunkStatus;
-import net.minecraft.world.chunk.IChunk;
-import net.minecraft.world.gen.AbstractChunkGenerator;
 import net.minecraft.world.gen.Heightmap;
-import net.minecraft.world.gen.NoiseGeneratorOctaves;
-import net.minecraft.world.gen.WorldGenRegion;
 
 import com.legacy.aether.blocks.BlocksAether;
 import com.legacy.aether.world.biome.AetherBiomeProvider;
 import com.legacy.aether.world.info.AetherGenSettings;
+import net.minecraft.world.gen.chunk.ChunkGenerator;
 
-public class ChunkGeneratorAether extends AbstractChunkGenerator<AetherGenSettings> {
+public class ChunkGeneratorAether extends ChunkGenerator<AetherGenSettings> {
 
-    private NoiseGeneratorOctaves noiseGen1, perlinNoise1;
+    private OctaveSimplexNoiseSampler noiseGen1, perlinNoise1;
 
     private final AetherGenSettings chunkGenSettings;
 
     private final AetherBiomeProvider biomeProvider;
 
-    private final SharedSeedRandom random;
+    private final Random random;
 
-    public ChunkGeneratorAether(IWorld world, BiomeProvider biomeProvider) {
+    public ChunkGeneratorAether(IWorld world, BiomeSource biomeProvider) {
         super(world, biomeProvider);
 
-        this.random = new SharedSeedRandom(world.getSeed());
+        this.random = new Random(world.getSeed());
         this.biomeProvider = new AetherBiomeProvider();
         this.chunkGenSettings = new AetherGenSettings();
 
-        this.noiseGen1 = new NoiseGeneratorOctaves(this.random, 16);
-        this.perlinNoise1 = new NoiseGeneratorOctaves(this.random, 8);
+        this.noiseGen1 = new OctaveSimplexNoiseSampler(this.random, 16);
+        this.perlinNoise1 = new OctaveSimplexNoiseSampler(this.random, 8);
 
     }
 
@@ -57,7 +54,7 @@ public class ChunkGeneratorAether extends AbstractChunkGenerator<AetherGenSettin
         return new double[3366];
     }
 
-    public void setBlocksInChunk(int x, int z, IChunk chunk) {
+    public void setBlocksInChunk(int x, int z, Chunk chunk) {
         BlockPos.MutableBlockPos mutedPos = new BlockPos.MutableBlockPos();
 
         double[] buffer = this.setupNoiseGenerators(x * 2, z * 2);
@@ -90,7 +87,7 @@ public class ChunkGeneratorAether extends AbstractChunkGenerator<AetherGenSettin
                                 int y = l1 + k1 * 4;
                                 int z1 = k2 + j1 * 8;
 
-                                IBlockState filler = Blocks.AIR.getDefaultState();
+                                BlockState filler = Blocks.AIR.getDefaultState();
 
                                 if (d15 > 0.0D) {
                                     filler = BlocksAether.holystone.getDefaultState();
@@ -183,20 +180,20 @@ public class ChunkGeneratorAether extends AbstractChunkGenerator<AetherGenSettin
     }
 
     @Override
-    public List<SpawnListEntry> getPossibleCreatures(EnumCreatureType typeIn, BlockPos posIn) {
+    public List<Biome.SpawnEntry> getEntitySpawnList(EntityCategory typeIn, BlockPos posIn) {
         Biome biome = this.world.getBiome(posIn);
 
-        return biome.getSpawns(typeIn);
+        return biome.getEntitySpawnList(typeIn);
     }
 
     @Override
-    public void makeBase(IChunk chunk) {
+    public void buildSurface(Chunk chunk) {
         ChunkPos chunkPos = chunk.getPos();
 
         int x = chunkPos.x;
         int z = chunkPos.z;
 
-        this.random.setSeed(chunkPos.asLong());
+        this.random.setSeed(chunkPos.toLong());
 
         Biome[] biomes = this.biomeProvider.getBiomes(x * 16, z * 16, 16, 16);
 

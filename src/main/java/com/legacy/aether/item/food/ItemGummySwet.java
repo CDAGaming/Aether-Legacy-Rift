@@ -2,13 +2,13 @@ package com.legacy.aether.item.food;
 
 import com.legacy.aether.item.ItemsAether;
 
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.Hand;
+import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
 
 public class ItemGummySwet extends Item
@@ -16,13 +16,13 @@ public class ItemGummySwet extends Item
 
 	public ItemGummySwet()
 	{
-		super(new Properties().group(ItemGroup.FOOD).rarity(ItemsAether.AETHER_LOOT));
+		super(new Settings().itemGroup(ItemGroup.FOOD).rarity(ItemsAether.AETHER_LOOT));
 	}
 
 	@Override
-    public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn)
+    public TypedActionResult<ItemStack> use(World worldIn, PlayerEntity playerIn, Hand handIn)
     {
-		ItemStack heldItem = playerIn.getHeldItem(handIn);
+		ItemStack heldItem = playerIn.getStackInHand(handIn);
 
 		if (playerIn.shouldHeal())
 		{
@@ -31,12 +31,12 @@ public class ItemGummySwet extends Item
 				heldItem.shrink(1);
 			}
 
-			playerIn.heal(playerIn.getMaxHealth());
+			playerIn.heal(playerIn.getHealthMaximum());
 
-    		return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, heldItem);
+    		return new TypedActionResult<ItemStack>(ActionResult.SUCCESS, heldItem);
 		}
 
-		return new ActionResult<ItemStack>(EnumActionResult.PASS, heldItem);
+		return new TypedActionResult<ItemStack>(ActionResult.PASS, heldItem);
     }
 
 }

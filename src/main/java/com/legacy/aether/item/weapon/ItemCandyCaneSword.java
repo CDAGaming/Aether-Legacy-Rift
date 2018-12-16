@@ -2,8 +2,8 @@ package com.legacy.aether.item.weapon;
 
 import java.util.Random;
 
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 
 import com.legacy.aether.item.ItemsAether;
@@ -18,20 +18,20 @@ public class ItemCandyCaneSword extends ItemAetherSword
 	}
 
 	@Override
-    public boolean hitEntity(ItemStack itemstack, EntityLivingBase entityliving, EntityLivingBase entityliving1)
+    public boolean onEntityDamaged(ItemStack itemstack, LivingEntity entityliving, LivingEntity entityliving1)
     {
-        if (entityliving.deathTime > 0)
+        if (entityliving.deathCounter > 0)
         {
             return true;
         }
         else
         {
-            if ((new Random()).nextBoolean() && entityliving1 != null && entityliving1 instanceof EntityPlayer && !entityliving1.world.isRemote && entityliving.hurtTime > 0)
+            if ((new Random()).nextBoolean() && entityliving1 != null && entityliving1 instanceof PlayerEntity && !entityliving1.world.isRemote && entityliving.hurtTime > 0)
             {
-                entityliving.entityDropItem(ItemsAether.candy_cane, 1);
+                entityliving.dropItem(ItemsAether.candy_cane, 1);
             }
 
-            itemstack.damageItem(1, entityliving1);
+            itemstack.applyDamage(1, entityliving1);
             return true;
         }
     }

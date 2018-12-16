@@ -1,7 +1,5 @@
 package com.legacy.aether.item;
 
-import net.minecraft.item.EnumRarity;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.RecordItem;
 import net.minecraft.sound.SoundEvent;
@@ -12,7 +10,7 @@ public class ItemAetherDisc extends RecordItem
 
 	public ItemAetherDisc(int comparatorValueIn, SoundEvent soundIn)
 	{
-		super(comparatorValueIn, soundIn, new Settings().defaultMaxDamage(1).group(ItemGroup.MISC).rarity(Rarity.RARE));
+		super(comparatorValueIn, soundIn, new Settings().itemGroup(ItemGroup.MISC).rarity(Rarity.RARE));
 	}
 
 }

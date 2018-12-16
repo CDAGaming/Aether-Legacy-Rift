@@ -3,22 +3,26 @@ package com.legacy.aether.world;
 import com.legacy.aether.world.biome.AetherBiomeProvider;
 
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.World;
+import net.minecraft.world.chunk.ChunkPos;
 import net.minecraft.world.dimension.Dimension;
 import net.minecraft.world.dimension.DimensionType;
-import net.minecraft.world.gen.IChunkGenerator;
+import net.minecraft.world.gen.chunk.ChunkGenerator;
 
 public class AetherDimension extends Dimension
 {
-
 	private final float[] colorsSunriseSunset = new float[4];
 
+	public AetherDimension(World world, DimensionType dimensionType) {
+		super(world, dimensionType);
+	}
+
 	@Override
-	protected void init()
+	public boolean hasVisibleSky()
 	{
-		this.hasSkyLight = true;
+		return true;
 	}
 
 	@Override
@@ -28,13 +32,13 @@ public class AetherDimension extends Dimension
 	}
 
 	@Override
-	public IChunkGenerator<?> createChunkGenerator()
+	public ChunkGenerator<?> createChunkGenerator()
 	{
 		return new ChunkGeneratorAether(this.world, new AetherBiomeProvider());
 	}
 
 	@Override
-	public float[] calcSunriseSunsetColors(float celestialAngle, float partialTicks)
+	public float[] method_12446(float celestialAngle, float partialTicks)
 	{
 		float f3 = MathHelper.cos(celestialAngle * 3.141593F * 2.0F) - 0.0F;
 
@@ -57,7 +61,7 @@ public class AetherDimension extends Dimension
 	}
 
 	@Override
-	public float calculateCelestialAngle(long worldTime, float partialTicks) 
+	public float method_12464(long worldTime, float partialTicks)
 	{
         int i = (int)(worldTime % 24000L);
         float f = ((float)i + partialTicks) / 24000.0F - 0.25F;
@@ -78,31 +82,31 @@ public class AetherDimension extends Dimension
 	}
 
 	@Override
-	public boolean canRespawnHere()
+	public boolean method_12448()
 	{
 		return false;
 	}
 
 	@Override
-	public boolean isSurfaceWorld() 
+	public boolean method_12449()
 	{
 		return false;
 	}
 
 	@Override
-	public boolean doesXZShowFog(int arg0, int arg1)
+	public boolean method_12453(int arg0, int arg1)
 	{
 		return false;
 	}
 
     @Override
-    public float getCloudHeight()
+    public float method_12455()
     {
         return 8F;
     }
 
 	@Override
-	public Vec3d getFogColor(float f, float d1)
+	public Vec3d method_12445(float f, float d1)
 	{
 		int i = 0x8080a0;
 
@@ -126,13 +130,13 @@ public class AetherDimension extends Dimension
 	}
 
 	@Override
-	public BlockPos findSpawn(ChunkPos arg0, boolean arg1)
+	public BlockPos method_12452(ChunkPos arg0, boolean arg1)
 	{
 		return null;
 	}
 
 	@Override
-	public BlockPos findSpawn(int arg0, int arg1, boolean arg2)
+	public BlockPos method_12444(int arg0, int arg1, boolean arg2)
 	{
 		return null;
 	}

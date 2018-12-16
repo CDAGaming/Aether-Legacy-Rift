@@ -8,7 +8,7 @@ public class ItemGoldenAmber extends Item
 
 	public ItemGoldenAmber()
 	{
-		super(new Properties().group(ItemGroup.MISC));
+		super(new Settings().itemGroup(ItemGroup.MISC));
 	}
 
 }

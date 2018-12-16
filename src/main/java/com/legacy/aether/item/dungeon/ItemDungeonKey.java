@@ -10,7 +10,7 @@ public class ItemDungeonKey extends Item
 
 	public ItemDungeonKey()
 	{
-		super(new Properties().maxStackSize(1).group(ItemGroup.MISC).rarity(ItemsAether.AETHER_LOOT));
+		super(new Settings().stackSize(1).itemGroup(ItemGroup.MISC).rarity(ItemsAether.AETHER_LOOT));
 	}
 
 }

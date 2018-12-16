@@ -1,9 +1,11 @@
 package com.legacy.aether.world.biome.builder;
 
 import java.util.Random;
+import java.util.function.Function;
 
 import com.legacy.aether.blocks.BlocksAether;
 
+import com.mojang.datafixers.Dynamic;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -13,6 +15,10 @@ import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.gen.surfacebuilder.SurfaceBuilder;
 
 public class AetherSurfaceBuilder extends SurfaceBuilder<AetherSurfaceBuilderConfig> {
+
+	public AetherSurfaceBuilder(Function<Dynamic<?>, ? extends AetherSurfaceBuilderConfig> function) {
+		super(function);
+	}
 
 	@Override
 	public void generate(Random random, Chunk chunk, Biome biome, int x, int z, int y, double position, BlockState defaultBlock, BlockState defaultFluid, int waterLevel, long seed, AetherSurfaceBuilderConfig config)
@@ -25,8 +31,8 @@ public class AetherSurfaceBuilder extends SurfaceBuilder<AetherSurfaceBuilderCon
 		int j1 = -1;
         int i1 = (int)(3.0D + random.nextDouble() * 0.25D);
 
-		BlockState top = config.getTop();
-		BlockState filler = config.getMiddle();
+		BlockState top = config.getTopMaterial();
+		BlockState filler = config.getUnderMaterial();
 
         for (int chunkY = 127; chunkY >= 0; chunkY--)
 		{

@@ -1,11 +1,10 @@
 package com.legacy.aether.item.util;
 
-import net.minecraft.item.IItemTier;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.IItemProvider;
-import net.minecraft.util.LazyLoadBase;
+import net.minecraft.item.ItemContainer;
+import net.minecraft.item.ToolMaterial;
+import net.minecraft.recipe.Ingredient;
 
-public class AetherItemTier implements IItemTier
+public class AetherItemTier implements ToolMaterial
 {
 
     private final int harvestLevel;
@@ -16,7 +15,7 @@ public class AetherItemTier implements IItemTier
 
     private final LazyLoadBase<Ingredient> ingredientLoader;
 
-	public AetherItemTier(int harvestLevel, int maxUses, float efficiencyOnProperMaterial, float damageVsEntity, int enchantability, IItemProvider repairMaterial)
+	public AetherItemTier(int harvestLevel, int maxUses, float efficiencyOnProperMaterial, float damageVsEntity, int enchantability, ItemContainer repairMaterial)
 	{
         this.harvestLevel = harvestLevel;
         this.maxUses = maxUses;
@@ -24,23 +23,23 @@ public class AetherItemTier implements IItemTier
         this.damageVsEntity = damageVsEntity;
         this.enchantability = enchantability;
 
-        this.ingredientLoader = new LazyLoadBase<>(() -> Ingredient.fromItems(repairMaterial));
+        this.ingredientLoader = new LazyLoadBase<>(() -> Ingredient.ofItems(repairMaterial));
 	}
 
 	@Override
-	public Ingredient getRepairMaterial()
+	public Ingredient getRepairIngredient()
 	{
 		return this.ingredientLoader.getValue();
 	}
 
 	@Override
-	public int getHarvestLevel()
+	public int getMiningLevel()
 	{
 		return this.harvestLevel;
 	}
 
 	@Override
-	public int getMaxUses()
+	public int getDurability()
 	{
 		return this.maxUses;
 	}
@@ -52,7 +51,7 @@ public class AetherItemTier implements IItemTier
 	}
 
 	@Override
-	public float getEfficiency()
+	public float getBlockBreakingSpeed()
 	{
 		return this.efficiencyOnProperMaterial;
 	}
