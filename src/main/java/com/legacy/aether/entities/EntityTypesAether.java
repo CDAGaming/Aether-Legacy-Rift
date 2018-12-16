@@ -7,9 +7,6 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EntityType.Builder;
 import net.minecraft.item.Item;
 
-import org.dimdev.rift.listener.EntityTypeAdder;
-import org.dimdev.rift.listener.ItemAdder;
-
 import com.legacy.aether.entities.block.EntityFloatingBlock;
 import com.legacy.aether.entities.bosses.EntityFireMinion;
 import com.legacy.aether.entities.hostile.EntityAechorPlant;
@@ -32,6 +29,7 @@ import com.legacy.aether.entities.projectile.EntityPoisonNeedle;
 import com.legacy.aether.entities.projectile.crystal.EntityCrystal;
 import com.legacy.aether.entities.util.AetherMoaTypes;
 import com.legacy.aether.item.ItemAetherSpawnEgg;
+import net.minecraft.util.registry.Registry;
 
 public class EntityTypesAether implements EntityTypeAdder, ItemAdder
 {
@@ -104,13 +102,13 @@ public class EntityTypesAether implements EntityTypeAdder, ItemAdder
 	@Override
 	public void registerItems()
 	{
-		Item.register(Aether.locate("aechor_plant_spawn_egg"), new ItemAetherSpawnEgg(AECHOR_PLANT, 0x9fc3f7, 0x29a793));
-		Item.register(Aether.locate("cockatrice_spawn_egg"), new ItemAetherSpawnEgg(COCKATRICE, 0x9fc3f7, 0x3d2338));
+		Registry.register(Registry.ITEM, Aether.locate("aechor_plant_spawn_egg"), new ItemAetherSpawnEgg(AECHOR_PLANT, 0x9fc3f7, 0x29a793));
+		Registry.register(Registry.ITEM, Aether.locate("cockatrice_spawn_egg"), new ItemAetherSpawnEgg(COCKATRICE, 0x9fc3f7, 0x3d2338));
 	}
 
-	public EntityType<? extends Entity> register(String name, Builder<? extends Entity> entityBuilder)
+	public EntityType<? extends Entity> register(String name, EntityType entityBuilder)
 	{
-		EntityType<? extends Entity> entityType = EntityType.register("aether_legacy:" + name, entityBuilder.disableSerialization());
+		Registry.register(Registry.ENTITY_TYPE, Aether.locate("aether_legacy:" + name), entityBuilder);
 
 		return entityType;
 	}

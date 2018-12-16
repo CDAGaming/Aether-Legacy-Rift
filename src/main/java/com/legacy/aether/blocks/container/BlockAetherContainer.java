@@ -1,22 +1,18 @@
 package com.legacy.aether.blocks.container;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockContainer;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.container.Container;
+import net.minecraft.block.*;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.container.ContainerProvider;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.state.BooleanProperty;
-import net.minecraft.state.StateContainer;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumBlockRenderType;
+import net.minecraft.state.StateFactory;
+import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 import com.legacy.aether.tileentity.AetherTileEntity;
 
-public abstract class BlockAetherContainer extends ContainerProvider
+public abstract class BlockAetherContainer extends BlockWithEntity
 {
 
 	public static final BooleanProperty POWERED = BooleanProperty.create("powered");
@@ -29,31 +25,31 @@ public abstract class BlockAetherContainer extends ContainerProvider
 	}
 
 	@Override
-	public void fillStateContainer(StateContainer.Builder<Block, IBlockState> propertyBuilderIn)
+	public void appendProperties(StateFactory.Builder<Block, BlockState> propertyBuilderIn)
 	{
-		propertyBuilderIn.add(POWERED);
+		propertyBuilderIn.with(POWERED);
 	}
 
 	public static void setState(World worldIn, BlockPos posIn, boolean isActive)
 	{
-        IBlockState iblockstate = worldIn.getBlockState(posIn);
-        TileEntity tileentity = worldIn.getTileEntity(posIn);
+        BlockState iblockstate = worldIn.getBlockState(posIn);
+        BlockEntity tileentity = worldIn.getBlockEntity(posIn);
 
         worldIn.setBlockState(posIn, iblockstate.with(POWERED, isActive), 3);
 
         if (tileentity != null)
         {
             tileentity.validate();
-            worldIn.setTileEntity(posIn, tileentity);
+            worldIn.setBlockEntity(posIn, tileentity);
         }
 	}
 
 	@Override
-    public void onBlockPlacedBy(World worldIn, BlockPos posIn, IBlockState stateIn, EntityLivingBase entityIn, ItemStack stackIn)
+    public void onPlaced(World worldIn, BlockPos posIn, BlockState stateIn, LivingEntity entityIn, ItemStack stackIn)
     {
     	if (stackIn.hasDisplayName())
         {
-            TileEntity tileentity = worldIn.getTileEntity(posIn);
+            BlockEntity tileentity = worldIn.getBlockEntity(posIn);
 
             if (tileentity instanceof AetherTileEntity)
             {
@@ -63,9 +59,9 @@ public abstract class BlockAetherContainer extends ContainerProvider
     }
 
 	@Override
-	public EnumBlockRenderType getRenderType(IBlockState stateIn)
+	public RenderTypeBlock getRenderType(BlockState stateIn)
 	{
-		return EnumBlockRenderType.MODEL;
+		return RenderTypeBlock.MODEL;
 	}
 
 }

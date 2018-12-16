@@ -2,20 +2,17 @@ package com.legacy.aether.entities.util;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
-import net.minecraft.init.SoundEvents;
+import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.datasync.DataParameter;
-import net.minecraft.network.datasync.DataSerializers;
-import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.SoundCategory;
+import net.minecraft.item.Items;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 
-public abstract class EntitySaddleMount extends EntityMountable
+public class EntitySaddleMount extends EntityMountable
 {
 
 	public static final DataParameter<Boolean> SADDLED = EntityDataManager.<Boolean>createKey(EntityMountable.class, DataSerializers.BOOLEAN);
@@ -23,6 +20,7 @@ public abstract class EntitySaddleMount extends EntityMountable
 	public EntitySaddleMount(EntityType<? extends Entity> type, World world)
 	{
 		super(type, world);
+		super.initDataTracker();
 	}
 
 	@Override
@@ -73,16 +71,16 @@ public abstract class EntitySaddleMount extends EntityMountable
 	}
 
 	@Override
-	protected void registerData()
+	protected void initDataTracker()
 	{
-		super.registerData();
+		super.initDataTracker();
 
-		this.dataManager.register(SADDLED, false);
+		this.dataTracker.startTracking(SADDLED, false);
 	}
 
 	public boolean getSaddled()
 	{
-		return this.dataManager.get(SADDLED);
+		return this.dataTracker.get(SADDLED);
 	}
 	
 	public boolean canSaddle()
@@ -91,9 +89,9 @@ public abstract class EntitySaddleMount extends EntityMountable
 	}
 
 	@Override
-    public boolean processInteract(EntityPlayer entityplayer, EnumHand hand)
+    public boolean processInteract(PlayerEntity entityplayer, Hand hand)
 	{
-		ItemStack heldItem = entityplayer.getHeldItem(hand);
+		ItemStack heldItem = entityplayer.getStackInHand(hand);
 
 		if (!this.canSaddle())
 		{
@@ -104,14 +102,14 @@ public abstract class EntitySaddleMount extends EntityMountable
 		{
 			if (heldItem.getItem() == Items.SADDLE && !this.isChild())
 			{
-				if (!entityplayer.abilities.isCreativeMode)
+				if (!entityplayer.abilities.creativeMode)
 				{
-					entityplayer.setHeldItem(hand, ItemStack.EMPTY);
+					entityplayer.setStackInHand(hand, ItemStack.EMPTY);
 				}
 				
 				if (entityplayer.world.isRemote)
 				{
-					entityplayer.world.playSound(entityplayer, entityplayer.getPosition(), SoundEvents.ENTITY_PIG_SADDLE, SoundCategory.AMBIENT, 1.0F, 1.0F);
+					entityplayer.world.playSound(entityplayer, entityplayer.getPos(), SoundEvents.ENTITY_PIG_SADDLE, SoundCategory.AMBIENT, 1.0F, 1.0F);
 				}
 
 				this.setSaddled(true);
@@ -139,7 +137,7 @@ public abstract class EntitySaddleMount extends EntityMountable
 	@Override
 	public boolean isEntityInsideOpaqueBlock()
 	{
-		if (!this.getPassengers().isEmpty())
+		if (!this.getPassengerList().isEmpty())
 		{
 			return false;
 		}
@@ -148,7 +146,7 @@ public abstract class EntitySaddleMount extends EntityMountable
 	}
 
 	@Override
-	public void writeAdditional(NBTTagCompound compound)
+	public void writeAdditional(CompoundTag compound)
 	{
 		super.writeAdditional(compound);
 
@@ -156,7 +154,7 @@ public abstract class EntitySaddleMount extends EntityMountable
 	}
 
 	@Override
-	public void readAdditional(NBTTagCompound compound)
+	public void readAdditional(CompoundTag compound)
 	{
 		super.readAdditional(compound);
 
@@ -165,7 +163,7 @@ public abstract class EntitySaddleMount extends EntityMountable
 
 	public void setSaddled(boolean saddled)
 	{
-		this.dataManager.set(SADDLED, saddled);
+		this.dataTracker.set(SADDLED, saddled);
 	}
 	
 	/*@Override
