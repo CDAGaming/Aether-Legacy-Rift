@@ -1,6 +1,6 @@
 package com.legacy.aether.api.moa;
 
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.Identifier;
 
 public class MoaProperties
 {
@@ -9,11 +9,11 @@ public class MoaProperties
 
 	private float moaSpeed;
 
-	private ResourceLocation location;
+	private Identifier location;
 
-	private ResourceLocation saddleLocation;
+	private Identifier saddleLocation;
 
-	public MoaProperties(int maxJumps, float moaSpeed, ResourceLocation location, ResourceLocation saddleLocation)
+	public MoaProperties(int maxJumps, float moaSpeed, Identifier location, Identifier saddleLocation)
 	{
 		this.maxJumps = maxJumps;
 		this.moaSpeed = moaSpeed;
@@ -31,7 +31,7 @@ public class MoaProperties
 		return this.moaSpeed;
 	}
 
-	public ResourceLocation getCustomTexture(boolean isSaddled)
+	public Identifier getCustomTexture(boolean isSaddled)
 	{
 		return isSaddled ? this.saddleLocation : this.location;
 	}

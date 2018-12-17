@@ -66,7 +66,7 @@ public class EntitySaddleMount extends EntityMountable
 	{
 		if (this.getSaddled())
 		{
-			this.entityDropItem(Items.SADDLE, 1);
+			this.dropItem(Items.SADDLE, 1);
 		}
 	}
 
@@ -89,13 +89,13 @@ public class EntitySaddleMount extends EntityMountable
 	}
 
 	@Override
-    public boolean processInteract(PlayerEntity entityplayer, Hand hand)
+    public boolean interactMob(PlayerEntity entityplayer, Hand hand)
 	{
 		ItemStack heldItem = entityplayer.getStackInHand(hand);
 
 		if (!this.canSaddle())
 		{
-			return super.processInteract(entityplayer, hand);
+			return super.interactMob(entityplayer, hand);
 		}
 		
 		if (!this.getSaddled())
@@ -124,7 +124,7 @@ public class EntitySaddleMount extends EntityMountable
 				if (!entityplayer.world.isRemote)
 				{
 					entityplayer.startRiding(this);
-					entityplayer.prevRotationYaw = entityplayer.rotationYaw = this.rotationYaw;
+					entityplayer.prevYaw = entityplayer.yaw = this.yaw;
 				}
 
 				return true;
@@ -146,17 +146,17 @@ public class EntitySaddleMount extends EntityMountable
 	}
 
 	@Override
-	public void writeAdditional(CompoundTag compound)
+	public void writeCustomDataToTag(CompoundTag compound)
 	{
-		super.writeAdditional(compound);
+		super.writeCustomDataToTag(compound);
 
 		compound.putBoolean("isSaddled", this.getSaddled());
 	}
 
 	@Override
-	public void readAdditional(CompoundTag compound)
+	public void readCustomDataFromTag(CompoundTag compound)
 	{
-		super.readAdditional(compound);
+		super.readCustomDataFromTag(compound);
 
 		this.setSaddled(compound.getBoolean("isSaddled"));
 	}

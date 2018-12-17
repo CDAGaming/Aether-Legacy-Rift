@@ -1,6 +1,6 @@
 package com.legacy.aether.entities.projectile;
 
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
@@ -20,21 +20,21 @@ public class EntityGoldenDart extends EntityDart
 		super(EntityTypesAether.GOLDEN_DART, worldIn, x, y, z);
 	}
 
-	public EntityGoldenDart(EntityLivingBase shooter, World worldIn)
+	public EntityGoldenDart(LivingEntity shooter, World worldIn)
 	{
 		super(EntityTypesAether.GOLDEN_DART, shooter, worldIn);
 	}
 
 	@Override
-	protected void registerData()
+	protected void initDataTracker()
 	{
-		super.registerData();
+		super.initDataTracker();
 
 		this.setDamage(6.0D);
 	}
 
 	@Override
-	protected ItemStack getArrowStack() 
+	protected ItemStack asItemStack()
 	{
 		return new ItemStack(ItemsAether.enchanted_dart);
 	}

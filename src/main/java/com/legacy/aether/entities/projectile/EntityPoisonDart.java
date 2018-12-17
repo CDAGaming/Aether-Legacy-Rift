@@ -2,19 +2,19 @@ package com.legacy.aether.entities.projectile;
 
 import io.netty.buffer.Unpooled;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.init.Items;
-import net.minecraft.init.Particles;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.network.play.server.SPacketCustomPayload;
-import net.minecraft.particles.ItemParticleData;
+import net.minecraft.item.Items;
+import net.minecraft.particle.ItemStackParticle;
+import net.minecraft.particle.ParticleTypes;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.network.packet.CustomPayloadServerPacket;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.PacketByteBuf;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldServer;
 
 import com.legacy.aether.Aether;
 import com.legacy.aether.entities.EntityTypesAether;
@@ -25,7 +25,7 @@ import com.legacy.aether.player.IEntityPlayerAether;
 public class EntityPoisonDart extends EntityDart
 {
 
-	public EntityLivingBase victim;
+	public LivingEntity victim;
 
 	public AetherPoisonMovement poison;
 
@@ -39,7 +39,7 @@ public class EntityPoisonDart extends EntityDart
 		super(EntityTypesAether.POISON_DART, worldIn, x, y, z);
 	}
 
-    public EntityPoisonDart(EntityLivingBase entity, World world) 
+    public EntityPoisonDart(LivingEntity entity, World world)
     {
 		super(EntityTypesAether.POISON_DART, entity, world);
 	}
@@ -54,42 +54,42 @@ public class EntityPoisonDart extends EntityDart
 		super(entityTypeIn, worldIn, x, y, z);
 	}
 
-    public EntityPoisonDart(EntityType<? extends EntityDart> entityTypeIn, EntityLivingBase entity, World world) 
+    public EntityPoisonDart(EntityType<? extends EntityDart> entityTypeIn, LivingEntity entity, World world)
     {
 		super(entityTypeIn, entity, world);
 	}
 
 	@Override
-	protected void registerData()
+	protected void initDataTracker()
 	{
-		super.registerData();
+		super.initDataTracker();
 
 		this.setDamage(0.0D);
 	}
 
 	@Override
-    public void tick()
+    public void update()
     {
-        super.tick();
+        super.update();
 
         if (this.victim != null)
         {
-        	if (this.victim.removed || this.poison.poisonTime == 0)
+        	if (this.victim.invalid || this.poison.poisonTime == 0)
         	{
-        		this.remove();
+        		this.invalidate();
 
         		return;
         	}
 
         	if (this.shootingEntity != null)
         	{
-                if (this.world instanceof WorldServer)
+                if (this.world instanceof ServerWorld)
                 {
-                	((WorldServer)this.world).spawnParticle(new ItemParticleData(Particles.ITEM, new ItemStack(Items.ROSE_RED)), this.victim.posX, this.victim.getBoundingBox().minY + this.victim.height * 0.8D, this.victim.posZ, 2, 0.0D, 0.0D, 0.0D, 0.0625D);
+                	((ServerWorld)this.world).method_8406(new ItemStackParticle(ParticleTypes.ITEM, new ItemStack(Items.RED_DYE)), this.victim.posX, this.victim.getBoundingBox().minY + this.victim.height * 0.8D, this.victim.posZ, 2, 0.0D, 0.0D, 0.0D, 0.0625D);
                 }
         	}
 
-        	this.removed = false;
+        	this.invalid = false;
         	this.poison.tick();
         	this.setInvisible(true);
         	this.setPosition(this.victim.posX, this.victim.posY, this.victim.posZ);
@@ -97,7 +97,7 @@ public class EntityPoisonDart extends EntityDart
     }
 
     @Override
-    public void onCollideWithPlayer(EntityPlayer entityIn)
+    public void onCollideWithPlayer(PlayerEntity entityIn)
     {
     	if (this.victim == null)
     	{
@@ -106,26 +106,26 @@ public class EntityPoisonDart extends EntityDart
     }
 
     @Override
-    protected void arrowHit(EntityLivingBase living)
+    protected void onHit(LivingEntity living)
     {
-    	super.arrowHit(living);
+    	super.onHit(living);
 
     	this.victim = living;
     	this.poison = new AetherPoisonMovement(this.victim);
 
-    	if (living instanceof EntityPlayerMP)
+    	if (living instanceof ServerPlayerEntity)
     	{
-    		EntityPlayerMP ent = (EntityPlayerMP)living;
+    		ServerPlayerEntity ent = (ServerPlayerEntity) living;
 
             if (!this.world.isRemote)
             {
             	((IEntityPlayerAether)ent).getPlayerAether().applyPoison(500);
 
-            	PacketBuffer buffer = new PacketBuffer(Unpooled.buffer());
+            	PacketByteBuf buffer = new PacketByteBuf(Unpooled.buffer());
 
             	buffer.writeInt(500);
 
-            	ent.connection.sendPacket(new SPacketCustomPayload(Aether.locate("apply_poison"), buffer));
+            	ent.networkHandler.sendPacket(new CustomPayloadServerPacket(Aether.locate("apply_poison"), buffer));
             }
     	}
     	else
@@ -133,7 +133,7 @@ public class EntityPoisonDart extends EntityDart
         	this.poison.afflictPoison(500);
     	}
 
-    	this.removed = false;
+    	this.invalid = false;
     }
 
     @Override
@@ -148,7 +148,7 @@ public class EntityPoisonDart extends EntityDart
     }
 
 	@Override
-	protected ItemStack getArrowStack() 
+	protected ItemStack asItemStack()
 	{
 		return new ItemStack(ItemsAether.poison_dart);
 	}

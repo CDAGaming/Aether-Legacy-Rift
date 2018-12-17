@@ -1,26 +1,24 @@
 package com.legacy.aether.entities.projectile.crystal;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityFlying;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.effect.EntityLightningBolt;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.MobEffects;
-import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.DamageSource;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.entity.mob.FlyingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldServer;
 
 import com.legacy.aether.api.player.util.IAetherBoss;
 import com.legacy.aether.entities.EntityTypesAether;
 import com.legacy.aether.entities.bosses.EntityFireMinion;
 
-public class EntityCrystal extends EntityFlying
+public class EntityCrystal extends FlyingEntity
 {
 
     public float[] sinage = new float[3];
@@ -41,16 +39,16 @@ public class EntityCrystal extends EntityFlying
 
         double base = 0.2F;
 
-        this.smotionX = (base + (double) this.rand.nextFloat() * 0.15D) * (this.rand.nextInt(2) == 0 ? 1.0D : -1.0D);
-        this.smotionY = (base + (double) this.rand.nextFloat() * 0.15D) * (this.rand.nextInt(2) == 0 ? 1.0D : -1.0D);
-        this.smotionZ = (base + (double) this.rand.nextFloat() * 0.15D) * (this.rand.nextInt(2) == 0 ? 1.0D : -1.0D);
+        this.smotionX = (base + (double) this.random.nextFloat() * 0.15D) * (this.rand.nextInt(2) == 0 ? 1.0D : -1.0D);
+        this.smotionY = (base + (double) this.random.nextFloat() * 0.15D) * (this.rand.nextInt(2) == 0 ? 1.0D : -1.0D);
+        this.smotionZ = (base + (double) this.random.nextFloat() * 0.15D) * (this.rand.nextInt(2) == 0 ? 1.0D : -1.0D);
 
         this.isImmuneToFire = true;
-        this.type = EnumCrystalType.get(this.rand.nextInt(2));
+        this.type = EnumCrystalType.get(this.random.nextInt(2));
 
         for (int var2 = 0; var2 < this.sinage.length; ++var2)
         {
-            this.sinage[var2] = this.rand.nextFloat() * 6.0F;
+            this.sinage[var2] = this.random.nextFloat() * 6.0F;
         }
 
         this.setSize(0.9F, 0.9F);
@@ -72,45 +70,45 @@ public class EntityCrystal extends EntityFlying
         this.setPosition(x, y, z);
     }
 
-    public EntityCrystal(World world, double x, double y, double z, EntityLivingBase target)
+    public EntityCrystal(World world, double x, double y, double z, LivingEntity target)
     {
         this(world, x, y, z, EnumCrystalType.THUNDER);
 
-        this.setAttackTarget(target);
+        this.setTarget(target);
     }
 
     @Override
-    protected void registerAttributes()
+    protected void initAttributes()
     {
-        super.registerAttributes();
+        super.initAttributes();
 
-        this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(20.0D);
-        this.getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(1.0D);
+        this.getAttributeInstance(EntityAttributes.MAX_HEALTH).setBaseValue(20.0D);
+        this.getAttributeInstance(EntityAttributes.MOVEMENT_SPEED).setBaseValue(1.0D);
     }
 
     @Override
-    public void tick()
+    public void update()
     {
-        super.tick();
+        super.update();
 
         if (this.type != EnumCrystalType.THUNDER && !this.world.isRemote)
         {
-            this.motionX = this.smotionX;
-            this.motionY = this.smotionY;
-            this.motionZ = this.smotionZ;
+            this.velocityX = this.smotionX;
+            this.velocityY = this.smotionY;
+            this.velocityZ = this.smotionZ;
         }
 
         if (this.type == EnumCrystalType.THUNDER) 
         {
             if (!this.world.isRemote)
             {
-                if (this.getAttackTarget() == null || (this.getAttackTarget() != null && !this.getAttackTarget().isAlive())) 
+                if (this.getTarget() == null || (this.getTarget() != null && !this.getAttackTarget().isAlive()))
                 {
-                    this.remove();
+                    this.invalidate();
                 }
 
-                this.faceEntity(this.getAttackTarget(), 10F, 10F);
-                this.moveTowardsTarget(this.getAttackTarget(), 0.02D);
+                this.faceEntity(this.getTarget(), 10F, 10F);
+                this.moveTowardsTarget(this.getTarget(), 0.02D);
             }
         }
         else if (this.collided && !this.world.isRemote)
@@ -119,7 +117,7 @@ public class EntityCrystal extends EntityFlying
             {
                 this.explode();
                 this.expire();
-                this.remove();
+                this.invalidate();
             }
 
             int var1 = MathHelper.floor(this.posX);
@@ -127,31 +125,31 @@ public class EntityCrystal extends EntityFlying
             int var3 = MathHelper.floor(this.posZ);
             BlockPos pos = new BlockPos(var1, var2, var3);
 
-            if (this.smotionX > 0.0D && !this.world.isAirBlock(pos.east())) 
+            if (this.smotionX > 0.0D && !this.world.isAir(pos.east()))
             {
-                this.motionX = this.smotionX = -this.smotionX;
+                this.velocityX = this.smotionX = -this.smotionX;
             }
-            else if (this.smotionX < 0.0D && !this.world.isAirBlock(pos.west())) 
+            else if (this.smotionX < 0.0D && !this.world.isAir(pos.west()))
             {
-                this.motionX = this.smotionX = -this.smotionX;
-            }
-
-            if (this.smotionY > 0.0D && !this.world.isAirBlock(pos.up()))
-            {
-                this.motionY = this.smotionY = -this.smotionY;
-            }
-            else if (this.smotionY < 0.0D && !this.world.isAirBlock(pos.down()))
-            {
-                this.motionY = this.smotionY = -this.smotionY;
+                this.velocityX = this.smotionX = -this.smotionX;
             }
 
-            if (this.smotionZ > 0.0D && !this.world.isAirBlock(pos.south())) 
+            if (this.smotionY > 0.0D && !this.world.isAir(pos.up()))
             {
-                this.motionZ = this.smotionZ = -this.smotionZ;
+                this.velocityY = this.smotionY = -this.smotionY;
             }
-            else if (this.smotionZ < 0.0D && !this.world.isAirBlock(pos.north()))
+            else if (this.smotionY < 0.0D && !this.world.isAir(pos.down()))
             {
-                this.motionZ = this.smotionZ = -this.smotionZ;
+                this.velocityY = this.smotionY = -this.smotionY;
+            }
+
+            if (this.smotionZ > 0.0D && !this.world.isAir(pos.south()))
+            {
+                this.velocityZ = this.smotionZ = -this.smotionZ;
+            }
+            else if (this.smotionZ < 0.0D && !this.world.isAir(pos.north()))
+            {
+                this.velocityZ = this.smotionZ = -this.smotionZ;
             }
         }
 
@@ -163,7 +161,7 @@ public class EntityCrystal extends EntityFlying
             }
 
             this.expire();
-            this.remove();
+            this.invalidate();
         }
 
         for (int var1 = 0; var1 < this.sinage.length; ++var1) {
@@ -188,44 +186,44 @@ public class EntityCrystal extends EntityFlying
             {
                 this.explode();
                 this.expire();
-                this.remove();
+                this.invalidate();
                 crystal.explode();
                 crystal.expire();
-                crystal.remove();
+                crystal.invalidate();
             }
         }
-        else if (entity instanceof EntityLivingBase)
+        else if (entity instanceof LivingEntity)
         {
             if (this.type == EnumCrystalType.FIRE && !(entity instanceof IAetherBoss) && !(entity instanceof EntityFireMinion))
             {
-                if (entity.attackEntityFrom(DamageSource.causeMobDamage(this), 5.0F))
+                if (entity.attackEntityFrom(DamageSource.mob(this), 5.0F))
                 {
                     this.explode();
                     this.expire();
-                    this.remove();
-                    entity.setFire(100);
+                    this.invalidate();
+                    entity.setOnFireFor(100);
                 }
             }
             else if (this.type == EnumCrystalType.ICE && this.wasHit())
             {
-                if (entity.attackEntityFrom(DamageSource.causeMobDamage(this), 5.0F))
+                if (entity.attackEntityFrom(DamageSource.mob(this), 5.0F))
                 {
                     this.explode();
                     this.expire();
-                    this.remove();
-                    ((EntityLivingBase) entity).addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 10));
+                    this.invalidate();
+                    ((LivingEntity) entity).addPotionEffect(new StatusEffectInstance(StatusEffects.WEAKNESS, 10));
                 }
             }
             else if (this.type == EnumCrystalType.CLOUD && !(entity instanceof IAetherBoss))
             {
                 this.explode();
                 this.expire();
-                this.remove();
-                entity.attackEntityFrom(DamageSource.causeMobDamage(this), 5.0F);
+                this.invalidate();
+                entity.attackEntityFrom(DamageSource.mob(this), 5.0F);
             }
-            else if (this.type == EnumCrystalType.THUNDER && entity == this.getAttackTarget())
+            else if (this.type == EnumCrystalType.THUNDER && entity == this.getTarget())
             {
-                if (entity.attackEntityFrom(DamageSource.causeMobDamage(this), 1.0F))
+                if (entity.attackEntityFrom(DamageSource.mob(this), 1.0F))
                 {
                     this.moveTowardsTarget(entity, -0.3D);
                 }
@@ -236,16 +234,16 @@ public class EntityCrystal extends EntityFlying
     @Override
     public boolean attackEntityFrom(DamageSource source, float damage)
     {
-        if (source.getTrueSource() != null)
+        if (source.getSource() != null)
         {
             if (this.type == EnumCrystalType.THUNDER)
             {
-                this.moveTowardsTarget(source.getTrueSource(), -0.15D - ((double) damage / 8D));
+                this.moveTowardsTarget(source.getSource(), -0.15D - ((double) damage / 8D));
 
                 return super.attackEntityFrom(source, damage);
             }
 
-            Vec3d var3 = source.getTrueSource().getLookVec();
+            Vec3d var3 = source.getSource().getLookVec();
 
             if (var3 != null) {
                 this.smotionX = var3.x;
@@ -268,30 +266,30 @@ public class EntityCrystal extends EntityFlying
             return;
         }
 
-        double angle1 = this.rotationYaw / (180F / Math.PI);
+        double angle1 = this.yaw / (180F / Math.PI);
 
-        this.motionX -= Math.sin(angle1) * speed;
-        this.motionZ += Math.cos(angle1) * speed;
+        this.velocityX -= Math.sin(angle1) * speed;
+        this.velocityZ += Math.cos(angle1) * speed;
 
         double a = target.posY - 0.75F;
 
         if (a < this.getBoundingBox().minY - 0.5F)
         {
-            this.motionY -= (speed / 2);
+            this.velocityY -= (speed / 2);
         }
         else if (a > this.getBoundingBox().minY + 0.5F)
         {
-            this.motionY += (speed / 2);
+            this.velocityY += (speed / 2);
         }
         else
         {
-            this.motionY += (a - this.getBoundingBox().minY) * (speed / 2);
+            this.velocityY += (a - this.getBoundingBox().minY) * (speed / 2);
         }
 
         if (this.onGround)
         {
             this.onGround = false;
-            this.motionY = 0.1F;
+            this.velocityY = 0.1F;
         }
     }
 
@@ -307,19 +305,19 @@ public class EntityCrystal extends EntityFlying
 
     private void expire()
     {
-        this.world.playSound((EntityPlayer)null, this.posX, this.posY, this.posZ, this.type.getDeathSound(), this.getSoundCategory(), 2.0F, this.rand.nextFloat() - this.rand.nextFloat() * 0.2F + 1.2F);
+        this.world.playSound((PlayerEntity) null, this.posX, this.posY, this.posZ, this.type.getDeathSound(), this.getSoundCategory(), 2.0F, this.random.nextFloat() - this.random.nextFloat() * 0.2F + 1.2F);
 
         if (this.world.isRemote)
         {
             return;
         }
 
-        ((WorldServer) this.world).spawnParticle(this.type.getDeathParticle(), this.posX, this.getBoundingBox().minY + this.height * 0.8D, this.posZ, 16, 0.25D, 0.25D, 0.25D, 0.0D);
+        ((ServerWorld) this.world).method_8406(this.type.getDeathParticle(), this.posX, this.getBoundingBox().minY + this.height * 0.8D, this.posZ, 16, 0.25D, 0.25D, 0.25D, 0.0D);
     }
 
     private void explode()
     {
-        this.world.playSound((EntityPlayer)null, this.posX, this.posY, this.posZ, this.type.getExplosionSound(), this.getSoundCategory(), 2.0F, this.rand.nextFloat() - this.rand.nextFloat() * 0.2F + 1.2F);
+        this.world.playSound((PlayerEntity) null, this.posX, this.posY, this.posZ, this.type.getExplosionSound(), this.getSoundCategory(), 2.0F, this.random.nextFloat() - this.random.nextFloat() * 0.2F + 1.2F);
 
         if (this.world.isRemote)
         {
@@ -333,7 +331,7 @@ public class EntityCrystal extends EntityFlying
             motionMultiplier *= 0.5D;
         }
 
-        ((WorldServer) this.world).spawnParticle(this.type.getExplosionParticle(), this.posX, this.posY, this.posZ, 40, 0.0D, 0.0D, 0.0D, motionMultiplier);
+        ((ServerWorld) this.world).method_8406(this.type.getExplosionParticle(), this.posX, this.posY, this.posZ, 40, 0.0D, 0.0D, 0.0D, motionMultiplier);
     }
 
     public EnumCrystalType getCrystalType()

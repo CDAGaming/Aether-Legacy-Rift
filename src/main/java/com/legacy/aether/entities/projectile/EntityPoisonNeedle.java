@@ -2,7 +2,7 @@ package com.legacy.aether.entities.projectile;
 
 import com.legacy.aether.entities.EntityTypesAether;
 
-import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.world.World;
 
 public class EntityPoisonNeedle extends EntityPoisonDart
@@ -18,7 +18,7 @@ public class EntityPoisonNeedle extends EntityPoisonDart
 		super(EntityTypesAether.POISON_NEEDLE, worldIn, x, y, z);
 	}
 
-    public EntityPoisonNeedle(EntityLiving entity, World world)
+    public EntityPoisonNeedle(LivingEntity entity, World world)
     {
         super(EntityTypesAether.POISON_NEEDLE, entity, world);
     }
