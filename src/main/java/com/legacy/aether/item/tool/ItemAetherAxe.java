@@ -1,5 +1,6 @@
 package com.legacy.aether.item.tool;
 
+import com.legacy.aether.entities.block.EntityFloatingBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
@@ -12,7 +13,7 @@ import net.minecraft.util.Rarity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-import com.legacy.aether.entities.block.EntityFloatingBlock;
+//import com.legacy.aether.entities.block.EntityFloatingBlock;
 import com.legacy.aether.item.ItemsAether;
 import com.legacy.aether.item.util.AetherTier;
 

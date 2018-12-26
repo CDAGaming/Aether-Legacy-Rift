@@ -1,9 +1,11 @@
 package com.legacy.aether.blocks.natural;
 
+import net.fabricmc.fabric.block.FabricBlockSettings;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.Material;
+import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -12,7 +14,7 @@ public class BlockIcestone extends Block
 
 	public BlockIcestone() 
 	{
-		super(Block.Settings.of(Material.EARTH).strength(3.0F, -1.0F).sound(SoundType.GLASS));
+		super(FabricBlockSettings.of(Material.STONE).strength(3.0F, -1.0F).sounds(BlockSoundGroup.GLASS).build());
 	}
 
 	@Override

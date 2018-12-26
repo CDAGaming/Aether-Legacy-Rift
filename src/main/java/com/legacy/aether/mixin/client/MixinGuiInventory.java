@@ -1,9 +1,9 @@
 package com.legacy.aether.mixin.client;
 
-import net.minecraft.client.gui.inventory.GuiInventory;
-import net.minecraft.client.renderer.InventoryEffectRenderer;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.client.gui.ingame.AbstractGuiInventory;
+import net.minecraft.client.gui.ingame.InventoryGui;
 
+import net.minecraft.entity.player.PlayerEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -11,22 +11,22 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import com.legacy.aether.client.gui.button.GuiAccessoryButton;
 
-@Mixin(GuiInventory.class)
-public abstract class MixinGuiInventory extends InventoryEffectRenderer
+@Mixin(InventoryGui.class)
+public abstract class MixinGuiInventory extends AbstractGuiInventory
 {
-    public MixinGuiInventory(EntityPlayer player)
+    public MixinGuiInventory(PlayerEntity player)
     {
-        super(player.inventoryContainer);
+        super(player.containerPlayer);
 
-        this.allowUserInput = true;
+        //this.allowUserInput = true;
     }
 
-    @Inject(method = "initGui", at = @At("RETURN"))
+    @Inject(method = "onInitialized", at = @At("RETURN"))
 	protected void initAccessoryButton(CallbackInfo ci)
 	{
 		//GuiInventory instance = (GuiInventory) (Object) this;
 
-		this.addButton(new GuiAccessoryButton(this, this.guiLeft + 26, this.guiTop + 65));
+		this.addButton(new GuiAccessoryButton(this, this.left + 26, this.top + 65));
 	}
 
 }

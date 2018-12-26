@@ -5,9 +5,8 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
-public class SoundsAether implements SoundAdder
+public class SoundsAether
 {
-
 	public static SoundEvent moa_say, moa_flap;
 	
 	public static SoundEvent sheepuff_hurt, sheepuff_say, sheepuff_death;
@@ -34,8 +33,7 @@ public class SoundsAether implements SoundAdder
 
 	public static SoundEvent aether1, aether2, aether3, aether4, aether_menu;
 
-	@Override
-	public void registerSounds()
+	public static void registerSounds()
 	{
 		moa_say = register(Aether.locate("aemob.moa.say"));
 		moa_flap = register(Aether.locate("aemob.moa.flap"));
@@ -89,11 +87,12 @@ public class SoundsAether implements SoundAdder
 		aether_menu = register(Aether.locate("music.menu"));
 	}
 
-	public SoundEvent register(Identifier location)
+	public static SoundEvent register(Identifier location)
 	{
-		Registry.register(Registry.SOUND_EVENT, location.toString(), new SoundEvent(location));
+		SoundEvent localEvent = new SoundEvent(location);
+		Registry.register(Registry.SOUND_EVENT, location, localEvent);
 
-		return Registry.SOUND_EVENT.get(location);
+		return localEvent;
 	}
 
 }

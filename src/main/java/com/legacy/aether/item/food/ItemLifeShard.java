@@ -35,7 +35,7 @@ public class ItemLifeShard extends Item
 		if (playerAether.getShardsUsed() < 10)
 		{
 			playerAether.increaseMaxHP();
-			heldItem.shrink(1);
+			heldItem.subtractAmount(1);
 
 			return new TypedActionResult<ItemStack>(ActionResult.SUCCESS, heldItem);
 		}

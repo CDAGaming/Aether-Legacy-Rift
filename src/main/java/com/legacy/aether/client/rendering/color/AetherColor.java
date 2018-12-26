@@ -1,5 +1,7 @@
 package com.legacy.aether.client.rendering.color;
 
+import com.legacy.aether.blocks.BlocksAether;
+import com.legacy.aether.blocks.decorative.BlockColoredAercloud;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.render.block.BlockColorMapper;
@@ -7,11 +9,7 @@ import net.minecraft.client.render.item.ItemColorMapper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 
-import com.legacy.aether.blocks.BlocksAether;
-import com.legacy.aether.blocks.decorative.BlockColoredAercloud;
-import com.legacy.aether.item.ItemMoaEgg;
 import com.legacy.aether.item.ItemsAether;
-import com.legacy.aether.item.accessory.ItemAccessory;
 import com.legacy.aether.item.armor.ItemAetherArmor;
 import net.minecraft.world.ExtendedBlockView;
 
@@ -56,18 +54,19 @@ public class AetherColor implements BlockColorMapper, ItemColorMapper
 		{
 			return ((BlockColoredAercloud)block).getColor();
 		}
-		else if (stack.getItem() instanceof ItemAccessory)
-		{
-			return ((ItemAccessory)stack.getItem()).getColor();
-		}
 		else if (stack.getItem() instanceof ItemAetherArmor)
 		{
 			return ((ItemAetherArmor)stack.getItem()).getColor();
 		}
+		/*
+		if (stack.getItem() instanceof ItemAccessory)
+		{
+			return ((ItemAccessory)stack.getItem()).getColor();
+		}
 		else if (stack.getItem() == ItemsAether.moa_egg)
 		{
 			return ((ItemMoaEgg)stack.getItem()).getColor(stack);
-		}
+		}*/
 
 		return 0;
 	}

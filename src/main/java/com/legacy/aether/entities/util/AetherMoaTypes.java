@@ -6,6 +6,7 @@ import com.legacy.aether.Aether;
 import com.legacy.aether.api.AetherAPI;
 import com.legacy.aether.api.moa.MoaProperties;
 import com.legacy.aether.api.moa.MoaType;
+import net.minecraft.item.Items;
 
 public class AetherMoaTypes 
 {

@@ -1,42 +1,27 @@
 package com.legacy.aether.blocks;
 
-import net.minecraft.block.Block;
-import net.minecraft.item.Item;
-
-import net.minecraft.item.block.BlockItem;
-import net.minecraft.item.block.WallStandingBlockItem;
-import net.minecraft.util.DyeColor;
-import net.minecraft.util.registry.Registry;
-
 import com.legacy.aether.Aether;
-import com.legacy.aether.blocks.container.BlockEnchanter;
-import com.legacy.aether.blocks.container.BlockFreezer;
-import com.legacy.aether.blocks.decorative.BlockAerogel;
-import com.legacy.aether.blocks.decorative.BlockAmbrosiumTorch;
-import com.legacy.aether.blocks.decorative.BlockAmbrosiumTorchWall;
-import com.legacy.aether.blocks.decorative.BlockColoredAercloud;
-import com.legacy.aether.blocks.decorative.BlockHolystoneBrick;
-import com.legacy.aether.blocks.decorative.BlockQuicksoilGlass;
-import com.legacy.aether.blocks.decorative.BlockSkyrootPlanks;
-import com.legacy.aether.blocks.decorative.BlockZanite;
-import com.legacy.aether.blocks.natural.BlockAetherDirt;
-import com.legacy.aether.blocks.natural.BlockAetherFlower;
-import com.legacy.aether.blocks.natural.BlockAetherGrass;
-import com.legacy.aether.blocks.natural.BlockAetherLeaves;
-import com.legacy.aether.blocks.natural.BlockAetherLog;
-import com.legacy.aether.blocks.natural.BlockAetherSapling;
-import com.legacy.aether.blocks.natural.BlockHolystone;
-import com.legacy.aether.blocks.natural.BlockIcestone;
-import com.legacy.aether.blocks.natural.BlockQuicksoil;
+import com.legacy.aether.blocks.decorative.*;
+import com.legacy.aether.blocks.natural.*;
 import com.legacy.aether.blocks.natural.aercloud.BlockAercloud;
 import com.legacy.aether.blocks.natural.enchanted.BlockEnchantedAetherGrass;
 import com.legacy.aether.blocks.natural.enchanted.BlockEnchantedGravitite;
 import com.legacy.aether.blocks.natural.ore.BlockAmbrosiumOre;
 import com.legacy.aether.blocks.natural.ore.BlockGravititeOre;
 import com.legacy.aether.blocks.natural.ore.BlockZaniteOre;
-import com.legacy.aether.blocks.natural.tree.GoldenOakTree;
-import com.legacy.aether.blocks.natural.tree.SkyrootTree;
-import com.legacy.aether.blocks.portal.BlockAetherPortal;
+import net.fabricmc.fabric.client.render.BlockEntityRendererRegistry;
+import net.minecraft.block.Block;
+import net.minecraft.block.MaterialColor;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.client.render.block.entity.BlockEntityRenderer;
+import net.minecraft.item.Item;
+
+import net.minecraft.item.ItemGroup;
+import net.minecraft.item.block.BlockItem;
+import net.minecraft.item.block.WallStandingBlockItem;
+import net.minecraft.util.DyeColor;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registry;
 
 public class BlocksAether
 {
@@ -107,7 +92,9 @@ public class BlocksAether
 
 	public static final Item[] itemBlockList = new Item[blockList.length];
 
-	public void registerBlocks()
+	public static final Identifier[] identifierList = new Identifier[blockList.length];
+
+	public static void registerBlocks()
 	{
 		aether_grass = register("aether_grass", new BlockAetherGrass());
 		enchanted_aether_grass = register("enchanted_aether_grass", new BlockEnchantedAetherGrass());
@@ -149,18 +136,19 @@ public class BlocksAether
 		quicksoil_glass = register("quicksoil_glass", new BlockQuicksoilGlass());
 		aerogel = register("aerogel", new BlockAerogel());
 		enchanted_gravitite = register("enchanted_gravitite", new BlockEnchantedGravitite());
-		zanite_block = register("zanite_block", new BlockZanite());
 
+		zanite_block = register("zanite_block", new BlockZanite());
+/*
 		enchanter = register("enchanter", new BlockEnchanter());
 		freezer = register("freezer", new BlockFreezer());
-
+*/
 		ambrosium_torch = register("ambrosium_torch", new BlockAmbrosiumTorch());
 		ambrosium_torch_wall = register("ambrosium_wall_torch", new BlockAmbrosiumTorchWall());
 
 		itemBlockList[availableId] = new BlockItem(ambrosium_torch_wall, new Item.Settings());
 		itemBlockList[availableId - 1] = new WallStandingBlockItem(ambrosium_torch, ambrosium_torch_wall, new Item.Settings());
 
-		aether_portal = register("aether_portal", new BlockAetherPortal());
+		//aether_portal = register("aether_portal", new BlockAetherPortal());
 
 		/*carved_stone = register("carved_stone", new BlockDungeon(false));
 		angelic_stone = register("angelic_stone", new BlockDungeon(false));
@@ -183,18 +171,21 @@ public class BlocksAether
 		locked_light_angelic_stone = register("locked_light_angelic_stone", new BlockDungeonTrapLight(light_angelic_stone.getDefaultState()));
 		locked_light_hellfire_stone = register("locked_light_hellfire_stone", new BlockDungeonTrapLight(light_hellfire_stone.getDefaultState()));*/
 
+		/*
 		purple_flower = register("purple_flower", new BlockAetherFlower());
 		white_flower = register("white_flower", new BlockAetherFlower());
 		skyroot_sapling = register("skyroot_sapling", new BlockAetherSapling(new SkyrootTree()));
 		golden_oak_sapling = register("golden_oak_sapling", new BlockAetherSapling(new GoldenOakTree()));
+		*/
 	}
 
-	public void registerItems()
+	public static void registerItems()
 	{
 		for (int i = 0; i < blockList.length; ++i)
 		{
 			Block block = blockList[i];
 			Item itemBlock = itemBlockList[i];
+			Identifier identifier = identifierList[i];
 
 			if (block == null)
 			{
@@ -203,22 +194,21 @@ public class BlocksAether
 
 			if (itemBlock == null)
 			{
-				// TODO
-				Registry.register(Registry.BLOCK, block.getTranslationKey(), block);
+				Registry.register(Registry.ITEM, identifier, new BlockItem(block, new Item.Settings().itemGroup(ItemGroup.BUILDING_BLOCKS)));
 			}
 			else
 			{
-				// TODO
-				Registry.register(Registry.ITEM, block.toString(), itemBlock);
+				Registry.register(Registry.ITEM, identifier, itemBlock);
 			}
 		}
 	}
 
 	public static Block register(String name, Block block)
 	{
-		Registry.register(Registry.BLOCK, name, block);
+		Registry.register(Registry.BLOCK, Aether.locate(name), block);
 
 		blockList[availableId] = block;
+		identifierList[availableId] = Aether.locate(name);
 
 		++availableId;
 

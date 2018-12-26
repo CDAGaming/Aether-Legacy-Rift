@@ -1,22 +1,21 @@
 package com.legacy.aether.blocks.decorative;
 
-import net.minecraft.item.EnumDyeColor;
-
 import com.legacy.aether.blocks.natural.aercloud.BlockAercloud;
+import net.minecraft.util.DyeColor;
 
 public class BlockColoredAercloud extends BlockAercloud
 {
+	private DyeColor color;
 
-	private EnumDyeColor color;
-
-	public BlockColoredAercloud(EnumDyeColor color)
+	public BlockColoredAercloud(DyeColor color)
 	{
+		super(color);
 		this.color = color;
 	}
 
 	public int getColor()
 	{
-		return this.color.func_196060_f();
+		return this.color.method_16357();
 	}
 
 }

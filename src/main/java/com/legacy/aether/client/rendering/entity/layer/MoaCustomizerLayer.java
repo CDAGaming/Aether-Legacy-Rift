@@ -1,10 +1,12 @@
 package com.legacy.aether.client.rendering.entity.layer;
 
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.client.renderer.entity.layers.LayerRenderer;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.ResourceLocation;
+import com.mojang.blaze3d.platform.GlStateManager;
+import net.minecraft.class_3883;
+import net.minecraft.class_3887;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.render.entity.EntityRenderDispatcher;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.Identifier;
 
 import com.legacy.aether.Aether;
 import com.legacy.aether.client.model.MoaModel;
@@ -13,39 +15,38 @@ import com.legacy.aether.player.IEntityPlayerAether;
 import com.legacy.aether.player.PlayerAether;
 import com.legacy.aether.player.perks.CustomizedMoaSkin;
 
-public class MoaCustomizerLayer implements LayerRenderer<EntityMoa>
-{
+public class MoaCustomizerLayer extends class_3887<EntityMoa, MoaModel> {
 
-	private static final ResourceLocation TEXTURE_OUTSIDE = Aether.locate("textures/entity/moa/canvas/moa_outside.png");
+	private static final Identifier TEXTURE_OUTSIDE = Aether.locate("textures/entity/moa/canvas/moa_outside.png");
 
-	private static final ResourceLocation TEXTURE_EYE = Aether.locate("textures/entity/moa/canvas/moa_eye.png");
+	private static final Identifier TEXTURE_EYE = Aether.locate("textures/entity/moa/canvas/moa_eye.png");
 
-	private static final ResourceLocation TEXTURE_BODY = Aether.locate("textures/entity/moa/canvas/moa_body.png");
+	private static final Identifier TEXTURE_BODY = Aether.locate("textures/entity/moa/canvas/moa_body.png");
 
-	private static final ResourceLocation TEXTURE_MARKINGS = Aether.locate("textures/entity/moa/canvas/moa_markings.png");
+	private static final Identifier TEXTURE_MARKINGS = Aether.locate("textures/entity/moa/canvas/moa_markings.png");
 
-	private static final ResourceLocation TEXTURE_WING = Aether.locate("textures/entity/moa/canvas/moa_wing.png");
+	private static final Identifier TEXTURE_WING = Aether.locate("textures/entity/moa/canvas/moa_wing.png");
 
-	private static final ResourceLocation TEXTURE_WING_MARKINGS = Aether.locate("textures/entity/moa/canvas/moa_wing_markings.png");
+	private static final Identifier TEXTURE_WING_MARKINGS = Aether.locate("textures/entity/moa/canvas/moa_wing_markings.png");
 
-	private static final ResourceLocation TEXTURE_UNCHANGED = Aether.locate("textures/entity/moa/canvas/moa_unchanged.png");
+	private static final Identifier TEXTURE_UNCHANGED = Aether.locate("textures/entity/moa/canvas/moa_unchanged.png");
 
-	private RenderManager renderManager;
+	private EntityRenderDispatcher renderManager;
 
 	private MoaModel model;
 
-	public MoaCustomizerLayer(RenderManager renderManager, MoaModel model)
-	{
-		this.renderManager = renderManager;
-		this.model = model;
+	public MoaCustomizerLayer(class_3883<EntityMoa, MoaModel> class_3883) {
+		super(class_3883);
+		model = class_3883.method_4038();
+		renderManager = MinecraftClient.getInstance().getEntityRenderManager();
 	}
 
 	@Override
-	public void render(EntityMoa moa, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale)
+	public void method_4199(EntityMoa moa, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale)
 	{
-		if (!moa.getPassengers().isEmpty() && moa.getPassengers().get(0) instanceof EntityPlayer)
+		if (!moa.getPassengerList().isEmpty() && moa.getPassengerList().get(0) instanceof PlayerEntity)
 		{
-			PlayerAether player = ((IEntityPlayerAether)moa.getPassengers().get(0)).getPlayerAether();
+			PlayerAether player = ((IEntityPlayerAether)moa.getPassengerList().get(0)).getPlayerAether();
 
 			if (player != null)
 			{
@@ -136,7 +137,7 @@ public class MoaCustomizerLayer implements LayerRenderer<EntityMoa>
 	}
 
 	@Override
-	public boolean shouldCombineTextures()
+	public boolean method_4200()
 	{
 		return false;
 	}

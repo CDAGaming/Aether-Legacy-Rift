@@ -5,7 +5,7 @@ buildscript {
         jcenter()
         maven { url 'https://maven.fabricmc.net/' }
         maven { url 'https://plugins.gradle.org/m2/' }
-        maven { url 'http://repo.spongepowered.org/maven' }
+        maven { url 'https://repo.spongepowered.org/maven' }
     }
     dependencies {
         classpath 'net.fabricmc:fabric-loom:0.1.0-SNAPSHOT'
@@ -45,10 +45,10 @@ dependencies {
 	
 	minecraft "com.mojang:minecraft:18w50a"
     mappings "net.fabricmc:yarn:18w50a.7"
-    modCompile "net.fabricmc:fabric-loader:0.2.0.70"
+    modCompile "net.fabricmc:fabric-loader:0.3.0.74"
 
     // Fabric API. This is technically optional, but you probably want it anyway.
-    modCompile "net.fabricmc:fabric:0.1.1.51"
+    modCompile "net.fabricmc:fabric:0.1.2.63"
 }
 
 compileJava {

@@ -27,7 +27,7 @@ public class ItemElementalSword extends ItemAetherSword
 		{
 			LightningEntity lightning = new LightningEntity(entityliving1.world, entityliving.getPos().getX(), entityliving.getPos().getY(), entityliving.getPos().getZ(), false);
 
-			entityliving1.world.addWeatherEffect(lightning);
+			//entityliving1.world.addWeatherEffect(lightning);
 		}
 		else if (this == ItemsAether.holy_sword && entityliving.isUndead())
 		{

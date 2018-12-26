@@ -7,6 +7,7 @@ import net.minecraft.client.gui.ContainerGui;
 import net.minecraft.client.gui.ingame.InventoryGui;
 import net.minecraft.client.network.packet.CustomPayloadClientPacket;
 import net.minecraft.client.resource.language.I18n;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.PacketByteBuf;
 
@@ -20,20 +21,12 @@ public class GuiAccessories extends ContainerGui
 
 	private static final Identifier TEXTURE = Aether.locate("textures/gui/inventory/accessories.png");
 
-	public GuiAccessories(IEntityPlayerAether playerAetherIn)
+	public GuiAccessories(PlayerEntity playerAetherIn)
 	{
 		super(new ContainerAccessories(playerAetherIn));
 
-		this.allowUserInput = true; // TODO: 1.14
+		//this.allowUserInput = true; // TODO: 1.14
 	}
-
-	@Override
-    public void onClosed()
-    {
-    	super.onClosed();
-
-		MinecraftClient.getInstance().player.networkHandler.sendPacket(new CustomPayloadClientPacket(Aether.locate("close_accessory_gui"), new PacketByteBuf(Unpooled.buffer())));
-    }
 
 	@Override
 	public void initialize(MinecraftClient client, int width, int height)

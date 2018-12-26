@@ -3,8 +3,6 @@ package com.legacy.aether.player;
 import java.util.ArrayList;
 import java.util.UUID;
 
-import com.legacy.aether.world.WorldAether;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -15,12 +13,8 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.MinecraftServer;
 
 import com.legacy.aether.api.player.IPlayerAether;
-import com.legacy.aether.entities.movement.AetherPoisonMovement;
-import com.legacy.aether.inventory.InventoryAccessories;
 import com.legacy.aether.item.ItemsAether;
 import com.legacy.aether.player.perks.AetherDonationPerks;
-import com.legacy.aether.util.AetherTeleportation;
-import com.legacy.aether.world.TeleporterAether;
 
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.world.dimension.DimensionType;
@@ -44,9 +38,9 @@ public class PlayerAether implements IPlayerAether
 
 	private EntityAttributeModifier aetherHealth;
 
-	private InventoryAccessories accessories;
+	//private InventoryAccessories accessories;
 
-	private AetherPoisonMovement poisonMovement;
+	//private AetherPoisonMovement poisonMovement;
 
 	public AetherDonationPerks donationPerks;
 
@@ -54,8 +48,8 @@ public class PlayerAether implements IPlayerAether
 	{
 		this.player = player;
 		this.donationPerks = new AetherDonationPerks();
-		this.poisonMovement = new AetherPoisonMovement(player);
-		this.accessories = new InventoryAccessories((IEntityPlayerAether) player);
+		//this.poisonMovement = new AetherPoisonMovement(player);
+		//this.accessories = new InventoryAccessories((IEntityPlayerAether) player);
 	}
 
 	public void tick()
@@ -70,7 +64,7 @@ public class PlayerAether implements IPlayerAether
 			}
 		}
 
-		this.poisonMovement.tick();
+		//this.poisonMovement.tick();
 
 		this.setJumping(((IEntityHook)this.player).checkIsJumping());
 
@@ -139,11 +133,11 @@ public class PlayerAether implements IPlayerAether
 		if (!this.player.world.isRemote)
 		{
 			MinecraftServer server = this.player.getServer();
-			DimensionType dimensionToTravel = this.player.dimension == WorldAether.AETHER ? DimensionType.OVERWORLD : WorldAether.AETHER;
+			//DimensionType dimensionToTravel = this.player.dimension == WorldAether.AETHER ? DimensionType.OVERWORLD : WorldAether.AETHER;
 
-			if (server != null && server.getPlayerList() != null)
+			if (server != null)
 			{
-				AetherTeleportation.travelDimension((ServerPlayerEntity) this.player, dimensionToTravel, new TeleporterAether(shouldSpawnPortal, server.getWorld(dimensionToTravel)));
+				//AetherTeleportation.travelDimension((ServerPlayerEntity) this.player, dimensionToTravel, new TeleporterAether(shouldSpawnPortal, server.getWorld(dimensionToTravel)));
 			}
 		}
 	}
@@ -157,10 +151,11 @@ public class PlayerAether implements IPlayerAether
 
 		for (int index = 0; index < 8; index++)
 		{
+			/*
 			if (this.getAccessories().getInvStack(index).getItem() == item)
 			{
 				count++;
-			}
+			}*/
 		}
 
 		return count;
@@ -173,10 +168,11 @@ public class PlayerAether implements IPlayerAether
 	{
 		for (int index = 0; index < 8; index++)
 		{
+			/*
 			if (this.getAccessories().getInvStack(index).getItem() == item)
 			{
 				return true;
-			}
+			}*/
 		}
 
 		return false;
@@ -266,14 +262,14 @@ public class PlayerAether implements IPlayerAether
 	{
 		compound.putInt("shardsUsed", this.shardsUsed);
 
-		compound.put("accessories", ItemStackHelper.saveAllItems(new CompoundTag(), this.accessories.stacks));
+		//compound.put("accessories", ItemStackHelper.saveAllItems(new CompoundTag(), this.accessories.stacks));
 	}
 
 	public void readFromNBT(CompoundTag compound)
 	{
 		this.shardsUsed = compound.getInt("shardsUsed");
 
-		ItemStackHelper.loadAllItems(compound.getCompound("accessories"), this.accessories.stacks);
+		//ItemStackHelper.loadAllItems(compound.getCompound("accessories"), this.accessories.stacks);
 	}
 
 	public void copyFrom(PlayerAether that, boolean keepEverything)
@@ -288,6 +284,7 @@ public class PlayerAether implements IPlayerAether
 
 	public void damageAccessories(float damage)
 	{
+		/*
 		for (int i = 0; i < this.accessories.getInvSize(); ++i)
 		{
 			ItemStack stack = this.accessories.stacks.get(i);
@@ -296,17 +293,17 @@ public class PlayerAether implements IPlayerAether
 			{
 				stack.applyDamage((int) damage, this.getPlayer());
 			}
-		}
+		}*/
 	}
 
 	public void applyCure(int cureAmount)
 	{
-		this.poisonMovement.curePoison(cureAmount);
+		//this.poisonMovement.curePoison(cureAmount);
 	}
 
 	public void applyPoison(int poisonAmount)
 	{
-		this.poisonMovement.afflictPoison(poisonAmount);
+		//this.poisonMovement.afflictPoison(poisonAmount);
 	}
 
 	public void setInPortal()
@@ -329,10 +326,11 @@ public class PlayerAether implements IPlayerAether
 		return this.shardsUsed;
 	}
 
+	/*
 	public InventoryAccessories getAccessories()
 	{
 		return this.accessories;
-	}
+	}*/
 
 	public PlayerEntity getPlayer()
 	{

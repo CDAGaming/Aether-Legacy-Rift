@@ -24,11 +24,11 @@ public class ItemGummySwet extends Item
     {
 		ItemStack heldItem = playerIn.getStackInHand(handIn);
 
-		if (playerIn.shouldHeal())
+		if (playerIn.canFoodHeal())
 		{
 			if (!playerIn.isCreative())
 			{
-				heldItem.shrink(1);
+				heldItem.subtractAmount(1);
 			}
 
 			playerIn.heal(playerIn.getHealthMaximum());

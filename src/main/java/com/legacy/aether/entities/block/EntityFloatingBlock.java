@@ -1,34 +1,37 @@
 package com.legacy.aether.entities.block;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockConcretePowder;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.crash.CrashReportCategory;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.ConcretePowderBlock;
+import net.minecraft.client.particle.FactoryParticle;
+import net.minecraft.client.particle.RedDustParticle;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.MoverType;
-import net.minecraft.init.Blocks;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTUtil;
-import net.minecraft.network.datasync.DataParameter;
-import net.minecraft.network.datasync.DataSerializers;
-import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.tags.FluidTags;
+import net.minecraft.entity.MovementType;
+import net.minecraft.entity.data.DataTracker;
+import net.minecraft.entity.data.TrackedData;
+import net.minecraft.entity.data.TrackedDataHandler;
+import net.minecraft.entity.data.TrackedDataHandlerRegistry;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.tag.FluidTags;
+import net.minecraft.util.HitResult;
+import net.minecraft.util.TagHelper;
+import net.minecraft.util.crash.CrashReportElement;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.RayTraceFluidMode;
-import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.FluidRayTraceMode;
 import net.minecraft.world.World;
 
 import com.legacy.aether.blocks.BlockFloating;
 import com.legacy.aether.blocks.BlocksAether;
 import com.legacy.aether.entities.EntityTypesAether;
+import org.apache.logging.log4j.LogManager;
 
 public class EntityFloatingBlock extends Entity
 {
+    private static final TrackedData<BlockPos> ORIGIN = DataTracker.registerData(EntityFloatingBlock.class, TrackedDataHandlerRegistry.BLOCK_POS);
 
-    private static final DataParameter<BlockPos> ORIGIN = EntityDataManager.createKey(EntityFloatingBlock.class, DataSerializers.BLOCK_POS);
-
-    private IBlockState state = BlocksAether.gravitite_ore.getDefaultState();
+    private BlockState state = BlocksAether.gravitite_ore.getDefaultState();
 
     private int floatTime;
 
@@ -40,39 +43,40 @@ public class EntityFloatingBlock extends Entity
 		this.setSize(0.98F, 0.98F);
 	}
 
-	public EntityFloatingBlock(World world, double x, double y, double z, IBlockState state)
+	public EntityFloatingBlock(World world, double x, double y, double z, BlockState state)
 	{
 		this(world);
 
 		this.state = state;
-		this.preventEntitySpawning = true;
+		//this.preventEntitySpawning = true;
 
 		this.setPosition(x, y + (double)((1.0F - this.height) / 2.0F), z);
 
-		this.motionX = this.motionY = this.motionZ = 0.0D;
-		this.prevPosX = x;
-		this.prevPosY = y;
-		this.prevPosZ = z;
+		this.velocityX = this.velocityY = this.velocityZ = 0.0D;
+		this.prevX = x;
+		this.prevY = y;
+		this.prevZ = z;
 
 		this.setOrigin(new BlockPos(this));
 	}
 
     public void setOrigin(BlockPos p_184530_1_)
     {
-        this.dataManager.set(ORIGIN, p_184530_1_);
+        this.dataTracker.set(ORIGIN, p_184530_1_);
     }
 
     public BlockPos getOrigin()
     {
-        return (BlockPos)this.dataManager.get(ORIGIN);
+        return (BlockPos)this.dataTracker.get(ORIGIN);
     }
 
 	@Override
-	protected void registerData()
+	protected void initDataTracker()
 	{
-        this.dataManager.register(ORIGIN, BlockPos.ORIGIN);
+        this.dataTracker.startTracking(ORIGIN, BlockPos.ORIGIN);
 	}
 
+	/*
 	@Override
     public boolean canBeAttackedWithItem()
     {
@@ -83,26 +87,26 @@ public class EntityFloatingBlock extends Entity
 	public boolean canTriggerWalking()
     {
         return false;
-    }
+    }*/
 
 	@Override
-    public boolean canBeCollidedWith()
+    public boolean doesCollide()
     {
-        return !this.removed;
+        return !this.invalid;
     }
 
 	@Override
-	public void tick()
+	public void update()
 	{
 		if (this.state.isAir())
 		{
-			this.remove();
+			this.invalidate();
 		}
         else
         {
-            this.prevPosX = this.posX;
-            this.prevPosY = this.posY;
-            this.prevPosZ = this.posZ;
+            this.prevX = this.x;
+            this.prevY = this.y;
+            this.prevZ = this.z;
             Block block = this.state.getBlock();
 
             if (this.floatTime++ == 0)
@@ -115,30 +119,30 @@ public class EntityFloatingBlock extends Entity
                 }
                 else if (!this.world.isRemote)
                 {
-                    this.remove();
+                    this.invalidate();
                     return;
                 }
             }
 
-            if (!this.hasNoGravity())
+            if (!this.isUnaffectedByGravity())
             {
-                this.motionY += 0.04D;
+                this.velocityY += 0.04D;
             }
 
-            this.move(MoverType.SELF, this.motionX, this.motionY, this.motionZ);
+            this.move(MovementType.SELF, x + this.velocityX, y + this.velocityY, z + this.velocityZ);
 
             if (!this.world.isRemote)
             {
                 BlockPos blockpos1 = new BlockPos(this);
-                boolean flag = this.state.getBlock() instanceof BlockConcretePowder;
-                boolean flag1 = flag && this.world.getFluidState(blockpos1).isTagged(FluidTags.WATER);
-                double d0 = this.motionX * this.motionX + this.motionY * this.motionY + this.motionZ * this.motionZ;
+                boolean flag = this.state.getBlock() instanceof ConcretePowderBlock;
+                boolean flag1 = flag && this.world.getFluidState(blockpos1).matches(FluidTags.WATER);
+                double d0 = this.velocityX * this.velocityX + this.velocityY * this.velocityY + this.velocityZ * this.velocityZ;
 
                 if (flag && d0 > 1.0D)
                 {
-                    RayTraceResult raytraceresult = this.world.rayTraceBlocks(new Vec3d(this.prevPosX, this.prevPosY, this.prevPosZ), new Vec3d(this.posX, this.posY, this.posZ), RayTraceFluidMode.SOURCE_ONLY);
+                    HitResult raytraceresult = this.world.rayTrace(new Vec3d(this.prevX, this.prevY, this.prevZ), new Vec3d(this.x, this.y, this.z), FluidRayTraceMode.SOURCE_ONLY);
 
-                    if (raytraceresult != null && this.world.getFluidState(raytraceresult.getBlockPos()).isTagged(FluidTags.WATER))
+                    if (raytraceresult != null && this.world.getFluidState(raytraceresult.getBlockPos()).matches(FluidTags.WATER))
                     {
                         blockpos1 = raytraceresult.getBlockPos();
                         flag1 = true;
@@ -151,49 +155,49 @@ public class EntityFloatingBlock extends Entity
                     {
                         if (this.world.getGameRules().getBoolean("doEntityDrops"))
                         {
-                            this.entityDropItem(block);
+                            this.dropItem(block);
                         }
 
-                        this.remove();
+                        this.invalidate();
                     }
                 }
                 else
                 {
-                    if (!flag1 && BlockFloating.canFloatThrough(this.world.getBlockState(new BlockPos(this.posX, this.posY + 0.009999999776482582D, this.posZ))))
+                    if (!flag1 && BlockFloating.canFloatThrough(this.world.getBlockState(new BlockPos(this.x, this.y + 0.009999999776482582D, this.z))))
                     {
                         this.onGround = false;
                         return;
                     }
 
-                    this.motionX *= 0.699999988079071D;
-                    this.motionZ *= 0.699999988079071D;
-                    this.motionY *= 0.5D;
+                    this.velocityX *= 0.699999988079071D;
+                    this.velocityZ *= 0.699999988079071D;
+                    this.velocityY *= 0.5D;
                 }
             }
 
-            this.motionX *= 0.9800000190734863D;
-            this.motionY *= 0.9800000190734863D;
-            this.motionZ *= 0.9800000190734863D;
+            this.velocityX *= 0.9800000190734863D;
+            this.velocityY *= 0.9800000190734863D;
+            this.velocityZ *= 0.9800000190734863D;
 
-            if (this.motionY == 0.0F)
+            if (this.velocityY == 0.0F)
             {
             	this.world.setBlockState(new BlockPos(this), this.getBlockstate());
-            	this.remove();
+            	this.invalidate();
             }
         }
 	}
 
 	@Override
-	protected void writeAdditional(NBTTagCompound compound)
+	protected void writeCustomDataToTag(CompoundTag compound)
 	{
-        compound.put("state", NBTUtil.writeBlockState(this.state));
+        compound.put("state", TagHelper.serializeBlockState(this.state));
         compound.putInt("time", this.floatTime);
 	}
 
 	@Override
-	protected void readAdditional(NBTTagCompound compound)
+	protected void readCustomDataFromTag(CompoundTag compound)
 	{
-        this.state = NBTUtil.readBlockState(compound.getCompound("state"));
+        this.state = TagHelper.deserializeBlockState(compound.getCompound("state"));
         this.floatTime = compound.getInt("time");
 
         if (this.state.isAir())
@@ -203,12 +207,12 @@ public class EntityFloatingBlock extends Entity
 	}
 
 	@Override
-    public void fillCrashReport(CrashReportCategory category)
+    public void populateCrashReport(CrashReportElement category)
     {
-        super.fillCrashReport(category);
+        super.populateCrashReport(category);
 
-        category.addDetail("BlockState", this.state.toString());
-        category.addDetail("Time Floated", this.floatTime);
+        category.add("BlockState", this.state.toString());
+        category.add("Time Floated", this.floatTime);
     }
 
     public World getWorldObj()
@@ -216,19 +220,20 @@ public class EntityFloatingBlock extends Entity
         return this.world;
     }
 
+    /*
 	@Override
 	public boolean ignoreItemEntityData()
 	{
 		return true;
-	}
+	}*/
 
 	@Override
-    public boolean canRenderOnFire()
+    public boolean doesRenderOnFire()
     {
         return false;
     }
 
-    public IBlockState getBlockstate()
+    public BlockState getBlockstate()
     {
         return this.state;
     }

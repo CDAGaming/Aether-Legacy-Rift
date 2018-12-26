@@ -15,7 +15,7 @@ public class ItemHealingStone extends ItemAetherFood
 	{
 		super(new Settings().itemGroup(ItemGroup.FOOD).rarity(Rarity.RARE), 1, 0.0F);
 
-		this.setAlwaysEdible();
+		//this.setAlwaysEdible();
 	}
 
 	@Override
@@ -24,10 +24,11 @@ public class ItemHealingStone extends ItemAetherFood
 		playerIn.addPotionEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 610, 0));
     }
 
+    /*
 	@Override
     public boolean hasEffect(ItemStack stackIn)
     {
     	return true;
-    }
+    }*/
 
 }

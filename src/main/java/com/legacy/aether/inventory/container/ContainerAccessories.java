@@ -1,7 +1,5 @@
 package com.legacy.aether.inventory.container;
 
-import com.legacy.aether.api.accessories.AccessoryType;
-import com.legacy.aether.inventory.slot.SlotAccessory;
 import com.legacy.aether.player.IEntityPlayerAether;
 import net.minecraft.container.PlayerContainer;
 import net.minecraft.container.Slot;
@@ -10,9 +8,9 @@ import net.minecraft.entity.player.PlayerEntity;
 public class ContainerAccessories extends PlayerContainer
 {
 
-	public ContainerAccessories(IEntityPlayerAether playerAetherIn)
+	public ContainerAccessories(PlayerEntity playerAetherIn)
 	{
-		super(((PlayerEntity)playerAetherIn.getInstance()).inventory, !playerAetherIn.getInstance().world.isRemote, (PlayerEntity) playerAetherIn.getInstance());
+		super(playerAetherIn.inventory, !playerAetherIn.world.isRemote, playerAetherIn);
 
 		for (Slot slot : this.slotList)
 		{
@@ -37,9 +35,9 @@ public class ContainerAccessories extends PlayerContainer
 		{
 			for (int y = 0; y < 4; y++)
 			{
-				AccessoryType type = playerAetherIn.getPlayerAether().getAccessories().type[slotID];
+				//AccessoryType type = playerAetherIn.getPlayerAether().getAccessories().type[slotID];
 
-				this.addSlot(new SlotAccessory(playerAetherIn.getPlayerAether().getAccessories(), slotID, type, 59 + x * 18, 8 + y * 18));
+				//this.addSlot(new SlotAccessory(playerAetherIn.getPlayerAether().getAccessories(), slotID, type, 59 + x * 18, 8 + y * 18));
 
 				slotID++;
 			}

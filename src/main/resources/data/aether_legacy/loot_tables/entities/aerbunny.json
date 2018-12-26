@@ -1,4 +1,5 @@
 {
+	"type": "minecraft:entity",
     "pools": [
         {
             "rolls": 1,
@@ -71,7 +72,6 @@
                     "type": "item",
                     "name": "minecraft:string",
                     "weight": 1,
-                    "functions": [
                         {
                             "function": "looting_enchant",
                             "count": {

@@ -99,34 +99,6 @@ public class ContainerEnchanter extends Container
 
 				slot.onStackChanged(itemstack1, itemstack);
 			}
-			else if (par2 != 1 && par2 != 0)
-			{
-				if (AetherAPI.instance().isEnchantable(itemstack))
-				{
-					if (!this.insertItem(itemstack1, 0, 1, false))
-					{
-						return ItemStack.EMPTY;
-					}
-				}
-				else if (AetherAPI.instance().isEnchantmentFuel(itemstack1))
-				{
-					if (!this.insertItem(itemstack1, 1, 2, false))
-					{
-						return ItemStack.EMPTY;
-					}
-				}
-				else if (par2 >= 3 && par2 < 30)
-				{
-					if (!this.insertItem(itemstack1, 30, 39, false))
-					{
-						return ItemStack.EMPTY;
-					}
-				}
-				else if (par2 >= 30 && par2 < 39 && !this.insertItem(itemstack1, 3, 30, false))
-				{
-					return ItemStack.EMPTY;
-				}
-			}
 			else if (!this.insertItem(itemstack1, 3, 39, false))
 			{
 				return ItemStack.EMPTY;

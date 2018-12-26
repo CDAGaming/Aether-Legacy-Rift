@@ -1,15 +1,16 @@
 package com.legacy.aether.blocks.decorative;
 
+import net.fabricmc.fabric.block.FabricBlockSettings;
 import net.minecraft.block.Block;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
+import net.minecraft.block.Material;
+import net.minecraft.sound.BlockSoundGroup;
 
 public class BlockSkyrootPlanks extends Block
 {
 
 	public BlockSkyrootPlanks()
 	{
-		super(Block.Properties.create(Material.WOOD).hardnessAndResistance(2.0F, 5.0F).sound(SoundType.WOOD));
+		super(FabricBlockSettings.of(Material.WOOD).strength(2.0F, 5.0F).sounds(BlockSoundGroup.WOOD).build());
 	}
 
 }

@@ -1,12 +1,12 @@
 package com.legacy.aether.api.moa;
 
 import net.minecraft.item.ItemGroup;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.Identifier;
 
 public class MoaType
 {
 
-	private ResourceLocation registryName;
+	private Identifier registryName;
 
 	private MoaProperties properties;
 
@@ -27,17 +27,17 @@ public class MoaType
 		this.group = group;
 	}
 
-	public void setRegistryName(ResourceLocation location)
+	public void setRegistryName(Identifier location)
 	{
 		this.registryName = location;
 	}
 
-	public ResourceLocation getTexture(boolean saddled)
+	public Identifier getTexture(boolean saddled)
 	{
 		return this.properties.getCustomTexture(saddled);
 	}
 
-	public ResourceLocation getRegistryName()
+	public Identifier getRegistryName()
 	{
 		return this.registryName;
 	}

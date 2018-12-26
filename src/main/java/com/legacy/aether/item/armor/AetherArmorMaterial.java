@@ -5,6 +5,7 @@ import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ItemContainer;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.sound.SoundEvent;
+import net.minecraft.util.LazyCachedSupplier;
 
 public class AetherArmorMaterial implements class_1741
 {
@@ -19,7 +20,7 @@ public class AetherArmorMaterial implements class_1741
     private final int enchantability;
     private final SoundEvent soundEvent;
     private final float toughness;
-    private final LazyLoadBase<Ingredient> ingredientLoader;
+    private final LazyCachedSupplier<Ingredient> ingredientLoader;
 
     public AetherArmorMaterial(String name, int maxDamageFactor, int[] damageReductionAmountArray, int enchantability, SoundEvent soundEvent, float toughness, ItemContainer repairMaterial)
     {
@@ -29,25 +30,25 @@ public class AetherArmorMaterial implements class_1741
         this.enchantability = enchantability;
         this.soundEvent = soundEvent;
         this.toughness = toughness;
-        this.ingredientLoader = new LazyLoadBase<>(() -> Ingredient.ofItems(repairMaterial));
+        this.ingredientLoader = new LazyCachedSupplier<>(() -> Ingredient.ofItems(repairMaterial));
     }
 
 	@Override
-	public int getDurability(EquipmentSlot slot)
+	public int method_7696(EquipmentSlot slot)
 	{
-        return MAX_DAMAGE_ARRAY[slot.getIndex()] * this.maxDamageFactor;
+        return MAX_DAMAGE_ARRAY[slot.getEntitySlotId()] * this.maxDamageFactor;
 	}
 
 	@Override
-	public int getDamageReductionAmount(EquipmentSlot slot)
+	public int method_7697(EquipmentSlot slot)
 	{
-        return this.damageReductionAmountArray[slot.getIndex()];
+        return this.damageReductionAmountArray[slot.getEntitySlotId()];
 	}
 
 	@Override
 	public Ingredient method_7695()
 	{
-		return this.ingredientLoader.getValue();
+		return this.ingredientLoader.get();
 	}
 
 	@Override

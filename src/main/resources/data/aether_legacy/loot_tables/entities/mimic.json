@@ -1,4 +1,5 @@
 {
+	"type": "minecraft:entity",
     "pools": [
         {
             "rolls": 1,
@@ -15,12 +16,12 @@
             "entries": [
                 {
                     "type": "loot_table",
-                    "name": "aether_legacy:chests/bronze_normal",
+                    "name": "aether_legacy:chest/bronze_normal",
                     "weight": 5
                 },
 				{
                     "type": "loot_table",
-                    "name": "aether_legacy:chests/silver_normal",
+                    "name": "aether_legacy:chest/silver_normal",
                     "weight": 1
                 }
             ]

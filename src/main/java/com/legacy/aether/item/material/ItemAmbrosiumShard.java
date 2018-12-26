@@ -1,5 +1,6 @@
 package com.legacy.aether.item.material;
 
+import com.legacy.aether.blocks.BlocksAether;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
@@ -9,8 +10,6 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
-
-import com.legacy.aether.blocks.BlocksAether;
 
 public class ItemAmbrosiumShard extends Item
 {
@@ -27,7 +26,7 @@ public class ItemAmbrosiumShard extends Item
         {
         	if (!context.getPlayer().isCreative())
         	{
-        		context.getItemStack().shrink(1);
+        		context.getItemStack().subtractAmount(1);
         	}
 
         	context.getWorld().setBlockState(context.getPos(), BlocksAether.enchanted_aether_grass.getDefaultState());
@@ -43,11 +42,11 @@ public class ItemAmbrosiumShard extends Item
     {
 		ItemStack heldItem = playerIn.getStackInHand(handIn);
 
-		if (playerIn.shouldHeal())
+		if (playerIn.canFoodHeal())
 		{
 			if (!playerIn.isCreative())
 			{
-				heldItem.shrink(1);
+				heldItem.subtractAmount(1);
 			}
 
 			playerIn.heal(2.0F);

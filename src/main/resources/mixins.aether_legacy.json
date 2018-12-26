@@ -6,26 +6,12 @@
   "package": "com.legacy.aether.mixin",
   "refmap": "mixins.aether_legacy.refmap.json",
   "mixins": [
-    "MixinEntityLivingBase",
-    "MixinEntityPlayer",
-    "MixinEntityPlayerMP",
-    "MixinBlockBush",
-    "MixinItemBucket",
-    "MixinEntityTracker",
-    "MixinEntityTrackerEntry",
-    "MixinNetHandlerPlayServer",
-    "MixinSPacketCustomPayload"
+    "MixinBlockBush"
   ],
   "client": [
     "client.MixinMinecraft",
-    "client.MixinBlockColors",
-    "client.MixinItemColors",
     "client.MixinGuiInventory",
-    "client.MixinTextureMap",
-    "client.MixinRenderPlayer",
-    "client.MixinLayerArmorBase",
-    "client.MixinFirstPersonRenderer",
-    "client.MixinNetHandlerPlayClient",
-    "client.MixinPlayerControllerMP"
+    "client.MixinBlockColors",
+    "client.MixinItemColors"
   ]
 }

@@ -1,19 +1,21 @@
 package com.legacy.aether.client.rendering;
 
 import com.legacy.aether.item.ItemsAether;
-import com.legacy.aether.item.accessory.ItemAccessory;
 import com.legacy.aether.player.IEntityPlayerAether;
 import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.model.Model;
+import net.minecraft.client.render.entity.model.BipedEntityModel;
+import net.minecraft.client.render.entity.model.PlayerEntityModel;
 
 public class AetherFirstPersonRenderer
 {
 
-	private static ModelBiped gloveModel = new ModelBiped(0.01F);
+	private static BipedEntityModel gloveModel = new BipedEntityModel(0.01F);
 
-	private static ModelBiped slimGloveModel = new ModelPlayer(0.01F, true);
+	private static BipedEntityModel slimGloveModel = new PlayerEntityModel(0.01F, true);
 
+	/*
 	public static void renderRightGlove(IEntityPlayerAether hook, ItemAccessory gloves)
     {
 		boolean isSlim = ((AbstractClientPlayer)hook.getInstance()).getSkinType().equals("slim");
@@ -64,7 +66,7 @@ public class AetherFirstPersonRenderer
         GlStateManager.disableBlend();
 
         GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-    }
+    }*/
 
 	private static Model getModel(boolean isSlim)
 	{

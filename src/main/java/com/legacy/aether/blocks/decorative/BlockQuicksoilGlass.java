@@ -1,17 +1,18 @@
 package com.legacy.aether.blocks.decorative;
 
+import net.fabricmc.fabric.block.FabricBlockSettings;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockGlass;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
-import net.minecraft.util.BlockRenderLayer;
+import net.minecraft.block.GlassBlock;
+import net.minecraft.block.Material;
+import net.minecraft.client.render.block.BlockRenderLayer;
+import net.minecraft.sound.BlockSoundGroup;
 
-public class BlockQuicksoilGlass extends BlockGlass
+public class BlockQuicksoilGlass extends GlassBlock
 {
 
 	public BlockQuicksoilGlass()
 	{
-		super(Block.Properties.create(Material.GLASS).slipperiness(1.1F).lightValue(14).hardnessAndResistance(0.2F, -1.0F).sound(SoundType.GLASS));
+		super(FabricBlockSettings.of(Material.GLASS).friction(1.1F).lightLevel(14).strength(0.2F, -1.0F).sounds(BlockSoundGroup.GLASS).build());
 	}
 
 	@Override

@@ -1,5 +1,6 @@
 package com.legacy.aether.item;
 
+import com.legacy.aether.entities.EntityTypesAether;
 import net.minecraft.item.*;
 
 import com.legacy.aether.api.AetherAPI;
@@ -9,12 +10,12 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.DefaultedList;
 
-public class ItemMoaEgg extends Item
+public class ItemMoaEgg extends SpawnEggItem
 {
 
 	public ItemMoaEgg()
 	{
-		super(new Item.Settings().stackSize(1).itemGroup(ItemGroup.MISC));
+		super(EntityTypesAether.MOA, 3407872, 5349438, new Item.Settings().stackSize(1).itemGroup(ItemGroup.MISC));
 	}
 
 	@Override
@@ -22,9 +23,9 @@ public class ItemMoaEgg extends Item
     {
 		if (contextIn.getPlayer().abilities.creativeMode)
 		{
-			EntityMoa moa = new EntityMoa(contextIn.getWorld(), AetherAPI.instance().getMoa(contextIn.getItem().getTag().getInt("moaType")));
+			EntityMoa moa = new EntityMoa(contextIn.getWorld(), AetherAPI.instance().getMoa(contextIn.getItemStack().getTag().getInt("moaType")));
 
-			moa.moveToBlockPosAndAngles(contextIn.getPos().up(), 1.0F, 1.0F);
+			moa.setPositionAndAngles(contextIn.getPos().up(), 1.0F, 1.0F);
 			moa.setPlayerGrown(true);
 
 			if (!contextIn.getWorld().isRemote)

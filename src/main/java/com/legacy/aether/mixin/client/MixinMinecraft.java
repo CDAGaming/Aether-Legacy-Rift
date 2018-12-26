@@ -1,11 +1,10 @@
 package com.legacy.aether.mixin.client;
 
-import net.minecraft.client.Minecraft;
-
+import net.minecraft.client.MinecraftClient;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 
-@Mixin(Minecraft.class)
+@Mixin(MinecraftClient.class)
 public class MixinMinecraft
 {
 
@@ -15,7 +14,7 @@ public class MixinMinecraft
 	@Overwrite
 	public String getVersionType()
 	{
-		return "Aether Legacy Rift Edition";
+		return "Aether Legacy Fabric Edition";
 	}
 
 }

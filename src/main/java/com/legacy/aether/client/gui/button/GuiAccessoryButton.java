@@ -1,5 +1,7 @@
 package com.legacy.aether.client.gui.button;
 
+import com.legacy.aether.client.ClientTickHandler;
+import com.legacy.aether.client.gui.container.GuiAccessories;
 import com.mojang.blaze3d.platform.GlStateManager;
 import io.netty.buffer.Unpooled;
 import net.minecraft.client.MinecraftClient;
@@ -7,10 +9,11 @@ import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.ingame.InventoryGui;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.network.packet.CustomPayloadClientPacket;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.server.network.packet.CustomPayloadServerPacket;
 import net.minecraft.util.Identifier;
 
 import com.legacy.aether.Aether;
-import com.legacy.aether.client.gui.container.GuiAccessories;
 import net.minecraft.util.PacketByteBuf;
 
 public class GuiAccessoryButton extends ButtonWidget
@@ -40,13 +43,14 @@ public class GuiAccessoryButton extends ButtonWidget
 	@Override
 	public void onPressed(double mouseX, double mouseY)
 	{
-		if (this.screen instanceof GuiAccessories)
-		{
-			MinecraftClient.getInstance().openGui(new InventoryGui(MinecraftClient.getInstance().player));
-		}
-		else
-		{
-			MinecraftClient.getInstance().player.networkHandler.sendPacket(new CustomPayloadClientPacket(Aether.locate("open_accessory_gui"), new PacketByteBuf(Unpooled.buffer())));
+		MinecraftClient mc = MinecraftClient.getInstance();
+
+		if (mc.currentGui instanceof GuiAccessories) {
+			mc.player.closeGui();
+			mc.openGui(new InventoryGui(mc.player));
+		} else {
+			mc.player.closeGui();
+			ClientTickHandler.displayContainerGui(mc.player, "accessories", mc.player.inventory);
 		}
 	}
 
@@ -59,13 +63,12 @@ public class GuiAccessoryButton extends ButtonWidget
     	{
             GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
             GlStateManager.pushMatrix();
-            int i = this.getHoverState(this.hovered);
+            int i = this.hovered ? 2 : 1;
             MinecraftClient.getInstance().getTextureManager().bindTexture(i == 2 ? HOVERED_TEXTURE : TEXTURE);
             GlStateManager.enableBlend();
 
             drawTexturedRect(this.x - 1, this.y, 0, 0, 14, 14, 14, 14);
 
-            // TODO: UP UP - 1.14
             GlStateManager.popMatrix();
     	}
     }

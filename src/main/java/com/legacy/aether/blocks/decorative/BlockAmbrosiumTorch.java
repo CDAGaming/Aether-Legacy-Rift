@@ -1,16 +1,16 @@
 package com.legacy.aether.blocks.decorative;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockTorch;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
+import net.fabricmc.fabric.block.FabricBlockSettings;
+import net.minecraft.block.Material;
+import net.minecraft.block.TorchBlock;
+import net.minecraft.sound.BlockSoundGroup;
 
-public class BlockAmbrosiumTorch extends BlockTorch
+public class BlockAmbrosiumTorch extends TorchBlock
 {
 
 	public BlockAmbrosiumTorch()
 	{
-		super(Block.Properties.create(Material.CIRCUITS).needsRandomTick().lightValue(1).sound(SoundType.WOOD));
+		super(FabricBlockSettings.of(Material.PART).collidable(false).breakByHand(true).ticksRandomly().lightLevel(1).sounds(BlockSoundGroup.WOOD).build());
 	}
 
 }

@@ -1,18 +1,18 @@
 package com.legacy.aether.mixin;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockBush;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Blocks;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.PlantBlock;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockReader;
 
+import net.minecraft.world.BlockView;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 
 import com.legacy.aether.blocks.BlocksAether;
 
-@Mixin(BlockBush.class)
+@Mixin(PlantBlock.class)
 public class MixinBlockBush 
 {
 
@@ -20,7 +20,7 @@ public class MixinBlockBush
 	 * @author Modding Legacy
 	 */
 	@Overwrite
-	protected boolean isValidGround(IBlockState stateIn, IBlockReader readerIn, BlockPos posIn)
+	public boolean canPlantOnTop(BlockState stateIn, BlockView readerIn, BlockPos posIn)
 	{
         Block block = stateIn.getBlock();
 
