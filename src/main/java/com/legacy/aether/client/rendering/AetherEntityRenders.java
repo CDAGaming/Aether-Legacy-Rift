@@ -3,10 +3,13 @@ package com.legacy.aether.client.rendering;
 import java.util.Map;
 
 import org.dimdev.rift.listener.client.EntityRendererAdder;
+import org.dimdev.rift.listener.client.TileEntityRendererAdder;
 
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.entity.Entity;
+import net.minecraft.tileentity.TileEntity;
 
 import com.legacy.aether.client.rendering.entity.AechorPlantRenderer;
 import com.legacy.aether.client.rendering.entity.AerbunnyRenderer;
@@ -22,6 +25,7 @@ import com.legacy.aether.client.rendering.entity.PhoenixArrowRenderer;
 import com.legacy.aether.client.rendering.entity.PhygRenderer;
 import com.legacy.aether.client.rendering.entity.SheepuffRenderer;
 import com.legacy.aether.client.rendering.entity.WhirlwindRenderer;
+import com.legacy.aether.client.rendering.tile.TileEntityTreasureChestRenderer;
 import com.legacy.aether.entities.block.EntityFloatingBlock;
 import com.legacy.aether.entities.hostile.EntityAechorPlant;
 import com.legacy.aether.entities.hostile.EntityChestMimic;
@@ -36,8 +40,9 @@ import com.legacy.aether.entities.passive.EntityPhyg;
 import com.legacy.aether.entities.passive.EntitySheepuff;
 import com.legacy.aether.entities.projectile.EntityDart;
 import com.legacy.aether.entities.projectile.EntityPhoenixArrow;
+import com.legacy.aether.tileentity.TileEntityTreasureChest;
 
-public class AetherEntityRenders implements EntityRendererAdder
+public class AetherEntityRenders implements EntityRendererAdder, TileEntityRendererAdder
 {
 
 	@Override
@@ -57,6 +62,12 @@ public class AetherEntityRenders implements EntityRendererAdder
 		entityRenderMap.put(EntityFloatingBlock.class, new FloatingBlockRenderer(renderManager));
 		entityRenderMap.put(EntityWhirlwind.class, new WhirlwindRenderer(renderManager));
 		entityRenderMap.put(EntityPhoenixArrow.class, new PhoenixArrowRenderer(renderManager));
+	}
+
+	@Override
+	public void addTileEntityRenderers(Map<Class<? extends TileEntity>, TileEntityRenderer<? extends TileEntity>> renderers)
+	{
+		renderers.put(TileEntityTreasureChest.class, new TileEntityTreasureChestRenderer());
 	}
 
 }

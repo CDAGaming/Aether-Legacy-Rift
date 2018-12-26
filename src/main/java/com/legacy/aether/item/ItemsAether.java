@@ -245,17 +245,17 @@ public class ItemsAether implements ItemAdder
 		zanite_pendant = register("zanite_pendant", new ItemAccessory(AccessoryType.PENDANT, 0x711AE8));
 		ice_pendant = register("ice_pendant", new ItemAccessory(AccessoryType.PENDANT, EnumRarity.RARE, 0x95E6E7));
 
-		white_cape = register("white_cape", new ItemAccessory(AccessoryType.RING));
-		red_cape = register("red_cape", new ItemAccessory(AccessoryType.RING, 0xE81111));
-		blue_cape = register("blue_cape", new ItemAccessory(AccessoryType.RING, 0x137FB7));
-		yellow_cape = register("yellow_cape", new ItemAccessory(AccessoryType.RING, 0xCDCB0E));
-		swet_cape = register("swet_cape", new ItemAccessory("swet", AccessoryType.RING, AETHER_LOOT));
-		agility_cape = register("agility_cape", new ItemAccessory("agility", AccessoryType.RING, AETHER_LOOT));
-		invisibility_cape = register("invisibility_cape", new ItemAccessory(AccessoryType.RING, AETHER_LOOT));
+		white_cape = register("white_cape", new ItemAccessory(AccessoryType.CAPE));
+		red_cape = register("red_cape", new ItemAccessory(AccessoryType.CAPE, 0xE81111));
+		blue_cape = register("blue_cape", new ItemAccessory(AccessoryType.CAPE, 0x137FB7));
+		yellow_cape = register("yellow_cape", new ItemAccessory(AccessoryType.CAPE, 0xCDCB0E));
+		swet_cape = register("swet_cape", new ItemAccessory("swet", AccessoryType.CAPE, AETHER_LOOT));
+		agility_cape = register("agility_cape", new ItemAccessory("agility", AccessoryType.CAPE, AETHER_LOOT));
+		invisibility_cape = register("invisibility_cape", new ItemAccessory(AccessoryType.CAPE, AETHER_LOOT));
 
-		golden_feather = register("golden_feather", new ItemAccessory(AccessoryType.RING, AETHER_LOOT));
-		regeneration_stone = register("regeneration_stone", new ItemAccessory(AccessoryType.RING, AETHER_LOOT));
-		iron_bubble = register("iron_bubble", new ItemAccessory(AccessoryType.RING, AETHER_LOOT));
+		golden_feather = register("golden_feather", new ItemAccessory(AccessoryType.MISC, AETHER_LOOT));
+		regeneration_stone = register("regeneration_stone", new ItemAccessory(AccessoryType.MISC, AETHER_LOOT));
+		iron_bubble = register("iron_bubble", new ItemAccessory(AccessoryType.MISC, AETHER_LOOT));
 
 		life_shard = register("life_shard", new ItemLifeShard());
 

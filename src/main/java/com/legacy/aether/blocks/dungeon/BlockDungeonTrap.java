@@ -1,6 +1,7 @@
 package com.legacy.aether.blocks.dungeon;
 
 import com.legacy.aether.blocks.BlocksAether;
+import com.legacy.aether.entities.bosses.EntityFireMinion;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -53,10 +54,10 @@ public class BlockDungeonTrap extends BlockDungeon
         	}
         	else if (block == BlocksAether.hellfire_stone || block == BlocksAether.light_hellfire_stone)
         	{
-        		//EntityFireMinion minion = new EntityFireMinion(world);
-        		//minion.setPosition(pos.getX() + 0.5D, pos.getY() + 1D, pos.getZ() + 0.5D);
+        		EntityFireMinion minion = new EntityFireMinion(world);
+        		minion.setPosition(pos.getX() + 0.5D, pos.getY() + 1D, pos.getZ() + 0.5D);
 
-        		//world.spawnEntity(minion);
+        		world.spawnEntity(minion);
         	}
     	}
     }

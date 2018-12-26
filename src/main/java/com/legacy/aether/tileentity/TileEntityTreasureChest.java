@@ -15,6 +15,11 @@ public class TileEntityTreasureChest extends TileEntityChest
 
     private int kind = 0;
 
+    public TileEntityTreasureChest()
+    {
+        super(TileEntityTypesAether.TREASURE_CHEST);
+    }
+
     @Override
     public void read(NBTTagCompound par1nbtTagCompound)
     {

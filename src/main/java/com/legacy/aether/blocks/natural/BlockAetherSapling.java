@@ -28,8 +28,6 @@ public class BlockAetherSapling extends BlockAetherFlower implements IGrowable
 	{
 		if (!worldIn.isRemote)
 		{
-			super.tick(stateIn, worldIn, posIn, randIn);
-
 			if (!worldIn.isAreaLoaded(posIn, 1)) return;
 			if (worldIn.getLight(posIn.up()) >= 9 && randIn.nextInt(30) == 0)
 			{

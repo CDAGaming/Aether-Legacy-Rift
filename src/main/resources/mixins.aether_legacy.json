@@ -11,6 +11,8 @@
     "MixinEntityPlayerMP",
     "MixinBlockBush",
     "MixinItemBucket",
+    "MixinItemSpade",
+    "MixinItemAxe",
     "MixinEntityTracker",
     "MixinEntityTrackerEntry",
     "MixinNetHandlerPlayServer",

@@ -10,7 +10,7 @@ public class BlockAmbrosiumTorch extends BlockTorch
 
 	public BlockAmbrosiumTorch()
 	{
-		super(Block.Properties.create(Material.CIRCUITS).needsRandomTick().lightValue(1).sound(SoundType.WOOD));
+		super(Block.Properties.create(Material.CIRCUITS).doesNotBlockMovement().needsRandomTick().lightValue(14).sound(SoundType.WOOD));
 	}
 
 }

@@ -21,9 +21,16 @@ import com.legacy.aether.blocks.decorative.BlockHolystoneBrick;
 import com.legacy.aether.blocks.decorative.BlockQuicksoilGlass;
 import com.legacy.aether.blocks.decorative.BlockSkyrootPlanks;
 import com.legacy.aether.blocks.decorative.BlockZanite;
+import com.legacy.aether.blocks.dungeon.BlockDungeon;
+import com.legacy.aether.blocks.dungeon.BlockDungeonLight;
+import com.legacy.aether.blocks.dungeon.BlockDungeonTrap;
+import com.legacy.aether.blocks.dungeon.BlockDungeonTrapLight;
+import com.legacy.aether.blocks.dungeon.BlockPillar;
+import com.legacy.aether.blocks.dungeon.BlockTreasureChest;
 import com.legacy.aether.blocks.natural.BlockAetherDirt;
 import com.legacy.aether.blocks.natural.BlockAetherFlower;
 import com.legacy.aether.blocks.natural.BlockAetherGrass;
+import com.legacy.aether.blocks.natural.BlockAetherGrassPath;
 import com.legacy.aether.blocks.natural.BlockAetherLeaves;
 import com.legacy.aether.blocks.natural.BlockAetherLog;
 import com.legacy.aether.blocks.natural.BlockAetherSapling;
@@ -45,6 +52,8 @@ public class BlocksAether implements BlockAdder, ItemAdder
 
 	public static Block aether_grass, enchanted_aether_grass, aether_dirt;
 
+	public static Block aether_grass_path;
+
 	public static Block holystone, mossy_holystone, holystone_brick;
 
 	public static Block cold_aercloud, blue_aercloud, golden_aercloud, pink_aercloud;
@@ -59,7 +68,7 @@ public class BlocksAether implements BlockAdder, ItemAdder
 
 	public static Block ambrosium_ore, zanite_ore, gravitite_ore;
 
-	public static Block skyroot_leaves, skyroot_log, golden_oak_leaves, golden_oak_log, crystal_leaves, skyroot_planks;
+	public static Block skyroot_leaves, skyroot_log, golden_oak_leaves, golden_oak_log, crystal_leaves, stripped_skyroot_log, stripped_golden_oak_log, skyroot_planks;
 
 	public static Block quicksoil_glass, aerogel;
 
@@ -114,6 +123,7 @@ public class BlocksAether implements BlockAdder, ItemAdder
 	{
 		aether_grass = register("aether_grass", new BlockAetherGrass());
 		enchanted_aether_grass = register("enchanted_aether_grass", new BlockEnchantedAetherGrass());
+		aether_grass_path = register("aether_grass_path", new BlockAetherGrassPath());
 		aether_dirt = register("aether_dirt", new BlockAetherDirt());
 		holystone = register("holystone", new BlockHolystone());
 		mossy_holystone = register("mossy_holystone", new BlockHolystone());
@@ -148,6 +158,8 @@ public class BlocksAether implements BlockAdder, ItemAdder
 		golden_oak_leaves = register("golden_oak_leaves", new BlockAetherLeaves());
 		golden_oak_log = register("golden_oak_log", new BlockAetherLog());
 		crystal_leaves = register("crystal_leaves", new BlockAetherLeaves());
+		stripped_skyroot_log = register("stripped_skyroot_log", new BlockAetherLog());
+		stripped_golden_oak_log = register("stripped_golden_oak_log", new BlockAetherLog());
 		skyroot_planks = register("skyroot_planks", new BlockSkyrootPlanks());
 		quicksoil_glass = register("quicksoil_glass", new BlockQuicksoilGlass());
 		aerogel = register("aerogel", new BlockAerogel());
@@ -157,15 +169,17 @@ public class BlocksAether implements BlockAdder, ItemAdder
 		enchanter = register("enchanter", new BlockEnchanter());
 		freezer = register("freezer", new BlockFreezer());
 
-		ambrosium_torch = register("ambrosium_torch", new BlockAmbrosiumTorch());
 		ambrosium_torch_wall = register("ambrosium_wall_torch", new BlockAmbrosiumTorchWall());
+		ambrosium_torch = register("ambrosium_torch", new BlockAmbrosiumTorch());
 
-		itemBlockList[availableId] = new ItemBlock(ambrosium_torch_wall, new Item.Properties());
-		itemBlockList[availableId - 1] = new ItemWallOrFloor(ambrosium_torch, ambrosium_torch_wall, new Item.Properties());
+		itemBlockList[availableId - 2] = new ItemBlock(ambrosium_torch_wall, new Item.Properties());
+		itemBlockList[availableId - 1] = new ItemWallOrFloor(ambrosium_torch, ambrosium_torch_wall, new Item.Properties().group(ItemGroup.BUILDING_BLOCKS));
 
 		aether_portal = register("aether_portal", new BlockAetherPortal());
 
-		/*carved_stone = register("carved_stone", new BlockDungeon(false));
+		treasure_chest = register("treasure_chest", new BlockTreasureChest());
+
+		carved_stone = register("carved_stone", new BlockDungeon(false));
 		angelic_stone = register("angelic_stone", new BlockDungeon(false));
 		hellfire_stone = register("hellfire_stone", new BlockDungeon(false));
 		sentry_stone = register("sentry_stone", new BlockDungeonLight(false));
@@ -182,14 +196,17 @@ public class BlocksAether implements BlockAdder, ItemAdder
 		carved_stone_trap = register("carved_stone_trap", new BlockDungeonTrap(carved_stone.getDefaultState()));
 		angelic_stone_trap = register("angelic_stone_trap", new BlockDungeonTrap(angelic_stone.getDefaultState()));
 		hellfire_stone_trap = register("hellfire_stone_trap", new BlockDungeonTrap(hellfire_stone.getDefaultState()));
-		locked_sentry_stone = register("locked_sentry_stone", new BlockDungeonTrapLight(sentry_stone.getDefaultState()));
-		locked_light_angelic_stone = register("locked_light_angelic_stone", new BlockDungeonTrapLight(light_angelic_stone.getDefaultState()));
-		locked_light_hellfire_stone = register("locked_light_hellfire_stone", new BlockDungeonTrapLight(light_hellfire_stone.getDefaultState()));*/
+		sentry_stone_trap = register("sentry_stone_trap", new BlockDungeonTrapLight(sentry_stone.getDefaultState()));
+		light_angelic_stone_trap = register("light_angelic_stone_trap", new BlockDungeonTrapLight(light_angelic_stone.getDefaultState()));
+		light_hellfire_stone_trap = register("light_hellfire_stone_trap", new BlockDungeonTrapLight(light_hellfire_stone.getDefaultState()));
 
 		purple_flower = register("purple_flower", new BlockAetherFlower());
 		white_flower = register("white_flower", new BlockAetherFlower());
 		skyroot_sapling = register("skyroot_sapling", new BlockAetherSapling(new SkyrootTree()));
 		golden_oak_sapling = register("golden_oak_sapling", new BlockAetherSapling(new GoldenOakTree()));
+
+		pillar = register("pillar", new BlockPillar());
+		pillar_top = register("pillar_top", new BlockPillar());
 	}
 
 	@Override

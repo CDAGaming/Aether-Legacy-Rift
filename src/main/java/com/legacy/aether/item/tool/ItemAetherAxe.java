@@ -57,23 +57,22 @@ public class ItemAetherAxe extends ItemAxe implements IAetherTool
         BlockPos blockpos = context.getPos();
         IBlockState iblockstate = world.getBlockState(blockpos);
 
-        if (this.getMaterial() == AetherTier.Gravitite && this.getDestroySpeed(context.getItem(), iblockstate) == this.efficiency)
+        if (context.isPlacerSneaking() && this.getMaterial() == AetherTier.Gravitite && this.getDestroySpeed(context.getItem(), iblockstate) == this.efficiency)
         {
-        	if (world.isAirBlock(blockpos.up()) && !world.isRemote)
+        	if (world.isAirBlock(blockpos.up()))
         	{
         		EntityFloatingBlock floatingBlock = new EntityFloatingBlock(world, (double)blockpos.getX() + 0.5D, (double)blockpos.getY(), (double)blockpos.getZ() + 0.5D, world.getBlockState(blockpos));
 
-        		world.spawnEntity(floatingBlock);
-        	}
-        	else
-        	{
-            	return EnumActionResult.PASS;
-        	}
+        		if (!world.isRemote)
+        		{
+            		world.spawnEntity(floatingBlock);
+        		}
 
-        	return EnumActionResult.SUCCESS;
+            	return EnumActionResult.SUCCESS;
+        	}
         }
 
-        return EnumActionResult.PASS;
+        return super.onItemUse(context);
     }
 
 	@Override
