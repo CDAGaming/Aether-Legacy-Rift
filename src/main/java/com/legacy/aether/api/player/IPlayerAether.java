@@ -17,6 +17,8 @@ public interface IPlayerAether
 
 	public void increaseHealth(int amount);
 
+	public boolean isJumping();
+
 	public AccessoryInventory getAccessoryInventory();
 
 	public PlayerEntity getPlayer();

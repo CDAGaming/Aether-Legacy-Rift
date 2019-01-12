@@ -7,7 +7,6 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
-import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -18,7 +17,6 @@ import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Hand;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
@@ -26,11 +24,12 @@ import net.minecraft.world.World;
 import com.legacy.aether.api.AetherAPI;
 import com.legacy.aether.api.moa.MoaType;
 import com.legacy.aether.entities.EntityTypesAether;
+import com.legacy.aether.entities.util.EntitySaddleMount;
 import com.legacy.aether.item.ItemMoaEgg;
 import com.legacy.aether.item.ItemsAether;
 import com.legacy.aether.sounds.SoundsAether;
 
-public class EntityMoa extends AnimalEntity
+public class EntityMoa extends EntitySaddleMount
 {
 	public static final TrackedData<Integer> MOA_TYPE_ID = DataTracker.registerData(EntityMoa.class, TrackedDataHandlerRegistry.INTEGER);
 
@@ -201,7 +200,7 @@ public class EntityMoa extends AnimalEntity
 
 		this.setMaxJumps(this.getMoaType().getMoaProperties().getMaxJumps());
 
-		if (!this.onGround)
+		if (this.field_6282)
 		{
 			this.velocityY += 0.05F;
 		}
@@ -250,13 +249,6 @@ public class EntityMoa extends AnimalEntity
 		this.fallDistance = 0.0F;
 	}
 
-	/*
-	@Override
-    public void travel(float strafe, float vertical, float forward)
-	{
-		super.travel(strafe, vertical, forward);
-	}*/
-	
 	public boolean isBreedingItem(ItemStack stack)
     {
         return false;
@@ -302,7 +294,6 @@ public class EntityMoa extends AnimalEntity
 		this.wingRotation += 1.233F;
 	}
 
-	/*
 	@Override
 	public void onMountedJump(float par1, float par2)
 	{
@@ -313,29 +304,28 @@ public class EntityMoa extends AnimalEntity
 				this.velocityY = 0.7D;
 				this.world.playSound(null, this.x, this.y, this.z, SoundEvents.ENTITY_BAT_TAKEOFF, SoundCategory.NEUTRAL, 0.15F, MathHelper.clamp(this.random.nextFloat(), 0.7f, 1.0f) + MathHelper.clamp(this.random.nextFloat(), 0f, 0.3f));
 
-				if (!this.world.isRemote)
+				if (!this.world.isClient)
 				{
 					this.setRemainingJumps(this.getRemainingJumps() - 1);
 				}
 
-				if (!this.world.isRemote)
+				if (!this.world.isClient)
 				{
-					//this.spawnExplosionParticle();
+					this.method_5990();
 				}
 			}
 			else
 			{
-				this.y = 0.89D;
+				this.velocityY = 0.89D;
 			}
 		}
-	}*/
+	}
 
-	/*
 	@Override
 	public float getMountedMoveSpeed()
 	{
 		return this.getMoaType().getMoaProperties().getMoaSpeed();
-	}*/
+	}
 
 	public void setToAdult()
 	{
@@ -381,7 +371,7 @@ public class EntityMoa extends AnimalEntity
 
 				if (!this.world.isClient)
 				{
-					//this.spawnExplosionParticle();
+					this.method_5990();
 				}
 
 				return true;
@@ -465,7 +455,6 @@ public class EntityMoa extends AnimalEntity
 	public void doJump(boolean jump)
 	{
 		super.doJump(jump);
-		//super.doJump(!this.isSitting() && this.getPassengerList().isEmpty());
 	}
 
 	@Override

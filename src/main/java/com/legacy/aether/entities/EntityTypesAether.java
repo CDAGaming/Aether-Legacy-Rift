@@ -1,29 +1,16 @@
 package com.legacy.aether.entities;
 
-import com.legacy.aether.Aether;
-
-import com.legacy.aether.client.rendering.entity.FloatingBlockRenderer;
-import com.legacy.aether.client.rendering.entity.MoaRenderer;
-import com.legacy.aether.entities.passive.EntityMoa;
-import com.mojang.datafixers.DataFixerBuilder;
-import net.fabricmc.fabric.client.render.BlockEntityRendererRegistry;
 import net.fabricmc.fabric.client.render.EntityRendererRegistry;
 import net.fabricmc.fabric.entity.FabricEntityTypeBuilder;
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.particle.Particle;
-import net.minecraft.client.particle.RedDustParticle;
-import net.minecraft.client.render.block.entity.BlockEntityRenderer;
-import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.EntityType.Builder;
-import net.minecraft.item.Item;
-
-import com.legacy.aether.entities.block.EntityFloatingBlock;
 import net.minecraft.util.registry.Registry;
+
+import com.legacy.aether.Aether;
+import com.legacy.aether.client.rendering.entity.FloatingBlockRenderer;
+import com.legacy.aether.client.rendering.entity.MoaRenderer;
+import com.legacy.aether.entities.block.EntityFloatingBlock;
+import com.legacy.aether.entities.passive.EntityMoa;
 
 public class EntityTypesAether
 {

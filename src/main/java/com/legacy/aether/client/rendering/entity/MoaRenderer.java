@@ -58,7 +58,7 @@ public class MoaRenderer extends LivingEntityRenderer<EntityMoa, MoaModel>
 			}
 		}
 
-		return moa.getMoaType().getTexture(false);
+		return moa.getMoaType().getTexture(entity.getSaddled());
 	}
 
 }
