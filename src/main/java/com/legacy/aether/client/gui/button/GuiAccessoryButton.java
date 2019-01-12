@@ -1,20 +1,17 @@
 package com.legacy.aether.client.gui.button;
 
-import com.legacy.aether.client.ClientTickHandler;
-import com.legacy.aether.client.gui.container.GuiAccessories;
-import com.mojang.blaze3d.platform.GlStateManager;
 import io.netty.buffer.Unpooled;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.Gui;
-import net.minecraft.client.gui.ingame.InventoryGui;
+import net.minecraft.client.gui.ingame.PlayerInventoryGui;
 import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.network.packet.CustomPayloadClientPacket;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.packet.CustomPayloadServerPacket;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.PacketByteBuf;
 
 import com.legacy.aether.Aether;
-import net.minecraft.util.PacketByteBuf;
+import com.legacy.aether.client.gui.container.GuiAccessories;
+import com.mojang.blaze3d.platform.GlStateManager;
 
 public class GuiAccessoryButton extends ButtonWidget
 {
@@ -45,12 +42,13 @@ public class GuiAccessoryButton extends ButtonWidget
 	{
 		MinecraftClient mc = MinecraftClient.getInstance();
 
-		if (mc.currentGui instanceof GuiAccessories) {
-			mc.player.closeGui();
-			mc.openGui(new InventoryGui(mc.player));
-		} else {
-			mc.player.closeGui();
-			ClientTickHandler.displayContainerGui(mc.player, "accessories", mc.player.inventory);
+		if (mc.currentGui instanceof GuiAccessories)
+		{
+			mc.openGui(new PlayerInventoryGui(mc.player));
+		}
+		else
+		{
+			mc.player.networkHandler.sendPacket(new CustomPayloadServerPacket(Aether.locate("open_accessories"), new PacketByteBuf(Unpooled.buffer())));
 		}
 	}
 

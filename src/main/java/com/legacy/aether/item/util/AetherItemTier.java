@@ -1,9 +1,9 @@
 package com.legacy.aether.item.util;
 
-import net.minecraft.item.ItemContainer;
+import net.minecraft.item.ItemProvider;
 import net.minecraft.item.ToolMaterial;
 import net.minecraft.recipe.Ingredient;
-import net.minecraft.util.LazyCachedSupplier;
+import net.minecraft.util.Lazy;
 
 public class AetherItemTier implements ToolMaterial
 {
@@ -14,9 +14,9 @@ public class AetherItemTier implements ToolMaterial
     private final float damageVsEntity;
     private final int enchantability;
 
-    private final LazyCachedSupplier<Ingredient> ingredientLoader;
+    private final Lazy<Ingredient> ingredientLoader;
 
-	public AetherItemTier(int harvestLevel, int maxUses, float efficiencyOnProperMaterial, float damageVsEntity, int enchantability, ItemContainer repairMaterial)
+	public AetherItemTier(int harvestLevel, int maxUses, float efficiencyOnProperMaterial, float damageVsEntity, int enchantability, ItemProvider repairMaterial)
 	{
         this.harvestLevel = harvestLevel;
         this.maxUses = maxUses;
@@ -24,7 +24,7 @@ public class AetherItemTier implements ToolMaterial
         this.damageVsEntity = damageVsEntity;
         this.enchantability = enchantability;
 
-        this.ingredientLoader = new LazyCachedSupplier<>(() -> Ingredient.ofItems(repairMaterial));
+        this.ingredientLoader = new Lazy<>(() -> Ingredient.ofItems(repairMaterial));
 	}
 
 	@Override

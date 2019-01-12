@@ -1,21 +1,23 @@
 package com.legacy.aether.item;
 
-import com.legacy.aether.entities.EntityTypesAether;
-import net.minecraft.item.*;
-
-import com.legacy.aether.api.AetherAPI;
-import com.legacy.aether.api.moa.MoaType;
-import com.legacy.aether.entities.passive.EntityMoa;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemUsageContext;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.DefaultedList;
 
-public class ItemMoaEgg extends SpawnEggItem
+import com.legacy.aether.api.AetherAPI;
+import com.legacy.aether.api.moa.MoaType;
+import com.legacy.aether.entities.passive.EntityMoa;
+
+public class ItemMoaEgg extends Item
 {
 
 	public ItemMoaEgg()
 	{
-		super(EntityTypesAether.MOA, 3407872, 5349438, new Item.Settings().stackSize(1).itemGroup(ItemGroup.MISC));
+		super(new Item.Settings().stackSize(1).itemGroup(ItemGroup.MISC));
 	}
 
 	@Override
@@ -28,7 +30,7 @@ public class ItemMoaEgg extends SpawnEggItem
 			moa.setPositionAndAngles(contextIn.getPos().up(), 1.0F, 1.0F);
 			moa.setPlayerGrown(true);
 
-			if (!contextIn.getWorld().isRemote)
+			if (!contextIn.getWorld().isClient)
 			{
 				contextIn.getWorld().spawnEntity(moa);
 			}

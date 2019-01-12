@@ -9,6 +9,7 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.TextFormat;
 
+@SuppressWarnings("unused")
 public class DialogueOption extends Gui
 {
 
@@ -42,8 +43,7 @@ public class DialogueOption extends Gui
 
     public void playPressSound(SoundLoader soundHandlerIn)
     {
-    	// TODO - 1.14
-        //soundHandlerIn.play(.master(SoundEvents.UI_BUTTON_CLICK, 1.0F));
+    	soundHandlerIn.play(PositionedSoundInstance.master(SoundEvents.UI_BUTTON_CLICK, 1.0F));
     }
 
 	public void setDialogueText(String dialogueText)

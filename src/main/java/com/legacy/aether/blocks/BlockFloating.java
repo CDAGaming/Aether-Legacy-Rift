@@ -2,13 +2,10 @@ package com.legacy.aether.blocks;
 
 import java.util.Random;
 
-import com.legacy.aether.entities.block.EntityFloatingBlock;
-
 import net.fabricmc.fabric.block.FabricBlockSettings;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.GrassBlock;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
@@ -16,7 +13,10 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.ViewableWorld;
 import net.minecraft.world.World;
+
 import org.apache.logging.log4j.LogManager;
+
+import com.legacy.aether.entities.block.EntityFloatingBlock;
 
 public class BlockFloating extends Block
 {
@@ -39,18 +39,18 @@ public class BlockFloating extends Block
 	}
 
 	@Override
-    public BlockState getRenderingState(BlockState stateIn, Direction facingIn, BlockState neighborIn, IWorld worldIn, BlockPos posIn, BlockPos neighborPosIn)
+    public BlockState getStateForNeighborUpdate(BlockState stateIn, Direction facingIn, BlockState neighborIn, IWorld worldIn, BlockPos posIn, BlockPos neighborPosIn)
     {
 		worldIn.getBlockTickScheduler().schedule(posIn, this, this.getTickRate(worldIn));
 
 		// TODO: VERIFY
-    	return super.getRenderingState(stateIn, facingIn, neighborIn, worldIn, posIn, neighborPosIn);
+    	return super.getStateForNeighborUpdate(stateIn, facingIn, neighborIn, worldIn, posIn, neighborPosIn);
     }
 
 	@Override
 	public void scheduledTick(BlockState stateIn, World worldIn, BlockPos posIn, Random randIn)
 	{
-		if (!worldIn.isRemote)
+		if (!worldIn.isClient)
 		{
 			if (this.constantlyPowered || (!this.constantlyPowered && worldIn.isReceivingRedstonePower(posIn)))
 			{
@@ -65,7 +65,7 @@ public class BlockFloating extends Block
 		{
             if (!floatInstantly && worldIn.isAreaLoaded(posIn.add(-32, -32, -32), posIn.add(32, 32, 32)))
             {
-                if (!worldIn.isRemote)
+                if (!worldIn.isClient)
                 {
                 	LogManager.getLogger().error(posIn.getY());
                     EntityFloatingBlock floatingBlock = new EntityFloatingBlock(worldIn, (double)posIn.getX() + 0.5D, (double)posIn.getY(), (double)posIn.getZ() + 0.5D, worldIn.getBlockState(posIn));

@@ -7,17 +7,23 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.util.Hand;
+import net.minecraft.world.dimension.DimensionType;
 
 import com.legacy.aether.api.player.IPlayerAether;
-import com.legacy.aether.item.ItemsAether;
+import com.legacy.aether.api.player.util.AccessoryInventory;
+import com.legacy.aether.api.player.util.PlayerReach;
+import com.legacy.aether.inventory.AccessoriesInventory;
+import com.legacy.aether.item.tool.IAetherTool;
+import com.legacy.aether.item.util.AetherTier;
 import com.legacy.aether.player.perks.AetherDonationPerks;
-
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.world.dimension.DimensionType;
+import com.legacy.aether.util.AetherTeleportation;
+import com.legacy.aether.world.TeleporterAether;
+import com.legacy.aether.world.WorldAether;
 
 public class PlayerAether implements IPlayerAether
 {
@@ -30,7 +36,7 @@ public class PlayerAether implements IPlayerAether
 
 	public float prevPortalAnimTime, portalAnimTime;
 
-	public int timeInPortal, portalCooldown;
+	public int timeInPortal;
 
 	public boolean hasTeleported = false, inPortal = false;
 
@@ -38,18 +44,20 @@ public class PlayerAether implements IPlayerAether
 
 	private EntityAttributeModifier aetherHealth;
 
-	//private InventoryAccessories accessories;
+	private final AccessoryInventory accessories;
 
 	//private AetherPoisonMovement poisonMovement;
 
 	public AetherDonationPerks donationPerks;
+
+	private boolean hadReachTool;
 
 	public PlayerAether(PlayerEntity player)
 	{
 		this.player = player;
 		this.donationPerks = new AetherDonationPerks();
 		//this.poisonMovement = new AetherPoisonMovement(player);
-		//this.accessories = new InventoryAccessories((IEntityPlayerAether) player);
+		this.accessories = new AccessoriesInventory(this);
 	}
 
 	public void tick()
@@ -64,11 +72,12 @@ public class PlayerAether implements IPlayerAether
 			}
 		}
 
+		this.updateReach();
 		//this.poisonMovement.tick();
 
-		this.setJumping(((IEntityHook)this.player).checkIsJumping());
+		//this.setJumping(((IEntityHook)this.player).checkIsJumping());
 
-		if (this.getPlayer().world.isRemote)
+		if (this.getPlayer().world.isClient)
 		{
 			this.prevPortalAnimTime = this.portalAnimTime;
 
@@ -92,14 +101,14 @@ public class PlayerAether implements IPlayerAether
 		}
 		else
 		{
-			if (this.inPortal && this.portalCooldown <= 0)
+			if (this.inPortal && this.player.portalCooldown <= 0)
 			{
 				int limit = 80;
 
 				if (this.timeInPortal++ >= limit)
 				{
 					this.timeInPortal = limit;
-					this.portalCooldown = this.getPlayer().portalCooldown;
+					this.player.portalCooldown = this.player.getDefaultPortalCooldown();
 					this.teleportPlayer(true);
 				}
 
@@ -117,11 +126,46 @@ public class PlayerAether implements IPlayerAether
                     this.timeInPortal = 0;
                 }
 
-                if (this.portalCooldown > 0)
+                if (this.player.portalCooldown > 0)
                 {
-                    --this.portalCooldown;
+                    --this.player.portalCooldown;
                 }
 			}
+		}
+	}
+
+	private void updateReach()
+	{
+		ItemStack mainHeldItem = this.getPlayer().getStackInHand(Hand.MAIN);
+		ItemStack offHeldItem = this.getPlayer().getStackInHand(Hand.OFF);
+		boolean isMainReachTool = mainHeldItem.getItem() instanceof IAetherTool && ((IAetherTool)mainHeldItem.getItem()).getMaterial() == AetherTier.Valkyrie;
+		boolean isOffReachTool = offHeldItem.getItem() instanceof IAetherTool && ((IAetherTool)offHeldItem.getItem()).getMaterial() == AetherTier.Valkyrie;
+
+		if (isMainReachTool || isOffReachTool)
+		{
+			if (this.getPlayer().world.isClient)
+			{
+				((PlayerReach)net.minecraft.client.MinecraftClient.getInstance().interactionManager).setReachDistance(10.0F, 10.0F);
+			}
+			else
+			{
+				((PlayerReach)((net.minecraft.server.network.ServerPlayerEntity)this.getPlayer()).interactionManager).setReachDistance(10.0F, 10.0F);
+			}
+
+			this.hadReachTool = true;
+		}
+		else if (!isMainReachTool && !isOffReachTool && this.hadReachTool)
+		{
+			if (this.getPlayer().world.isClient)
+			{
+				((PlayerReach)net.minecraft.client.MinecraftClient.getInstance().interactionManager).setReachDistance(4.5F, 5.0F);
+			}
+			else
+			{
+				((PlayerReach)((net.minecraft.server.network.ServerPlayerEntity)this.getPlayer()).interactionManager).setReachDistance(4.5F, 5.0F);
+			}
+
+			this.hadReachTool = false;
 		}
 	}
 
@@ -130,123 +174,24 @@ public class PlayerAether implements IPlayerAether
 	 */
 	private void teleportPlayer(boolean shouldSpawnPortal) 
 	{
-		if (!this.player.world.isRemote)
+		if (!this.player.world.isClient)
 		{
 			MinecraftServer server = this.player.getServer();
-			//DimensionType dimensionToTravel = this.player.dimension == WorldAether.AETHER ? DimensionType.OVERWORLD : WorldAether.AETHER;
+			DimensionType dimensionToTravel = this.player.dimension == WorldAether.THE_AETHER ? DimensionType.OVERWORLD : WorldAether.THE_AETHER;
 
 			if (server != null)
 			{
-				//AetherTeleportation.travelDimension((ServerPlayerEntity) this.player, dimensionToTravel, new TeleporterAether(shouldSpawnPortal, server.getWorld(dimensionToTravel)));
+				AetherTeleportation.instance().teleportPlayer((ServerPlayerEntity) this.player, dimensionToTravel, new TeleporterAether(shouldSpawnPortal, server.getWorld(dimensionToTravel)));
 			}
 		}
 	}
 
-	/*
-	 * Checks how many of the specific item the player is wearing (If any)
-	 */
-	public int getAccessoryCount(Item item)
-	{
-		int count = 0;
-
-		for (int index = 0; index < 8; index++)
-		{
-			/*
-			if (this.getAccessories().getInvStack(index).getItem() == item)
-			{
-				count++;
-			}*/
-		}
-
-		return count;
-	}
-
-	/*
-	 * Checks if the player is wearing the specified item as an accessory
-	 */
-	public boolean wearingAccessory(Item item)
-	{
-		for (int index = 0; index < 8; index++)
-		{
-			/*
-			if (this.getAccessories().getInvStack(index).getItem() == item)
-			{
-				return true;
-			}*/
-		}
-
-		return false;
-	}
-
-	/*
-	 * Checks if the player is wearing the specified item as armor
-	 */
-	public boolean wearingArmor(Item item)
-	{
-		for (int index = 0; index < 4; index++)
-		{
-			if (this.getPlayer().inventory.armor.get(index).getItem() == item)
-			{
-				return true;
-			}
-		}
-
-		return false;
-	}
-
-	/*
-	 * Checks of the player is wearing a full set of Zanite
-	 */
-	public boolean isWearingZaniteSet()
-	{
-		return wearingArmor(ItemsAether.zanite_helmet) && wearingArmor(ItemsAether.zanite_chestplate) && wearingArmor(ItemsAether.zanite_leggings) && wearingArmor(ItemsAether.zanite_boots) && wearingAccessory(ItemsAether.zanite_gloves);
-	}
-
-	/*
-	 * Checks of the player is wearing a full set of Gravitite
-	 */
-	public boolean isWearingGravititeSet()
-	{
-		return wearingArmor(ItemsAether.gravitite_helmet) && wearingArmor(ItemsAether.gravitite_chestplate) && wearingArmor(ItemsAether.gravitite_leggings) && wearingArmor(ItemsAether.gravitite_boots) && wearingAccessory(ItemsAether.gravitite_gloves);
-	}
-
-	/*
-	 * Checks of the player is wearing a full set of Neptune
-	 */
-	public boolean isWearingNeptuneSet()
-	{
-		return wearingArmor(ItemsAether.neptune_helmet) && wearingArmor(ItemsAether.neptune_chestplate) && wearingArmor(ItemsAether.neptune_leggings) && wearingArmor(ItemsAether.neptune_boots) && wearingAccessory(ItemsAether.neptune_gloves);
-	}
-
-	/*
-	 * Checks of the player is wearing a full set of Phoenix
-	 */
-	public boolean isWearingPhoenixSet()
-	{
-		return wearingArmor(ItemsAether.phoenix_helmet) && wearingArmor(ItemsAether.phoenix_chestplate) && wearingArmor(ItemsAether.phoenix_leggings) && wearingArmor(ItemsAether.phoenix_boots) && wearingAccessory(ItemsAether.phoenix_gloves);
-	}
-
-	/*
-	 * Checks of the player is wearing a full set of Valkyrie
-	 */
-	public boolean isWearingValkyrieSet()
-	{
-		return wearingArmor(ItemsAether.valkyrie_helmet) && wearingArmor(ItemsAether.valkyrie_chestplate) && wearingArmor(ItemsAether.valkyrie_leggings) && wearingArmor(ItemsAether.valkyrie_boots) && wearingAccessory(ItemsAether.valkyrie_gloves);
-	}
-
-	/*
-	 * Checks of the player is wearing a full set of Obsidian
-	 */
-	public boolean isWearingObsidianSet()
-	{
-		return wearingArmor(ItemsAether.obsidian_helmet) && wearingArmor(ItemsAether.obsidian_chestplate) && wearingArmor(ItemsAether.obsidian_leggings) && wearingArmor(ItemsAether.obsidian_boots) && wearingAccessory(ItemsAether.obsidian_gloves);
-	}
-
-	public void increaseMaxHP()
+	@Override
+	public void increaseHealth(int amount)
 	{
 		UUID uuid = UUID.fromString("df6eabe7-6947-4a56-9099-002f90370706");
 
-		++this.shardsUsed;
+		this.shardsUsed += amount;
 
 		this.aetherHealth = new EntityAttributeModifier(uuid, "Aether Health Modifier", (this.shardsUsed * 2.0), EntityAttributeModifier.Operation.ADDITION);
 
@@ -278,8 +223,6 @@ public class PlayerAether implements IPlayerAether
 
 		that.writeToNBT(compound);
 		this.readFromNBT(compound);
-
-		this.portalCooldown = that.portalCooldown;
 	}
 
 	public void damageAccessories(float damage)
@@ -296,19 +239,27 @@ public class PlayerAether implements IPlayerAether
 		}*/
 	}
 
-	public void applyCure(int cureAmount)
+	public void inflictCure(int ticks)
 	{
 		//this.poisonMovement.curePoison(cureAmount);
 	}
 
-	public void applyPoison(int poisonAmount)
+	public void inflictPoison(int ticks)
 	{
 		//this.poisonMovement.afflictPoison(poisonAmount);
 	}
 
+	@Override
 	public void setInPortal()
 	{
-		this.inPortal = true;
+		if (this.player.portalCooldown > 0)
+		{
+			this.player.portalCooldown = this.player.getDefaultPortalCooldown();
+		}
+		else
+		{
+			this.inPortal = true;
+		}
 	}
 
 	public void setJumping(boolean isJumping)
@@ -326,19 +277,14 @@ public class PlayerAether implements IPlayerAether
 		return this.shardsUsed;
 	}
 
-	/*
-	public InventoryAccessories getAccessories()
+	@Override
+	public AccessoryInventory getAccessoryInventory()
 	{
 		return this.accessories;
-	}*/
-
-	public PlayerEntity getPlayer()
-	{
-		return this.player;
 	}
 
 	@Override
-	public Entity getEntity() 
+	public PlayerEntity getPlayer()
 	{
 		return this.player;
 	}

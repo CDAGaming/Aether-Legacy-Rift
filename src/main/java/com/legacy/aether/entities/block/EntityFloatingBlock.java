@@ -4,13 +4,10 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.ConcretePowderBlock;
-import net.minecraft.client.particle.FactoryParticle;
-import net.minecraft.client.particle.RedDustParticle;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.MovementType;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
-import net.minecraft.entity.data.TrackedDataHandler;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.tag.FluidTags;
@@ -25,7 +22,6 @@ import net.minecraft.world.World;
 import com.legacy.aether.blocks.BlockFloating;
 import com.legacy.aether.blocks.BlocksAether;
 import com.legacy.aether.entities.EntityTypesAether;
-import org.apache.logging.log4j.LogManager;
 
 public class EntityFloatingBlock extends Entity
 {
@@ -117,7 +113,7 @@ public class EntityFloatingBlock extends Entity
                 {
                 	this.world.setBlockState(blockpos, Blocks.AIR.getDefaultState());
                 }
-                else if (!this.world.isRemote)
+                else if (!this.world.isClient)
                 {
                     this.invalidate();
                     return;
@@ -131,7 +127,7 @@ public class EntityFloatingBlock extends Entity
 
             this.move(MovementType.SELF, x + this.velocityX, y + this.velocityY, z + this.velocityZ);
 
-            if (!this.world.isRemote)
+            if (!this.world.isClient)
             {
                 BlockPos blockpos1 = new BlockPos(this);
                 boolean flag = this.state.getBlock() instanceof ConcretePowderBlock;
@@ -151,7 +147,7 @@ public class EntityFloatingBlock extends Entity
 
                 if (!this.onGround && !flag1)
                 {
-                    if (this.floatTime > 100 && !this.world.isRemote && (blockpos1.getY() < 1 || blockpos1.getY() > 256) || this.floatTime > 600)
+                    if (this.floatTime > 100 && !this.world.isClient && (blockpos1.getY() < 1 || blockpos1.getY() > 256) || this.floatTime > 600)
                     {
                         if (this.world.getGameRules().getBoolean("doEntityDrops"))
                         {

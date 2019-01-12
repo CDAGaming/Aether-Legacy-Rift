@@ -1,13 +1,14 @@
 package com.legacy.aether.client.gui.container;
 
 import com.mojang.blaze3d.platform.GlStateManager;
+
 import net.minecraft.client.gui.ContainerGui;
 import net.minecraft.client.resource.language.I18n;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.util.Identifier;
 
 import com.legacy.aether.Aether;
-import com.legacy.aether.inventory.container.ContainerFreezer;
+import com.legacy.aether.container.ContainerFreezer;
 
 public class GuiFreezer extends ContainerGui
 {

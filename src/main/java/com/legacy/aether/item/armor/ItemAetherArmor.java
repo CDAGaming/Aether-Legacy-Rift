@@ -1,6 +1,5 @@
 package com.legacy.aether.item.armor;
 
-import net.minecraft.client.render.entity.ArmorEntityRenderer;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ItemGroup;

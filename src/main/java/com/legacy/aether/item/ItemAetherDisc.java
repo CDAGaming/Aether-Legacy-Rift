@@ -10,7 +10,7 @@ public class ItemAetherDisc extends RecordItem
 
 	public ItemAetherDisc(int comparatorValueIn, SoundEvent soundIn)
 	{
-		super(comparatorValueIn, soundIn, new Settings().itemGroup(ItemGroup.MISC).rarity(Rarity.RARE));
+		super(comparatorValueIn, soundIn, new Settings().stackSize(1).itemGroup(ItemGroup.MISC).rarity(Rarity.RARE));
 	}
 
 }

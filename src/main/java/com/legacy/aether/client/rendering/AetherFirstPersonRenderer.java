@@ -1,25 +1,26 @@
 package com.legacy.aether.client.rendering;
 
-import com.legacy.aether.item.ItemsAether;
-import com.legacy.aether.player.IEntityPlayerAether;
-import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.model.Model;
+import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.client.render.entity.model.PlayerEntityModel;
+
+import com.legacy.aether.api.player.IPlayerAether;
+import com.legacy.aether.item.ItemsAether;
+import com.legacy.aether.item.accessory.ItemAccessory;
+import com.mojang.blaze3d.platform.GlStateManager;
 
 public class AetherFirstPersonRenderer
 {
 
-	private static BipedEntityModel gloveModel = new BipedEntityModel(0.01F);
+	private static BipedEntityModel<AbstractClientPlayerEntity> gloveModel = new BipedEntityModel<AbstractClientPlayerEntity>(0.01F);
 
-	private static BipedEntityModel slimGloveModel = new PlayerEntityModel(0.01F, true);
+	private static BipedEntityModel<AbstractClientPlayerEntity> slimGloveModel = new PlayerEntityModel<AbstractClientPlayerEntity>(0.01F, true);
 
-	/*
-	public static void renderRightGlove(IEntityPlayerAether hook, ItemAccessory gloves)
+	public static void renderRightGlove(IPlayerAether player, ItemAccessory gloves)
     {
-		boolean isSlim = ((AbstractClientPlayer)hook.getInstance()).getSkinType().equals("slim");
-		MinecraftClient.getInstance().getEntityRenderManager().textureManager.bindTexture(gloves.getAccessoryTexture(isSlim));
+		boolean isSlim = ((AbstractClientPlayerEntity)player.getPlayer()).method_3121().equals("slim");
+		MinecraftClient.getInstance().getEntityRenderManager().textureManager.bindTexture(gloves.getTexture(isSlim));
 
 		int colour = gloves.getColor();
 		float red = ((colour >> 16) & 0xff) / 255F;
@@ -33,19 +34,19 @@ public class AetherFirstPersonRenderer
 
         GlStateManager.enableBlend();
         getModel(isSlim).swingProgress = 0.0F;
-        getModel(isSlim).isSneak = false;
-        getModel(isSlim).setRotationAngles(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0625F, hook.getInstance());
-        getModel(isSlim).bipedRightArm.rotateAngleX = 0.0F;
-        getModel(isSlim).bipedRightArm.render(0.0625F);
+        getModel(isSlim).isSneaking = false;
+        getModel(isSlim).setAngles((AbstractClientPlayerEntity) player.getPlayer(), 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0625F);
+        getModel(isSlim).armRight.pitch = 0.0F;
+        getModel(isSlim).armRight.render(0.0625F);
         GlStateManager.disableBlend();
 
         GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
     }
 
-	public static void renderLeftGlove(IEntityPlayerAether hook, ItemAccessory gloves)
+	public static void renderLeftGlove(IPlayerAether player, ItemAccessory gloves)
     {
-		boolean isSlim = ((AbstractClientPlayer)hook.getInstance()).getSkinType().equals("slim");
-		MinecraftClient.getInstance().getEntityRenderManager().textureManager.bindTexture(gloves.getAccessoryTexture(isSlim));
+		boolean isSlim = ((AbstractClientPlayerEntity)player.getPlayer()).method_3121().equals("slim");
+		MinecraftClient.getInstance().getEntityRenderManager().textureManager.bindTexture(gloves.getTexture(isSlim));
 
 		int colour = gloves.getColor();
 		float red = ((colour >> 16) & 0xff) / 255F;
@@ -58,17 +59,17 @@ public class AetherFirstPersonRenderer
 		}
 
         GlStateManager.enableBlend();
-        getModel(isSlim).isSneak = false;
         getModel(isSlim).swingProgress = 0.0F;
-        getModel(isSlim).setRotationAngles(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0625F, hook.getInstance());
-        getModel(isSlim).bipedLeftArm.rotateAngleX = 0.0F;
-        getModel(isSlim).bipedLeftArm.render(0.0625F);
+        getModel(isSlim).isSneaking = false;
+        getModel(isSlim).setAngles((AbstractClientPlayerEntity) player.getPlayer(), 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0625F);
+        getModel(isSlim).armLeft.pitch = 0.0F;
+        getModel(isSlim).armLeft.render(0.0625F);
         GlStateManager.disableBlend();
 
         GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-    }*/
+    }
 
-	private static Model getModel(boolean isSlim)
+	private static BipedEntityModel<AbstractClientPlayerEntity> getModel(boolean isSlim)
 	{
 		return isSlim ? slimGloveModel : gloveModel;
 	}

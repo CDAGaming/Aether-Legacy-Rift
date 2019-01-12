@@ -1,7 +1,6 @@
 package com.legacy.aether.item.util;
 
 import com.legacy.aether.item.ItemsAether;
-import net.minecraft.block.Blocks;
 
 public enum AetherTier
 {

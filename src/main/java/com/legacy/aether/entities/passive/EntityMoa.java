@@ -221,15 +221,15 @@ public class EntityMoa extends AnimalEntity
 			this.setHungry(true);
 		}
 		
-		if(this.world.isRemote && isHungry() && isChild())
+		if(this.world.isClient && isHungry() && isChild())
 		{
 			if(this.random.nextInt(10) == 0)
 			{
-				this.world.method_8406(ParticleTypes.HAPPY_VILLAGER, this.x + (this.random.nextDouble() - 0.5D) * (double)this.width, this.y + 1, this.z + (this.random.nextDouble() - 0.5D) * (double)this.width, 0.0D, 0.0D, 0.0D);
+				this.world.addParticle(ParticleTypes.HAPPY_VILLAGER, this.x + (this.random.nextDouble() - 0.5D) * (double)this.width, this.y + 1, this.z + (this.random.nextDouble() - 0.5D) * (double)this.width, 0.0D, 0.0D, 0.0D);
 			}
 		}
 
-		if (!this.world.isRemote && !this.isChild() && this.getPassengerList().isEmpty())
+		if (!this.world.isClient && !this.isChild() && this.getPassengerList().isEmpty())
 		{
 			if (this.secsUntilEgg > 0)
 			{
@@ -264,7 +264,7 @@ public class EntityMoa extends AnimalEntity
 
 	public void resetHunger()
 	{
-		if (!this.world.isRemote)
+		if (!this.world.isClient)
 		{
 			this.setHungry(false);
 		}
@@ -379,7 +379,7 @@ public class EntityMoa extends AnimalEntity
 
 				this.setSitting(!this.isSitting());
 
-				if (!this.world.isRemote)
+				if (!this.world.isClient)
 				{
 					//this.spawnExplosionParticle();
 				}
@@ -464,7 +464,8 @@ public class EntityMoa extends AnimalEntity
 	@Override
 	public void doJump(boolean jump)
 	{
-		super.doJump(!this.isSitting() && this.getPassengerList().isEmpty());
+		super.doJump(jump);
+		//super.doJump(!this.isSitting() && this.getPassengerList().isEmpty());
 	}
 
 	@Override

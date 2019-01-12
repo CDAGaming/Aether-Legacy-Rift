@@ -6,9 +6,7 @@ import net.fabricmc.fabric.block.FabricBlockSettings;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Material;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.item.ItemStack;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.state.StateFactory;
 import net.minecraft.state.property.BooleanProperty;
@@ -43,14 +41,14 @@ public class BlockAetherGrass extends Block
 	}
  
 	@Override
-	public void randomDisplayTick(BlockState stateIn, World worldIn, BlockPos posIn, Random randIn)
+	public void scheduledTick(BlockState stateIn, World worldIn, BlockPos posIn, Random randIn)
 	{
-		if (worldIn.isRemote)
+		if (worldIn.isClient)
 		{
 			return;
 		}
 
-		if (worldIn.getLightLevel(LightType.SKY, posIn.up()) < 4)
+		if (worldIn.method_8602(posIn.up()) < 4)
 		{
 			for (int i = 0; i < 4; ++i)
 			{

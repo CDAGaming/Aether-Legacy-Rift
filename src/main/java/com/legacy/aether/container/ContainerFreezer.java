@@ -1,4 +1,4 @@
-package com.legacy.aether.inventory.container;
+package com.legacy.aether.container;
 
 import net.minecraft.container.Container;
 import net.minecraft.container.ContainerListener;
@@ -7,23 +7,22 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 
-import com.legacy.aether.api.AetherAPI;
-import com.legacy.aether.inventory.slot.SlotOutput;
+import com.legacy.aether.container.slot.SlotOutput;
 
-public class ContainerEnchanter extends Container
+public class ContainerFreezer extends Container
 {
 
-	private Inventory enchanter;
+	private Inventory freezer;
 
 	public int progress, ticksRequired, powerRemaining;
 
-	public ContainerEnchanter(Inventory inventoryIn, Inventory enchanterIn)
+	public ContainerFreezer(Inventory inventoryIn, Inventory freezerIn)
 	{
-		this.enchanter = enchanterIn;
+		this.freezer = freezerIn;
 
-		this.addSlot(new Slot(enchanterIn, 0, 56, 17));
-		this.addSlot(new Slot(enchanterIn, 1, 56, 53));
-		this.addSlot(new SlotOutput(enchanterIn, 2, 116, 35));
+		this.addSlot(new Slot(freezerIn, 0, 56, 17));
+		this.addSlot(new Slot(freezerIn, 1, 56, 53));
+		this.addSlot(new SlotOutput(freezerIn, 2, 116, 35));
 
 		for (int i = 0; i < 3; ++i)
 		{
@@ -42,20 +41,21 @@ public class ContainerEnchanter extends Container
 	@Override
 	public boolean canUse(PlayerEntity playerIn)
 	{
-		return this.enchanter.canPlayerUseInv(playerIn);
+		return this.freezer.canPlayerUseInv(playerIn);
 	}
 
     @Override
     public void addListener(ContainerListener listenerIn)
     {
         super.addListener(listenerIn);
-        listenerIn.onContainerInvRegistered(this, this.enchanter);
+
+        listenerIn.onContainerInvRegistered(this, this.freezer);
     }
 
 	@Override
 	public void setProperty(int id, int value)
 	{
-		this.enchanter.setInvProperty(id, value);
+		this.freezer.setInvProperty(id, value);
 	}
 
     @Override
@@ -65,18 +65,18 @@ public class ContainerEnchanter extends Container
 
 		for (ContainerListener listener : this.listeners) {
 
-			if (this.progress != this.enchanter.getInvProperty(0)) {
-				listener.onContainerPropertyUpdate(this, 0, this.enchanter.getInvProperty(0));
-			} else if (this.powerRemaining != this.enchanter.getInvProperty(1)) {
-				listener.onContainerPropertyUpdate(this, 1, this.enchanter.getInvProperty(1));
-			} else if (this.ticksRequired != this.enchanter.getInvProperty(2)) {
-				listener.onContainerPropertyUpdate(this, 2, this.enchanter.getInvProperty(2));
+			if (this.progress != this.freezer.getInvProperty(0)) {
+				listener.onContainerPropertyUpdate(this, 0, this.freezer.getInvProperty(0));
+			} else if (this.powerRemaining != this.freezer.getInvProperty(1)) {
+				listener.onContainerPropertyUpdate(this, 1, this.freezer.getInvProperty(1));
+			} else if (this.ticksRequired != this.freezer.getInvProperty(2)) {
+				listener.onContainerPropertyUpdate(this, 2, this.freezer.getInvProperty(2));
 			}
 		}
 
-        this.progress = this.enchanter.getInvProperty(0);
-        this.powerRemaining = this.enchanter.getInvProperty(1);
-        this.ticksRequired = this.enchanter.getInvProperty(2);
+        this.progress = this.freezer.getInvProperty(0);
+        this.powerRemaining = this.freezer.getInvProperty(1);
+        this.ticksRequired = this.freezer.getInvProperty(2);
     }
 
 	@Override

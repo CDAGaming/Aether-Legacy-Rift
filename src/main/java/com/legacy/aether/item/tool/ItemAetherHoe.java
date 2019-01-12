@@ -58,7 +58,7 @@ public class ItemAetherHoe extends HoeItem implements IAetherTool
 
                 world.playSound(entityplayer, blockpos, SoundEvents.ITEM_HOE_TILL, SoundCategory.BLOCK, 1.0F, 1.0F);
 
-                if (!world.isRemote)
+                if (!world.isClient)
                 {
                     world.setBlockState(blockpos, iblockstate, 11);
 

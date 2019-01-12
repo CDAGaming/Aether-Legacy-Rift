@@ -1,12 +1,15 @@
 package com.legacy.aether.item;
 
-import com.legacy.aether.sounds.SoundsAether;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
+import net.minecraft.util.Rarity;
+import net.minecraft.util.registry.Registry;
 
 import com.legacy.aether.Aether;
+import com.legacy.aether.api.accessories.AccessoryType;
+import com.legacy.aether.item.accessory.ItemAccessory;
 import com.legacy.aether.item.armor.AetherArmorType;
 import com.legacy.aether.item.armor.ItemAetherArmor;
 import com.legacy.aether.item.dungeon.ItemDungeonKey;
@@ -33,9 +36,7 @@ import com.legacy.aether.item.weapon.ItemCandyCaneSword;
 import com.legacy.aether.item.weapon.ItemElementalSword;
 import com.legacy.aether.item.weapon.ItemPigSlayer;
 import com.legacy.aether.item.weapon.ItemVampireBlade;
-import net.minecraft.text.TextFormat;
-import net.minecraft.util.Rarity;
-import net.minecraft.util.registry.Registry;
+import com.legacy.aether.sounds.SoundsAether;
 
 public class ItemsAether
 {
@@ -214,23 +215,22 @@ public class ItemsAether
 		pig_slayer = register("pig_slayer", new ItemPigSlayer());
 		candy_cane_sword = register("candy_cane_sword", new ItemCandyCaneSword());
 
-		/*
-		leather_gloves = register("leather_gloves", new ItemAccessory(AccessoryType.GLOVE, 0xC65C35));
-		iron_gloves = register("iron_gloves", new ItemAccessory(AccessoryType.GLOVE));
-		golden_gloves = register("golden_gloves", new ItemAccessory(AccessoryType.GLOVE, 0xFBF424));
-		chain_gloves = register("chain_gloves", new ItemAccessory("chain", AccessoryType.GLOVE));
-		diamond_gloves = register("diamond_gloves", new ItemAccessory(AccessoryType.GLOVE, 0x33EBCB));
-		zanite_gloves = register("zanite_gloves", new ItemAccessory(AccessoryType.GLOVE, 0x711AE8));
-		gravitite_gloves = register("gravitite_gloves", new ItemAccessory(AccessoryType.GLOVE, 0xE752DB));
-		neptune_gloves = register("neptune_gloves", new ItemAccessory(AccessoryType.GLOVE, AETHER_LOOT, 0x2654FF));
-		phoenix_gloves = register("phoenix_gloves", new ItemAccessory("phoenix", AccessoryType.GLOVE, AETHER_LOOT, 0xff7700));
-		obsidian_gloves = register("obsidian_gloves", new ItemAccessory(AccessoryType.GLOVE, 0x1B1447));
-		valkyrie_gloves = register("valkyrie_gloves", new ItemAccessory("valkyrie", AccessoryType.GLOVE, AETHER_LOOT));
+		leather_gloves = register("leather_gloves", new ItemAccessory(AccessoryType.GLOVES, 0xC65C35).setDamageMultiplier(1.5F));
+		iron_gloves = register("iron_gloves", new ItemAccessory(AccessoryType.GLOVES).setDamageMultiplier(2.5F));
+		golden_gloves = register("golden_gloves", new ItemAccessory(AccessoryType.GLOVES, 0xFBF424).setDamageMultiplier(2.0F));
+		chain_gloves = register("chain_gloves", new ItemAccessory("chain", AccessoryType.GLOVES).setDamageMultiplier(2.0F));
+		diamond_gloves = register("diamond_gloves", new ItemAccessory(AccessoryType.GLOVES, 0x33EBCB).setDamageMultiplier(4.5F));
+		zanite_gloves = register("zanite_gloves", new ItemAccessory(AccessoryType.GLOVES, 0x711AE8).setDamageMultiplier(3.0F));
+		gravitite_gloves = register("gravitite_gloves", new ItemAccessory(AccessoryType.GLOVES, 0xE752DB).setDamageMultiplier(4.0F));
+		neptune_gloves = register("neptune_gloves", new ItemAccessory(AccessoryType.GLOVES, AETHER_LOOT, 0x2654FF).setDamageMultiplier(4.5F));
+		phoenix_gloves = register("phoenix_gloves", new ItemAccessory("phoenix", AccessoryType.GLOVES, AETHER_LOOT, 0xff7700).setDamageMultiplier(4.0F));
+		obsidian_gloves = register("obsidian_gloves", new ItemAccessory(AccessoryType.GLOVES, 0x1B1447).setDamageMultiplier(5.0F));
+		valkyrie_gloves = register("valkyrie_gloves", new ItemAccessory("valkyrie", AccessoryType.GLOVES, AETHER_LOOT).setDamageMultiplier(5.0F));
 
 		iron_ring = register("iron_ring", new ItemAccessory(AccessoryType.RING));
 		golden_ring = register("golden_ring", new ItemAccessory(AccessoryType.RING, 0xEAEE57));
 		zanite_ring = register("zanite_ring", new ItemAccessory(AccessoryType.RING, 0x711AE8));
-		ice_ring = register("ice_ring", new ItemAccessory(AccessoryType.RING, EnumRarity.RARE, 0x95E6E7));
+		ice_ring = register("ice_ring", new ItemAccessory(AccessoryType.RING, Rarity.RARE, 0x95E6E7));
 
 		iron_pendant = register("iron_pendant", new ItemAccessory(AccessoryType.PENDANT));
 		golden_pendant = register("golden_pendant", new ItemAccessory(AccessoryType.PENDANT, 0xEAEE57));
@@ -248,7 +248,7 @@ public class ItemsAether
 		golden_feather = register("golden_feather", new ItemAccessory(AccessoryType.RING, AETHER_LOOT));
 		regeneration_stone = register("regeneration_stone", new ItemAccessory(AccessoryType.RING, AETHER_LOOT));
 		iron_bubble = register("iron_bubble", new ItemAccessory(AccessoryType.RING, AETHER_LOOT));
-*/
+
 		life_shard = register("life_shard", new ItemLifeShard());
 
 		cloud_staff = register("cloud_staff", new ItemCloudStaff());
@@ -265,6 +265,11 @@ public class ItemsAether
 	public static Item register(String name, Item item)
 	{
 		Registry.register(Registry.ITEM, Aether.locate(name), item);
+
+		if (item instanceof ItemAccessory)
+		{
+			((ItemAccessory)item).register();
+		}
 
 		return item;
 	}

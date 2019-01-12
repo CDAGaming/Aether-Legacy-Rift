@@ -2,7 +2,6 @@ package com.legacy.aether.blocks.decorative;
 
 import net.fabricmc.fabric.block.FabricBlockSettings;
 import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
 import net.minecraft.block.Material;
 import net.minecraft.sound.BlockSoundGroup;
 

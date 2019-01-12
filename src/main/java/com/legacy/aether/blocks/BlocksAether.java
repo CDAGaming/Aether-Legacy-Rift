@@ -1,27 +1,38 @@
 package com.legacy.aether.blocks;
 
-import com.legacy.aether.Aether;
-import com.legacy.aether.blocks.decorative.*;
-import com.legacy.aether.blocks.natural.*;
-import com.legacy.aether.blocks.natural.aercloud.BlockAercloud;
-import com.legacy.aether.blocks.natural.enchanted.BlockEnchantedAetherGrass;
-import com.legacy.aether.blocks.natural.enchanted.BlockEnchantedGravitite;
-import com.legacy.aether.blocks.natural.ore.BlockAmbrosiumOre;
-import com.legacy.aether.blocks.natural.ore.BlockGravititeOre;
-import com.legacy.aether.blocks.natural.ore.BlockZaniteOre;
-import net.fabricmc.fabric.client.render.BlockEntityRendererRegistry;
 import net.minecraft.block.Block;
-import net.minecraft.block.MaterialColor;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.item.Item;
-
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.block.BlockItem;
 import net.minecraft.item.block.WallStandingBlockItem;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
+
+import com.legacy.aether.Aether;
+import com.legacy.aether.blocks.container.BlockTreasureChest;
+import com.legacy.aether.blocks.decorative.BlockAerogel;
+import com.legacy.aether.blocks.decorative.BlockAmbrosiumTorch;
+import com.legacy.aether.blocks.decorative.BlockAmbrosiumTorchWall;
+import com.legacy.aether.blocks.decorative.BlockColoredAercloud;
+import com.legacy.aether.blocks.decorative.BlockHolystoneBrick;
+import com.legacy.aether.blocks.decorative.BlockQuicksoilGlass;
+import com.legacy.aether.blocks.decorative.BlockSkyrootPlanks;
+import com.legacy.aether.blocks.decorative.BlockZanite;
+import com.legacy.aether.blocks.natural.BlockAetherDirt;
+import com.legacy.aether.blocks.natural.BlockAetherGrass;
+import com.legacy.aether.blocks.natural.BlockAetherLeaves;
+import com.legacy.aether.blocks.natural.BlockAetherLog;
+import com.legacy.aether.blocks.natural.BlockHolystone;
+import com.legacy.aether.blocks.natural.BlockIcestone;
+import com.legacy.aether.blocks.natural.BlockQuicksoil;
+import com.legacy.aether.blocks.natural.aercloud.BlockAercloud;
+import com.legacy.aether.blocks.natural.enchanted.BlockEnchantedAetherGrass;
+import com.legacy.aether.blocks.natural.enchanted.BlockEnchantedGravitite;
+import com.legacy.aether.blocks.natural.ore.BlockAmbrosiumOre;
+import com.legacy.aether.blocks.natural.ore.BlockGravititeOre;
+import com.legacy.aether.blocks.natural.ore.BlockZaniteOre;
+import com.legacy.aether.blocks.portal.BlockAetherPortal;
 
 public class BlocksAether
 {
@@ -142,14 +153,17 @@ public class BlocksAether
 		enchanter = register("enchanter", new BlockEnchanter());
 		freezer = register("freezer", new BlockFreezer());
 */
-		ambrosium_torch = register("ambrosium_torch", new BlockAmbrosiumTorch());
 		ambrosium_torch_wall = register("ambrosium_wall_torch", new BlockAmbrosiumTorchWall());
+		ambrosium_torch = register("ambrosium_torch", new BlockAmbrosiumTorch());
 
-		itemBlockList[availableId] = new BlockItem(ambrosium_torch_wall, new Item.Settings());
-		itemBlockList[availableId - 1] = new WallStandingBlockItem(ambrosium_torch, ambrosium_torch_wall, new Item.Settings());
+		itemBlockList[availableId - 2] = new BlockItem(ambrosium_torch_wall, new Item.Settings());
+		itemBlockList[availableId - 1] = new WallStandingBlockItem(ambrosium_torch, ambrosium_torch_wall, new Item.Settings().itemGroup(ItemGroup.BUILDING_BLOCKS));
+		//itemBlockList[availableId] = new BlockItem(ambrosium_torch_wall, new Item.Settings());
+		//itemBlockList[availableId - 1] = new WallStandingBlockItem(ambrosium_torch, ambrosium_torch_wall, new Item.Settings());
 
-		//aether_portal = register("aether_portal", new BlockAetherPortal());
+		aether_portal = register("aether_portal", new BlockAetherPortal());
 
+		treasure_chest = register("treasure_chest", new BlockTreasureChest());
 		/*carved_stone = register("carved_stone", new BlockDungeon(false));
 		angelic_stone = register("angelic_stone", new BlockDungeon(false));
 		hellfire_stone = register("hellfire_stone", new BlockDungeon(false));

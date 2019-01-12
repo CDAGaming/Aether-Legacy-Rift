@@ -1,13 +1,12 @@
 package com.legacy.aether.item.weapon;
 
-import net.minecraft.client.particle.Particle;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.item.ItemStack;
+import net.minecraft.particle.ParticleTypes;
 
 import com.legacy.aether.item.ItemsAether;
 import com.legacy.aether.item.util.AetherTier;
-import net.minecraft.particle.ParticleTypes;
 
 public class ItemPigSlayer extends ItemAetherSword
 {
@@ -44,7 +43,7 @@ public class ItemPigSlayer extends ItemAetherSword
 				double d3 = 5.0D;
 
 				// TODO: Either this of 8496, idk /shrug - 1.14
-				entityliving.world.method_8406(ParticleTypes.FLAME, (entityliving.getPos().getX() + (double)(entityliving.world.random.nextFloat() * entityliving.width * 2.0F)) - (double)entityliving.width - d * d3, (entityliving.getPos().getY() + (double)(entityliving.world.random.nextFloat() * entityliving.height)) - d1 * d3, (entityliving.getPos().getZ() + (double)(entityliving.world.random.nextFloat() * entityliving.width * 2.0F)) - (double)entityliving.width - d2 * d3, d, d1, d2);
+				entityliving.world.addParticle(ParticleTypes.FLAME, (entityliving.getPos().getX() + (double)(entityliving.world.random.nextFloat() * entityliving.width * 2.0F)) - (double)entityliving.width - d * d3, (entityliving.getPos().getY() + (double)(entityliving.world.random.nextFloat() * entityliving.height)) - d1 * d3, (entityliving.getPos().getZ() + (double)(entityliving.world.random.nextFloat() * entityliving.width * 2.0F)) - (double)entityliving.width - d2 * d3, d, d1, d2);
 			}
 
 			entityliving.invalidate();

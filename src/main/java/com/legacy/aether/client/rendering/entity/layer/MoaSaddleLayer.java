@@ -1,13 +1,12 @@
 package com.legacy.aether.client.rendering.entity.layer;
 
-import net.minecraft.class_3883;
-import net.minecraft.class_3887;
+import net.minecraft.client.render.entity.feature.FeatureRenderer;
 
 import com.legacy.aether.client.model.MoaModel;
 import com.legacy.aether.client.rendering.entity.MoaRenderer;
 import com.legacy.aether.entities.passive.EntityMoa;
 
-public class MoaSaddleLayer extends class_3887<EntityMoa, MoaModel> {
+public class MoaSaddleLayer extends FeatureRenderer<EntityMoa, MoaModel> {
 
     private final MoaRenderer moaRenderer;
 
@@ -20,13 +19,13 @@ public class MoaSaddleLayer extends class_3887<EntityMoa, MoaModel> {
     }
 
     @Override
-    public void method_4199(EntityMoa moa, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale)
+    public void render(EntityMoa moa, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale)
     {
         if (moa.canSaddle()) // TODO: getSaddled
         {
-        	this.moaModel.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, moa);
+        	this.moaModel.setAngles(moa, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
             this.moaRenderer.bindTexture(moa.getMoaType().getTexture(true));
-            this.moaModel.setAttributes(this.moaRenderer.method_4038());
+            this.moaModel.setAttributes(this.moaRenderer.getModel());
             this.moaModel.render(moa, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
         }
     }

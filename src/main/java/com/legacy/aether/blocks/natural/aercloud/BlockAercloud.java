@@ -8,6 +8,7 @@ import net.minecraft.block.MaterialColor;
 import net.minecraft.client.render.block.BlockRenderLayer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.VerticalEntityPosition;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.BlockSoundGroup;
@@ -48,7 +49,7 @@ public class BlockAercloud extends Block
 				double yOffset = posIn.getY() + worldIn.random.nextDouble();
 				double zOffset = posIn.getZ() + worldIn.random.nextDouble();
 
-				worldIn.method_8406(ParticleTypes.SPLASH, xOffset, yOffset, zOffset, 0.0D, 0.0D, 0.0D);
+				worldIn.addParticle(ParticleTypes.SPLASH, xOffset, yOffset, zOffset, 0.0D, 0.0D, 0.0D);
 			}
 
 			if (entityIn instanceof PlayerEntity && entityIn.isSneaking() && entityIn.velocityY < 0.0F)
@@ -88,7 +89,7 @@ public class BlockAercloud extends Block
     }
 
 	@Override
-	public VoxelShape getBoundingShape(BlockState blockstateIn, BlockView blockViewIn, BlockPos posIn)
+	public VoxelShape getCollisionShape(BlockState blockstateIn, BlockView blockViewIn, BlockPos posIn, VerticalEntityPosition verticalPosIn)
 	{
 		return this == BlocksAether.blue_aercloud ? VoxelShapes.cube(0.0D, 0.0D, 0.0D, 0.0D, 0.0D, 0.0D) : VoxelShapes.cube(0.0D, 0.0D, 0.0D, 1.0D, 0.01D, 1.0D);
 	}

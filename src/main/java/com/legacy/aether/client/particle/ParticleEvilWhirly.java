@@ -1,6 +1,6 @@
 package com.legacy.aether.client.particle;
 
-import net.minecraft.client.render.VertexBuffer;
+import net.minecraft.client.render.BufferBuilder;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
@@ -37,7 +37,7 @@ public class ParticleEvilWhirly extends AetherParticle
     }
 
     @Override
-    public void buildGeometry(VertexBuffer worldRendererIn, Entity entityIn, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ)
+    public void buildGeometry(BufferBuilder worldRendererIn, Entity entityIn, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ)
     {
         float f = ((float)this.age + partialTicks) / (float)this.maxAge * 32.0F;
         f = MathHelper.clamp(f, 0.0F, 1.0F);

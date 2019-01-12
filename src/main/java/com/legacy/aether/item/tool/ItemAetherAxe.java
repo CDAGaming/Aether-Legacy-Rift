@@ -60,7 +60,7 @@ public class ItemAetherAxe extends AxeItem implements IAetherTool
 
         if (this.getMaterial() == AetherTier.Gravitite && this.getBlockBreakingSpeed(context.getItemStack(), iblockstate) == this.blockBreakingSpeed)
         {
-        	if (world.isAir(blockpos.up()) && !world.isRemote)
+        	if (world.isAir(blockpos.up()) && !world.isClient)
         	{
         		EntityFloatingBlock floatingBlock = new EntityFloatingBlock(world, (double)blockpos.getX() + 0.5D, (double)blockpos.getY(), (double)blockpos.getZ() + 0.5D, world.getBlockState(blockpos));
 
@@ -80,7 +80,7 @@ public class ItemAetherAxe extends AxeItem implements IAetherTool
 	@Override
 	public boolean onBlockBroken(ItemStack stackIn, World worldIn, BlockState stateIn, BlockPos posIn, LivingEntity entityIn)
 	{
-		if (this.getMaterial() == AetherTier.Holystone && !worldIn.isRemote && worldIn.getRandom().nextInt(100) <= 5)
+		if (this.getMaterial() == AetherTier.Holystone && !worldIn.isClient && worldIn.getRandom().nextInt(100) <= 5)
 		{
 			ItemEntity entityItem = new ItemEntity(worldIn, posIn.getX(), posIn.getY(), posIn.getZ());
 			

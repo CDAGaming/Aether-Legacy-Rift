@@ -1,21 +1,23 @@
 package com.legacy.aether.client.rendering.entity.layer;
 
-import com.mojang.blaze3d.platform.GlStateManager;
-import net.minecraft.class_3883;
-import net.minecraft.class_3887;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.entity.EntityRenderDispatcher;
+import net.minecraft.client.render.entity.feature.FeatureRenderer;
+import net.minecraft.client.render.entity.feature.FeatureRendererContext;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Identifier;
 
 import com.legacy.aether.Aether;
+import com.legacy.aether.api.AetherAPI;
+import com.legacy.aether.api.player.IPlayerAether;
 import com.legacy.aether.client.model.MoaModel;
 import com.legacy.aether.entities.passive.EntityMoa;
-import com.legacy.aether.player.IEntityPlayerAether;
 import com.legacy.aether.player.PlayerAether;
 import com.legacy.aether.player.perks.CustomizedMoaSkin;
+import com.mojang.blaze3d.platform.GlStateManager;
 
-public class MoaCustomizerLayer extends class_3887<EntityMoa, MoaModel> {
+public class MoaCustomizerLayer extends FeatureRenderer<EntityMoa, MoaModel>
+{
 
 	private static final Identifier TEXTURE_OUTSIDE = Aether.locate("textures/entity/moa/canvas/moa_outside.png");
 
@@ -35,22 +37,24 @@ public class MoaCustomizerLayer extends class_3887<EntityMoa, MoaModel> {
 
 	private MoaModel model;
 
-	public MoaCustomizerLayer(class_3883<EntityMoa, MoaModel> class_3883) {
+	public MoaCustomizerLayer(FeatureRendererContext<EntityMoa, MoaModel> class_3883)
+	{
 		super(class_3883);
-		model = class_3883.method_4038();
+
+		model = class_3883.getModel();
 		renderManager = MinecraftClient.getInstance().getEntityRenderManager();
 	}
 
 	@Override
-	public void method_4199(EntityMoa moa, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale)
+	public void render(EntityMoa moa, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale)
 	{
 		if (!moa.getPassengerList().isEmpty() && moa.getPassengerList().get(0) instanceof PlayerEntity)
 		{
-			PlayerAether player = ((IEntityPlayerAether)moa.getPassengerList().get(0)).getPlayerAether();
+			IPlayerAether player = AetherAPI.get((PlayerEntity) moa.getPassengerList().get(0));
 
-			if (player != null)
+			if (player instanceof PlayerAether)
 			{
-				CustomizedMoaSkin moaSkin = player.donationPerks.getMoaSkin();
+				CustomizedMoaSkin moaSkin = ((PlayerAether)player).donationPerks.getMoaSkin();
 
 				if (moaSkin != null && !moaSkin.shouldUseDefualt())
 				{

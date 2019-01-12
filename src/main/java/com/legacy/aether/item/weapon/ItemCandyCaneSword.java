@@ -26,7 +26,7 @@ public class ItemCandyCaneSword extends ItemAetherSword
         }
         else
         {
-            if ((new Random()).nextBoolean() && entityliving1 != null && entityliving1 instanceof PlayerEntity && !entityliving1.world.isRemote && entityliving.hurtTime > 0)
+            if ((new Random()).nextBoolean() && entityliving1 != null && entityliving1 instanceof PlayerEntity && !entityliving1.world.isClient && entityliving.hurtTime > 0)
             {
                 entityliving.dropItem(ItemsAether.candy_cane, 1);
             }

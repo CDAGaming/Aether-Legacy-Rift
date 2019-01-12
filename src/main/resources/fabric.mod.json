@@ -4,7 +4,7 @@
 	"description": "Aether Legacy, a port of Aether I which has been updated to the latest version of Minecraft. This version of the aether includes multiplayer support to play with friends and others alike.",
 	"version": "1.0.0",
 	"side": "universal",
-	"initializer": "com.legacy.aether.Aether",
+	"initializers": ["com.legacy.aether.Aether", "com.legacy.aether.client.ClientAether"],
 	"requires": {
 		"fabric": "*"
 	},

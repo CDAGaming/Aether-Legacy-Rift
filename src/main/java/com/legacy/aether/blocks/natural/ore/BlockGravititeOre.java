@@ -1,11 +1,10 @@
 package com.legacy.aether.blocks.natural.ore;
 
-import com.legacy.aether.blocks.BlockFloating;
 import net.fabricmc.fabric.block.FabricBlockSettings;
-import net.minecraft.block.Block;
-
 import net.minecraft.block.Material;
 import net.minecraft.sound.BlockSoundGroup;
+
+import com.legacy.aether.blocks.BlockFloating;
 
 public class BlockGravititeOre extends BlockFloating
 {

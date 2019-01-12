@@ -2,7 +2,6 @@ package com.legacy.aether.client.model;
 
 import net.minecraft.client.model.Cuboid;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
-import net.minecraft.entity.Entity;
 import net.minecraft.util.math.MathHelper;
 
 import com.legacy.aether.entities.passive.EntityMoa;
@@ -22,7 +21,6 @@ public class MoaModel extends BipedEntityModel<EntityMoa>
 
     public MoaModel(float scale)
     {
-
         this.head = new Cuboid(this, 0, 13);
         this.head.addBox(-2.0F, -4.0F, -6.0F, 4, 4, 8, 0.0F);
         this.head.setRotationPoint(0.0F, (float)(-8 + 16), -4.0F);
@@ -70,11 +68,9 @@ public class MoaModel extends BipedEntityModel<EntityMoa>
     }
 
     @Override
-    public void render(EntityMoa entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale)
+    public void render(EntityMoa moaIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale)
     {
-        EntityMoa moa = entityIn;
-
-        if (!moa.isSitting() || (!moa.onGround && moa.isSitting()))
+        if (!moaIn.isSitting() || (!moaIn.onGround && moaIn.isSitting()))
         {
             this.legs.render(scale);
             this.legs2.render(scale);
@@ -91,10 +87,9 @@ public class MoaModel extends BipedEntityModel<EntityMoa>
         this.feather3.render(scale);
     }
 
-    public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn)
+    @Override
+    public void setAngles(EntityMoa moaIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor)
     {
-        EntityMoa moa = (EntityMoa)entityIn;
-
         this.head.pitch = headPitch / 57.29578F;
         this.head.yaw = netHeadYaw / 57.29578F;
 
@@ -114,8 +109,8 @@ public class MoaModel extends BipedEntityModel<EntityMoa>
             this.wings2.rotationPointY = 12F;
             this.wings.pitch = 0.0F;
             this.wings2.pitch = 0.0F;
-            this.wings.yaw = ageInTicks;
-            this.wings2.yaw = -ageInTicks;
+            this.wings.roll = ageInTicks;
+            this.wings2.roll = -ageInTicks;
             this.legs.pitch = 0.6F;
             this.legs2.pitch = 0.6F;
         }
@@ -127,11 +122,11 @@ public class MoaModel extends BipedEntityModel<EntityMoa>
             this.wings2.rotationPointY = 14F;
             this.wings.pitch = (float) (Math.PI / 2.0F);
             this.wings2.pitch = (float) (Math.PI / 2.0F);
-            this.wings.yaw = 0.0F;
-            this.wings2.yaw = 0.0F;
+            this.wings.roll = 0.0F;
+            this.wings2.roll = 0.0F;
         }
 
-        if (moa.isSitting())
+        if (moaIn.isSitting())
         {
             this.head.setRotationPoint(0.0F, (float)(-8 + 24), -4.0F);
             this.jaw.setRotationPoint(0.0F, (float)(-8 + 24), -4.0F);

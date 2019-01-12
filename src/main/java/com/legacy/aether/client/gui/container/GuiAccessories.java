@@ -1,20 +1,16 @@
 package com.legacy.aether.client.gui.container;
 
-import com.mojang.blaze3d.platform.GlStateManager;
-import io.netty.buffer.Unpooled;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.ContainerGui;
-import net.minecraft.client.gui.ingame.InventoryGui;
-import net.minecraft.client.network.packet.CustomPayloadClientPacket;
+import net.minecraft.client.gui.ingame.PlayerInventoryGui;
 import net.minecraft.client.resource.language.I18n;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.PacketByteBuf;
 
 import com.legacy.aether.Aether;
 import com.legacy.aether.client.gui.button.GuiAccessoryButton;
-import com.legacy.aether.inventory.container.ContainerAccessories;
-import com.legacy.aether.player.IEntityPlayerAether;
+import com.legacy.aether.container.ContainerAccessories;
+import com.mojang.blaze3d.platform.GlStateManager;
 
 public class GuiAccessories extends ContainerGui
 {
@@ -59,7 +55,7 @@ public class GuiAccessories extends ContainerGui
 
 		this.drawTexturedRect(this.width / 2 - 88, this.height / 2 - 166 / 2, 0, 0, 176, 166);
 
-		InventoryGui.drawEntity(this.left + 35, this.top + 75, 30, (float)(this.left + 51) - (float)mouseX, (float)(this.top + 75 - 50) - (float)mouseY, this.client.player);
+		PlayerInventoryGui.drawEntity(this.left + 35, this.top + 75, 30, (float)(this.left + 51) - (float)mouseX, (float)(this.top + 75 - 50) - (float)mouseY, this.client.player);
 	}
 
 }

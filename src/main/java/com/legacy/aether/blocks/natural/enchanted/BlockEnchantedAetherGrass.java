@@ -3,12 +3,11 @@ package com.legacy.aether.blocks.natural.enchanted;
 import java.util.Random;
 
 import net.fabricmc.fabric.block.FabricBlockSettings;
-import net.minecraft.block.*;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Material;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.LightType;
 import net.minecraft.world.World;
 
 import com.legacy.aether.blocks.BlocksAether;
@@ -23,11 +22,11 @@ public class BlockEnchantedAetherGrass extends Block
 	}
 
 	@Override
-	public void randomDisplayTick(BlockState stateIn, World worldIn, BlockPos posIn, Random randIn)
+	public void scheduledTick(BlockState stateIn, World worldIn, BlockPos posIn, Random randIn)
 	{
-        if (!worldIn.isRemote)
+        if (!worldIn.isClient)
         {
-            if (worldIn.getLightLevel(LightType.SKY, posIn.up()) < 4)
+            if (worldIn.method_8602(posIn.up()) < 4)
             {
             	worldIn.setBlockState(posIn, BlocksAether.aether_dirt.getDefaultState().with(BlockAetherDirt.DOUBLE_DROP, false));
             }

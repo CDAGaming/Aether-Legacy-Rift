@@ -1,4 +1,4 @@
-package com.legacy.aether.inventory.slot;
+package com.legacy.aether.container.slot;
 
 import net.minecraft.container.Slot;
 import net.minecraft.inventory.Inventory;

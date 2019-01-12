@@ -1,8 +1,5 @@
 package com.legacy.aether.item.staff;
 
-import com.legacy.aether.player.IEntityPlayerAether;
-import com.legacy.aether.player.PlayerAether;
-
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
@@ -11,6 +8,10 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
+
+import com.legacy.aether.api.AetherAPI;
+import com.legacy.aether.api.player.IPlayerAether;
+import com.legacy.aether.player.PlayerAether;
 
 public class ItemCloudStaff extends Item
 {
@@ -24,14 +25,14 @@ public class ItemCloudStaff extends Item
     public TypedActionResult<ItemStack> use(World worldIn, PlayerEntity playerIn, Hand handIn)
     {
     	ItemStack heldItem = playerIn.getStackInHand(handIn);
-		PlayerAether playerAether = ((IEntityPlayerAether)playerIn).getPlayerAether();
+		IPlayerAether playerAether = AetherAPI.get(playerIn);
 
-    	if (worldIn.isRemote)
+    	if (worldIn.isClient)
     	{
     		return super.use(worldIn, playerIn, handIn);
     	}
 
-    	if (playerAether.clouds.isEmpty())
+    	if (playerAether instanceof PlayerAether && ((PlayerAether)playerAether).clouds.isEmpty())
     	{
 			//EntityMiniCloud leftCloud = new EntityMiniCloud(worldIn, playerIn, 0);
 			//EntityMiniCloud rightCloud = new EntityMiniCloud(worldIn, playerIn, 1);

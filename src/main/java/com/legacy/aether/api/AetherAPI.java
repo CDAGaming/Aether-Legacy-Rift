@@ -2,17 +2,20 @@ package com.legacy.aether.api;
 
 import java.util.*;
 
+import com.legacy.aether.api.accessories.AetherAccessory;
 import com.legacy.aether.api.moa.MoaType;
+import com.legacy.aether.api.player.IEntityPlayerAether;
+import com.legacy.aether.api.player.IPlayerAether;
+
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
-
 import net.minecraft.util.registry.Registry;
 
 public class AetherAPI
 {
 
-	//private static final HashMap<Identifier, Accessory> ACCESSORY_REGISTRY = new HashMap<>();
-	//new ResourceLocation("empty")
+	private static final HashMap<Identifier, AetherAccessory> ACCESSORY_REGISTRY = new HashMap<>();
 
 	//private static final HashMap<Identifier, Enchantment> ENCHANTMENT_REGISTRY = new HashMap<>();
 
@@ -33,6 +36,11 @@ public class AetherAPI
 
 	}
 
+	public static IPlayerAether get(PlayerEntity player)
+	{
+		return ((IEntityPlayerAether)player).getPlayerAether();
+	}
+
 	public void register(Identifier registryName, MoaType moa)
 	{
 		moa.setRegistryName(registryName);
@@ -41,11 +49,20 @@ public class AetherAPI
 		++moaListSize;
 	}
 
-	/*
-	public void register(Accessory accessory)
+	public void register(AetherAccessory accessory)
 	{
-		ACCESSORY_REGISTRY.put(Registry.ITEM.getKey(accessory.getItem()), accessory);
-	}*/
+		ACCESSORY_REGISTRY.put(accessory.getRegistryName(), accessory);
+	}
+
+	public AetherAccessory getAccessory(ItemStack stack)
+	{
+		return ACCESSORY_REGISTRY.get(Registry.ITEM.getId(stack.getItem()));
+	}
+
+	public boolean isAccessory(ItemStack stack)
+	{
+		return ACCESSORY_REGISTRY.containsKey(Registry.ITEM.getId(stack.getItem()));
+	}
 
 	/*
 	public void register(Freezable freezable)
@@ -66,17 +83,6 @@ public class AetherAPI
 	public void register(EnchantmentFuel fuel)
 	{
 		ENCHANTMENT_FUEL_REGISTRY.put(Registry.ITEM.getId(fuel.getFuel()), fuel);
-	}
-
-
-	public Accessory getAccessory(ItemStack stack)
-	{
-		return ACCESSORY_REGISTRY.get(Registry.ITEM.getId(stack.getItem()));
-	}
-
-	public boolean isAccessory(ItemStack stack)
-	{
-		return ACCESSORY_REGISTRY.containsKey(Registry.ITEM.getKey(stack.getItem()));
 	}
 
 	public Freezable getFreezable(ItemStack stack)
