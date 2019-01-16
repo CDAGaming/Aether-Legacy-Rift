@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "aether_legacy:holystone_wall",
+    "aether_legacy:holystone_brick_wall",
+    "aether_legacy:mossy_holystone_wall",
+    "aether_legacy:carved_wall",
+    "aether_legacy:angelic_wall",
+    "aether_legacy:hellfire_wall"
+  ]
+}
