@@ -364,7 +364,6 @@ public class BlocksAether
 		register(carved_wall);
 		register(angelic_wall);
 		register(hellfire_wall);
-		register(aerogel_wall);
 
 		/*
 		carved_stone_trap = register("carved_stone_trap", new BlockDungeonTrap(carved_stone.getDefaultState()));
