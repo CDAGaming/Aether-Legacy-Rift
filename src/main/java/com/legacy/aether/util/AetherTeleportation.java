@@ -2,7 +2,6 @@ package com.legacy.aether.util;
 
 import java.util.Iterator;
 
-import net.minecraft.class_1946;
 import net.minecraft.client.network.packet.EntityPotionEffectClientPacket;
 import net.minecraft.client.network.packet.PlayerAbilitiesClientPacket;
 import net.minecraft.client.network.packet.PlayerRespawnClientPacket;
@@ -11,6 +10,7 @@ import net.minecraft.server.PlayerManager;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.PortalForcer;
 import net.minecraft.world.dimension.DimensionType;
 
 import com.legacy.aether.world.WorldAether;
@@ -20,7 +20,7 @@ public class AetherTeleportation
 
 	private static final AetherTeleportation INSTANCE = new AetherTeleportation();
 
-	public void teleportPlayer(ServerPlayerEntity player, DimensionType dimensionType_1, class_1946 teleporter)
+	public void teleportPlayer(ServerPlayerEntity player, DimensionType dimensionType_1, PortalForcer teleporter)
 	{
 		PlayerManager playerManager = player.getServer().getPlayerManager();
 		ServerWorld serverWorld_1 = player.getServer().getWorld(player.dimension);
@@ -47,13 +47,13 @@ public class AetherTeleportation
 
 	}
 
-	private void teleport(ServerPlayerEntity player, ServerWorld fromWorld, ServerWorld toWorld, class_1946 teleporter)
+	private void teleport(ServerPlayerEntity player, ServerWorld fromWorld, ServerWorld toWorld, PortalForcer teleporter)
 	{
 		double double_1 = player.x;
 		double double_2 = player.z;
 		float float_1 = player.yaw;
 
-		fromWorld.getProfiler().begin("moving");
+		fromWorld.getProfiler().push("moving");
 
 		if (player.dimension == WorldAether.THE_AETHER)
 		{
@@ -80,9 +80,9 @@ public class AetherTeleportation
 			}
 		}
 
-		fromWorld.getProfiler().end();
+		fromWorld.getProfiler().pop();
 
-		fromWorld.getProfiler().begin("placing");
+		fromWorld.getProfiler().push("placing");
 
 		double_1 = (double) MathHelper.clamp((int) double_1, -29999872, 29999872);
 		double_2 = (double) MathHelper.clamp((int) double_2, -29999872, 29999872);
@@ -95,7 +95,7 @@ public class AetherTeleportation
 			toWorld.method_8553(player, false);
 		}
 
-		fromWorld.getProfiler().end();
+		fromWorld.getProfiler().pop();
 
 		player.setWorld(toWorld);
 	}

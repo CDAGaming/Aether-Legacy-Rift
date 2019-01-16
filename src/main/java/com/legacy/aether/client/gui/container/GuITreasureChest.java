@@ -1,48 +1,45 @@
 package com.legacy.aether.client.gui.container;
 
-import com.legacy.aether.blocks.entity.TreasureChestBlockEntity;
-
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.container.ContainerGui54;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.text.TextComponent;
+import net.minecraft.container.GenericContainer;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.text.TranslatableTextComponent;
 
-public class GuITreasureChest extends ContainerGui54
+import com.legacy.aether.blocks.entity.TreasureChestBlockEntity;
+
+public class GuITreasureChest extends ContainerGui54<GenericContainer.class_3912>
 {
 
-	private final Inventory playerInventory;
-
-	private final TextComponent chestName;
-
-	public GuITreasureChest(Inventory playerInventory, TreasureChestBlockEntity inventory)
+	public GuITreasureChest(int syncId, PlayerInventory playerInventory, TreasureChestBlockEntity inventory)
 	{
-		super(playerInventory, inventory);
-
-		if (inventory.getDungeonType() == 0)
-		{
-			this.chestName = new TranslatableTextComponent("aether_legacy.treasure_chest.bronze", new Object[0]);
-		}
-		else if (inventory.getDungeonType() == 1)
-		{
-			this.chestName = new TranslatableTextComponent("aether_legacy.treasure_chest.silver", new Object[0]);
-		}
-		else if (inventory.getDungeonType() == 2)
-		{
-			this.chestName = new TranslatableTextComponent("aether_legacy.treasure_chest.golden", new Object[0]);
-		}
-		else
-		{
-			this.chestName = new TranslatableTextComponent("aether_legacy.treasure_chest.platinum", new Object[0]); 
-		}
-
-		this.playerInventory = playerInventory;
+		super(new GenericContainer.class_3912(syncId, playerInventory, inventory), playerInventory, getTextComponent(inventory));
 	}
 
 	@Override
-	protected void drawForeground(int par1, int par2)
+	public void initialize(MinecraftClient client, int width, int height)
 	{
-		this.fontRenderer.draw(this.chestName.getFormattedText(), 8.0F, 6.0F, 4210752);
-		this.fontRenderer.draw(this.playerInventory.getDisplayName().getFormattedText(), 8.0F, (float)(this.containerHeight - 96 + 2), 4210752);
+		super.initialize(client, width, height);
+
+		client.player.container = this.container;
+	}
+
+	private static TranslatableTextComponent getTextComponent(TreasureChestBlockEntity inventory)
+	{
+		if (inventory.getDungeonType() == 0)
+		{
+			return new TranslatableTextComponent("aether_legacy.treasure_chest.bronze", new Object[0]);
+		}
+		else if (inventory.getDungeonType() == 1)
+		{
+			return new TranslatableTextComponent("aether_legacy.treasure_chest.silver", new Object[0]);
+		}
+		else if (inventory.getDungeonType() == 2)
+		{
+			return new TranslatableTextComponent("aether_legacy.treasure_chest.golden", new Object[0]);
+		}
+
+		return new TranslatableTextComponent("aether_legacy.treasure_chest.platinum", new Object[0]); 
 	}
 
 }

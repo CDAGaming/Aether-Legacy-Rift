@@ -4,6 +4,7 @@ import net.fabricmc.fabric.block.FabricBlockSettings;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Material;
+import net.minecraft.block.MaterialColor;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.state.StateFactory;
@@ -16,7 +17,7 @@ public class BlockAetherDirt extends Block
 
 	public BlockAetherDirt() 
 	{
-		super(FabricBlockSettings.of(Material.EARTH).strength(0.2F, -1.0F).sounds(BlockSoundGroup.GRAVEL).build());
+		super(FabricBlockSettings.of(Material.EARTH, MaterialColor.ICE).strength(0.2F, -1.0F).sounds(BlockSoundGroup.GRAVEL).build());
 
 		this.setDefaultState(this.getDefaultState().with(DOUBLE_DROP, true));
 	}

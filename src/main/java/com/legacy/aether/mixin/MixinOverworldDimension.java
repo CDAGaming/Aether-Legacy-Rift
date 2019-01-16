@@ -15,9 +15,9 @@ import net.minecraft.world.dimension.Dimension;
 import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.dimension.OverworldDimension;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
-import net.minecraft.world.gen.chunk.ChunkGeneratorSettings;
+import net.minecraft.world.gen.chunk.ChunkGeneratorConfig;
 import net.minecraft.world.gen.chunk.ChunkGeneratorType;
-import net.minecraft.world.gen.chunk.OverworldChunkGeneratorSettings;
+import net.minecraft.world.gen.chunk.OverworldChunkGeneratorConfig;
 import net.minecraft.world.level.LevelGeneratorType;
 
 import org.spongepowered.asm.mixin.Mixin;
@@ -43,7 +43,7 @@ public abstract class MixinOverworldDimension extends Dimension
 	}
 
 	@Inject(method = "createChunkGenerator", at = @At("RETURN"), cancellable = true)
-	public void createAetherBuffet(CallbackInfoReturnable<ChunkGenerator<? extends ChunkGeneratorSettings>> info)
+	public void createAetherBuffet(CallbackInfoReturnable<ChunkGenerator<? extends ChunkGeneratorConfig>> info)
 	{
 		LevelGeneratorType levelGeneratorType = this.world.getLevelProperties().getGeneratorType();
 
@@ -91,7 +91,7 @@ public abstract class MixinOverworldDimension extends Dimension
 
 				if (BiomeSourceType.VANILLA_LAYERED == biomeSourceType_4)
 				{
-					VanillaLayeredBiomeSourceConfig vanillaLayeredBiomeSourceConfig_1 = BiomeSourceType.VANILLA_LAYERED.getConfig().setGeneratorSettings(new OverworldChunkGeneratorSettings()).setLevelProperties(this.world.getLevelProperties());
+					VanillaLayeredBiomeSourceConfig vanillaLayeredBiomeSourceConfig_1 = BiomeSourceType.VANILLA_LAYERED.getConfig().setGeneratorSettings(new OverworldChunkGeneratorConfig()).setLevelProperties(this.world.getLevelProperties());
 
 					biomeSource_1 = BiomeSourceType.VANILLA_LAYERED.applyConfig(vanillaLayeredBiomeSourceConfig_1);
 				}

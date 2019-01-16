@@ -1,11 +1,13 @@
 package com.legacy.aether.blocks.natural.aercloud;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.block.FabricBlockSettings;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockRenderLayer;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Material;
 import net.minecraft.block.MaterialColor;
-import net.minecraft.client.render.block.BlockRenderLayer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.VerticalEntityPosition;
@@ -14,6 +16,7 @@ import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
@@ -23,16 +26,19 @@ import com.legacy.aether.blocks.BlocksAether;
 
 public class BlockAercloud extends Block
 {
+
 	public BlockAercloud() 
 	{
 		super(FabricBlockSettings.of(Material.ICE).strength(0.2F, -1.0F).sounds(BlockSoundGroup.WOOL).build());
 	}
 
-	public BlockAercloud(DyeColor color) {
+	public BlockAercloud(DyeColor color)
+	{
 		super(FabricBlockSettings.of(Material.ICE, color.getMaterialColor()).materialColor(color.getMaterialColor()).strength(0.2F, -1.0F).sounds(BlockSoundGroup.WOOL).build());
 	}
 
-	public BlockAercloud(MaterialColor color) {
+	public BlockAercloud(MaterialColor color)
+	{
 		super(FabricBlockSettings.of(Material.ICE, color).materialColor(color).strength(0.2F, -1.0F).sounds(BlockSoundGroup.WOOL).build());
 	}
 
@@ -76,11 +82,17 @@ public class BlockAercloud extends Block
 	}
 
 	@Override
+	@Environment(EnvType.CLIENT)
+	public boolean skipRenderingSide(BlockState blockState_1, BlockState blockState_2, Direction direction_1)
+	{
+		return blockState_2.getBlock() instanceof BlockAercloud ? true : super.skipRenderingSide(blockState_1, blockState_2, direction_1);
+	}
+
+	@Override
     public BlockRenderLayer getRenderLayer()
     {
     	return BlockRenderLayer.TRANSLUCENT;
     }
-
 
 	@Override
     public boolean isFullBoundsCubeForCulling(BlockState state)

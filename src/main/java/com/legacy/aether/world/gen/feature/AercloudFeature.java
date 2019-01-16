@@ -5,7 +5,7 @@ import java.util.Random;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
-import net.minecraft.world.gen.chunk.ChunkGeneratorSettings;
+import net.minecraft.world.gen.chunk.ChunkGeneratorConfig;
 
 import com.legacy.aether.world.gen.config.feature.AercloudConfig;
 
@@ -23,7 +23,7 @@ public class AercloudFeature extends AetherFeature<AercloudConfig>
 	}
 
 	@Override
-	public boolean generate(IWorld worldIn, ChunkGenerator<? extends ChunkGeneratorSettings> var2, Random randIn, BlockPos posIn, AercloudConfig configIn)
+	public boolean generate(IWorld worldIn, ChunkGenerator<? extends ChunkGeneratorConfig> var2, Random randIn, BlockPos posIn, AercloudConfig configIn)
 	{
 		BlockPos origin = new BlockPos(posIn.getX() - 14, (configIn.isFlat() ? 0 : randIn.nextInt(64)) + configIn.getY(), posIn.getZ() - 14);
 		BlockPos position = new BlockPos(origin);
@@ -50,7 +50,7 @@ public class AercloudFeature extends AetherFeature<AercloudConfig>
 						{
 							if (Math.abs(x - position.getX()) + Math.abs(y - position.getY()) + Math.abs(z - position.getZ()) < 4 * configIn.cloudModifier() + randIn.nextInt(2))
 							{
-								this.addBlockState(worldIn, pos, configIn.getCloudState());
+								this.setBlockState(worldIn, pos, configIn.getCloudState());
 							}
 						}
 					}

@@ -1,14 +1,14 @@
 package com.legacy.aether.item.accessory;
 
+import net.minecraft.item.Item;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.Rarity;
+
 import com.legacy.aether.Aether;
 import com.legacy.aether.api.AetherAPI;
 import com.legacy.aether.api.accessories.AccessoryType;
 import com.legacy.aether.api.accessories.AetherAccessory;
-
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.Rarity;
+import com.legacy.aether.item.AetherItemGroup;
 
 public class ItemAccessory extends Item
 {
@@ -25,7 +25,7 @@ public class ItemAccessory extends Item
 
 	public ItemAccessory(AccessoryType type, Rarity rarity, int color)
 	{
-		super(new Settings().itemGroup(ItemGroup.MISC).durability(5 * type.getDurability()).rarity(rarity));
+		super(new Settings().itemGroup(AetherItemGroup.AETHER_ACCESSORIES).durability(5 * type.getDurability()).rarity(rarity));
 
 		this.type = type;
 		this.color = color;

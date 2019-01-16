@@ -1,7 +1,7 @@
 package com.legacy.aether.client.rendering.entity;
 
 import net.minecraft.client.render.entity.EntityRenderDispatcher;
-import net.minecraft.client.render.entity.LivingEntityRenderer;
+import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
@@ -15,7 +15,7 @@ import com.legacy.aether.client.rendering.entity.layer.MoaSaddleLayer;
 import com.legacy.aether.entities.passive.EntityMoa;
 import com.legacy.aether.player.PlayerAether;
 
-public class MoaRenderer extends LivingEntityRenderer<EntityMoa, MoaModel>
+public class MoaRenderer extends MobEntityRenderer<EntityMoa, MoaModel>
 {
 
 	public MoaRenderer(EntityRenderDispatcher renderManager)
@@ -58,7 +58,7 @@ public class MoaRenderer extends LivingEntityRenderer<EntityMoa, MoaModel>
 			}
 		}
 
-		return moa.getMoaType().getTexture(entity.getSaddled());
+		return moa.getMoaType().getTexture(false);
 	}
 
 }

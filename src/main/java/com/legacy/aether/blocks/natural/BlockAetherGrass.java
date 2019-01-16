@@ -60,7 +60,7 @@ public class BlockAetherGrass extends Block
                     return;
                 }
 
-                if (iblockstate1.getBlock() == BlocksAether.aether_dirt && worldIn.getLightLevel(LightType.SKY, blockpos.up()) >= 4)
+                if (iblockstate1.getBlock() == BlocksAether.aether_dirt && worldIn.getLightLevel(LightType.SKY_LIGHT, blockpos.up()) >= 4)
                 {
                     boolean shouldContainDoubleDrop = iblockstate1.get(BlockAetherDirt.DOUBLE_DROP);
                     worldIn.setBlockState(blockpos, BlocksAether.aether_grass.getDefaultState().with(DOUBLE_DROP, shouldContainDoubleDrop));

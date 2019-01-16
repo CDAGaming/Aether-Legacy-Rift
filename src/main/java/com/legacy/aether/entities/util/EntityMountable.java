@@ -3,7 +3,6 @@ package com.legacy.aether.entities.util;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.MovementType;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
@@ -65,11 +64,6 @@ public abstract class EntityMountable extends EntityAetherAnimal
 			{
 				forward *= 0.25F;
 			}
-
-	        double d01 = player.x - this.x;
-	        double d2 = player.z - this.z;
-
-	        float f = (float)(MathHelper.atan2(d2, d01) * (180D / Math.PI)) - 90.0F;
 
 			if (AetherAPI.get(player).isJumping())
 			{
@@ -175,23 +169,6 @@ public abstract class EntityMountable extends EntityAetherAnimal
 	public void onMountedJump(float par1, float par2)
 	{
 		this.jumpPower = 0.4F;
-	}
-
-	private float updateRotation(float angle, float targetAngle, float maxIncrease)
-	{
-		float f = MathHelper.wrapDegrees(targetAngle - angle);
-
-		if (f > maxIncrease)
-		{
-			f = maxIncrease;
-		}
-
-		if (f < -maxIncrease)
-		{
-			f = -maxIncrease;
-		}
-
-		return angle + f;
 	}
 
 }

@@ -13,7 +13,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.tag.FluidTags;
 import net.minecraft.util.HitResult;
 import net.minecraft.util.TagHelper;
-import net.minecraft.util.crash.CrashReportElement;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.FluidRayTraceMode;
@@ -201,15 +200,6 @@ public class EntityFloatingBlock extends Entity
             this.state = BlocksAether.gravitite_ore.getDefaultState();
         }
 	}
-
-	@Override
-    public void populateCrashReport(CrashReportElement category)
-    {
-        super.populateCrashReport(category);
-
-        category.add("BlockState", this.state.toString());
-        category.add("Time Floated", this.floatTime);
-    }
 
     public World getWorldObj()
     {

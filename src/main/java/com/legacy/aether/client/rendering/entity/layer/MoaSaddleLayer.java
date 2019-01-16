@@ -21,7 +21,7 @@ public class MoaSaddleLayer extends FeatureRenderer<EntityMoa, MoaModel> {
     @Override
     public void render(EntityMoa moa, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale)
     {
-        if (moa.canSaddle()) // TODO: getSaddled
+        if (moa.getSaddled())
         {
         	this.moaModel.setAngles(moa, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
             this.moaRenderer.bindTexture(moa.getMoaType().getTexture(true));

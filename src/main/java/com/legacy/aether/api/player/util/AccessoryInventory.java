@@ -2,17 +2,15 @@ package com.legacy.aether.api.player.util;
 
 import java.util.Iterator;
 
-import com.legacy.aether.api.accessories.AccessoryType;
-
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.InventoryListener;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.text.TextComponent;
-import net.minecraft.text.TranslatableTextComponent;
 import net.minecraft.util.DefaultedList;
 import net.minecraft.util.InventoryUtil;
+
+import com.legacy.aether.api.accessories.AccessoryType;
 
 public interface AccessoryInventory extends Inventory
 {
@@ -53,14 +51,14 @@ public interface AccessoryInventory extends Inventory
 
 	public DefaultedList<ItemStack> getInventory();
 
-	public default void serialize(CompoundTag compound)
+	public default CompoundTag serialize(CompoundTag compound)
 	{
-		InventoryUtil.deserialize(compound, this.getInventory());
+		return InventoryUtil.serialize(compound, this.getInventory());
 	}
 
 	public default void deserialize(CompoundTag compound)
 	{
-		InventoryUtil.serialize(compound, this.getInventory());
+		InventoryUtil.deserialize(compound, this.getInventory());
 	}
 
 	@Override
@@ -106,12 +104,6 @@ public interface AccessoryInventory extends Inventory
 	public default ItemStack removeInvStack(int slot)
 	{
 		return InventoryUtil.removeStack(this.getInventory(), slot);
-	}
-
-	@Override
-	public default TextComponent getName()
-	{
-		return new TranslatableTextComponent("inventory.aether_legacy.accessories", new Object[0]);
 	}
 
 	@Override

@@ -1,7 +1,13 @@
 package com.legacy.aether.entities.passive;
 
+import net.minecraft.class_1361;
+import net.minecraft.class_1376;
+import net.minecraft.class_1394;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.MovementType;
+import net.minecraft.entity.ai.goal.AnimalMateGoal;
+import net.minecraft.entity.ai.goal.SwimGoal;
+import net.minecraft.entity.ai.goal.TemptGoal;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
@@ -13,6 +19,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.recipe.Ingredient;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
@@ -64,17 +71,16 @@ public class EntityMoa extends EntitySaddleMount
 		this.setMoaType(type);
 	}
 
-	/*
 	@Override
-    protected void initEntityAI()
+	protected void method_5959()
     {
-		this.tasks.addTask(0, new EntityAISwimming(this));
-		this.tasks.addTask(2, new EntityAIWander(this, 0.30F));
-		this.tasks.addTask(2, new EntityAITempt(this, 1.25D, Ingredient.fromItems(ItemsAether.nature_staff), false));
-		this.tasks.addTask(4, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
-		this.tasks.addTask(5, new EntityAILookIdle(this));
-		this.tasks.addTask(6, new EntityAIMate(this, 0.25F));
-    }*/
+		this.goalSelector.add(0, new SwimGoal(this));
+		this.goalSelector.add(2, new class_1394(this, 0.30F)); //WanderGoal
+		this.goalSelector.add(2, new TemptGoal(this, 1.25D, Ingredient.ofItems(ItemsAether.nature_staff), false));
+		this.goalSelector.add(4, new class_1361(this, PlayerEntity.class, 6.0F));
+		this.goalSelector.add(5, new class_1376(this)); //LookGoal
+		this.goalSelector.add(6, new AnimalMateGoal(this, 0.25F));
+    }
 
 	@Override
     public void move(MovementType type, double x, double y, double z)
@@ -220,11 +226,11 @@ public class EntityMoa extends EntitySaddleMount
 			this.setHungry(true);
 		}
 		
-		if(this.world.isClient && isHungry() && isChild())
+		if(this.world.isClient && this.isHungry() && this.isChild())
 		{
 			if(this.random.nextInt(10) == 0)
 			{
-				this.world.addParticle(ParticleTypes.HAPPY_VILLAGER, this.x + (this.random.nextDouble() - 0.5D) * (double)this.width, this.y + 1, this.z + (this.random.nextDouble() - 0.5D) * (double)this.width, 0.0D, 0.0D, 0.0D);
+				this.world.addParticle(ParticleTypes.ANGRY_VILLAGER, this.x + (this.random.nextDouble() - 0.5D) * (double)this.width, this.y + 1, this.z + (this.random.nextDouble() - 0.5D) * (double)this.width, 0.0D, 0.0D, 0.0D);
 			}
 		}
 
@@ -387,29 +393,29 @@ public class EntityMoa extends EntitySaddleMount
 	}
 
 	@Override
-	public void writeCustomDataToTag(CompoundTag nbt)
+	public void writeCustomDataToTag(CompoundTag compound)
 	{
-		super.writeCustomDataToTag(nbt);
+		super.writeCustomDataToTag(compound);
 
-		nbt.putBoolean("playerGrown", this.isPlayerGrown());
-		nbt.putInt("remainingJumps", this.getRemainingJumps());
-		nbt.putByte("amountFed", this.getAmountFed());
-		nbt.putBoolean("isHungry", this.isHungry());
-		nbt.putBoolean("isSitting", this.isSitting());
-		nbt.putInt("typeId", AetherAPI.instance().getMoaId(this.getMoaType()));
+		compound.putBoolean("playerGrown", this.isPlayerGrown());
+		compound.putInt("remainingJumps", this.getRemainingJumps());
+		compound.putByte("amountFed", this.getAmountFed());
+		compound.putBoolean("isHungry", this.isHungry());
+		compound.putBoolean("isSitting", this.isSitting());
+		compound.putInt("typeId", AetherAPI.instance().getMoaId(this.getMoaType()));
 	}
 
 	@Override
-	public void readCustomDataFromTag(CompoundTag nbt)
+	public void readCustomDataFromTag(CompoundTag compound)
 	{
-		super.readCustomDataFromTag(nbt);
+		super.readCustomDataFromTag(compound);
 
-		this.setPlayerGrown(nbt.getBoolean("playerGrown"));
-		this.setRemainingJumps(nbt.getInt("remainingJumps"));
-		this.setMoaType(AetherAPI.instance().getMoa(nbt.getInt("typeId")));
-		this.setAmountFed(nbt.getByte("amountFed"));
-		this.setHungry(nbt.getBoolean("isHungry"));
-		this.setSitting(nbt.getBoolean("isSitting"));
+		this.setPlayerGrown(compound.getBoolean("playerGrown"));
+		this.setRemainingJumps(compound.getInt("remainingJumps"));
+		this.setMoaType(AetherAPI.instance().getMoa(compound.getInt("typeId")));
+		this.setAmountFed(compound.getByte("amountFed"));
+		this.setHungry(compound.getBoolean("isHungry"));
+		this.setSitting(compound.getBoolean("isSitting"));
 	}
 
 	@Override

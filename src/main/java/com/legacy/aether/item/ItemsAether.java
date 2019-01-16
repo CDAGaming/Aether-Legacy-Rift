@@ -3,7 +3,7 @@ package com.legacy.aether.item;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
+import net.minecraft.text.TextFormat;
 import net.minecraft.util.Rarity;
 import net.minecraft.util.registry.Registry;
 
@@ -17,6 +17,7 @@ import com.legacy.aether.item.food.ItemAetherFood;
 import com.legacy.aether.item.food.ItemGummySwet;
 import com.legacy.aether.item.food.ItemHealingStone;
 import com.legacy.aether.item.food.ItemLifeShard;
+import com.legacy.aether.item.food.ItemWhiteApple;
 import com.legacy.aether.item.material.ItemAechorPetal;
 import com.legacy.aether.item.material.ItemAmbrosiumShard;
 import com.legacy.aether.item.material.ItemGoldenAmber;
@@ -34,13 +35,15 @@ import com.legacy.aether.item.util.AetherTier;
 import com.legacy.aether.item.weapon.ItemAetherSword;
 import com.legacy.aether.item.weapon.ItemCandyCaneSword;
 import com.legacy.aether.item.weapon.ItemElementalSword;
+import com.legacy.aether.item.weapon.ItemPhoenixBow;
 import com.legacy.aether.item.weapon.ItemPigSlayer;
 import com.legacy.aether.item.weapon.ItemVampireBlade;
 import com.legacy.aether.sounds.SoundsAether;
+import com.legacy.aether.util.Reflection;
 
 public class ItemsAether
 {
-	public static final Rarity AETHER_LOOT = Rarity.COMMON;//ReflectionUtils.makeEnumInstance(Rarity.class, new Object[] {"AETHER_LOOT", -1, TextFormat.GREEN});
+	public static final Rarity AETHER_LOOT = Reflection.createRarity("AETHER_LOOT", TextFormat.GREEN);
 
 	public static Item zanite_gemstone, ambrosium_shard, golden_amber, aechor_petal, swet_ball;
 
@@ -175,8 +178,8 @@ public class ItemsAether
 		sentry_boots = register("sentry_boots", new ItemAetherArmor("sentry", AetherArmorType.Valkyrie, AETHER_LOOT, EquipmentSlot.FEET));
 
 		blueberry = register("blueberry", new ItemAetherFood(2, 2.0F));
-		enchanted_blueberry = register("enchanted_blueberry", new ItemAetherFood(new Item.Settings().itemGroup(ItemGroup.FOOD).rarity(Rarity.RARE), 8, 10.0F));
-		//white_apple = register("white_apple", new ItemWhiteApple());
+		enchanted_blueberry = register("enchanted_blueberry", new ItemAetherFood(new Item.Settings().itemGroup(AetherItemGroup.AETHER_FOOD).rarity(Rarity.RARE), 8, 10.0F));
+		white_apple = register("white_apple", new ItemWhiteApple());
 		blue_gummy_swet = register("blue_gummy_swet", new ItemGummySwet());
 		golden_gummy_swet = register("golden_gummy_swet", new ItemGummySwet());
 		healing_stone = register("healing_stone", new ItemHealingStone());
@@ -205,7 +208,7 @@ public class ItemsAether
 		//enchanted_dart_shooter = register("enchanted_dart_shooter", new ItemDartShooter((ItemDart) enchanted_dart));
 		//poison_dart_shooter = register("poison_dart_shooter", new ItemDartShooter((ItemDart) poison_dart));
 
-		//phoenix_bow = register("phoenix_bow", new ItemPhoenixBow());
+		phoenix_bow = register("phoenix_bow", new ItemPhoenixBow());
 
 		flaming_sword = register("flaming_sword", new ItemElementalSword());
 		lightning_sword = register("lightning_sword", new ItemElementalSword());
@@ -221,7 +224,7 @@ public class ItemsAether
 		chain_gloves = register("chain_gloves", new ItemAccessory("chain", AccessoryType.GLOVES).setDamageMultiplier(2.0F));
 		diamond_gloves = register("diamond_gloves", new ItemAccessory(AccessoryType.GLOVES, 0x33EBCB).setDamageMultiplier(4.5F));
 		zanite_gloves = register("zanite_gloves", new ItemAccessory(AccessoryType.GLOVES, 0x711AE8).setDamageMultiplier(3.0F));
-		gravitite_gloves = register("gravitite_gloves", new ItemAccessory(AccessoryType.GLOVES, 0xE752DB).setDamageMultiplier(4.0F));
+		gravitite_gloves = register("gravitite_gloves", new ItemAccessory(AccessoryType.GLOVES, Rarity.RARE, 0xE752DB).setDamageMultiplier(4.0F));
 		neptune_gloves = register("neptune_gloves", new ItemAccessory(AccessoryType.GLOVES, AETHER_LOOT, 0x2654FF).setDamageMultiplier(4.5F));
 		phoenix_gloves = register("phoenix_gloves", new ItemAccessory("phoenix", AccessoryType.GLOVES, AETHER_LOOT, 0xff7700).setDamageMultiplier(4.0F));
 		obsidian_gloves = register("obsidian_gloves", new ItemAccessory(AccessoryType.GLOVES, 0x1B1447).setDamageMultiplier(5.0F));

@@ -10,6 +10,7 @@ import net.minecraft.item.ItemProvider;
 import com.legacy.aether.Aether;
 import com.legacy.aether.blocks.BlocksAether;
 import com.legacy.aether.client.gui.GuiFactoryAether;
+import com.legacy.aether.client.rendering.AetherEntityRenderer;
 import com.legacy.aether.client.rendering.color.AetherColor;
 import com.legacy.aether.item.ItemsAether;
 import com.legacy.aether.network.ClientNetworkAether;
@@ -22,6 +23,7 @@ public class ClientAether implements ClientModInitializer
 	{
 		GuiFactoryAether.registerGUIs();
 		ClientNetworkAether.initializePacketHandler();
+		AetherEntityRenderer.registerRenderers();
 
 		this.registerSprite("ring");
 		this.registerSprite("pendant");
@@ -39,7 +41,10 @@ public class ClientAether implements ClientModInitializer
 		this.registerItemColors(ItemsAether.moa_egg, ItemsAether.zanite_helmet, ItemsAether.zanite_chestplate, ItemsAether.zanite_leggings, ItemsAether.zanite_boots,
     	    	ItemsAether.gravitite_helmet, ItemsAether.gravitite_chestplate, ItemsAether.gravitite_leggings, ItemsAether.gravitite_boots,
     	    	ItemsAether.neptune_helmet, ItemsAether.neptune_chestplate, ItemsAether.neptune_leggings, ItemsAether.neptune_boots,
-    	    	ItemsAether.obsidian_helmet, ItemsAether.obsidian_chestplate, ItemsAether.obsidian_leggings, ItemsAether.obsidian_boots);
+    	    	ItemsAether.obsidian_helmet, ItemsAether.obsidian_chestplate, ItemsAether.obsidian_leggings, ItemsAether.obsidian_boots, ItemsAether.leather_gloves,
+    	    	ItemsAether.iron_gloves, ItemsAether.golden_gloves, ItemsAether.chain_gloves, ItemsAether.diamond_gloves, ItemsAether.zanite_gloves, ItemsAether.gravitite_gloves,
+    	    	ItemsAether.neptune_gloves, ItemsAether.phoenix_gloves, ItemsAether.obsidian_gloves, ItemsAether.iron_ring, ItemsAether.golden_ring, ItemsAether.zanite_ring,
+    	    	ItemsAether.ice_ring, ItemsAether.iron_pendant, ItemsAether.golden_pendant, ItemsAether.zanite_pendant, ItemsAether.ice_pendant, ItemsAether.white_cape);
 
 		ClientTickEvent.CLIENT.register(mineCraftClient -> ClientTickHandler.clientTick(mineCraftClient));
 	}

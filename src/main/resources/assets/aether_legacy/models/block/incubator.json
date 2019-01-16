@@ -1,0 +1,15 @@
+{
+    
+	"parent": "block/cube_bottom_top",
+    
+	"textures": {
+        
+		"bottom": "aether_legacy:block/incubator_bottom",
+        
+		"top": "aether_legacy:block/incubator_top",
+        
+		"side": "aether_legacy:block/incubator_side"
+    
+	}
+
+}

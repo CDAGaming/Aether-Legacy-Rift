@@ -1,12 +1,14 @@
 package com.legacy.aether.container;
 
+import net.minecraft.class_3917;
 import net.minecraft.container.Container;
-import net.minecraft.container.ContainerListener;
 import net.minecraft.container.Slot;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 
+import com.legacy.aether.api.AetherAPI;
+import com.legacy.aether.blocks.entity.AetherBlockEntity;
 import com.legacy.aether.container.slot.SlotOutput;
 
 public class ContainerFreezer extends Container
@@ -14,10 +16,13 @@ public class ContainerFreezer extends Container
 
 	private Inventory freezer;
 
-	public int progress, ticksRequired, powerRemaining;
-
-	public ContainerFreezer(Inventory inventoryIn, Inventory freezerIn)
+	public ContainerFreezer(int syncId, Inventory inventoryIn, AetherBlockEntity freezerIn)
 	{
+		super(syncId);
+
+		method_17359(freezerIn, 3); //check correct size
+		method_17361(freezerIn, 3); //check correct data size
+
 		this.freezer = freezerIn;
 
 		this.addSlot(new Slot(freezerIn, 0, 56, 17));
@@ -36,6 +41,8 @@ public class ContainerFreezer extends Container
 		{
 			this.addSlot(new Slot(inventoryIn, i, 8 + i * 18, 142));
 		}
+
+		this.method_17360(freezerIn);
 	}
 
 	@Override
@@ -43,41 +50,6 @@ public class ContainerFreezer extends Container
 	{
 		return this.freezer.canPlayerUseInv(playerIn);
 	}
-
-    @Override
-    public void addListener(ContainerListener listenerIn)
-    {
-        super.addListener(listenerIn);
-
-        listenerIn.onContainerInvRegistered(this, this.freezer);
-    }
-
-	@Override
-	public void setProperty(int id, int value)
-	{
-		this.freezer.setInvProperty(id, value);
-	}
-
-    @Override
-    public void sendContentUpdates()
-    {
-        super.sendContentUpdates();
-
-		for (ContainerListener listener : this.listeners) {
-
-			if (this.progress != this.freezer.getInvProperty(0)) {
-				listener.onContainerPropertyUpdate(this, 0, this.freezer.getInvProperty(0));
-			} else if (this.powerRemaining != this.freezer.getInvProperty(1)) {
-				listener.onContainerPropertyUpdate(this, 1, this.freezer.getInvProperty(1));
-			} else if (this.ticksRequired != this.freezer.getInvProperty(2)) {
-				listener.onContainerPropertyUpdate(this, 2, this.freezer.getInvProperty(2));
-			}
-		}
-
-        this.progress = this.freezer.getInvProperty(0);
-        this.powerRemaining = this.freezer.getInvProperty(1);
-        this.ticksRequired = this.freezer.getInvProperty(2);
-    }
 
 	@Override
 	public ItemStack transferSlot(PlayerEntity par1EntityPlayer, int par2)
@@ -98,6 +70,34 @@ public class ContainerFreezer extends Container
 				}
 
 				slot.onStackChanged(itemstack1, itemstack);
+			}
+			else if (par2 != 1 && par2 != 0)
+			{
+				if (AetherAPI.instance().isFreezable(itemstack1))
+				{
+					if (!this.insertItem(itemstack1, 0, 1, false))
+					{
+						return ItemStack.EMPTY;
+					}
+				}
+				else if (AetherAPI.instance().isFreezerFuel(itemstack1))
+				{
+					if (!this.insertItem(itemstack1, 1, 2, false))
+					{
+						return ItemStack.EMPTY;
+					}
+				}
+				else if (par2 >= 3 && par2 < 30)
+				{
+					if (!this.insertItem(itemstack1, 30, 39, false))
+					{
+						return ItemStack.EMPTY;
+					}
+				}
+				else if (par2 >= 30 && par2 < 39 && !this.insertItem(itemstack1, 3, 30, false))
+				{
+					return ItemStack.EMPTY;
+				}
 			}
 			else if (!this.insertItem(itemstack1, 3, 39, false))
 			{
@@ -122,6 +122,12 @@ public class ContainerFreezer extends Container
 		}
 
 		return itemstack;
+	}
+
+	@Override
+	public class_3917<?> method_17358()
+	{
+		return null;
 	}
 
 }

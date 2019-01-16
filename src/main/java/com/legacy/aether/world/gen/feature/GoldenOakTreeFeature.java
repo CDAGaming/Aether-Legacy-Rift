@@ -3,20 +3,20 @@ package com.legacy.aether.world.gen.feature;
 import java.util.Random;
 import java.util.Set;
 
-import com.legacy.aether.blocks.BlocksAether;
-
-import net.minecraft.class_3747;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.ModifiableTestableWorld;
+
+import com.legacy.aether.blocks.BlocksAether;
 
 public class GoldenOakTreeFeature extends AetherTreeFeature
 {
 
 	@Override
-	protected boolean generateTree(Set<BlockPos> posListIn, class_3747 worldIn, Random randomIn, BlockPos posIn)
+	protected boolean generate(Set<BlockPos> posListIn, ModifiableTestableWorld worldIn, Random randomIn, BlockPos posIn)
 	{
 		int height = 9;
 
-		if (worldIn.method_16358(posIn.down(), (ground) -> ground.getBlock() != BlocksAether.aether_grass))
+		if (worldIn.test(posIn.down(), (ground) -> ground.getBlock() != BlocksAether.aether_grass))
         {
             return false;
         }
@@ -29,9 +29,9 @@ public class GoldenOakTreeFeature extends AetherTreeFeature
 				{
 					BlockPos newPos = new BlockPos(x1, y1, z1);
 
-					if((x1 - posIn.getX()) * (x1 - posIn.getX()) + (y1 - posIn.getY() - 8) * (y1 - posIn.getY() - 8) + (z1 - posIn.getZ()) * (z1 - posIn.getZ()) < 12 + randomIn.nextInt(5) && worldIn.method_16358(newPos, (state) -> canGrowInto(state)))
+					if((x1 - posIn.getX()) * (x1 - posIn.getX()) + (y1 - posIn.getY() - 8) * (y1 - posIn.getY() - 8) + (z1 - posIn.getZ()) * (z1 - posIn.getZ()) < 12 + randomIn.nextInt(5) && worldIn.test(newPos, (state) -> canGrowInto(state)))
 					{
-						this.addBlockState(worldIn, newPos, BlocksAether.golden_oak_leaves.getDefaultState());
+						this.setBlockState(worldIn, newPos, BlocksAether.golden_oak_leaves.getDefaultState());
 					}
 				}
 			}		
@@ -47,13 +47,13 @@ public class GoldenOakTreeFeature extends AetherTreeFeature
 				}
 			}
 
-			this.addBlockState(worldIn, posIn.up(n), BlocksAether.golden_oak_log.getDefaultState());
+			this.setBlockState(worldIn, posIn.up(n), BlocksAether.golden_oak_log.getDefaultState());
 		}
 
         return true;
 	}
 
-	public boolean branch(class_3747 worldIn, Random random, BlockPos posIn, int slant)
+	public boolean branch(ModifiableTestableWorld worldIn, Random random, BlockPos posIn, int slant)
     {
 		int directionX = random.nextInt(3) - 1;
 		int directionY = slant;
@@ -72,10 +72,10 @@ public class GoldenOakTreeFeature extends AetherTreeFeature
 			i -= directionX;
 			k -= directionZ;
 
-			if(worldIn.method_16358(posIn, (state) -> canGrowInto(state)))
+			if(worldIn.test(posIn, (state) -> canGrowInto(state)))
 			{
-				this.addBlockState(worldIn, new BlockPos(x, y, z), BlocksAether.golden_oak_log.getDefaultState());
-				this.addBlockState(worldIn, new BlockPos(i, y, k), BlocksAether.golden_oak_log.getDefaultState());
+				this.setBlockState(worldIn, new BlockPos(x, y, z), BlocksAether.golden_oak_log.getDefaultState());
+				this.setBlockState(worldIn, new BlockPos(i, y, k), BlocksAether.golden_oak_log.getDefaultState());
 			}
 		}
 

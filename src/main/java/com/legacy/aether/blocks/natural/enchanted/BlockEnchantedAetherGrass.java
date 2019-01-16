@@ -6,6 +6,7 @@ import net.fabricmc.fabric.block.FabricBlockSettings;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Material;
+import net.minecraft.block.MaterialColor;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -18,7 +19,7 @@ public class BlockEnchantedAetherGrass extends Block
 
 	public BlockEnchantedAetherGrass()
 	{
-		super(FabricBlockSettings.of(Material.ORGANIC).ticksRandomly().strength(0.2F, -1.0F).sounds(BlockSoundGroup.GRASS).build());
+		super(FabricBlockSettings.of(Material.ORGANIC, MaterialColor.YELLOW).ticksRandomly().strength(0.2F, -1.0F).sounds(BlockSoundGroup.GRASS).build());
 	}
 
 	@Override

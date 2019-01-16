@@ -1,9 +1,7 @@
 package com.legacy.aether.item.material;
 
-import com.legacy.aether.blocks.BlocksAether;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.util.ActionResult;
@@ -11,12 +9,15 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
 
+import com.legacy.aether.blocks.BlocksAether;
+import com.legacy.aether.item.AetherItemGroup;
+
 public class ItemAmbrosiumShard extends Item
 {
 
 	public ItemAmbrosiumShard()
 	{
-		super(new Settings().itemGroup(ItemGroup.MISC));
+		super(new Settings().itemGroup(AetherItemGroup.AETHER_MATERIALS));
 	}
 
 	@Override

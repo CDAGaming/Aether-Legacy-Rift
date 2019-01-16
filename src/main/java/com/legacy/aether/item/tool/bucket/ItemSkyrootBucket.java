@@ -11,7 +11,6 @@ import net.minecraft.fluid.BaseFluid;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -30,6 +29,7 @@ import net.minecraft.world.World;
 
 import com.legacy.aether.api.AetherAPI;
 import com.legacy.aether.api.player.IPlayerAether;
+import com.legacy.aether.item.AetherItemGroup;
 import com.legacy.aether.item.ItemsAether;
 
 public class ItemSkyrootBucket extends Item
@@ -39,21 +39,21 @@ public class ItemSkyrootBucket extends Item
 
 	public ItemSkyrootBucket()
 	{
-		super(new Settings().stackSize(16).itemGroup(ItemGroup.TOOLS));
+		super(new Settings().stackSize(16).itemGroup(AetherItemGroup.AETHER_MISC));
 
 		this.containedBlock = Fluids.EMPTY;
 	}
 
 	public ItemSkyrootBucket(Item containerIn)
 	{
-		super(new Settings().stackSize(1).itemGroup(ItemGroup.TOOLS).recipeRemainder(containerIn));
+		super(new Settings().stackSize(1).itemGroup(AetherItemGroup.AETHER_MISC).recipeRemainder(containerIn));
 
 		this.containedBlock = Fluids.EMPTY;
 	}
 
 	public ItemSkyrootBucket(Fluid containedFluidIn, Item containerIn)
 	{
-		super(new Settings().stackSize(1).itemGroup(ItemGroup.TOOLS).recipeRemainder(containerIn));
+		super(new Settings().stackSize(1).itemGroup(AetherItemGroup.AETHER_MISC).recipeRemainder(containerIn));
 
 		this.containedBlock = containedFluidIn;
 	}

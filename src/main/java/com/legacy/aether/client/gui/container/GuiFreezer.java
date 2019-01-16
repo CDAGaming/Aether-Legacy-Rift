@@ -1,27 +1,36 @@
 package com.legacy.aether.client.gui.container;
 
-import com.mojang.blaze3d.platform.GlStateManager;
-
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.ContainerGui;
-import net.minecraft.client.resource.language.I18n;
-import net.minecraft.inventory.Inventory;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.text.TranslatableTextComponent;
 import net.minecraft.util.Identifier;
 
 import com.legacy.aether.Aether;
+import com.legacy.aether.blocks.entity.AetherBlockEntity;
 import com.legacy.aether.container.ContainerFreezer;
+import com.mojang.blaze3d.platform.GlStateManager;
 
-public class GuiFreezer extends ContainerGui
+public class GuiFreezer extends ContainerGui<ContainerFreezer>
 {
 
 	private static final Identifier TEXTURE = Aether.locate("textures/gui/freezer.png");
 
-	private Inventory freezer;
+	private AetherBlockEntity freezer;
 
-	public GuiFreezer(Inventory inventoryIn, Inventory enchanterIn)
+	public GuiFreezer(int syncId, PlayerInventory inventoryIn, AetherBlockEntity enchanterIn)
 	{
-		super(new ContainerFreezer(inventoryIn, enchanterIn));
+		super(new ContainerFreezer(syncId, inventoryIn, enchanterIn), inventoryIn, new TranslatableTextComponent("container.inventory", new Object[0]));
 
 		this.freezer = enchanterIn;
+	}
+
+	@Override
+	public void initialize(MinecraftClient client, int width, int height)
+	{
+		super.initialize(client, width, height);
+
+		client.player.container = this.container;
 	}
 
 	@Override
@@ -38,7 +47,7 @@ public class GuiFreezer extends ContainerGui
 		String name = this.freezer.getName().getFormattedText();
 
 		this.fontRenderer.draw(name, this.containerWidth / 2f - this.fontRenderer.getStringWidth(name) / 2f, 6, 4210752);
-		this.fontRenderer.draw(I18n.translate("container.inventory"), 8, this.containerHeight - 96 + 2, 4210752);
+		this.fontRenderer.draw(this.field_17411.getFormattedText(), 8, this.containerHeight - 96 + 2, 4210752);
 	}
 
 	@Override
@@ -55,7 +64,7 @@ public class GuiFreezer extends ContainerGui
 
 		int i1;
 
-		if (this.freezer.getInvProperty(1) < 0)
+		if (this.freezer.getProperty(1) > 0)
 		{
 			i1 = this.getTimeRemaining(12);
 
@@ -69,17 +78,17 @@ public class GuiFreezer extends ContainerGui
 
 	private int getProgressScaled(int i)
 	{
-		if (this.freezer.getInvProperty(2) == 0)
+		if (this.freezer.getProperty(2) == 0)
 		{
 			return 0;
 		}
 
-		return (this.freezer.getInvProperty(0) * i) / this.freezer.getInvProperty(2);
+		return (this.freezer.getProperty(0) * i) / this.freezer.getProperty(2);
 	}
 
 	private int getTimeRemaining(int i)
 	{
-		return (this.freezer.getInvProperty(1) * i) / 500;
+		return (this.freezer.getProperty(1) * i) / 500;
 	}
 
 }

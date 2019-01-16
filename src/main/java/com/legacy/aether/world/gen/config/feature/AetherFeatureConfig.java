@@ -1,9 +1,9 @@
 package com.legacy.aether.world.gen.config.feature;
 
+import net.minecraft.world.gen.feature.FeatureConfig;
+
 import com.mojang.datafixers.Dynamic;
 import com.mojang.datafixers.types.DynamicOps;
-
-import net.minecraft.world.gen.config.feature.FeatureConfig;
 
 public interface AetherFeatureConfig extends FeatureConfig
 {

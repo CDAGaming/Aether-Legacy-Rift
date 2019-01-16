@@ -1,12 +1,14 @@
 package com.legacy.aether.container;
 
+import net.minecraft.class_3917;
 import net.minecraft.container.Container;
-import net.minecraft.container.ContainerListener;
 import net.minecraft.container.Slot;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 
+import com.legacy.aether.api.AetherAPI;
+import com.legacy.aether.blocks.entity.AetherBlockEntity;
 import com.legacy.aether.container.slot.SlotOutput;
 
 public class ContainerEnchanter extends Container
@@ -16,8 +18,13 @@ public class ContainerEnchanter extends Container
 
 	public int progress, ticksRequired, powerRemaining;
 
-	public ContainerEnchanter(Inventory inventoryIn, Inventory enchanterIn)
+	public ContainerEnchanter(int syncId, Inventory inventoryIn, AetherBlockEntity enchanterIn)
 	{
+		super(syncId);
+
+		method_17359(enchanterIn, 3); //check correct size
+		method_17361(enchanterIn, 3); //check correct data size
+
 		this.enchanter = enchanterIn;
 
 		this.addSlot(new Slot(enchanterIn, 0, 56, 17));
@@ -36,6 +43,8 @@ public class ContainerEnchanter extends Container
 		{
 			this.addSlot(new Slot(inventoryIn, i, 8 + i * 18, 142));
 		}
+
+		this.method_17360(enchanterIn);
 	}
 
 	@Override
@@ -43,40 +52,6 @@ public class ContainerEnchanter extends Container
 	{
 		return this.enchanter.canPlayerUseInv(playerIn);
 	}
-
-    @Override
-    public void addListener(ContainerListener listenerIn)
-    {
-        super.addListener(listenerIn);
-        listenerIn.onContainerInvRegistered(this, this.enchanter);
-    }
-
-	@Override
-	public void setProperty(int id, int value)
-	{
-		this.enchanter.setInvProperty(id, value);
-	}
-
-    @Override
-    public void sendContentUpdates()
-    {
-        super.sendContentUpdates();
-
-		for (ContainerListener listener : this.listeners) {
-
-			if (this.progress != this.enchanter.getInvProperty(0)) {
-				listener.onContainerPropertyUpdate(this, 0, this.enchanter.getInvProperty(0));
-			} else if (this.powerRemaining != this.enchanter.getInvProperty(1)) {
-				listener.onContainerPropertyUpdate(this, 1, this.enchanter.getInvProperty(1));
-			} else if (this.ticksRequired != this.enchanter.getInvProperty(2)) {
-				listener.onContainerPropertyUpdate(this, 2, this.enchanter.getInvProperty(2));
-			}
-		}
-
-        this.progress = this.enchanter.getInvProperty(0);
-        this.powerRemaining = this.enchanter.getInvProperty(1);
-        this.ticksRequired = this.enchanter.getInvProperty(2);
-    }
 
 	@Override
 	public ItemStack transferSlot(PlayerEntity par1EntityPlayer, int par2)
@@ -97,6 +72,34 @@ public class ContainerEnchanter extends Container
 				}
 
 				slot.onStackChanged(itemstack1, itemstack);
+			}
+			else if (par2 != 1 && par2 != 0)
+			{
+				if (AetherAPI.instance().isEnchantable(itemstack))
+				{
+					if (!this.insertItem(itemstack1, 0, 1, false))
+					{
+						return ItemStack.EMPTY;
+					}
+				}
+				else if (AetherAPI.instance().isEnchantmentFuel(itemstack1))
+				{
+					if (!this.insertItem(itemstack1, 1, 2, false))
+					{
+						return ItemStack.EMPTY;
+					}
+				}
+				else if (par2 >= 3 && par2 < 30)
+				{
+					if (!this.insertItem(itemstack1, 30, 39, false))
+					{
+						return ItemStack.EMPTY;
+					}
+				}
+				else if (par2 >= 30 && par2 < 39 && !this.insertItem(itemstack1, 3, 30, false))
+				{
+					return ItemStack.EMPTY;
+				}
 			}
 			else if (!this.insertItem(itemstack1, 3, 39, false))
 			{
@@ -121,6 +124,12 @@ public class ContainerEnchanter extends Container
 		}
 
 		return itemstack;
+	}
+
+	@Override
+	public class_3917<?> method_17358()
+	{
+		return null;
 	}
 
 }

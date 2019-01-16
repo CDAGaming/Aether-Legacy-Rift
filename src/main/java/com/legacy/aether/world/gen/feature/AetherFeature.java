@@ -2,8 +2,8 @@ package com.legacy.aether.world.gen.feature;
 
 import java.util.function.Supplier;
 
-import net.minecraft.world.gen.config.feature.FeatureConfig;
 import net.minecraft.world.gen.feature.Feature;
+import net.minecraft.world.gen.feature.FeatureConfig;
 
 import com.mojang.datafixers.Dynamic;
 

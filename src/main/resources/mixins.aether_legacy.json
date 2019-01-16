@@ -6,11 +6,13 @@
   "package": "com.legacy.aether.mixin",
   "refmap": "mixins.aether_legacy.refmap.json",
   "mixins": [
+    "MixinMapState",
     "MixinBlockBush",
     "MixinPlayerEntity",
     "MixinLivingEntity",
     "MixinDimensionType",
     "MixinMinecraftServer",
+    "MixinUpdateClientPacket",
     "MixinChunkGeneratorType",
     "MixinOverworldDimension",
     "MixinSurfaceChunkGenerator",
@@ -18,10 +20,12 @@
     "MixinServerPlayerInteractionManager"
   ],
   "client": [
-    "client.MixinMinecraft",
     "client.MixinGuiInventory",
     "client.MixinClientPlayerInteractionManager",
     "client.MixinFirstPersonRenderer",
-    "client.MixinPlayerEntityRenderer"
+    "client.MixinPlayerEntityRenderer",
+    "client.MixinMapRenderer",
+    "client.MixinClientPlayNetworkHandler",
+    "client.MixinWaterSuspendParticle"
   ]
 }

@@ -2,8 +2,9 @@ package com.legacy.aether.item.armor;
 
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ArmorItem;
-import net.minecraft.item.ItemGroup;
 import net.minecraft.util.Rarity;
+
+import com.legacy.aether.item.AetherItemGroup;
 
 public class ItemAetherArmor extends ArmorItem
 {
@@ -14,14 +15,14 @@ public class ItemAetherArmor extends ArmorItem
 
 	public ItemAetherArmor(AetherArmorType typeIn, EquipmentSlot slotIn)
 	{
-		super(typeIn.getMaterial(), slotIn, new Settings().itemGroup(ItemGroup.COMBAT));
+		super(typeIn.getMaterial(), slotIn, new Settings().itemGroup(AetherItemGroup.AETHER_ARMOR));
 
 		this.color = typeIn.getColor();
 	}
 
 	public ItemAetherArmor(AetherArmorType typeIn, Rarity rarityIn, EquipmentSlot slotIn)
 	{
-		super(typeIn.getMaterial(), slotIn, new Settings().itemGroup(ItemGroup.COMBAT).rarity(rarityIn));
+		super(typeIn.getMaterial(), slotIn, new Settings().itemGroup(AetherItemGroup.AETHER_ARMOR).rarity(rarityIn));
 
 		this.color = typeIn.getColor();
 	}

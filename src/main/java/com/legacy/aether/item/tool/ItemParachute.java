@@ -2,23 +2,24 @@ package com.legacy.aether.item.tool;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
+
+import com.legacy.aether.item.AetherItemGroup;
 
 public class ItemParachute extends Item
 {
 
 	public ItemParachute(int maxDamage)
 	{
-		super(new Settings().stackSize(1).durability(maxDamage).itemGroup(ItemGroup.TOOLS));
+		super(new Settings().stackSize(1).durability(maxDamage).itemGroup(AetherItemGroup.AETHER_MISC));
 	}
 
 	public ItemParachute()
 	{
-		super(new Settings().stackSize(1).itemGroup(ItemGroup.TOOLS));
+		super(new Settings().stackSize(1).itemGroup(AetherItemGroup.AETHER_MISC));
 	}
 
 	@Override

@@ -17,7 +17,7 @@ public class ItemMoaEgg extends Item
 
 	public ItemMoaEgg()
 	{
-		super(new Item.Settings().stackSize(1).itemGroup(ItemGroup.MISC));
+		super(new Item.Settings().stackSize(1).itemGroup(AetherItemGroup.AETHER_MISC));
 	}
 
 	@Override

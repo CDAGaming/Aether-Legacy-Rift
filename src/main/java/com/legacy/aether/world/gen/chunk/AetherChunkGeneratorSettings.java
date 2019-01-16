@@ -1,11 +1,11 @@
 package com.legacy.aether.world.gen.chunk;
 
 import net.minecraft.block.Blocks;
-import net.minecraft.world.gen.chunk.ChunkGeneratorSettings;
+import net.minecraft.world.gen.chunk.ChunkGeneratorConfig;
 
 import com.legacy.aether.blocks.BlocksAether;
 
-public class AetherChunkGeneratorSettings extends ChunkGeneratorSettings
+public class AetherChunkGeneratorSettings extends ChunkGeneratorConfig
 {
 
 	public AetherChunkGeneratorSettings()

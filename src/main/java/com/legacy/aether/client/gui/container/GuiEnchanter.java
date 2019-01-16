@@ -1,27 +1,37 @@
 package com.legacy.aether.client.gui.container;
 
-import com.mojang.blaze3d.platform.GlStateManager;
-
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.ContainerGui;
 import net.minecraft.client.resource.language.I18n;
-import net.minecraft.inventory.Inventory;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.text.TranslatableTextComponent;
 import net.minecraft.util.Identifier;
 
 import com.legacy.aether.Aether;
+import com.legacy.aether.blocks.entity.AetherBlockEntity;
 import com.legacy.aether.container.ContainerEnchanter;
+import com.mojang.blaze3d.platform.GlStateManager;
 
-public class GuiEnchanter extends ContainerGui
+public class GuiEnchanter extends ContainerGui<ContainerEnchanter>
 {
 
 	private static final Identifier TEXTURE = Aether.locate("textures/gui/enchanter.png");
 
-	private Inventory enchanter;
+	private AetherBlockEntity enchanter;
 
-	public GuiEnchanter(Inventory inventoryIn, Inventory enchanterIn)
+	public GuiEnchanter(int syncId, PlayerInventory inventoryIn, AetherBlockEntity enchanterIn)
 	{
-		super(new ContainerEnchanter(inventoryIn, enchanterIn));
+		super(new ContainerEnchanter(syncId, inventoryIn, enchanterIn), inventoryIn, new TranslatableTextComponent("container.inventory", new Object[0]));
 
 		this.enchanter = enchanterIn;
+	}
+
+	@Override
+	public void initialize(MinecraftClient client, int width, int height)
+	{
+		super.initialize(client, width, height);
+
+		client.player.container = this.container;
 	}
 
 	@Override
@@ -55,7 +65,7 @@ public class GuiEnchanter extends ContainerGui
 
 		int i1;
 
-		if (this.enchanter.getInvProperty(1) < 0)
+		if (this.enchanter.getProperty(1) > 0)
 		{
 			i1 = this.getTimeRemaining(12);
 
@@ -69,17 +79,17 @@ public class GuiEnchanter extends ContainerGui
 
 	private int getProgressScaled(int i)
 	{
-		if (this.enchanter.getInvProperty(2) == 0)
+		if (this.enchanter.getProperty(2) == 0)
 		{
 			return 0;
 		}
 
-		return (this.enchanter.getInvProperty(0) * i) / this.enchanter.getInvProperty(2);
+		return (this.enchanter.getProperty(0) * i) / this.enchanter.getProperty(2);
 	}
 
 	private int getTimeRemaining(int i)
 	{
-		return (this.enchanter.getInvProperty(1) * i) / 500;
+		return (this.enchanter.getProperty(1) * i) / 500;
 	}
 
 }

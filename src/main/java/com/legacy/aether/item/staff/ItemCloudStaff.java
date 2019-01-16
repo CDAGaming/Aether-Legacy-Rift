@@ -2,7 +2,6 @@ package com.legacy.aether.item.staff;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -11,6 +10,7 @@ import net.minecraft.world.World;
 
 import com.legacy.aether.api.AetherAPI;
 import com.legacy.aether.api.player.IPlayerAether;
+import com.legacy.aether.item.AetherItemGroup;
 import com.legacy.aether.player.PlayerAether;
 
 public class ItemCloudStaff extends Item
@@ -18,7 +18,7 @@ public class ItemCloudStaff extends Item
 
 	public ItemCloudStaff() 
 	{
-		super(new Settings().stackSize(1).durability(60).itemGroup(ItemGroup.TOOLS));
+		super(new Settings().stackSize(1).durability(60).itemGroup(AetherItemGroup.AETHER_MISC));
 	}
 
     @Override

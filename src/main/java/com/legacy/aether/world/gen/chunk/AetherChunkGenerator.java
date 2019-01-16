@@ -1,6 +1,5 @@
 package com.legacy.aether.world.gen.chunk;
 
-import net.minecraft.class_2919;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.math.BlockPos;
@@ -11,6 +10,7 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.source.BiomeSource;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.ChunkPos;
+import net.minecraft.world.gen.ChunkRandom;
 import net.minecraft.world.gen.Heightmap.Type;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
 
@@ -21,7 +21,7 @@ public class AetherChunkGenerator extends ChunkGenerator<AetherChunkGeneratorSet
 
 	private double[] buffer;
 
-	protected final class_2919 random;
+	protected final ChunkRandom random;
 
 	private final OctavePerlinNoiseSampler perlinNoiseSampler;
 
@@ -31,7 +31,7 @@ public class AetherChunkGenerator extends ChunkGenerator<AetherChunkGeneratorSet
 	{
 		super(iWorld_1, biomeSource_1, chunkGeneratorSettings_1);
 
-		this.random = new class_2919(this.seed);
+		this.random = new ChunkRandom(this.seed);
 		this.perlinNoiseSampler = new OctavePerlinNoiseSampler(this.random, 16);
 		this.extraPerlinNoiseSampler = new OctavePerlinNoiseSampler(this.random, 8);
 	}
@@ -68,8 +68,8 @@ public class AetherChunkGenerator extends ChunkGenerator<AetherChunkGeneratorSet
 		ChunkPos chunkPos_1 = chunk.getPos();
 		int int_1 = chunkPos_1.x;
 		int int_2 = chunkPos_1.z;
-		class_2919 class_2919_1 = new class_2919();
-		class_2919_1.method_12659(int_1, int_2);
+		ChunkRandom class_2919_1 = new ChunkRandom();
+		class_2919_1.setSeed(int_1, int_2);
 		ChunkPos chunkPos_2 = chunk.getPos();
 		int int_3 = chunkPos_2.getXStart();
 		int int_4 = chunkPos_2.getZStart();
@@ -88,7 +88,7 @@ public class AetherChunkGenerator extends ChunkGenerator<AetherChunkGeneratorSet
 	}
 
 	@Override
-	public int method_12100()
+	public int getSpawnHeight()
 	{
 		return 0;
 	}

@@ -2,6 +2,8 @@ package com.legacy.aether.blocks.entity;
 
 import java.util.Iterator;
 
+import com.legacy.aether.util.InventoryProperty;
+
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
@@ -15,7 +17,7 @@ import net.minecraft.util.InventoryUtil;
 import net.minecraft.util.Tickable;
 import net.minecraft.util.math.Direction;
 
-public abstract class AetherBlockEntity extends BlockEntity implements SidedInventory, Tickable
+public abstract class AetherBlockEntity extends BlockEntity implements SidedInventory, Tickable, InventoryProperty
 {
 
 	private String name = "generic";
@@ -143,13 +145,16 @@ public abstract class AetherBlockEntity extends BlockEntity implements SidedInve
 		this.customName = textComponentIn;
 	}
 
-	@Override
+	public boolean hasCustomName()
+	{
+		return this.customName != null;
+	}
+
 	public TextComponent getName()
 	{
 		return this.customName != null ? this.customName : new TranslatableTextComponent("container.aether_legacy." + this.name, new Object[0]);
 	}
 
-	@Override
 	public TextComponent getCustomName()
 	{
 		return this.customName;

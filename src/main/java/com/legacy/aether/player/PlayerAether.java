@@ -207,14 +207,14 @@ public class PlayerAether implements IPlayerAether
 	{
 		compound.putInt("shardsUsed", this.shardsUsed);
 
-		//compound.put("accessories", ItemStackHelper.saveAllItems(new CompoundTag(), this.accessories.stacks));
+		compound.put("accessories", this.accessories.serialize(new CompoundTag()));
 	}
 
 	public void readFromNBT(CompoundTag compound)
 	{
 		this.shardsUsed = compound.getInt("shardsUsed");
 
-		//ItemStackHelper.loadAllItems(compound.getCompound("accessories"), this.accessories.stacks);
+		this.accessories.deserialize(compound.getCompound("accessories"));
 	}
 
 	public void copyFrom(PlayerAether that, boolean keepEverything)

@@ -1,7 +1,6 @@
 package com.legacy.aether.container;
 
 import net.minecraft.container.CraftingResultSlot;
-import net.minecraft.container.PlayerContainer;
 import net.minecraft.container.Slot;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -13,12 +12,12 @@ import com.legacy.aether.api.accessories.AetherAccessory;
 import com.legacy.aether.api.player.IPlayerAether;
 import com.legacy.aether.container.slot.SlotAccessory;
 
-public class ContainerAccessories extends PlayerContainer
+public class ContainerAccessories extends CopiedPlayerContainer
 {
 
-	public ContainerAccessories(PlayerEntity playerIn)
+	public ContainerAccessories(int syncId, PlayerEntity playerIn)
 	{
-		super(playerIn.inventory, !playerIn.world.isClient, playerIn);
+		super(syncId, playerIn.inventory, !playerIn.world.isClient, playerIn);
 
 		for (Slot slot : this.slotList)
 		{

@@ -1,14 +1,11 @@
 package com.legacy.aether.world.gen.feature;
 
-import java.util.Random;
-import java.util.Set;
-
-import net.minecraft.class_3747;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.gen.config.feature.DefaultFeatureConfig;
+import net.minecraft.world.ModifiableTestableWorld;
 import net.minecraft.world.gen.feature.AbstractTreeFeature;
+import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 
 import com.legacy.aether.blocks.BlocksAether;
 
@@ -20,8 +17,6 @@ public abstract class AetherTreeFeature extends AbstractTreeFeature<DefaultFeatu
 		super(DefaultFeatureConfig::deserialize, true);
 	}
 
-	protected abstract boolean generateTree(Set<BlockPos> posListIn, class_3747 worldIn, Random randomIn, BlockPos posIn);
-
 	protected static boolean canGrowInto(BlockState state)
 	{
 		Block block = state.getBlock();
@@ -30,18 +25,12 @@ public abstract class AetherTreeFeature extends AbstractTreeFeature<DefaultFeatu
 	}
 
 	@Override
-	protected void method_16427(class_3747 worldIn, BlockPos posIn)
+	protected void setToDirt(ModifiableTestableWorld worldIn, BlockPos posIn)
 	{
-		if (worldIn.method_16358(posIn, (state) -> state.getBlock() != BlocksAether.aether_grass))
+		if (worldIn.test(posIn, (state) -> state.getBlock() != BlocksAether.aether_dirt))
 		{
-			this.addBlockState(worldIn, posIn, BlocksAether.aether_dirt.getDefaultState());
+			this.setBlockState(worldIn, posIn, BlocksAether.aether_dirt.getDefaultState());
 		}
-	}
-
-	@Override
-	protected boolean method_12775(Set<BlockPos> var1, class_3747 var2, Random var3, BlockPos var4)
-	{
-		return this.generateTree(var1, var2, var3, var4);
 	}
 
 }
