@@ -222,7 +222,7 @@ public class BlocksAether
 
 	public static final Block mossy_holystone_slab = register("mossy_holystone_slab", new BlockAetherSlab(mossy_holystone.getDefaultState()));
 
-	//public static final Block aerogel_wall = register("aerogel_wall", new BlockAetherSlab(aerogel.getDefaultState()));
+	//public static final Block aerogel_slab = register("aerogel_slab", new BlockAetherSlab(aerogel.getDefaultState()));
 
 	public static final Block carved_slab = register("carved_slab", new BlockAetherSlab(carved_stone.getDefaultState()));
 
