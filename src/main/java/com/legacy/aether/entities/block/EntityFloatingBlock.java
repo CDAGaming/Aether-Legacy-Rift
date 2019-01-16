@@ -1,5 +1,7 @@
 package com.legacy.aether.entities.block;
 
+import net.minecraft.class_3959;
+import net.minecraft.class_3965;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -15,7 +17,6 @@ import net.minecraft.util.HitResult;
 import net.minecraft.util.TagHelper;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.FluidRayTraceMode;
 import net.minecraft.world.World;
 
 import com.legacy.aether.blocks.BlockFloating;
@@ -45,7 +46,7 @@ public class EntityFloatingBlock extends Entity
 		this.state = state;
 		//this.preventEntitySpawning = true;
 
-		this.setPosition(x, y + (double)((1.0F - this.height) / 2.0F), z);
+		this.setPosition(x, y + (double)((1.0F - this.method_17682()) / 2.0F), z);
 
 		this.velocityX = this.velocityY = this.velocityZ = 0.0D;
 		this.prevX = x;
@@ -135,11 +136,11 @@ public class EntityFloatingBlock extends Entity
 
                 if (flag && d0 > 1.0D)
                 {
-                    HitResult raytraceresult = this.world.rayTrace(new Vec3d(this.prevX, this.prevY, this.prevZ), new Vec3d(this.x, this.y, this.z), FluidRayTraceMode.SOURCE_ONLY);
+                	class_3965 raytraceresult = this.world.method_17742(new class_3959(new Vec3d(this.prevX, this.prevY, this.prevZ), new Vec3d(this.x, this.y, this.z), class_3959.class_3960.OUTLINE, class_3959.class_242.SOURCE_ONLY, this));
 
-                    if (raytraceresult != null && this.world.getFluidState(raytraceresult.getBlockPos()).matches(FluidTags.WATER))
+                    if (raytraceresult.method_17783() != HitResult.Type.NONE && this.world.getFluidState(raytraceresult.method_17777()).matches(FluidTags.WATER))
                     {
-                        blockpos1 = raytraceresult.getBlockPos();
+                        blockpos1 = raytraceresult.method_17777();
                         flag1 = true;
                     }
                 }

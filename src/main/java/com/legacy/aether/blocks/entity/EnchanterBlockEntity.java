@@ -168,7 +168,7 @@ public class EnchanterBlockEntity extends AetherBlockEntity
 
 	public boolean isEnchanting()
 	{
-		return this.getProperty(1) > 0;
+		return this.get(1) > 0;
 	}
 
 	@Override
@@ -187,7 +187,7 @@ public class EnchanterBlockEntity extends AetherBlockEntity
 	}
 
 	@Override
-	public int getProperty(int id)
+	public int get(int id)
 	{
 		if (id == 0)
 		{
@@ -206,7 +206,7 @@ public class EnchanterBlockEntity extends AetherBlockEntity
 	}
 
 	@Override
-	public void setProperty(int id, int value) 
+	public void set(int id, int value) 
 	{ 
 		if (id == 0)
 		{
@@ -223,7 +223,7 @@ public class EnchanterBlockEntity extends AetherBlockEntity
 	}
 
 	@Override
-	public int getPropertySize() 
+	public int size() 
 	{
 		return 3; 
 	}

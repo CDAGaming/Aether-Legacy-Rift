@@ -32,7 +32,7 @@ public class AetherTeleportation
 		player.invalid = false;
 		this.teleport(player, serverWorld_1, serverWorld_2, teleporter);
 		playerManager.method_14612(player, serverWorld_1);
-		player.networkHandler.method_14363(player.x, player.y, player.z, player.yaw, player.pitch);
+		player.networkHandler.teleportRequest(player.x, player.y, player.z, player.yaw, player.pitch);
 		player.interactionManager.setWorld(serverWorld_2);
 		player.networkHandler.sendPacket(new PlayerAbilitiesClientPacket(player.abilities));
 		playerManager.method_14606(player, serverWorld_2);

@@ -117,6 +117,13 @@ public class TheAetherDimension extends Dimension
 	}
 
 	@Override
+	@Environment(EnvType.CLIENT)
+	public float method_12455()
+	{
+		return 8.0F;
+	}
+
+	@Override
 	public boolean method_12448()
 	{
 		return true;

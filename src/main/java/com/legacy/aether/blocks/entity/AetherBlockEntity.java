@@ -2,10 +2,9 @@ package com.legacy.aether.blocks.entity;
 
 import java.util.Iterator;
 
-import com.legacy.aether.util.InventoryProperty;
-
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.container.PropertyDelegate;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.SidedInventory;
 import net.minecraft.item.ItemStack;
@@ -17,7 +16,7 @@ import net.minecraft.util.InventoryUtil;
 import net.minecraft.util.Tickable;
 import net.minecraft.util.math.Direction;
 
-public abstract class AetherBlockEntity extends BlockEntity implements SidedInventory, Tickable, InventoryProperty
+public abstract class AetherBlockEntity extends BlockEntity implements SidedInventory, Tickable, PropertyDelegate
 {
 
 	private String name = "generic";

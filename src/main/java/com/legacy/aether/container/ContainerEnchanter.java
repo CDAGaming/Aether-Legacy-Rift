@@ -1,6 +1,5 @@
 package com.legacy.aether.container;
 
-import net.minecraft.class_3917;
 import net.minecraft.container.Container;
 import net.minecraft.container.Slot;
 import net.minecraft.entity.player.PlayerEntity;
@@ -20,10 +19,10 @@ public class ContainerEnchanter extends Container
 
 	public ContainerEnchanter(int syncId, Inventory inventoryIn, AetherBlockEntity enchanterIn)
 	{
-		super(syncId);
+		super(null, syncId);
 
-		method_17359(enchanterIn, 3); //check correct size
-		method_17361(enchanterIn, 3); //check correct data size
+		checkContainerSize(enchanterIn, 3);
+		checkContainerDataCount(enchanterIn, 3);
 
 		this.enchanter = enchanterIn;
 
@@ -44,7 +43,7 @@ public class ContainerEnchanter extends Container
 			this.addSlot(new Slot(inventoryIn, i, 8 + i * 18, 142));
 		}
 
-		this.method_17360(enchanterIn);
+		this.readData(enchanterIn);
 	}
 
 	@Override
@@ -124,12 +123,6 @@ public class ContainerEnchanter extends Container
 		}
 
 		return itemstack;
-	}
-
-	@Override
-	public class_3917<?> method_17358()
-	{
-		return null;
 	}
 
 }

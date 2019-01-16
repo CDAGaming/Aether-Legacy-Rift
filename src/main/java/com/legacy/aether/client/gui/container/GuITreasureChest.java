@@ -8,7 +8,7 @@ import net.minecraft.text.TranslatableTextComponent;
 
 import com.legacy.aether.blocks.entity.TreasureChestBlockEntity;
 
-public class GuITreasureChest extends ContainerGui54<GenericContainer.class_3912>
+public class GuITreasureChest extends ContainerGui54
 {
 
 	public GuITreasureChest(int syncId, PlayerInventory playerInventory, TreasureChestBlockEntity inventory)

@@ -47,7 +47,7 @@ public class GuiFreezer extends ContainerGui<ContainerFreezer>
 		String name = this.freezer.getName().getFormattedText();
 
 		this.fontRenderer.draw(name, this.containerWidth / 2f - this.fontRenderer.getStringWidth(name) / 2f, 6, 4210752);
-		this.fontRenderer.draw(this.field_17411.getFormattedText(), 8, this.containerHeight - 96 + 2, 4210752);
+		this.fontRenderer.draw(this.name.getFormattedText(), 8, this.containerHeight - 96 + 2, 4210752);
 	}
 
 	@Override
@@ -64,7 +64,7 @@ public class GuiFreezer extends ContainerGui<ContainerFreezer>
 
 		int i1;
 
-		if (this.freezer.getProperty(1) > 0)
+		if (this.freezer.get(1) > 0)
 		{
 			i1 = this.getTimeRemaining(12);
 
@@ -78,17 +78,17 @@ public class GuiFreezer extends ContainerGui<ContainerFreezer>
 
 	private int getProgressScaled(int i)
 	{
-		if (this.freezer.getProperty(2) == 0)
+		if (this.freezer.get(2) == 0)
 		{
 			return 0;
 		}
 
-		return (this.freezer.getProperty(0) * i) / this.freezer.getProperty(2);
+		return (this.freezer.get(0) * i) / this.freezer.get(2);
 	}
 
 	private int getTimeRemaining(int i)
 	{
-		return (this.freezer.getProperty(1) * i) / 500;
+		return (this.freezer.get(1) * i) / 500;
 	}
 
 }

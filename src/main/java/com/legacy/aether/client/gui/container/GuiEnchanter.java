@@ -48,7 +48,7 @@ public class GuiEnchanter extends ContainerGui<ContainerEnchanter>
 		String name = this.enchanter.getName().getFormattedText();
 
 		this.fontRenderer.draw(name, this.containerWidth / 2f - this.fontRenderer.getStringWidth(name) / 2f, 6, 4210752);
-		this.fontRenderer.draw(I18n.translate("container.inventory"), 8, this.containerHeight - 96 + 2, 4210752);
+		this.fontRenderer.draw(this.name.getFormattedText(), 8, this.containerHeight - 96 + 2, 4210752);
 	}
 
 	@Override
@@ -65,7 +65,7 @@ public class GuiEnchanter extends ContainerGui<ContainerEnchanter>
 
 		int i1;
 
-		if (this.enchanter.getProperty(1) > 0)
+		if (this.enchanter.get(1) > 0)
 		{
 			i1 = this.getTimeRemaining(12);
 
@@ -79,17 +79,17 @@ public class GuiEnchanter extends ContainerGui<ContainerEnchanter>
 
 	private int getProgressScaled(int i)
 	{
-		if (this.enchanter.getProperty(2) == 0)
+		if (this.enchanter.get(2) == 0)
 		{
 			return 0;
 		}
 
-		return (this.enchanter.getProperty(0) * i) / this.enchanter.getProperty(2);
+		return (this.enchanter.get(0) * i) / this.enchanter.get(2);
 	}
 
 	private int getTimeRemaining(int i)
 	{
-		return (this.enchanter.getProperty(1) * i) / 500;
+		return (this.enchanter.get(1) * i) / 500;
 	}
 
 }

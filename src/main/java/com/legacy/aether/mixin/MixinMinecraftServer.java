@@ -3,8 +3,8 @@ package com.legacy.aether.mixin;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
 
-import net.minecraft.class_3949;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.WorldGenerationProgressListener;
 import net.minecraft.server.world.SecondaryServerWorld;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.server.world.ServerWorldListener;
@@ -36,11 +36,11 @@ public class MixinMinecraftServer
 
 	@SuppressWarnings("resource")
     @Inject(method = "createWorlds", at = @At("RETURN"))
-	protected void registerAetherDimension(WorldSaveHandler worldSaveHandler_1, PersistentStateManager persistentStateManager_1, LevelProperties levelProperties_1, LevelInfo levelInfo_1, class_3949 chunkInfo, CallbackInfo ci)
+	protected void registerAetherDimension(WorldSaveHandler saveHandler, PersistentStateManager stateManager, LevelProperties properties, LevelInfo info, WorldGenerationProgressListener listener, CallbackInfo ci)
 	{
 	    ServerWorld serverWorld_1 = ((MinecraftServer) (Object) this).getWorld(DimensionType.OVERWORLD);
 
-	    SecondaryServerWorld theAether = (new SecondaryServerWorld((MinecraftServer) (Object) this, this.field_17200, worldSaveHandler_1, WorldAether.THE_AETHER, serverWorld_1, this.profiler, chunkInfo)).initializeAsSecondaryWorld();
+	    SecondaryServerWorld theAether = (new SecondaryServerWorld((MinecraftServer) (Object) this, this.field_17200, saveHandler, WorldAether.THE_AETHER, serverWorld_1, this.profiler, listener)).initializeAsSecondaryWorld();
 
 		this.worlds.put(WorldAether.THE_AETHER, theAether);
 		theAether.registerListener(new ServerWorldListener((MinecraftServer) (Object) this, theAether));

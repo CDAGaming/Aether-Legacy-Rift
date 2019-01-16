@@ -230,7 +230,7 @@ public class EntityMoa extends EntitySaddleMount
 		{
 			if(this.random.nextInt(10) == 0)
 			{
-				this.world.addParticle(ParticleTypes.ANGRY_VILLAGER, this.x + (this.random.nextDouble() - 0.5D) * (double)this.width, this.y + 1, this.z + (this.random.nextDouble() - 0.5D) * (double)this.width, 0.0D, 0.0D, 0.0D);
+				this.world.addParticle(ParticleTypes.ANGRY_VILLAGER, this.x + (this.random.nextDouble() - 0.5D) * (double)this.method_17681(), this.y + 1, this.z + (this.random.nextDouble() - 0.5D) * (double)this.method_17681(), 0.0D, 0.0D, 0.0D);
 			}
 		}
 
@@ -245,7 +245,7 @@ public class EntityMoa extends EntitySaddleMount
 			}
 			else
 			{
-				this.playSoundAtEntity(SoundEvents.ENTITY_CHICKEN_EGG, 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
+				this.playSound(SoundEvents.ENTITY_CHICKEN_EGG, 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
 				this.dropStack(ItemMoaEgg.getStack(this.getMoaType()), 0);
 
 				this.secsUntilEgg = this.getRandomEggTime();

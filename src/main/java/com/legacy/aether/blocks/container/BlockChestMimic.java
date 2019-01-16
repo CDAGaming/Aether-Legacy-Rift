@@ -2,6 +2,7 @@ package com.legacy.aether.blocks.container;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.class_3965;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -12,7 +13,6 @@ import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 
@@ -22,7 +22,7 @@ public class BlockChestMimic extends BlockWithAetherEntity
 {
 
 	@Override
-	public boolean activate(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, Direction direction, float hitX, float hitY, float hitZ)
+	public boolean activate(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, class_3965 hitResult)
 	{
 		this.spawnMimic(world, player, pos);
 

@@ -1,6 +1,5 @@
 package com.legacy.aether.container;
 
-import net.minecraft.class_3917;
 import net.minecraft.container.Container;
 import net.minecraft.container.Slot;
 import net.minecraft.entity.player.PlayerEntity;
@@ -22,10 +21,10 @@ public class ContainerIncubator extends Container
 
     public ContainerIncubator(int syncId, Inventory inventoryIn, AetherBlockEntity incubatorIn)
     {
-    	super(syncId);
+    	super(null, syncId);
 
-		method_17359(incubatorIn, 2); //check correct size
-		method_17361(incubatorIn, 2); //check correct data size
+    	checkContainerSize(incubatorIn, 2);
+    	checkContainerDataCount(incubatorIn, 2);
 
 		((IncubatorBlockEntity)incubatorIn).onInvOpen(((PlayerInventory)inventoryIn).player);
 
@@ -47,7 +46,7 @@ public class ContainerIncubator extends Container
             this.addSlot(new Slot(inventoryIn, j, 8 + j * 18, 142));
         }
 
-		this.method_17360(incubatorIn);
+		this.readData(incubatorIn);
     }
 
 	@Override
@@ -113,11 +112,5 @@ public class ContainerIncubator extends Container
 
         return itemstack;
     }
-
-	@Override
-	public class_3917<?> method_17358()
-	{
-		return null;
-	}
 
 }

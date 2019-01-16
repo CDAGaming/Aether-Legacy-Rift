@@ -54,7 +54,7 @@ public class GuiIncubator extends ContainerGui<ContainerIncubator>
 		}
 
 		this.fontRenderer.draw(incubatorName, this.containerWidth / 2 - this.fontRenderer.getStringWidth(incubatorName) / 2, 6, 4210752);
-		this.fontRenderer.draw(this.field_17411.getFormattedText(), 8, this.containerHeight - 96 + 2, 0x404040);
+		this.fontRenderer.draw(this.name.getFormattedText(), 8, this.containerHeight - 96 + 2, 0x404040);
 	}
 
 	@Override
@@ -69,7 +69,7 @@ public class GuiIncubator extends ContainerGui<ContainerIncubator>
 
 		this.drawTexturedRect(j, k, 0, 0, this.containerWidth, this.containerHeight);
 
-		if (this.incubator.getProperty(1) > 0)
+		if (this.incubator.get(1) > 0)
 		{
 			int l = this.getTimeRemaining(12);
 
@@ -83,12 +83,12 @@ public class GuiIncubator extends ContainerGui<ContainerIncubator>
 
 	public int getProgressScaled(int i)
 	{
-		return (this.incubator.getProperty(1) * i) / 5700;
+		return (this.incubator.get(1) * i) / 5700;
 	}
 
 	public int getTimeRemaining(int i)
 	{
-		return (this.incubator.getProperty(0) * i) / 500;
+		return (this.incubator.get(0) * i) / 500;
 	}
 
 }

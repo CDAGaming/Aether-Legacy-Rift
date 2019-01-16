@@ -8,7 +8,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.block.Material;
 import net.minecraft.block.PortalBlock;
 import net.minecraft.block.pattern.BlockPattern;
-import net.minecraft.block.pattern.BlockProxy;
+import net.minecraft.block.pattern.CachedBlockPosition;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
@@ -85,7 +85,7 @@ public class BlockAetherPortal extends PortalBlock
     {
     	Direction.Axis enumfacing$axis = Direction.Axis.Z;
         AetherPortalSize blockportal$size = new AetherPortalSize(worldIn, p_181089_2_, Direction.Axis.X);
-        LoadingCache<BlockPos, BlockProxy> loadingcache = BlockPattern.makeCache(worldIn, true);
+        LoadingCache<BlockPos, CachedBlockPosition> loadingcache = BlockPattern.makeCache(worldIn, true);
 
         if (!blockportal$size.isValid())
         {
@@ -111,7 +111,7 @@ public class BlockAetherPortal extends PortalBlock
                 {
                     for (int j = 0; j < blockportal$size.getHeight(); ++j)
                     {
-                    	BlockProxy blockworldstate = blockpattern$patternhelper.translate(i, j, 1);
+                    	CachedBlockPosition blockworldstate = blockpattern$patternhelper.translate(i, j, 1);
 
                         if (blockworldstate.getBlockState() != null && blockworldstate.getBlockState().getMaterial() != Material.AIR)
                         {

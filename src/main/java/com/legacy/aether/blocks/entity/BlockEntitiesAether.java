@@ -27,7 +27,7 @@ public class BlockEntitiesAether
 
 	private static <T extends BlockEntity> BlockEntityType<T> register(String name, BlockEntityType.Builder<T> blockEntityType$Builder_1)
 	{
-		return Registry.register(Registry.BLOCK_ENTITY, Aether.locate(name), blockEntityType$Builder_1.method_11034(null));
+		return Registry.register(Registry.BLOCK_ENTITY, Aether.locate(name), blockEntityType$Builder_1.build(null));
 	}
 
 }

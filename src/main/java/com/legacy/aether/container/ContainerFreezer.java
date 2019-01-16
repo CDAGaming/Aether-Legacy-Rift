@@ -1,6 +1,5 @@
 package com.legacy.aether.container;
 
-import net.minecraft.class_3917;
 import net.minecraft.container.Container;
 import net.minecraft.container.Slot;
 import net.minecraft.entity.player.PlayerEntity;
@@ -18,10 +17,10 @@ public class ContainerFreezer extends Container
 
 	public ContainerFreezer(int syncId, Inventory inventoryIn, AetherBlockEntity freezerIn)
 	{
-		super(syncId);
+		super(null, syncId);
 
-		method_17359(freezerIn, 3); //check correct size
-		method_17361(freezerIn, 3); //check correct data size
+		checkContainerSize(freezerIn, 3);
+		checkContainerDataCount(freezerIn, 3);
 
 		this.freezer = freezerIn;
 
@@ -42,7 +41,7 @@ public class ContainerFreezer extends Container
 			this.addSlot(new Slot(inventoryIn, i, 8 + i * 18, 142));
 		}
 
-		this.method_17360(freezerIn);
+		this.readData(freezerIn);
 	}
 
 	@Override
@@ -122,12 +121,6 @@ public class ContainerFreezer extends Container
 		}
 
 		return itemstack;
-	}
-
-	@Override
-	public class_3917<?> method_17358()
-	{
-		return null;
 	}
 
 }

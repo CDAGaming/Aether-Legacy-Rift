@@ -1,5 +1,6 @@
 package com.legacy.aether.mixin;
 
+import net.minecraft.class_3965;
 import net.minecraft.client.network.packet.BlockUpdateClientPacket;
 import net.minecraft.client.network.packet.ChatMessageClientPacket;
 import net.minecraft.item.ItemStack;
@@ -139,8 +140,9 @@ public class MixinServerPlayNetworkHandler
 		ServerWorld world = this.server.getWorld(this.player.dimension);
 		Hand hand = packetIn.getHand();
 		ItemStack heldItem = this.player.getStackInHand(hand);
-		BlockPos pos = packetIn.getPos();
-		Direction direction = packetIn.getFacing();
+		class_3965 class_3965_1 = packetIn.getHitY();
+		BlockPos pos = class_3965_1.method_17777();
+		Direction direction = class_3965_1.method_17780();
 
 		this.player.method_14234();
 
@@ -156,7 +158,7 @@ public class MixinServerPlayNetworkHandler
 		} 
 		else if (this.field_14119 == null && this.player.squaredDistanceTo((double)pos.getX() + 0.5D, (double)pos.getY() + 0.5D, (double)pos.getZ() + 0.5D) < distance && !this.server.isSpawnProtected(world, pos, this.player) && world.getWorldBorder().contains(pos))
 		{
-			this.player.interactionManager.interactBlock(this.player, world, heldItem, hand, pos, direction, packetIn.getHitX(), packetIn.getHitY(), packetIn.getHitZ());
+			this.player.interactionManager.interactBlock(this.player, world, heldItem, hand, class_3965_1);
 		}
 
 		this.player.networkHandler.sendPacket(new BlockUpdateClientPacket(world, pos));

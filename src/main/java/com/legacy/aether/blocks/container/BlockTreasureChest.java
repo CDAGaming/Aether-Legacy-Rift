@@ -2,6 +2,7 @@ package com.legacy.aether.blocks.container;
 
 import net.fabricmc.fabric.api.container.ContainerProviderRegistry;
 import net.fabricmc.fabric.block.FabricBlockSettings;
+import net.minecraft.class_3965;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ChestBlock;
 import net.minecraft.block.Material;
@@ -34,7 +35,7 @@ public class BlockTreasureChest extends ChestBlock
 	}
 
 	@Override
-	public boolean activate(BlockState stateIn, World worldIn, BlockPos posIn, PlayerEntity playerIn, Hand handIn, Direction facingIn, float hitX, float hitY, float hitZ)
+	public boolean activate(BlockState stateIn, World worldIn, BlockPos posIn, PlayerEntity playerIn, Hand handIn, class_3965 hitResult)
 	{
 		if (worldIn.isClient)
 		{

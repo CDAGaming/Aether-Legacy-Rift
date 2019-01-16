@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import com.legacy.aether.client.rendering.map.AetherMap;
 import com.legacy.aether.world.WorldAether;
 
-@Mixin(targets = "net.minecraft.class_330$class_331")
+@Mixin(targets = "net.minecraft.client.gui.MapRenderer$MapTexture")
 public class MixinMapRenderer
 {
 
@@ -21,7 +21,7 @@ public class MixinMapRenderer
 	@Shadow @Final private NativeImageBackedTexture field_2048;
 
 	@Overwrite
-	private void method_1776()
+	private void updateTexture()
 	{
 		boolean isAether = this.field_2046.dimension == WorldAether.THE_AETHER;
 

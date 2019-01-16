@@ -2,6 +2,7 @@ package com.legacy.aether.entities.passive;
 
 import java.util.Arrays;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Random;
 import java.util.stream.Collectors;
 
@@ -11,7 +12,6 @@ import net.minecraft.class_1361;
 import net.minecraft.class_1374;
 import net.minecraft.class_1376;
 import net.minecraft.class_1394;
-import net.minecraft.class_3917;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.container.Container;
@@ -39,6 +39,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.recipe.Ingredient;
+import net.minecraft.recipe.RecipeType;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.DyeColor;
@@ -62,19 +63,6 @@ public class EntitySheepuff extends AnimalEntity
 	private static final TrackedData<Boolean> PUFFY = DataTracker.registerData(EntitySheepuff.class, TrackedDataHandlerRegistry.BOOLEAN);
 
 	private static final TrackedData<Byte> COLOR = DataTracker.registerData(EntitySheepuff.class, TrackedDataHandlerRegistry.BYTE);;
-
-	private final CraftingInventory dyeCraftingInventory = new CraftingInventory(new Container(-1) {
-		@Override
-		public boolean canUse(PlayerEntity playerIn)
-		{
-			return false;
-		}
-
-		@Override
-		public class_3917<?> method_17358() 
-		{
-			throw new UnsupportedOperationException("This menu can't be created in normal way");
-		}}, 2, 1);
 
 	private static final Map<DyeColor, float[]> COLORS = Maps.newEnumMap((Map<DyeColor, float[]>) Arrays.stream(DyeColor.values()).collect(Collectors.toMap((dyeColor_1) -> dyeColor_1, EntitySheepuff::method_6630)));
 
@@ -301,7 +289,7 @@ public class EntitySheepuff extends AnimalEntity
 			}
 		}
 
-		this.playSoundAtEntity(SoundEvents.ENTITY_SHEEP_SHEAR, 1.0F, 1.0F);
+		this.playSound(SoundEvents.ENTITY_SHEEP_SHEAR, 1.0F, 1.0F);
 	}
 
 	@Override
@@ -343,7 +331,7 @@ public class EntitySheepuff extends AnimalEntity
 	@Override
 	protected void playStepSound(BlockPos pos, BlockState state)
 	{
-		this.playSoundAtEntity(SoundEvents.ENTITY_SHEEP_STEP, 0.15F, 1.0F);
+		this.playSound(SoundEvents.ENTITY_SHEEP_STEP, 0.15F, 1.0F);
 	}
 
 	public DyeColor getColor()
@@ -458,30 +446,33 @@ public class EntitySheepuff extends AnimalEntity
 		DyeColor parentColor = ((EntitySheepuff) entity).getColor();
 		DyeColor mateColor = ((EntitySheepuff) mate).getColor();
 
-		this.dyeCraftingInventory.setInvStack(0, new ItemStack(DyeItem.fromColor(parentColor)));
-		this.dyeCraftingInventory.setInvStack(1, new ItemStack(DyeItem.fromColor(mateColor)));
+		CraftingInventory craftingInventory_1 = method_17690(parentColor, mateColor);
+		Optional<Item> optionalItem = this.world.getRecipeManager().get(RecipeType.CRAFTING, craftingInventory_1, this.world).map((typedRecipe_1) -> typedRecipe_1.craft(craftingInventory_1)).map(ItemStack::getItem);
 
-		ItemStack colorStack = entity.world.getRecipeManager().craft(this.dyeCraftingInventory, ((EntitySheepuff) entity).world);
-		Item colorItem = colorStack.getItem();
+		optionalItem = optionalItem.filter(DyeItem.class::isInstance);
 
-		DyeColor childColor;
+		return (DyeColor) optionalItem.map(DyeItem.class::cast).map(DyeItem::getColor).orElseGet(() -> { return this.world.random.nextBoolean() ? parentColor : mateColor; });
+	}
 
-		if (colorItem instanceof DyeItem)
-		{
-			childColor = ((DyeItem) colorItem).getColor();
-		}
-		else
-		{
-			childColor = this.world.random.nextBoolean() ? parentColor : mateColor;
-		}
+	private static CraftingInventory method_17690(DyeColor parentColor, DyeColor mateColor)
+	{
+		CraftingInventory craftingInventory_1 = new CraftingInventory(new Container(null, -1) {
+			@Override
+			public boolean canUse(PlayerEntity playerIn)
+			{
+				return false;
+			}}, 2, 1);
 
-		return childColor;
+		craftingInventory_1.setInvStack(0, new ItemStack(DyeItem.fromColor(parentColor)));
+		craftingInventory_1.setInvStack(1, new ItemStack(DyeItem.fromColor(mateColor)));
+
+		return craftingInventory_1;
 	}
 
 	@Override
 	public float getEyeHeight()
 	{
-		return 0.95F * this.height;
+		return 0.95F * this.method_17682();
 	}
 
 	static {

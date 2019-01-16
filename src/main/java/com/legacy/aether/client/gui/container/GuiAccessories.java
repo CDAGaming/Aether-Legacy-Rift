@@ -44,7 +44,7 @@ public class GuiAccessories extends ContainerGui<ContainerAccessories>
 	@Override
     protected void drawForeground(int mouseX, int mouseY)
     {
-        this.fontRenderer.draw(this.field_17411.getFormattedText(), 115, 8, 4210752);
+        this.fontRenderer.draw(this.name.getFormattedText(), 115, 8, 4210752);
     }
 
 	@Override

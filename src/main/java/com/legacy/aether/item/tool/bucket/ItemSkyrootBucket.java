@@ -1,5 +1,7 @@
 package com.legacy.aether.item.tool.bucket;
 
+import net.minecraft.class_3959;
+import net.minecraft.class_3965;
 import net.minecraft.advancement.criterion.Criterions;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.FluidDrainable;
@@ -62,7 +64,7 @@ public class ItemSkyrootBucket extends Item
     public TypedActionResult<ItemStack> use(World worldIn, PlayerEntity playerIn, Hand handIn)
     {
         ItemStack itemstack = playerIn.getStackInHand(handIn);
-        HitResult raytraceresult = this.getHitResult(worldIn, playerIn, this.containedBlock == Fluids.EMPTY);
+        HitResult raytraceresult = getHitResult(worldIn, playerIn, this.containedBlock == Fluids.EMPTY ? class_3959.class_242.SOURCE_ONLY : class_3959.class_242.NONE);
 
         if (itemstack.getItem() != ItemsAether.skyroot_water_bucket && itemstack.getItem() != ItemsAether.skyroot_bucket)
         {
@@ -75,11 +77,12 @@ public class ItemSkyrootBucket extends Item
         {
             return new TypedActionResult<ItemStack>(ActionResult.PASS, itemstack);
         }
-        else if (raytraceresult.type == HitResult.Type.BLOCK)
+        else if (raytraceresult.method_17783() == HitResult.Type.BLOCK)
         {
-            BlockPos blockpos = raytraceresult.getBlockPos();
+        	class_3965 class_3965_1 = (class_3965)raytraceresult;
+            BlockPos blockpos = class_3965_1.method_17777();
 
-            if (worldIn.canPlayerModifyAt(playerIn, blockpos) && playerIn.canPlaceBlock(blockpos, raytraceresult.side, itemstack))
+            if (worldIn.canPlayerModifyAt(playerIn, blockpos) && playerIn.canPlaceBlock(blockpos, class_3965_1.method_17780(), itemstack))
             {
                 if (this.containedBlock == Fluids.EMPTY)
                 {
@@ -90,7 +93,7 @@ public class ItemSkyrootBucket extends Item
 
                         if (fluid != Fluids.EMPTY) {
                             playerIn.incrementStat(Stats.USED.method_14956(this));
-                            playerIn.playSoundAtEntity(SoundEvents.ITEM_BUCKET_FILL, 1.0F, 1.0F);
+                            playerIn.playSound(SoundEvents.ITEM_BUCKET_FILL, 1.0F, 1.0F);
                             ItemStack itemstack1 = this.fillBucket(itemstack, playerIn, ItemsAether.skyroot_water_bucket);
 
                             if (!worldIn.isClient) {
@@ -106,9 +109,9 @@ public class ItemSkyrootBucket extends Item
                 else
                 {
                     BlockState iblockstate = worldIn.getBlockState(blockpos);
-                    BlockPos blockpos1 = this.getPlacementPosition(iblockstate, blockpos, raytraceresult);
+                    BlockPos blockpos1 = iblockstate.getBlock() instanceof FluidFillable ? blockpos : class_3965_1.method_17777().offset(class_3965_1.method_17780());
 
-                    this.tryPlaceContainedLiquid(playerIn, worldIn, blockpos1, raytraceresult);
+                    this.tryPlaceContainedLiquid(playerIn, worldIn, blockpos1, class_3965_1);
 
 					if (playerIn instanceof ServerPlayerEntity)
 					{
@@ -192,11 +195,6 @@ public class ItemSkyrootBucket extends Item
         return UseAction.NONE;
     }
 
-    private BlockPos getPlacementPosition(BlockState p_210768_1_, BlockPos p_210768_2_, HitResult p_210768_3_)
-    {
-        return p_210768_3_.getBlockPos().offset(p_210768_3_.side);
-    }
-
     protected ItemStack emptyBucket(ItemStack p_203790_1_, PlayerEntity p_203790_2_)
     {
         return !p_203790_2_.abilities.creativeMode ? new ItemStack(ItemsAether.skyroot_bucket) : p_203790_1_;
@@ -228,7 +226,7 @@ public class ItemSkyrootBucket extends Item
         }
     }
 
-    public boolean tryPlaceContainedLiquid(PlayerEntity player, World worldIn, BlockPos posIn, HitResult p_180616_4_)
+    public boolean tryPlaceContainedLiquid(PlayerEntity player, World worldIn, BlockPos posIn, class_3965 p_180616_4_)
     {
         if (!(this.containedBlock instanceof BaseFluid))
         {
@@ -277,7 +275,7 @@ public class ItemSkyrootBucket extends Item
             }
             else
             {
-                return p_180616_4_ == null ? false : this.tryPlaceContainedLiquid(player, worldIn, p_180616_4_.getBlockPos().offset(p_180616_4_.side), null);
+                return p_180616_4_ == null ? false : this.tryPlaceContainedLiquid(player, worldIn, p_180616_4_.method_17777().offset(p_180616_4_.method_17780()), null);
             }
         }
     }

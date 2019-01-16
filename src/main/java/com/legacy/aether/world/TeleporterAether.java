@@ -179,8 +179,8 @@ public class TeleporterAether extends PortalForcer
 
             if (entityIn instanceof ServerPlayerEntity)
             {
-                ((ServerPlayerEntity)entityIn).networkHandler.method_14363(d5, d6, d7, entityIn.yaw, entityIn.pitch);
-                ((ServerPlayerEntity)entityIn).networkHandler.method_14372();
+                ((ServerPlayerEntity)entityIn).networkHandler.teleportRequest(d5, d6, d7, entityIn.yaw, entityIn.pitch);
+                ((ServerPlayerEntity)entityIn).networkHandler.syncWithPlayerPosition();
             }
             else
             {

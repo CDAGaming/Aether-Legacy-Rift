@@ -64,7 +64,7 @@ public class GuiDialogue extends Gui
 
 	public void addDialogueMessage(String dialogueMessage)
 	{
-		MinecraftClient.getInstance().hudInGame.getHudChat().addMessage(new StringTextComponent(dialogueMessage));
+		MinecraftClient.getInstance().inGameHud.getHudChat().addMessage(new StringTextComponent(dialogueMessage));
 	}
 
 	public void dialogueTreeCompleted()

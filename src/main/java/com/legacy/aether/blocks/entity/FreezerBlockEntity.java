@@ -208,7 +208,7 @@ public class FreezerBlockEntity extends AetherBlockEntity
 	}
 
 	@Override
-	public int getProperty(int id)
+	public int get(int id)
 	{
 		if (id == 0)
 		{
@@ -227,7 +227,7 @@ public class FreezerBlockEntity extends AetherBlockEntity
 	}
 
 	@Override
-	public void setProperty(int id, int value) 
+	public void set(int id, int value) 
 	{ 
 		if (id == 0)
 		{
@@ -244,7 +244,7 @@ public class FreezerBlockEntity extends AetherBlockEntity
 	}
 
 	@Override
-	public int getPropertySize() 
+	public int size() 
 	{
 		return 3; 
 	}
