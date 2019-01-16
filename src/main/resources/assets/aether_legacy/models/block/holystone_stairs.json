@@ -1,0 +1,8 @@
+{
+    "parent": "block/stairs",
+    "textures": {
+        "bottom": "aether_legacy:block/holystone",
+        "top": "aether_legacy:block/holystone",
+        "side": "aether_legacy:block/holystone"
+    }
+}

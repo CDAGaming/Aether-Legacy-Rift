@@ -206,7 +206,7 @@ public class BlocksAether
 
 	public static final Block mossy_holystone_stairs = register("mossy_holystone_stairs", new BlockAetherStairs(mossy_holystone.getDefaultState()));
 
-	//public static final Block aerogel_stairs = register("aerogel_stairs", new BlockAetherStairs(aerogel.getDefaultState()));
+	public static final Block aerogel_stairs = register("aerogel_stairs", new BlockAetherStairs(aerogel.getDefaultState()));
 
 	public static final Block carved_stairs = register("carved_stairs", new BlockAetherStairs(carved_stone.getDefaultState()));
 
@@ -222,7 +222,7 @@ public class BlocksAether
 
 	public static final Block mossy_holystone_slab = register("mossy_holystone_slab", new BlockAetherSlab(mossy_holystone.getDefaultState()));
 
-	//public static final Block aerogel_slab = register("aerogel_slab", new BlockAetherSlab(aerogel.getDefaultState()));
+	public static final Block aerogel_slab = register("aerogel_slab", new BlockAetherSlab(aerogel.getDefaultState()));
 
 	public static final Block carved_slab = register("carved_slab", new BlockAetherSlab(carved_stone.getDefaultState()));
 
@@ -246,7 +246,7 @@ public class BlocksAether
 
 	public static final Block hellfire_wall = register("hellfire_wall", new BlockAetherWall(hellfire_stone.getDefaultState()));
 
-	//public static final Block aerogel_wall = register("aerogel_wall", new BlockAetherWall(aerogel.getDefaultState()));
+	public static final Block aerogel_wall = register("aerogel_wall", new BlockAetherWall(aerogel.getDefaultState()));
 
 	/*
 
@@ -343,7 +343,7 @@ public class BlocksAether
 		register(holystone_stairs);
 		register(holystone_brick_stairs);
 		register(mossy_holystone_stairs);
-		//register(aerogel_stairs);
+		register(aerogel_stairs);
 		register(carved_stairs);
 		register(angelic_stairs);
 		register(hellfire_stairs);
@@ -351,7 +351,8 @@ public class BlocksAether
 		register(holystone_slab);
 		register(holystone_brick_slab);
 		register(mossy_holystone_slab);
-		//register(aerogel_wall);
+		register(aerogel_slab);
+		register(aerogel_wall);
 		register(carved_slab);
 		register(angelic_slab);
 		register(hellfire_slab);
@@ -363,7 +364,7 @@ public class BlocksAether
 		register(carved_wall);
 		register(angelic_wall);
 		register(hellfire_wall);
-		//register(aerogel_wall);
+		register(aerogel_wall);
 
 		/*
 		carved_stone_trap = register("carved_stone_trap", new BlockDungeonTrap(carved_stone.getDefaultState()));

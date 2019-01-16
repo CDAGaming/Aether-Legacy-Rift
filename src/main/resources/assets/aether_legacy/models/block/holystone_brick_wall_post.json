@@ -1,0 +1,6 @@
+{
+    "parent": "block/template_wall_post",
+    "textures": {
+        "wall": "aether_legacy:block/holystone_brick"
+    }
+}

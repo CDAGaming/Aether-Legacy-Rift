@@ -1,0 +1,7 @@
+{
+    "variants": {
+        "type=bottom": { "model": "aether_legacy:block/aerogel_slab" },
+        "type=top": { "model": "aether_legacy:block/aerogel_slab_top" },
+        "type=double": { "model": "aether_legacy:block/aerogel" }
+    }
+}
