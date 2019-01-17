@@ -1,14 +1,16 @@
 package com.legacy.aether.client.rendering;
 
+import net.fabricmc.fabric.client.render.EntityRendererRegistry;
+import net.minecraft.entity.Entity;
+
 import com.legacy.aether.client.rendering.entity.FloatingBlockRenderer;
 import com.legacy.aether.client.rendering.entity.FlyingCowRenderer;
 import com.legacy.aether.client.rendering.entity.MoaRenderer;
+import com.legacy.aether.client.rendering.entity.SheepuffRenderer;
 import com.legacy.aether.entities.block.EntityFloatingBlock;
 import com.legacy.aether.entities.passive.EntityFlyingCow;
 import com.legacy.aether.entities.passive.EntityMoa;
-
-import net.fabricmc.fabric.client.render.EntityRendererRegistry;
-import net.minecraft.entity.Entity;
+import com.legacy.aether.entities.passive.EntitySheepuff;
 
 public class AetherEntityRenderer
 {
@@ -18,6 +20,7 @@ public class AetherEntityRenderer
 		register(EntityMoa.class, (entityRenderDispatcher, context) -> new MoaRenderer(entityRenderDispatcher));
 		register(EntityFloatingBlock.class, (entityRenderDispatcher, context) -> new FloatingBlockRenderer(entityRenderDispatcher));
 		register(EntityFlyingCow.class, (entityRenderDispatcher, context) -> new FlyingCowRenderer(entityRenderDispatcher));
+		register(EntitySheepuff.class, (entityRenderDispatcher, context) -> new SheepuffRenderer(entityRenderDispatcher));
 		/*
 		entityRenderMap.put(EntityDart.class, new DartRenderer(renderManager));
 		entityRenderMap.put(EntityMiniCloud.class, new MiniCloudRenderer(renderManager));

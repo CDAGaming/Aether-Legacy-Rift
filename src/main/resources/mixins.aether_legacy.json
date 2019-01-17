@@ -8,6 +8,7 @@
   "mixins": [
     "MixinMapState",
     "MixinBlockBush",
+    "MixinBucketItem",
     "MixinPlayerEntity",
     "MixinLivingEntity",
     "MixinDimensionType",

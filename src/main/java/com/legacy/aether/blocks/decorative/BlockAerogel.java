@@ -1,15 +1,15 @@
 package com.legacy.aether.blocks.decorative;
 
 import net.fabricmc.fabric.block.FabricBlockSettings;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderLayer;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Material;
+import net.minecraft.block.TransparentBlock;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.ExtendedBlockView;
+import net.minecraft.world.BlockView;
 
-public class BlockAerogel extends Block
+public class BlockAerogel extends TransparentBlock
 {
 
 	public BlockAerogel()
@@ -18,9 +18,15 @@ public class BlockAerogel extends Block
 	}
 
 	@Override
-	public int getBlockBrightness(BlockState stateIn, ExtendedBlockView blockReaderIn, BlockPos posIn)
+	public boolean isTranslucent(BlockState blockState_1, BlockView blockView_1, BlockPos blockPos_1)
 	{
-		return 3;
+		return true;
+	}
+
+	@Override
+	public boolean isSimpleFullBlock(BlockState blockState_1, BlockView blockView_1, BlockPos blockPos_1)
+	{
+		return false;
 	}
 
 	@Override

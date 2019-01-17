@@ -11,6 +11,7 @@ import net.minecraft.client.render.VertexFormats;
 import net.minecraft.client.render.block.BlockRenderManager;
 import net.minecraft.client.render.entity.EntityRenderDispatcher;
 import net.minecraft.client.render.entity.EntityRenderer;
+import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.client.texture.TextureManager;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
@@ -40,7 +41,7 @@ public class FloatingBlockRenderer extends EntityRenderer<EntityFloatingBlock>
 
             if (iblockstate != world.getBlockState(new BlockPos(entity)) && iblockstate.getRenderType() != BlockRenderType.INVISIBLE)
             {
-                this.bindTexture(TextureManager.field_5285); // TODO: VERIFY for LOCATION_BLOCKS_TEXTURE
+                this.bindTexture(SpriteAtlasTexture.BLOCK_ATLAS_TEX);
 
                 GlStateManager.pushMatrix();
                 GlStateManager.disableLighting();
@@ -48,13 +49,13 @@ public class FloatingBlockRenderer extends EntityRenderer<EntityFloatingBlock>
                 Tessellator tessellator = Tessellator.getInstance();
                 BufferBuilder bufferbuilder = tessellator.getBufferBuilder();
 
-                if (this.renderOutlines) // TODO: Verify renderOutlines
+                if (this.renderOutlines)
                 {
                     GlStateManager.enableColorMaterial();
                     GlStateManager.setupSolidRenderingTextureCombine(this.getOutlineColor(entity));
                 }
 
-                bufferbuilder.begin(7, VertexFormats.POSITION); // TODO: Verify for BLOCK VertexFormat
+                bufferbuilder.begin(7, VertexFormats.POSITION_COLOR_UV_LMAP);
                 BlockPos blockpos = new BlockPos(entity.x, entity.getBoundingBox().maxY, entity.z);
                 GlStateManager.translatef((float)(x - (double)blockpos.getX() - 0.5D), (float)(y - (double)blockpos.getY()), (float)(z - (double)blockpos.getZ() - 0.5D));
                 BlockRenderManager blockrendererdispatcher = MinecraftClient.getInstance().getBlockRenderManager();
@@ -63,7 +64,7 @@ public class FloatingBlockRenderer extends EntityRenderer<EntityFloatingBlock>
 
                 if (this.renderOutlines)
                 {
-                    //GlStateManager.disableOutlineMode();
+                    GlStateManager.tearDownSolidRenderingTextureCombine();
                     GlStateManager.disableColorMaterial();
                 }
 

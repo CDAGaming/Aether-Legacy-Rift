@@ -39,6 +39,8 @@ import com.legacy.aether.blocks.natural.BlockAetherGrass;
 import com.legacy.aether.blocks.natural.BlockAetherLeaves;
 import com.legacy.aether.blocks.natural.BlockAetherLog;
 import com.legacy.aether.blocks.natural.BlockAetherSapling;
+import com.legacy.aether.blocks.natural.BlockBerryBush;
+import com.legacy.aether.blocks.natural.BlockBerryBushStem;
 import com.legacy.aether.blocks.natural.BlockHolystone;
 import com.legacy.aether.blocks.natural.BlockIcestone;
 import com.legacy.aether.blocks.natural.BlockQuicksoil;
@@ -81,6 +83,18 @@ public class BlocksAether
 	public static final Block blue_aercloud = register("blue_aercloud", new BlockAercloud(MaterialColor.BLUE));
 
 	public static final Block golden_aercloud = register("golden_aercloud", new BlockAercloud(MaterialColor.YELLOW));
+
+	public static final Block skyroot_leaves = register("skyroot_leaves", new BlockAetherLeaves(MaterialColor.FOLIAGE));
+
+	public static final Block golden_oak_leaves = register("golden_oak_leaves", new BlockAetherLeaves(MaterialColor.GOLD));
+
+	public static final Block crystal_leaves = register("crystal_leaves", new BlockAetherLeaves(MaterialColor.DIAMOND));
+
+	public static final Block crystal_fruit_leaves = register("crystal_fruit_leaves", new BlockAetherLeaves(MaterialColor.DIAMOND));
+
+	public static final Block holiday_leaves = register("holiday_leaves", new BlockAetherLeaves(MaterialColor.PURPLE_TERRACOTTA));
+
+	public static final Block decorated_holiday_leaves = register("decorated_holiday_leaves", new BlockAetherLeaves(MaterialColor.PURPLE_TERRACOTTA));
 
 	public static final Block white_dyed_aercloud = register("white_dyed_aercloud", new BlockColoredAercloud(DyeColor.WHITE));
 
@@ -132,18 +146,6 @@ public class BlocksAether
 
 	public static final Block golden_oak_log = register("golden_oak_log", new BlockAetherLog());
 
-	public static final Block skyroot_leaves = register("skyroot_leaves", new BlockAetherLeaves(MaterialColor.FOLIAGE));
-
-	public static final Block golden_oak_leaves = register("golden_oak_leaves", new BlockAetherLeaves(MaterialColor.GOLD));
-
-	public static final Block crystal_leaves = register("crystal_leaves", new BlockAetherLeaves(MaterialColor.DIAMOND));
-
-	public static final Block crystal_fruit_leaves = register("crystal_fruit_leaves", new BlockAetherLeaves(MaterialColor.DIAMOND));
-
-	public static final Block holiday_leaves = register("holiday_leaves", new BlockAetherLeaves(MaterialColor.PURPLE_TERRACOTTA));
-
-	public static final Block decorated_holiday_leaves = register("decorated_holiday_leaves", new BlockAetherLeaves(MaterialColor.PURPLE_TERRACOTTA));
-
 	public static final Block aerogel = register("aerogel", new BlockAerogel());
 
 	public static final Block ambrosium_torch = register("ambrosium_torch", new BlockAmbrosiumTorch());
@@ -187,6 +189,10 @@ public class BlocksAether
 	public static final Block purple_flower = register("purple_flower", new BlockAetherFlower(StatusEffects.BAD_OMEN, 5));
 
 	public static final Block white_flower = register("white_flower", new BlockAetherFlower(StatusEffects.HEALTH_BOOST, 20));
+
+	public static final Block berry_bush = register("berry_bush", new BlockBerryBush());
+
+	public static final Block berry_bush_stem = register("berry_bush_stem", new BlockBerryBushStem());
 
 	public static final Block potted_purple_flower = register("potted_purple_flower", new BlockAetherFlowerPot(purple_flower));
 
@@ -268,8 +274,6 @@ public class BlocksAether
 
 	/*
 
-	public static Block berry_bush, berry_bush_stem;
-
 	public static Block carved_stone_trap, angelic_stone_trap, hellfire_stone_trap, sentry_stone_trap, light_angelic_stone_trap, light_hellfire_stone_trap;
 
 	public static Block crystal_sapling;
@@ -299,6 +303,12 @@ public class BlocksAether
 		register(cold_aercloud);
 		register(blue_aercloud);
 		register(golden_aercloud);
+		register(skyroot_leaves, AetherItemGroup.AETHER_DECORATION_BLOCKS);
+		register(golden_oak_leaves, AetherItemGroup.AETHER_DECORATION_BLOCKS);
+		register(crystal_leaves, AetherItemGroup.AETHER_DECORATION_BLOCKS);
+		register(crystal_fruit_leaves, AetherItemGroup.AETHER_DECORATION_BLOCKS);
+		register(holiday_leaves, AetherItemGroup.AETHER_DECORATION_BLOCKS);
+		register(decorated_holiday_leaves, AetherItemGroup.AETHER_DECORATION_BLOCKS);
 		register(white_dyed_aercloud, AetherItemGroup.AETHER_DECORATION_BLOCKS);
 		register(orange_dyed_aercloud, AetherItemGroup.AETHER_DECORATION_BLOCKS);
 		register(magenta_dyed_aercloud, AetherItemGroup.AETHER_DECORATION_BLOCKS);
@@ -324,12 +334,6 @@ public class BlocksAether
 		register(holystone_brick);
 		register(skyroot_log);
 		register(golden_oak_log);
-		register(skyroot_leaves, AetherItemGroup.AETHER_DECORATION_BLOCKS);
-		register(golden_oak_leaves, AetherItemGroup.AETHER_DECORATION_BLOCKS);
-		register(crystal_leaves, AetherItemGroup.AETHER_DECORATION_BLOCKS);
-		register(crystal_fruit_leaves, AetherItemGroup.AETHER_DECORATION_BLOCKS);
-		register(holiday_leaves, AetherItemGroup.AETHER_DECORATION_BLOCKS);
-		register(decorated_holiday_leaves, AetherItemGroup.AETHER_DECORATION_BLOCKS);
 		register(aerogel, AetherItemGroup.AETHER_DECORATION_BLOCKS);
 		register(ambrosium_torch, new WallStandingBlockItem(ambrosium_torch, ambrosium_torch_wall, new Item.Settings().itemGroup(AetherItemGroup.AETHER_BLOCKS)));
 		register(ambrosium_torch_wall, new BlockItem(ambrosium_torch_wall, new Item.Settings()));
@@ -352,6 +356,8 @@ public class BlocksAether
 		register(locked_light_hellfire_stone);
 		register(purple_flower, AetherItemGroup.AETHER_DECORATION_BLOCKS);
 		register(white_flower, AetherItemGroup.AETHER_DECORATION_BLOCKS);
+		register(berry_bush, AetherItemGroup.AETHER_DECORATION_BLOCKS);
+		register(berry_bush_stem, AetherItemGroup.AETHER_DECORATION_BLOCKS);
 		register(potted_purple_flower, (ItemGroup) null);
 		register(potted_white_flower, (ItemGroup) null);
 		register(aether_grass_path, AetherItemGroup.AETHER_DECORATION_BLOCKS);

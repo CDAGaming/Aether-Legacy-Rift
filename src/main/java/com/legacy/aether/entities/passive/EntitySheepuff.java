@@ -16,7 +16,6 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.container.Container;
 import net.minecraft.entity.EntityData;
-import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.SpawnType;
 import net.minecraft.entity.ai.goal.AnimalMateGoal;
@@ -53,6 +52,7 @@ import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.World;
 
 import com.google.common.collect.Maps;
+import com.legacy.aether.entities.EntityTypesAether;
 import com.legacy.aether.entities.ai.EatAetherGrassGoal;
 import com.legacy.aether.item.ItemsAether;
 import com.legacy.aether.world.storage.loot.AetherLootTableList;
@@ -94,7 +94,7 @@ public class EntitySheepuff extends AnimalEntity
 
 	public EntitySheepuff(World world)
 	{
-		super(EntityType.SHEEP, world);
+		super(EntityTypesAether.SHEEPUFF, world);
 
 		this.setSize(0.9F, 1.3F);
 	}

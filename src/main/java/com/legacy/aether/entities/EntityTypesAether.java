@@ -2,9 +2,12 @@ package com.legacy.aether.entities;
 
 import java.util.function.Function;
 
+import net.fabricmc.fabric.entity.EntityTrackingRegistry;
 import net.fabricmc.fabric.entity.FabricEntityTypeBuilder;
+import net.minecraft.client.network.packet.CustomPayloadClientPacket;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.network.Packet;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 
@@ -12,6 +15,7 @@ import com.legacy.aether.Aether;
 import com.legacy.aether.entities.block.EntityFloatingBlock;
 import com.legacy.aether.entities.passive.EntityFlyingCow;
 import com.legacy.aether.entities.passive.EntityMoa;
+import com.legacy.aether.entities.passive.EntitySheepuff;
 
 public class EntityTypesAether
 {
@@ -26,7 +30,7 @@ public class EntityTypesAether
 
 	//public static EntityType<EntityPhyg> PHYG;
 
-	//public static EntityType<EntitySheepuff> SHEEPUFF;
+	public static final EntityType<EntitySheepuff> SHEEPUFF = register("sheepuff", EntitySheepuff.class, EntitySheepuff::new);
 
 	//public static EntityType<EntityCockatrice> COCKATRICE;
 
@@ -57,6 +61,10 @@ public class EntityTypesAether
 	public static void register()
 	{
 		Aether.log("Registering Aether Entities");
+
+		trackEntity(FLOATING_BLOCK, 160, 20, true);
+
+		registerSpawnPacket(FLOATING_BLOCK, (entity) -> new CustomPayloadClientPacket(Aether.locate("spawns"), EntityFloatingBlock.write((EntityFloatingBlock)entity)));
 	}
 
 	@SuppressWarnings("unused")
@@ -81,6 +89,17 @@ public class EntityTypesAether
 		PHOENIX_ARROW = (EntityType<EntityPhoenixArrow>) register("phoenix_arrow", Builder.create(EntityPhoenixArrow.class, EntityPhoenixArrow::new));
 
 		AetherMoaTypes.initialization();*/
+	}
+
+	private static void trackEntity(EntityType<?> type, int trackingDistance, int updateIntervalTicks, boolean alwaysUpdateVelocity)
+	{
+		EntityTrackingRegistry.INSTANCE.register(type, trackingDistance, updateIntervalTicks, alwaysUpdateVelocity);
+	}
+
+	@SuppressWarnings("rawtypes")
+	private static void registerSpawnPacket(EntityType<?> type, Function<Entity, Packet> function)
+	{
+		EntityTrackingRegistry.INSTANCE.registerSpawnPacketProvider(type, function);
 	}
 
 	public static void registerItems()

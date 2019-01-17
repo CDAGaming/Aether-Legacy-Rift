@@ -13,4 +13,9 @@ public class BlockDungeon extends Block
 		super(FabricBlockSettings.of(Material.STONE).hardness(isLocked ? -1.0F : 0.5F).resistance(isLocked ? 6000000.0F : 1.0F).sounds(BlockSoundGroup.STONE).build());
 	}
 
+	public BlockDungeon(Settings settings)
+	{
+		super(settings);
+	}
+
 }

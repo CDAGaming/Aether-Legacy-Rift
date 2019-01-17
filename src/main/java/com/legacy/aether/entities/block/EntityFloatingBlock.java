@@ -1,5 +1,6 @@
 package com.legacy.aether.entities.block;
 
+import io.netty.buffer.Unpooled;
 import net.minecraft.class_3959;
 import net.minecraft.class_3965;
 import net.minecraft.block.Block;
@@ -14,8 +15,10 @@ import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.tag.FluidTags;
 import net.minecraft.util.HitResult;
+import net.minecraft.util.PacketByteBuf;
 import net.minecraft.util.TagHelper;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
@@ -54,6 +57,28 @@ public class EntityFloatingBlock extends Entity
 		this.prevZ = z;
 
 		this.setOrigin(new BlockPos(this));
+	}
+
+	public static PacketByteBuf write(EntityFloatingBlock block) 
+	{
+		PacketByteBuf buf = new PacketByteBuf(Unpooled.buffer());
+
+		buf.writeInt(0);
+		buf.writeInt(block.getEntityId());
+		buf.writeUuid(block.getUuid());
+		buf.writeDouble(block.x);
+		buf.writeDouble(block.y);
+		buf.writeDouble(block.z);
+		buf.writeInt((int)(MathHelper.clamp(block.velocityX, -3.9D, 3.9D) * 8000.0D));
+		buf.writeInt((int)(MathHelper.clamp(block.velocityY, -3.9D, 3.9D) * 8000.0D));
+		buf.writeInt((int)(MathHelper.clamp(block.velocityZ, -3.9D, 3.9D) * 8000.0D));
+		buf.writeInt(MathHelper.floor(block.pitch * 256.0F / 360.0F));
+		buf.writeInt(MathHelper.floor(block.yaw * 256.0F / 360.0F));
+
+		//Extra data
+		buf.writeInt(Block.getRawIdFromState(block.getBlockstate()));
+
+		return buf;
 	}
 
     public void setOrigin(BlockPos p_184530_1_)
@@ -125,7 +150,7 @@ public class EntityFloatingBlock extends Entity
                 this.velocityY += 0.04D;
             }
 
-            this.move(MovementType.SELF, x + this.velocityX, y + this.velocityY, z + this.velocityZ);
+            this.move(MovementType.SELF, this.velocityX, this.velocityY, this.velocityZ);
 
             if (!this.world.isClient)
             {

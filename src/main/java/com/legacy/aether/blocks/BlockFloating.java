@@ -14,8 +14,6 @@ import net.minecraft.world.IWorld;
 import net.minecraft.world.ViewableWorld;
 import net.minecraft.world.World;
 
-import org.apache.logging.log4j.LogManager;
-
 import com.legacy.aether.entities.block.EntityFloatingBlock;
 
 public class BlockFloating extends Block
@@ -67,7 +65,6 @@ public class BlockFloating extends Block
             {
                 if (!worldIn.isClient)
                 {
-                	LogManager.getLogger().error(posIn.getY());
                     EntityFloatingBlock floatingBlock = new EntityFloatingBlock(worldIn, (double)posIn.getX() + 0.5D, (double)posIn.getY(), (double)posIn.getZ() + 0.5D, worldIn.getBlockState(posIn));
 
                     this.onStartFloating(floatingBlock);

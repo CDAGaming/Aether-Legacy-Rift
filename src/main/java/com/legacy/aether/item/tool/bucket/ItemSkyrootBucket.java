@@ -31,6 +31,8 @@ import net.minecraft.world.World;
 
 import com.legacy.aether.api.AetherAPI;
 import com.legacy.aether.api.player.IPlayerAether;
+import com.legacy.aether.blocks.BlocksAether;
+import com.legacy.aether.blocks.portal.BlockAetherPortal;
 import com.legacy.aether.item.AetherItemGroup;
 import com.legacy.aether.item.ItemsAether;
 
@@ -111,7 +113,7 @@ public class ItemSkyrootBucket extends Item
                     BlockState iblockstate = worldIn.getBlockState(blockpos);
                     BlockPos blockpos1 = iblockstate.getBlock() instanceof FluidFillable ? blockpos : class_3965_1.method_17777().offset(class_3965_1.method_17780());
 
-                    this.tryPlaceContainedLiquid(playerIn, worldIn, blockpos1, class_3965_1);
+                    this.placeLiquid(playerIn, worldIn, blockpos1, class_3965_1);
 
 					if (playerIn instanceof ServerPlayerEntity)
 					{
@@ -226,8 +228,15 @@ public class ItemSkyrootBucket extends Item
         }
     }
 
-    public boolean tryPlaceContainedLiquid(PlayerEntity player, World worldIn, BlockPos posIn, class_3965 p_180616_4_)
+    public boolean placeLiquid(PlayerEntity playerIn, World worldIn, BlockPos posIn, class_3965 p_180616_4_)
     {
+		if (((BlockAetherPortal) BlocksAether.aether_portal).method_10352(worldIn, posIn))
+		{
+			this.playEmptySound(playerIn, worldIn, posIn);
+
+			return true;
+		}
+
         if (!(this.containedBlock instanceof BaseFluid))
         {
             return false;
@@ -246,7 +255,7 @@ public class ItemSkyrootBucket extends Item
                     int i = posIn.getX();
                     int j = posIn.getY();
                     int k = posIn.getZ();
-                    worldIn.playSound(player, posIn, SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.BLOCK, 0.5F, 2.6F + (worldIn.random.nextFloat() - worldIn.random.nextFloat()) * 0.8F);
+                    worldIn.playSound(playerIn, posIn, SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.BLOCK, 0.5F, 2.6F + (worldIn.random.nextFloat() - worldIn.random.nextFloat()) * 0.8F);
 
                     for (int l = 0; l < 8; ++l)
                     {
@@ -257,7 +266,7 @@ public class ItemSkyrootBucket extends Item
                 {
                     if (((FluidFillable)iblockstate.getBlock()).tryFillWithFluid(worldIn, posIn, iblockstate, ((BaseFluid)this.containedBlock).getState(false)))
                     {
-                        this.playEmptySound(player, worldIn, posIn);
+                        this.playEmptySound(playerIn, worldIn, posIn);
                     }
                 }
                 else
@@ -267,7 +276,7 @@ public class ItemSkyrootBucket extends Item
                         worldIn.breakBlock(posIn, true);
                     }
 
-                    this.playEmptySound(player, worldIn, posIn);
+                    this.playEmptySound(playerIn, worldIn, posIn);
                     worldIn.setBlockState(posIn, this.containedBlock.getDefaultState().getBlockState(), 11);
                 }
 
@@ -275,7 +284,7 @@ public class ItemSkyrootBucket extends Item
             }
             else
             {
-                return p_180616_4_ == null ? false : this.tryPlaceContainedLiquid(player, worldIn, p_180616_4_.method_17777().offset(p_180616_4_.method_17780()), null);
+                return p_180616_4_ == null ? false : this.placeLiquid(playerIn, worldIn, p_180616_4_.method_17777().offset(p_180616_4_.method_17780()), null);
             }
         }
     }
