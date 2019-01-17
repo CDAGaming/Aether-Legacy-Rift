@@ -7,6 +7,9 @@
     "aether_legacy:carved_wall",
     "aether_legacy:angelic_wall",
     "aether_legacy:hellfire_wall",
-    "aether_legacy:aerogel_wall"
+    "aether_legacy:aerogel_wall",
+    "aether_legacy:sentry_wall",
+    "aether_legacy:light_angelic_wall",
+    "aether_legacy:light_hellfire_wall"
   ]
 }

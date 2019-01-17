@@ -1,0 +1,7 @@
+{
+    "variants": {
+        "type=bottom": { "model": "aether_legacy:block/light_angelic_slab" },
+        "type=top": { "model": "aether_legacy:block/light_angelic_slab_top" },
+        "type=double": { "model": "aether_legacy:block/light_angelic_stone" }
+    }
+}

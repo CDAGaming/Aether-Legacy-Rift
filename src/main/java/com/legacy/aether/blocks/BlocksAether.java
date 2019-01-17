@@ -214,6 +214,12 @@ public class BlocksAether
 
 	public static final Block hellfire_stairs = register("hellfire_stairs", new BlockAetherStairs(hellfire_stone.getDefaultState()));
 
+	public static final Block sentry_stairs = register("sentry_stairs", new BlockAetherStairs(sentry_stone.getDefaultState()));
+
+	public static final Block light_angelic_stairs = register("light_angelic_stairs", new BlockAetherStairs(light_angelic_stone.getDefaultState()));
+
+	public static final Block light_hellfire_stairs = register("light_hellfire_stairs", new BlockAetherStairs(light_hellfire_stone.getDefaultState()));
+
 	public static final Block skyroot_slab = register("skyroot_slab", new BlockAetherSlab(skyroot_planks.getDefaultState()));
 
 	public static final Block holystone_slab = register("holystone_slab", new BlockAetherSlab(holystone.getDefaultState()));
@@ -230,6 +236,12 @@ public class BlocksAether
 
 	public static final Block hellfire_slab = register("hellfire_slab", new BlockAetherSlab(hellfire_stone.getDefaultState()));
 
+	public static final Block sentry_slab = register("sentry_slab", new BlockAetherSlab(sentry_stone.getDefaultState()));
+
+	public static final Block light_angelic_slab = register("light_angelic_slab", new BlockAetherSlab(light_angelic_stone.getDefaultState()));
+
+	public static final Block light_hellfire_slab = register("light_hellfire_slab", new BlockAetherSlab(light_hellfire_stone.getDefaultState()));
+
 	public static final Block skyroot_fence = register("skyroot_fence", new BlockSkyrootFence());
 
 	public static final Block skyroot_fence_gate = register("skyroot_fence_gate", new BlockSkyrootFenceGate());
@@ -245,6 +257,12 @@ public class BlocksAether
 	public static final Block angelic_wall = register("angelic_wall", new BlockAetherWall(angelic_stone.getDefaultState()));
 
 	public static final Block hellfire_wall = register("hellfire_wall", new BlockAetherWall(hellfire_stone.getDefaultState()));
+
+	public static final Block sentry_wall = register("sentry_wall", new BlockAetherWall(sentry_stone.getDefaultState()));
+
+	public static final Block light_angelic_wall = register("light_angelic_wall", new BlockAetherWall(light_angelic_stone.getDefaultState()));
+
+	public static final Block light_hellfire_wall = register("light_hellfire_wall", new BlockAetherWall(light_hellfire_stone.getDefaultState()));
 
 	public static final Block aerogel_wall = register("aerogel_wall", new BlockAetherWall(aerogel.getDefaultState()));
 
@@ -347,6 +365,9 @@ public class BlocksAether
 		register(carved_stairs);
 		register(angelic_stairs);
 		register(hellfire_stairs);
+		register(sentry_stairs);
+		register(light_angelic_stairs);
+		register(light_hellfire_stairs);
 		register(skyroot_slab);
 		register(holystone_slab);
 		register(holystone_brick_slab);
@@ -356,6 +377,9 @@ public class BlocksAether
 		register(carved_slab);
 		register(angelic_slab);
 		register(hellfire_slab);
+		register(sentry_slab);
+		register(light_angelic_slab);
+		register(light_hellfire_slab);
 		register(skyroot_fence);
 		register(skyroot_fence_gate);
 		register(holystone_wall);
@@ -364,6 +388,9 @@ public class BlocksAether
 		register(carved_wall);
 		register(angelic_wall);
 		register(hellfire_wall);
+		register(sentry_wall);
+		register(light_angelic_wall);
+		register(light_hellfire_wall);
 
 		/*
 		carved_stone_trap = register("carved_stone_trap", new BlockDungeonTrap(carved_stone.getDefaultState()));
