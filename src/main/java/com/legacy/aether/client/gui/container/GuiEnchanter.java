@@ -2,7 +2,6 @@ package com.legacy.aether.client.gui.container;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.ContainerGui;
-import net.minecraft.client.resource.language.I18n;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.text.TranslatableTextComponent;
 import net.minecraft.util.Identifier;

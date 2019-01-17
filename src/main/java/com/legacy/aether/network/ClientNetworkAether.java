@@ -3,19 +3,18 @@ package com.legacy.aether.network;
 import java.util.UUID;
 import java.util.function.BiConsumer;
 
-import com.legacy.aether.Aether;
-import com.legacy.aether.api.AetherAPI;
-import com.legacy.aether.api.player.IPlayerAether;
-import com.legacy.aether.entities.block.EntityFloatingBlock;
-
 import net.fabricmc.fabric.networking.CustomPayloadPacketRegistry;
 import net.fabricmc.fabric.networking.PacketContext;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.Entity;
 import net.minecraft.server.network.EntityTracker;
 import net.minecraft.util.PacketByteBuf;
+
+import com.legacy.aether.Aether;
+import com.legacy.aether.api.AetherAPI;
+import com.legacy.aether.api.player.IPlayerAether;
+import com.legacy.aether.entities.block.EntityFloatingBlock;
 
 public class ClientNetworkAether
 {

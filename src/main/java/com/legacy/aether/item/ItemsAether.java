@@ -34,6 +34,8 @@ import com.legacy.aether.item.tool.bucket.ItemSkyrootBucket;
 import com.legacy.aether.item.util.AetherTier;
 import com.legacy.aether.item.weapon.ItemAetherSword;
 import com.legacy.aether.item.weapon.ItemCandyCaneSword;
+import com.legacy.aether.item.weapon.ItemDart;
+import com.legacy.aether.item.weapon.ItemDartShooter;
 import com.legacy.aether.item.weapon.ItemElementalSword;
 import com.legacy.aether.item.weapon.ItemPhoenixBow;
 import com.legacy.aether.item.weapon.ItemPigSlayer;
@@ -200,13 +202,13 @@ public class ItemsAether
 		golden_key = register("golden_key", new ItemDungeonKey());
 		platinum_key = register("platinum_key", new ItemDungeonKey());
 
-		//golden_dart = register("golden_dart", new ItemDart());
-		//enchanted_dart = register("enchanted_dart", new ItemDart(Rarity.RARE));
-		//poison_dart = register("poison_dart", new ItemDart());
+		golden_dart = register("golden_dart", new ItemDart(Rarity.COMMON));
+		enchanted_dart = register("enchanted_dart", new ItemDart(Rarity.RARE));
+		poison_dart = register("poison_dart", new ItemDart(Rarity.COMMON));
 
-		//golden_dart_shooter = register("golden_dart_shooter", new ItemDartShooter((ItemDart) golden_dart));
-		//enchanted_dart_shooter = register("enchanted_dart_shooter", new ItemDartShooter((ItemDart) enchanted_dart));
-		//poison_dart_shooter = register("poison_dart_shooter", new ItemDartShooter((ItemDart) poison_dart));
+		golden_dart_shooter = register("golden_dart_shooter", new ItemDartShooter((ItemDart) golden_dart, Rarity.COMMON));
+		enchanted_dart_shooter = register("enchanted_dart_shooter", new ItemDartShooter((ItemDart) enchanted_dart, Rarity.RARE));
+		poison_dart_shooter = register("poison_dart_shooter", new ItemDartShooter((ItemDart) poison_dart, Rarity.COMMON));
 
 		phoenix_bow = register("phoenix_bow", new ItemPhoenixBow());
 
