@@ -46,7 +46,7 @@ public class ItemAetherHoe extends HoeItem implements IAetherTool
     public ActionResult useOnBlock(ItemUsageContext context)
     {
         World world = context.getWorld();
-        BlockPos blockpos = context.getPos();
+        BlockPos blockpos = context.getBlockPos();
 
         if (context.getFacing() != Direction.DOWN && world.isAir(blockpos.up()))
         {

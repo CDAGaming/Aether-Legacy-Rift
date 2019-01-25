@@ -41,7 +41,7 @@ public class BlockAetherGrass extends Block
 	}
  
 	@Override
-	public void scheduledTick(BlockState stateIn, World worldIn, BlockPos posIn, Random randIn)
+	public void onScheduledTick(BlockState stateIn, World worldIn, BlockPos posIn, Random randIn)
 	{
 		if (worldIn.isClient)
 		{

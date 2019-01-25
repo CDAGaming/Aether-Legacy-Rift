@@ -1,6 +1,7 @@
 package com.legacy.aether.player;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.UUID;
 
 import net.minecraft.entity.Entity;
@@ -16,10 +17,15 @@ import net.minecraft.world.dimension.DimensionType;
 
 import com.legacy.aether.api.player.IPlayerAether;
 import com.legacy.aether.api.player.util.AccessoryInventory;
+import com.legacy.aether.api.player.util.AetherAbility;
 import com.legacy.aether.api.player.util.PlayerReach;
+import com.legacy.aether.entities.util.AetherPoisonMovement;
 import com.legacy.aether.inventory.AccessoriesInventory;
 import com.legacy.aether.item.tool.IAetherTool;
 import com.legacy.aether.item.util.AetherTier;
+import com.legacy.aether.player.abilities.FloatAbility;
+import com.legacy.aether.player.abilities.JumpBoostAbility;
+import com.legacy.aether.player.abilities.StepHeightAbility;
 import com.legacy.aether.player.perks.AetherDonationPerks;
 import com.legacy.aether.util.AetherTeleportation;
 import com.legacy.aether.world.TeleporterAether;
@@ -40,13 +46,15 @@ public class PlayerAether implements IPlayerAether
 
 	public boolean hasTeleported = false, inPortal = false;
 
+	public final ArrayList<AetherAbility> abilities = new ArrayList<AetherAbility>();
+
 	public final ArrayList<Entity> clouds = new ArrayList<Entity>(2);
 
 	private EntityAttributeModifier aetherHealth;
 
 	private final AccessoryInventory accessories;
 
-	//private AetherPoisonMovement poisonMovement;
+	private AetherPoisonMovement poisonMovement;
 
 	public AetherDonationPerks donationPerks;
 
@@ -56,12 +64,24 @@ public class PlayerAether implements IPlayerAether
 	{
 		this.player = player;
 		this.donationPerks = new AetherDonationPerks();
-		//this.poisonMovement = new AetherPoisonMovement(player);
+		this.poisonMovement = new AetherPoisonMovement(player);
 		this.accessories = new AccessoriesInventory(this);
+
+		this.abilities.addAll(Arrays.asList(new FloatAbility(this), new JumpBoostAbility(this), new StepHeightAbility(this)));
 	}
 
 	public void tick()
 	{
+		for (int i = 0; i < this.abilities.size(); ++i)
+		{
+			AetherAbility ability = this.abilities.get(i);
+
+			if (ability.shouldExecute())
+			{
+				ability.update();
+			}
+		}
+
 		for (int i = 0; i < this.clouds.size(); ++i) 
 		{
 			Entity entity = this.clouds.get(i);
@@ -75,7 +95,10 @@ public class PlayerAether implements IPlayerAether
 		this.updateReach();
 		//this.poisonMovement.tick();
 
-		//this.setJumping(((IEntityHook)this.player).checkIsJumping());
+		if (this.getPlayer().dimension == WorldAether.THE_AETHER && this.getPlayer().y <= -10.0F)
+		{
+			this.teleportPlayer(false);
+		}
 
 		if (this.getPlayer().world.isClient)
 		{
@@ -132,6 +155,25 @@ public class PlayerAether implements IPlayerAether
                 }
 			}
 		}
+	}
+
+	public boolean disableFallDamage()
+	{
+		boolean check = false;
+
+		for (int i = 0; i < this.abilities.size(); ++i)
+		{
+			if (check)
+			{
+				break;
+			}
+
+			AetherAbility ability = this.abilities.get(i);
+
+			check = ability.shouldExecute() && ability.disableFallDamage();
+		}
+
+		return check;
 	}
 
 	private void updateReach()
@@ -241,12 +283,12 @@ public class PlayerAether implements IPlayerAether
 
 	public void inflictCure(int ticks)
 	{
-		//this.poisonMovement.curePoison(cureAmount);
+		this.poisonMovement.applyCure(ticks);
 	}
 
 	public void inflictPoison(int ticks)
 	{
-		//this.poisonMovement.afflictPoison(poisonAmount);
+		this.poisonMovement.inflictPoison(ticks);
 	}
 
 	@Override

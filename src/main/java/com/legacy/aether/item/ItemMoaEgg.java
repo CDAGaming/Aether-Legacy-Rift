@@ -27,7 +27,7 @@ public class ItemMoaEgg extends Item
 		{
 			EntityMoa moa = new EntityMoa(contextIn.getWorld(), AetherAPI.instance().getMoa(contextIn.getItemStack().getTag().getInt("moaType")));
 
-			moa.setPositionAndAngles(contextIn.getPos().up(), 1.0F, 1.0F);
+			moa.setPositionAndAngles(contextIn.getBlockPos().up(), 1.0F, 1.0F);
 			moa.setPlayerGrown(true);
 
 			if (!contextIn.getWorld().isClient)

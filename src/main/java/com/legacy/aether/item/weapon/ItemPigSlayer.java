@@ -43,7 +43,7 @@ public class ItemPigSlayer extends ItemAetherSword
 				double d3 = 5.0D;
 
 				// TODO: Either this of 8496, idk /shrug - 1.14
-				entityliving.world.addParticle(ParticleTypes.FLAME, (entityliving.getPos().getX() + (double)(entityliving.world.random.nextFloat() * entityliving.method_17681() * 2.0F)) - (double)entityliving.method_17681() - d * d3, (entityliving.getPos().getY() + (double)(entityliving.world.random.nextFloat() * entityliving.method_17682())) - d1 * d3, (entityliving.getPos().getZ() + (double)(entityliving.world.random.nextFloat() * entityliving.method_17681() * 2.0F)) - (double)entityliving.method_17681() - d2 * d3, d, d1, d2);
+				entityliving.world.addParticle(ParticleTypes.FLAME, (entityliving.getPos().getX() + (double)(entityliving.world.random.nextFloat() * entityliving.getWidth() * 2.0F)) - (double)entityliving.getWidth() - d * d3, (entityliving.getPos().getY() + (double)(entityliving.world.random.nextFloat() * entityliving.getHeight())) - d1 * d3, (entityliving.getPos().getZ() + (double)(entityliving.world.random.nextFloat() * entityliving.getWidth() * 2.0F)) - (double)entityliving.getWidth() - d2 * d3, d, d1, d2);
 			}
 
 			entityliving.invalidate();

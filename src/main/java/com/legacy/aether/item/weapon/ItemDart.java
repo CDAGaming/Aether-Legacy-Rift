@@ -1,6 +1,10 @@
 package com.legacy.aether.item.weapon;
 
+import com.legacy.aether.entities.projectile.EntityEnchantedDart;
+import com.legacy.aether.entities.projectile.EntityGoldenDart;
+import com.legacy.aether.entities.projectile.EntityPoisonDart;
 import com.legacy.aether.item.AetherItemGroup;
+import com.legacy.aether.item.ItemsAether;
 
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
@@ -19,6 +23,15 @@ public class ItemDart extends Item
 
 	public ProjectileEntity createDart(World world, ItemStack stack, LivingEntity entity)
 	{
-		return null;
+		if (this == ItemsAether.enchanted_dart)
+		{
+			return new EntityEnchantedDart(entity, world);
+		}
+		else if (this == ItemsAether.poison_dart)
+		{
+			return new EntityPoisonDart(entity, world);
+		}
+
+		return new EntityGoldenDart(entity, world);
 	}
 }

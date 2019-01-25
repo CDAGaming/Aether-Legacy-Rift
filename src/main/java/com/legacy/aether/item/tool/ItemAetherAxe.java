@@ -55,7 +55,7 @@ public class ItemAetherAxe extends AxeItem implements IAetherTool
     public ActionResult useOnBlock(ItemUsageContext context)
     {
         World world = context.getWorld();
-        BlockPos blockpos = context.getPos();
+        BlockPos blockpos = context.getBlockPos();
         BlockState iblockstate = world.getBlockState(blockpos);
 
         if (this.getMaterial() == AetherTier.Gravitite && this.getBlockBreakingSpeed(context.getItemStack(), iblockstate) == this.blockBreakingSpeed)

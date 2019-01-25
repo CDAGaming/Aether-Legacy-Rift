@@ -3,14 +3,17 @@ package com.legacy.aether.item.weapon;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Rarity;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
 
 import com.legacy.aether.item.AetherItemGroup;
+import com.legacy.aether.sounds.SoundsAether;
 
 public class ItemDartShooter extends Item
 {
@@ -19,7 +22,7 @@ public class ItemDartShooter extends Item
 
 	public ItemDartShooter(ItemDart ammo, Rarity rarity)
 	{
-		super(new Settings().rarity(rarity).itemGroup(AetherItemGroup.AETHER_WEAPONS));
+		super(new Settings().stackSize(1).rarity(rarity).itemGroup(AetherItemGroup.AETHER_WEAPONS));
 
 		this.ammo = ammo;
 	}
@@ -65,9 +68,25 @@ public class ItemDartShooter extends Item
 				stack = new ItemStack(this.ammo);
 			}
 
-			//ProjectileEntity projectile = this.ammo.createDart(worldIn, heldItem, playerIn);
+			ProjectileEntity projectile = this.ammo.createDart(worldIn, heldItem, playerIn);
 
-			//projectileEntity_1.method_7437 TODO: Set velocity
+			if (!worldIn.isClient)
+			{
+				projectile.method_7437(playerIn, playerIn.pitch, playerIn.yaw, 0.0F, 1.0F, 1.0F);
+
+				worldIn.spawnEntity(projectile);
+
+				if (!(playerIn.abilities.creativeMode))
+				{
+					projectile.pickupType = ProjectileEntity.PickupType.PICKUP;
+				}
+				if ((playerIn.abilities.creativeMode))
+				{
+					projectile.pickupType = ProjectileEntity.PickupType.CREATIVE_PICKUP;
+				}
+			}
+
+			worldIn.playSound(playerIn, playerIn.getPos(), SoundsAether.dart_shooter_shoot, SoundCategory.PLAYER, 1.0F, 1.0F / (playerIn.getRand().nextFloat() * 0.4F + 0.8F));
 		}
 
 		return super.use(worldIn, playerIn, handIn);

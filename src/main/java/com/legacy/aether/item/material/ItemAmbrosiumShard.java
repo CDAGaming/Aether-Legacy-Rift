@@ -23,14 +23,14 @@ public class ItemAmbrosiumShard extends Item
 	@Override
     public ActionResult useOnBlock(ItemUsageContext context)
     {
-        if (context.getWorld().getBlockState(context.getPos()).getBlock() == BlocksAether.aether_grass)
+        if (context.getWorld().getBlockState(context.getBlockPos()).getBlock() == BlocksAether.aether_grass)
         {
         	if (!context.getPlayer().isCreative())
         	{
         		context.getItemStack().subtractAmount(1);
         	}
 
-        	context.getWorld().setBlockState(context.getPos(), BlocksAether.enchanted_aether_grass.getDefaultState());
+        	context.getWorld().setBlockState(context.getBlockPos(), BlocksAether.enchanted_aether_grass.getDefaultState());
 
         	return ActionResult.SUCCESS;
         }

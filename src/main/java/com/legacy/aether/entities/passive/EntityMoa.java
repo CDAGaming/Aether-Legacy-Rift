@@ -38,6 +38,7 @@ import com.legacy.aether.sounds.SoundsAether;
 
 public class EntityMoa extends EntitySaddleMount
 {
+
 	public static final TrackedData<Integer> MOA_TYPE_ID = DataTracker.registerData(EntityMoa.class, TrackedDataHandlerRegistry.INTEGER);
 
 	public static final TrackedData<Integer> REMAINING_JUMPS = DataTracker.registerData(EntityMoa.class, TrackedDataHandlerRegistry.INTEGER);
@@ -230,7 +231,7 @@ public class EntityMoa extends EntitySaddleMount
 		{
 			if(this.random.nextInt(10) == 0)
 			{
-				this.world.addParticle(ParticleTypes.ANGRY_VILLAGER, this.x + (this.random.nextDouble() - 0.5D) * (double)this.method_17681(), this.y + 1, this.z + (this.random.nextDouble() - 0.5D) * (double)this.method_17681(), 0.0D, 0.0D, 0.0D);
+				this.world.addParticle(ParticleTypes.ANGRY_VILLAGER, this.x + (this.random.nextDouble() - 0.5D) * (double)this.getWidth(), this.y + 1, this.z + (this.random.nextDouble() - 0.5D) * (double)this.getWidth(), 0.0D, 0.0D, 0.0D);
 			}
 		}
 

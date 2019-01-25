@@ -17,6 +17,7 @@ import com.legacy.aether.blocks.container.BlockFreezer;
 import com.legacy.aether.blocks.container.BlockIncubator;
 import com.legacy.aether.blocks.container.BlockTreasureChest;
 import com.legacy.aether.blocks.decorative.BlockAerogel;
+import com.legacy.aether.blocks.decorative.BlockAetherFarmland;
 import com.legacy.aether.blocks.decorative.BlockAetherFlowerPot;
 import com.legacy.aether.blocks.decorative.BlockAetherGrassPath;
 import com.legacy.aether.blocks.decorative.BlockAetherSlab;
@@ -27,6 +28,7 @@ import com.legacy.aether.blocks.decorative.BlockAmbrosiumTorchWall;
 import com.legacy.aether.blocks.decorative.BlockColoredAercloud;
 import com.legacy.aether.blocks.decorative.BlockHolystoneBrick;
 import com.legacy.aether.blocks.decorative.BlockQuicksoilGlass;
+import com.legacy.aether.blocks.decorative.BlockQuicksoilGlassPane;
 import com.legacy.aether.blocks.decorative.BlockSkyrootFence;
 import com.legacy.aether.blocks.decorative.BlockSkyrootFenceGate;
 import com.legacy.aether.blocks.decorative.BlockSkyrootPlanks;
@@ -146,6 +148,18 @@ public class BlocksAether
 
 	public static final Block golden_oak_log = register("golden_oak_log", new BlockAetherLog());
 
+	public static final Block stripped_skyroot_log = register("stripped_skyroot_log", new BlockAetherLog());
+
+	public static final Block stripped_golden_oak_log = register("stripped_golden_oak_log", new BlockAetherLog());
+
+	public static final Block skyroot_wood = register("skyroot_wood", new BlockAetherLog());
+
+	public static final Block golden_oak_wood = register("golden_oak_wood", new BlockAetherLog());
+
+	public static final Block stripped_skyroot_wood = register("stripped_skyroot_wood", new BlockAetherLog());
+
+	public static final Block stripped_golden_oak_wood = register("stripped_golden_oak_wood", new BlockAetherLog());
+
 	public static final Block aerogel = register("aerogel", new BlockAerogel());
 
 	public static final Block ambrosium_torch = register("ambrosium_torch", new BlockAmbrosiumTorch());
@@ -161,6 +175,8 @@ public class BlocksAether
 	public static final Block treasure_chest = register("treasure_chest", new BlockTreasureChest());
 
 	public static final Block chest_mimic = register("chest_mimic", new BlockChestMimic());
+
+	public static final Block aether_farmland = register("aether_farmland", new BlockAetherFarmland());
 
 	public static final Block carved_stone = register("carved_stone", new BlockDungeon(false));
 
@@ -204,15 +220,17 @@ public class BlocksAether
 
 	public static final Block quicksoil_glass = register("quicksoil_glass", new BlockQuicksoilGlass());
 
+	public static final Block quicksoil_glass_pane = register("quicksoil_glass_pane", new BlockQuicksoilGlassPane());
+
 	public static final Block skyroot_stairs = register("skyroot_stairs", new BlockAetherStairs(skyroot_planks.getDefaultState()));
 
 	public static final Block holystone_stairs = register("holystone_stairs", new BlockAetherStairs(holystone.getDefaultState()));
 
-	public static final Block holystone_brick_stairs = register("holystone_brick_stairs", new BlockAetherStairs(holystone_brick.getDefaultState()));
-
 	public static final Block mossy_holystone_stairs = register("mossy_holystone_stairs", new BlockAetherStairs(mossy_holystone.getDefaultState()));
 
-	public static final Block aerogel_stairs = register("aerogel_stairs", new BlockAetherStairs(aerogel.getDefaultState()));
+	public static final Block holystone_brick_stairs = register("holystone_brick_stairs", new BlockAetherStairs(holystone_brick.getDefaultState()));
+
+	public static final Block icestone_stairs = register("icestone_stairs", new BlockAetherStairs(icestone.getDefaultState()));
 
 	public static final Block carved_stairs = register("carved_stairs", new BlockAetherStairs(carved_stone.getDefaultState()));
 
@@ -226,15 +244,17 @@ public class BlocksAether
 
 	public static final Block light_hellfire_stairs = register("light_hellfire_stairs", new BlockAetherStairs(light_hellfire_stone.getDefaultState()));
 
+	public static final Block aerogel_stairs = register("aerogel_stairs", new BlockAetherStairs(aerogel.getDefaultState()));
+
 	public static final Block skyroot_slab = register("skyroot_slab", new BlockAetherSlab(skyroot_planks.getDefaultState()));
 
 	public static final Block holystone_slab = register("holystone_slab", new BlockAetherSlab(holystone.getDefaultState()));
 
-	public static final Block holystone_brick_slab = register("holystone_brick_slab", new BlockAetherSlab(holystone_brick.getDefaultState()));
-
 	public static final Block mossy_holystone_slab = register("mossy_holystone_slab", new BlockAetherSlab(mossy_holystone.getDefaultState()));
 
-	public static final Block aerogel_slab = register("aerogel_slab", new BlockAetherSlab(aerogel.getDefaultState()));
+	public static final Block holystone_brick_slab = register("holystone_brick_slab", new BlockAetherSlab(holystone_brick.getDefaultState()));
+
+	public static final Block icestone_slab = register("icestone_slab", new BlockAetherSlab(icestone.getDefaultState()));
 
 	public static final Block carved_slab = register("carved_slab", new BlockAetherSlab(carved_stone.getDefaultState()));
 
@@ -248,15 +268,19 @@ public class BlocksAether
 
 	public static final Block light_hellfire_slab = register("light_hellfire_slab", new BlockAetherSlab(light_hellfire_stone.getDefaultState()));
 
+	public static final Block aerogel_slab = register("aerogel_slab", new BlockAetherSlab(aerogel.getDefaultState()));
+
 	public static final Block skyroot_fence = register("skyroot_fence", new BlockSkyrootFence());
 
 	public static final Block skyroot_fence_gate = register("skyroot_fence_gate", new BlockSkyrootFenceGate());
 
 	public static final Block holystone_wall = register("holystone_wall", new BlockAetherWall(holystone.getDefaultState()));
 
+	public static final Block mossy_holystone_wall = register("mossy_holystone_wall", new BlockAetherWall(mossy_holystone.getDefaultState()));
+
 	public static final Block holystone_brick_wall = register("holystone_brick_wall", new BlockAetherWall(holystone_brick.getDefaultState()));
 
-	public static final Block mossy_holystone_wall = register("mossy_holystone_wall", new BlockAetherWall(mossy_holystone.getDefaultState()));
+	public static final Block icestone_wall = register("icestone_wall", new BlockAetherWall(icestone.getDefaultState()));
 
 	public static final Block carved_wall = register("carved_wall", new BlockAetherWall(carved_stone.getDefaultState()));
 
@@ -273,7 +297,6 @@ public class BlocksAether
 	public static final Block aerogel_wall = register("aerogel_wall", new BlockAetherWall(aerogel.getDefaultState()));
 
 	/*
-
 	public static Block carved_stone_trap, angelic_stone_trap, hellfire_stone_trap, sentry_stone_trap, light_angelic_stone_trap, light_hellfire_stone_trap;
 
 	public static Block crystal_sapling;
@@ -334,6 +357,12 @@ public class BlocksAether
 		register(holystone_brick);
 		register(skyroot_log);
 		register(golden_oak_log);
+		register(stripped_skyroot_log);
+		register(stripped_golden_oak_log);
+		register(skyroot_wood);
+		register(golden_oak_wood);
+		register(stripped_skyroot_wood);
+		register(stripped_golden_oak_wood);
 		register(aerogel, AetherItemGroup.AETHER_DECORATION_BLOCKS);
 		register(ambrosium_torch, new WallStandingBlockItem(ambrosium_torch, ambrosium_torch_wall, new Item.Settings().itemGroup(AetherItemGroup.AETHER_BLOCKS)));
 		register(ambrosium_torch_wall, new BlockItem(ambrosium_torch_wall, new Item.Settings()));
@@ -342,6 +371,7 @@ public class BlocksAether
 		register(incubator);
 		register(treasure_chest);
 		register(chest_mimic);
+		register(aether_farmland, AetherItemGroup.AETHER_DECORATION_BLOCKS);
 		register(carved_stone);
 		register(angelic_stone);
 		register(hellfire_stone);
@@ -363,48 +393,50 @@ public class BlocksAether
 		register(aether_grass_path, AetherItemGroup.AETHER_DECORATION_BLOCKS);
 		register(aether_portal);
 		register(quicksoil_glass);
+		register(quicksoil_glass_pane, AetherItemGroup.AETHER_DECORATION_BLOCKS);
 		register(skyroot_stairs);
 		register(holystone_stairs);
 		register(holystone_brick_stairs);
 		register(mossy_holystone_stairs);
-		register(aerogel_stairs);
+		register(icestone_stairs);
 		register(carved_stairs);
 		register(angelic_stairs);
 		register(hellfire_stairs);
 		register(sentry_stairs);
 		register(light_angelic_stairs);
 		register(light_hellfire_stairs);
+		register(aerogel_stairs);
 		register(skyroot_slab);
 		register(holystone_slab);
 		register(holystone_brick_slab);
 		register(mossy_holystone_slab);
-		register(aerogel_slab);
-		register(aerogel_wall);
+		register(icestone_slab);
 		register(carved_slab);
 		register(angelic_slab);
 		register(hellfire_slab);
 		register(sentry_slab);
 		register(light_angelic_slab);
 		register(light_hellfire_slab);
+		register(aerogel_slab);
 		register(skyroot_fence);
 		register(skyroot_fence_gate);
 		register(holystone_wall);
 		register(holystone_brick_wall);
 		register(mossy_holystone_wall);
+		register(icestone_wall);
 		register(carved_wall);
 		register(angelic_wall);
 		register(hellfire_wall);
 		register(sentry_wall);
 		register(light_angelic_wall);
 		register(light_hellfire_wall);
+		register(aerogel_wall);
 
 		/*
 		carved_stone_trap = register("carved_stone_trap", new BlockDungeonTrap(carved_stone.getDefaultState()));
 		angelic_stone_trap = register("angelic_stone_trap", new BlockDungeonTrap(angelic_stone.getDefaultState()));
 		hellfire_stone_trap = register("hellfire_stone_trap", new BlockDungeonTrap(hellfire_stone.getDefaultState()));
-		locked_sentry_stone = register("locked_sentry_stone", new BlockDungeonTrapLight(sentry_stone.getDefaultState()));
-		locked_light_angelic_stone = register("locked_light_angelic_stone", new BlockDungeonTrapLight(light_angelic_stone.getDefaultState()));
-		locked_light_hellfire_stone = register("locked_light_hellfire_stone", new BlockDungeonTrapLight(light_hellfire_stone.getDefaultState()));*/
+		*/
 	}
 
 	private static BlockItem register(Block item)

@@ -1,11 +1,11 @@
 package com.legacy.aether.blocks.container;
 
 import net.fabricmc.fabric.api.container.ContainerProviderRegistry;
-import net.minecraft.class_3965;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Hand;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
@@ -17,7 +17,7 @@ public class BlockIncubator extends BlockWithAetherEntity
 {
 
 	@Override
-	public boolean activate(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, class_3965 hitResult)
+	public boolean activate(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hitResult)
 	{
 		if (!world.isClient)
 		{

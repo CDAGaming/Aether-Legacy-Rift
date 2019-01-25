@@ -472,7 +472,7 @@ public class EntitySheepuff extends AnimalEntity
 	@Override
 	public float getEyeHeight()
 	{
-		return 0.95F * this.method_17682();
+		return 0.95F * this.getHeight();
 	}
 
 	static {

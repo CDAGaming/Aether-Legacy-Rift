@@ -2,7 +2,6 @@ package com.legacy.aether.blocks.container;
 
 import net.fabricmc.fabric.api.container.ContainerProviderRegistry;
 import net.fabricmc.fabric.block.FabricBlockSettings;
-import net.minecraft.class_3965;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ChestBlock;
 import net.minecraft.block.Material;
@@ -10,6 +9,7 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.enums.ChestType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Hand;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.BlockView;
@@ -25,7 +25,7 @@ public class BlockTreasureChest extends ChestBlock
 	{
 		super(FabricBlockSettings.of(Material.STONE).strength(-1.0F, -1.0F).build());
 
-		this.setDefaultState(this.getDefaultState().with(FACING, Direction.NORTH).with(field_10770, ChestType.SINGLE).with(field_10772, false));
+		this.setDefaultState(this.getDefaultState().with(FACING, Direction.NORTH).with(CHEST_TYPE, ChestType.SINGLE).with(WATERLOGGED, false));
 	}
 
 	@Override
@@ -35,7 +35,7 @@ public class BlockTreasureChest extends ChestBlock
 	}
 
 	@Override
-	public boolean activate(BlockState stateIn, World worldIn, BlockPos posIn, PlayerEntity playerIn, Hand handIn, class_3965 hitResult)
+	public boolean activate(BlockState stateIn, World worldIn, BlockPos posIn, PlayerEntity playerIn, Hand handIn, BlockHitResult hitResult)
 	{
 		if (worldIn.isClient)
 		{

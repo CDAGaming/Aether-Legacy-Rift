@@ -1,10 +1,10 @@
 package com.legacy.aether.mixin;
 
-import net.minecraft.class_3965;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.BucketItem;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
@@ -27,7 +27,7 @@ public class MixinBucketItem
 	@Shadow @Final private Fluid fluid;
 
 	@Inject(method = "placeFluid", at = @At("HEAD"), cancellable = true)
-    public void placeAetherPortal(PlayerEntity playerIn, World worldIn, BlockPos posIn, class_3965 hitResult, CallbackInfoReturnable<Boolean> ci)
+    public void placeAetherPortal(PlayerEntity playerIn, World worldIn, BlockPos posIn, BlockHitResult hitResult, CallbackInfoReturnable<Boolean> ci)
     {
 		if (this.fluid == Fluids.WATER && ((BlockAetherPortal) BlocksAether.aether_portal).method_10352(worldIn, posIn))
 		{

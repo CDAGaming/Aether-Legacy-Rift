@@ -12,7 +12,7 @@
     "MixinPlayerEntity",
     "MixinLivingEntity",
     "MixinDimensionType",
-    "MixinMinecraftServer",
+    "MixinSpawnRestriction",
     "MixinUpdateClientPacket",
     "MixinChunkGeneratorType",
     "MixinOverworldDimension",
@@ -21,6 +21,7 @@
     "MixinServerPlayerInteractionManager"
   ],
   "client": [
+    "client.MixinWorld",
     "client.MixinGuiInventory",
     "client.MixinClientPlayerInteractionManager",
     "client.MixinFirstPersonRenderer",

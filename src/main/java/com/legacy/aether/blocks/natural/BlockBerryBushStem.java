@@ -26,14 +26,14 @@ public class BlockBerryBushStem extends PlantBlock implements Fertilizable
 	}
 
 	@Override
-	public void scheduledTick(BlockState state, World world, BlockPos pos, Random random)
+	public void onScheduledTick(BlockState state, World world, BlockPos pos, Random random)
 	{
 		if (world.isClient)
 		{
 			return;
 		}
 
-		super.scheduledTick(state, world, pos, random);
+		super.onScheduledTick(state, world, pos, random);
 
 		if (world.method_8602(pos.up()) >= 9 && random.nextInt(60) == 0)
 		{
@@ -42,7 +42,7 @@ public class BlockBerryBushStem extends PlantBlock implements Fertilizable
 	}
 
 	@Override
-	public VoxelShape canCollideWith(BlockState stateIn, BlockView blockViewIn, BlockPos posIn, VerticalEntityPosition verticalPosition)
+	public VoxelShape getCollisionShape(BlockState stateIn, BlockView blockViewIn, BlockPos posIn, VerticalEntityPosition verticalPosition)
 	{
 		return VoxelShapes.cube(0.1F, 0.0F, 0.1F, 0.9F, 0.8F, 0.9F);
 	}

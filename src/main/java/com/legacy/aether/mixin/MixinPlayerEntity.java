@@ -5,6 +5,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.stat.Stats;
 import net.minecraft.world.World;
 
 import org.spongepowered.asm.mixin.Mixin;
@@ -45,7 +46,19 @@ public abstract class MixinPlayerEntity extends LivingEntity implements IEntityP
 	@Inject(method = "update", at = @At("RETURN"))
 	public void playerUpdate(CallbackInfo ci)
 	{
+		this.playerAether.setJumping(this.field_6282);
+
 		this.playerAether.tick();
+	}
+
+	@Inject(method = "handleFallDamage", at = @At("HEAD"))
+	public void handleAetherFallDamage(float fallDamage, float multiplier, CallbackInfo ci)
+	{
+		if (this.playerAether.disableFallDamage())
+		{
+			fallDamage = 0.0F;
+			multiplier = 0.0F;
+		}
 	}
 
 	@Inject(method = "writeCustomDataToTag", at = @At("RETURN"))
@@ -64,6 +77,19 @@ public abstract class MixinPlayerEntity extends LivingEntity implements IEntityP
 		CompoundTag aetherTag = compound.getCompound("aetherData");
 
 		this.playerAether.readFromNBT(aetherTag);
+	}
+
+	public void handleFallDamage(float fallDamage, float multiplier)
+	{
+		if (!((PlayerEntity) (Object) this).abilities.allowFlying)
+		{
+			if (fallDamage >= 2.0F)
+			{
+				((PlayerEntity) (Object) this).method_7339(Stats.FALL_ONE_CM, (int) Math.round((double) fallDamage * 100.0D));
+			}
+
+			super.handleFallDamage(fallDamage, this.playerAether.disableFallDamage() ? 0.0F : multiplier);
+		}
 	}
 
 }

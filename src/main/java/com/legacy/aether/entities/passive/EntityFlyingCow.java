@@ -224,36 +224,6 @@ public class EntityFlyingCow extends EntitySaddleMount
 		return new EntityFlyingCow(this.world);
 	}
 
-	protected void dropFewItems(boolean par1, int par2)
-	{
-		/*int j = this.random.nextInt(3) + this.random.nextInt(1 + par2);
-		int k;
-
-		for (k = 0; k < j; ++k)
-		{
-			this.dropItem(Items.LEATHER, 1);
-		}
-
-		j = this.random.nextInt(3) + 1 + this.random.nextInt(1 + par2);
-
-		for (k = 0; k < j; ++k)
-		{
-			if (this.isBurning())
-			{
-				this.dropItem(Items.COOKED_BEEF, 1);
-			}
-			else
-			{
-				this.dropItem(Items.BEEF, 1);
-			}
-		}
-
-		if (this.getSaddled())
-		{
-			this.dropItem(Items.SADDLE, 1);
-		}*/
-	}
-
 	@Override
 	protected double getMountJumpStrength()
 	{

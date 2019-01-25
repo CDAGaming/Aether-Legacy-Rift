@@ -13,7 +13,7 @@ public class GuITreasureChest extends ContainerGui54
 
 	public GuITreasureChest(int syncId, PlayerInventory playerInventory, TreasureChestBlockEntity inventory)
 	{
-		super(new GenericContainer.class_3912(syncId, playerInventory, inventory), playerInventory, getTextComponent(inventory));
+		super(new GenericContainer.Generic9x3(syncId, playerInventory, inventory), playerInventory, getTextComponent(inventory));
 	}
 
 	@Override

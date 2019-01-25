@@ -3,6 +3,7 @@ package com.legacy.aether.item.food;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.text.StringTextComponent;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
@@ -38,6 +39,10 @@ public class ItemLifeShard extends Item
 			heldItem.subtractAmount(1);
 
 			return new TypedActionResult<ItemStack>(ActionResult.SUCCESS, heldItem);
+		}
+		else
+		{
+			playerIn.addChatMessage(new StringTextComponent("You can only use a total of 10 life shards"), true);
 		}
 
 		return new TypedActionResult<ItemStack>(ActionResult.PASS, heldItem);

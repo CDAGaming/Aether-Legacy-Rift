@@ -21,9 +21,9 @@ public class BlockAetherGrassPath extends GrassPathBlock
 	}
 
 	@Override
-	public void scheduledTick(BlockState state, World world, BlockPos pos, Random random)
+	public void onScheduledTick(BlockState state, World world, BlockPos pos, Random random)
 	{
-		world.setBlockState(pos, method_9582(state, BlocksAether.aether_dirt.getDefaultState(), world, pos));
+		world.setBlockState(pos, pushEntitiesUpBeforeBlockChange(state, BlocksAether.aether_dirt.getDefaultState(), world, pos));
 	}
 
 }

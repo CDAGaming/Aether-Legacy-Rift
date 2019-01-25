@@ -1,6 +1,7 @@
 package com.legacy.aether.world.biome;
 
 import net.minecraft.block.Blocks;
+import net.minecraft.entity.EntityCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.GenerationStep;
@@ -14,6 +15,7 @@ import net.minecraft.world.gen.feature.GrassFeatureConfig;
 import net.minecraft.world.gen.surfacebuilder.SurfaceBuilder;
 
 import com.legacy.aether.blocks.BlocksAether;
+import com.legacy.aether.entities.EntityTypesAether;
 import com.legacy.aether.world.gen.config.feature.AercloudConfig;
 import com.legacy.aether.world.gen.feature.AercloudFeature;
 import com.legacy.aether.world.gen.feature.GoldenOakTreeFeature;
@@ -36,6 +38,14 @@ public class AetherHighlandsBiome extends Biome
 		this.addFeature(GenerationStep.Feature.VEGETAL_DECORATION, configureFeature(new AercloudFeature(), new AercloudConfig(BlocksAether.cold_aercloud.getDefaultState(), false, 16, 64), Decorator.CHANCE_PASSTHROUGH, new ChanceDecoratorConfig(10)));
 		this.addFeature(GenerationStep.Feature.VEGETAL_DECORATION, configureFeature(new AercloudFeature(), new AercloudConfig(BlocksAether.blue_aercloud.getDefaultState(), false, 8, 32), Decorator.CHANCE_PASSTHROUGH, new ChanceDecoratorConfig(20)));
 		this.addFeature(GenerationStep.Feature.VEGETAL_DECORATION, configureFeature(new AercloudFeature(), new AercloudConfig(BlocksAether.golden_aercloud.getDefaultState(), false, 4, 96), Decorator.CHANCE_PASSTHROUGH, new ChanceDecoratorConfig(30)));
+
+		this.addSpawn(EntityCategory.CREATURE, new Biome.SpawnEntry(EntityTypesAether.SHEEPUFF, 10, 4, 4));
+		this.addSpawn(EntityCategory.CREATURE, new Biome.SpawnEntry(EntityTypesAether.PHYG, 12, 4, 4));
+		this.addSpawn(EntityCategory.CREATURE, new Biome.SpawnEntry(EntityTypesAether.MOA, 10, 3, 3));
+		this.addSpawn(EntityCategory.CREATURE, new Biome.SpawnEntry(EntityTypesAether.FLYING_COW, 10, 4, 4));
+		this.addSpawn(EntityCategory.CREATURE, new Biome.SpawnEntry(EntityTypesAether.AERBUNNY, 11, 3, 3));
+		//this.addSpawn(EntityCategory.MONSTER, new Biome.SpawnEntry(EntityTypesAether.COCKATRICE, 100, 4, 4));
+		//this.addSpawn(EntityCategory.MONSTER, new Biome.SpawnEntry(EntityTypesAether.AECHOR_PLANT, 10, 1, 4));
 	}
 
 	@Override

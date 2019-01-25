@@ -47,7 +47,15 @@ public class TeleporterAether extends PortalForcer
 	{
     	if (!this.portalSpawn)
     	{
-    		entityIn.setPositionAnglesAndUpdate(entityIn.x, 256, entityIn.z, rotationYaw, 0.0F);
+            if (entityIn instanceof ServerPlayerEntity)
+            {
+                ((ServerPlayerEntity)entityIn).networkHandler.teleportRequest(entityIn.x, 256, entityIn.z, entityIn.yaw, entityIn.pitch);
+                ((ServerPlayerEntity)entityIn).networkHandler.syncWithPlayerPosition();
+            }
+            else
+            {
+                entityIn.setPositionAnglesAndUpdate(entityIn.x, 256, entityIn.z, entityIn.yaw, entityIn.pitch);
+            }
 
     		return;
     	}

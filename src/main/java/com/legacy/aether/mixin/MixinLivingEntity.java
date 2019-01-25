@@ -41,7 +41,6 @@ public class MixinLivingEntity
 					amount *= ((ItemAccessory)playerAether.getAccessoryInventory().getInventory().get(index).getItem()).getDamageMultiplier();
 				}
 
-				System.out.println(amount);
 				playerAether.getAccessoryInventory().damageAccessory(1, AccessoryType.GLOVES);
 			}
 		}

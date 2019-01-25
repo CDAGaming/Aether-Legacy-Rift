@@ -1,7 +1,5 @@
 package com.legacy.aether.item.tool.bucket;
 
-import net.minecraft.class_3959;
-import net.minecraft.class_3965;
 import net.minecraft.advancement.criterion.Criterions;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.FluidDrainable;
@@ -21,12 +19,14 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraft.util.HitResult;
 import net.minecraft.util.Rarity;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.UseAction;
+import net.minecraft.util.hit.BlockHitResult;
+import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
+import net.minecraft.world.RayTraceContext;
 import net.minecraft.world.World;
 
 import com.legacy.aether.api.AetherAPI;
@@ -66,7 +66,7 @@ public class ItemSkyrootBucket extends Item
     public TypedActionResult<ItemStack> use(World worldIn, PlayerEntity playerIn, Hand handIn)
     {
         ItemStack itemstack = playerIn.getStackInHand(handIn);
-        HitResult raytraceresult = getHitResult(worldIn, playerIn, this.containedBlock == Fluids.EMPTY ? class_3959.class_242.SOURCE_ONLY : class_3959.class_242.NONE);
+        HitResult raytraceresult = getHitResult(worldIn, playerIn, this.containedBlock == Fluids.EMPTY ? RayTraceContext.FluidHandling.SOURCE_ONLY : RayTraceContext.FluidHandling.NONE);
 
         if (itemstack.getItem() != ItemsAether.skyroot_water_bucket && itemstack.getItem() != ItemsAether.skyroot_bucket)
         {
@@ -79,12 +79,12 @@ public class ItemSkyrootBucket extends Item
         {
             return new TypedActionResult<ItemStack>(ActionResult.PASS, itemstack);
         }
-        else if (raytraceresult.method_17783() == HitResult.Type.BLOCK)
+        else if (raytraceresult.getType() == HitResult.Type.BLOCK)
         {
-        	class_3965 class_3965_1 = (class_3965)raytraceresult;
-            BlockPos blockpos = class_3965_1.method_17777();
+        	BlockHitResult class_3965_1 = (BlockHitResult) raytraceresult;
+            BlockPos blockpos = class_3965_1.getBlockPos();
 
-            if (worldIn.canPlayerModifyAt(playerIn, blockpos) && playerIn.canPlaceBlock(blockpos, class_3965_1.method_17780(), itemstack))
+            if (worldIn.canPlayerModifyAt(playerIn, blockpos) && playerIn.canPlaceBlock(blockpos, class_3965_1.getSide(), itemstack))
             {
                 if (this.containedBlock == Fluids.EMPTY)
                 {
@@ -94,7 +94,7 @@ public class ItemSkyrootBucket extends Item
                         Fluid fluid = ((FluidDrainable) iblockstate1.getBlock()).tryDrainFluid(worldIn, blockpos, iblockstate1);
 
                         if (fluid != Fluids.EMPTY) {
-                            playerIn.incrementStat(Stats.USED.method_14956(this));
+                            playerIn.incrementStat(Stats.USED.getOrCreateStat(this));
                             playerIn.playSound(SoundEvents.ITEM_BUCKET_FILL, 1.0F, 1.0F);
                             ItemStack itemstack1 = this.fillBucket(itemstack, playerIn, ItemsAether.skyroot_water_bucket);
 
@@ -111,7 +111,7 @@ public class ItemSkyrootBucket extends Item
                 else
                 {
                     BlockState iblockstate = worldIn.getBlockState(blockpos);
-                    BlockPos blockpos1 = iblockstate.getBlock() instanceof FluidFillable ? blockpos : class_3965_1.method_17777().offset(class_3965_1.method_17780());
+                    BlockPos blockpos1 = iblockstate.getBlock() instanceof FluidFillable ? blockpos : class_3965_1.getBlockPos().offset(class_3965_1.getSide());
 
                     this.placeLiquid(playerIn, worldIn, blockpos1, class_3965_1);
 
@@ -120,7 +120,7 @@ public class ItemSkyrootBucket extends Item
 						Criterions.PLACED_BLOCK.handle((ServerPlayerEntity)playerIn, blockpos1, itemstack);
 					}
 
-					playerIn.incrementStat(Stats.USED.method_14956(this));
+					playerIn.incrementStat(Stats.USED.getOrCreateStat(this));
 					return new TypedActionResult<ItemStack>(ActionResult.SUCCESS, this.emptyBucket(itemstack, playerIn));
                 }
             }
@@ -153,7 +153,7 @@ public class ItemSkyrootBucket extends Item
         {
             ServerPlayerEntity entityplayermp = (ServerPlayerEntity) entityplayer;
             Criterions.CONSUME_ITEM.handle(entityplayermp, itemstack);
-            entityplayer.incrementStat(Stats.USED.method_14956(this));
+            entityplayer.incrementStat(Stats.USED.getOrCreateStat(this));
         }
 
 		if (!entityplayer.abilities.creativeMode)
@@ -228,7 +228,7 @@ public class ItemSkyrootBucket extends Item
         }
     }
 
-    public boolean placeLiquid(PlayerEntity playerIn, World worldIn, BlockPos posIn, class_3965 p_180616_4_)
+    public boolean placeLiquid(PlayerEntity playerIn, World worldIn, BlockPos posIn, BlockHitResult hitResult)
     {
 		if (((BlockAetherPortal) BlocksAether.aether_portal).method_10352(worldIn, posIn))
 		{
@@ -250,7 +250,7 @@ public class ItemSkyrootBucket extends Item
 
             if (worldIn.isAir(posIn) || flag || flag1 || iblockstate.getBlock() instanceof FluidFillable && ((FluidFillable)iblockstate.getBlock()).canFillWithFluid(worldIn, posIn, iblockstate, this.containedBlock))
             {
-                if (worldIn.dimension.method_12465())
+                if (worldIn.dimension.isNether())
                 {
                     int i = posIn.getX();
                     int j = posIn.getY();
@@ -284,7 +284,7 @@ public class ItemSkyrootBucket extends Item
             }
             else
             {
-                return p_180616_4_ == null ? false : this.placeLiquid(playerIn, worldIn, p_180616_4_.method_17777().offset(p_180616_4_.method_17780()), null);
+                return hitResult == null ? false : this.placeLiquid(playerIn, worldIn, hitResult.getBlockPos().offset(hitResult.getSide()), null);
             }
         }
     }

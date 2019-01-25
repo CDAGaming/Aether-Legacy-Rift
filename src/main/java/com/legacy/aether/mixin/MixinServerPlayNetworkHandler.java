@@ -1,6 +1,5 @@
 package com.legacy.aether.mixin;
 
-import net.minecraft.class_3965;
 import net.minecraft.client.network.packet.BlockUpdateClientPacket;
 import net.minecraft.client.network.packet.ChatMessageClientPacket;
 import net.minecraft.item.ItemStack;
@@ -16,6 +15,7 @@ import net.minecraft.text.TextComponent;
 import net.minecraft.text.TextFormat;
 import net.minecraft.text.TranslatableTextComponent;
 import net.minecraft.util.Hand;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
@@ -45,7 +45,7 @@ public class MixinServerPlayNetworkHandler
 		ServerWorld serverWorld_1 = this.server.getWorld(this.player.dimension);
 		BlockPos blockPos_1 = packetIn.getPos();
 
-		this.player.method_14234();
+		this.player.updateLastActionTime();
 
 		switch (packetIn.getAction()) {
 		case SWAP_HELD_ITEMS:
@@ -140,11 +140,11 @@ public class MixinServerPlayNetworkHandler
 		ServerWorld world = this.server.getWorld(this.player.dimension);
 		Hand hand = packetIn.getHand();
 		ItemStack heldItem = this.player.getStackInHand(hand);
-		class_3965 class_3965_1 = packetIn.getHitY();
-		BlockPos pos = class_3965_1.method_17777();
-		Direction direction = class_3965_1.method_17780();
+		BlockHitResult class_3965_1 = packetIn.getHitY();
+		BlockPos pos = class_3965_1.getBlockPos();
+		Direction direction = class_3965_1.getSide();
 
-		this.player.method_14234();
+		this.player.updateLastActionTime();
 
 		double distance = ((PlayerReach)this.player.interactionManager).getReachDistance() + 3.0D;
 

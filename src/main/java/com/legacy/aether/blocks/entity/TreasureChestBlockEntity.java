@@ -55,11 +55,11 @@ public class TreasureChestBlockEntity extends ChestBlockEntity implements Client
 	}
 
 	@Override
-	protected void method_11049()
+	protected void onInvOpenOrClose()
 	{
 		Block block_1 = this.getCachedState().getBlock();
 
-		this.world.addBlockAction(this.pos, block_1, 1, this.field_11928);
+		this.world.addBlockAction(this.pos, block_1, 1, this.viewerCount);
 		this.world.updateNeighborsAlways(this.pos, block_1);
 	}
 

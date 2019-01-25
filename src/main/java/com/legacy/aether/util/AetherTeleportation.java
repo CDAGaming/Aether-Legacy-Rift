@@ -5,10 +5,12 @@ import java.util.Iterator;
 import net.minecraft.client.network.packet.EntityPotionEffectClientPacket;
 import net.minecraft.client.network.packet.PlayerAbilitiesClientPacket;
 import net.minecraft.client.network.packet.PlayerRespawnClientPacket;
+import net.minecraft.client.network.packet.WorldEventClientPacket;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.server.PlayerManager;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.PortalForcer;
 import net.minecraft.world.dimension.DimensionType;
@@ -45,6 +47,7 @@ public class AetherTeleportation
 			player.networkHandler.sendPacket(new EntityPotionEffectClientPacket(player.getEntityId(), statusEffectInstance_1));
 		}
 
+		player.networkHandler.sendPacket(new WorldEventClientPacket(1032, BlockPos.ORIGIN, 0, false));
 	}
 
 	private void teleport(ServerPlayerEntity player, ServerWorld fromWorld, ServerWorld toWorld, PortalForcer teleporter)

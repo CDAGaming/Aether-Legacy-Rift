@@ -1,8 +1,6 @@
 package com.legacy.aether.entities.block;
 
 import io.netty.buffer.Unpooled;
-import net.minecraft.class_3959;
-import net.minecraft.class_3965;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -14,12 +12,14 @@ import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.tag.FluidTags;
-import net.minecraft.util.HitResult;
 import net.minecraft.util.PacketByteBuf;
 import net.minecraft.util.TagHelper;
+import net.minecraft.util.hit.BlockHitResult;
+import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.RayTraceContext;
 import net.minecraft.world.World;
 
 import com.legacy.aether.blocks.BlockFloating;
@@ -49,7 +49,7 @@ public class EntityFloatingBlock extends Entity
 		this.state = state;
 		//this.preventEntitySpawning = true;
 
-		this.setPosition(x, y + (double)((1.0F - this.method_17682()) / 2.0F), z);
+		this.setPosition(x, y + (double)((1.0F - this.getHeight()) / 2.0F), z);
 
 		this.velocityX = this.velocityY = this.velocityZ = 0.0D;
 		this.prevX = x;
@@ -64,7 +64,7 @@ public class EntityFloatingBlock extends Entity
 		PacketByteBuf buf = new PacketByteBuf(Unpooled.buffer());
 
 		buf.writeInt(0);
-		buf.writeInt(block.getEntityId());
+		buf.writeVarInt(block.getEntityId());
 		buf.writeUuid(block.getUuid());
 		buf.writeDouble(block.x);
 		buf.writeDouble(block.y);
@@ -161,11 +161,11 @@ public class EntityFloatingBlock extends Entity
 
                 if (flag && d0 > 1.0D)
                 {
-                	class_3965 raytraceresult = this.world.method_17742(new class_3959(new Vec3d(this.prevX, this.prevY, this.prevZ), new Vec3d(this.x, this.y, this.z), class_3959.class_3960.OUTLINE, class_3959.class_242.SOURCE_ONLY, this));
+                	BlockHitResult raytraceresult = this.world.rayTrace(new RayTraceContext(new Vec3d(this.prevX, this.prevY, this.prevZ), new Vec3d(this.x, this.y, this.z), RayTraceContext.ShapeType.OUTLINE, RayTraceContext.FluidHandling.SOURCE_ONLY, this));
 
-                    if (raytraceresult.method_17783() != HitResult.Type.NONE && this.world.getFluidState(raytraceresult.method_17777()).matches(FluidTags.WATER))
+                    if (raytraceresult.getType() != HitResult.Type.NONE && this.world.getFluidState(raytraceresult.getBlockPos()).matches(FluidTags.WATER))
                     {
-                        blockpos1 = raytraceresult.method_17777();
+                        blockpos1 = raytraceresult.getBlockPos();
                         flag1 = true;
                     }
                 }

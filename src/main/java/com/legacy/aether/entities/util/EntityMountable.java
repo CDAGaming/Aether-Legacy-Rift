@@ -64,6 +64,10 @@ public abstract class EntityMountable extends EntityAetherAnimal
 			{
 				forward *= 0.25F;
 			}
+			else
+			{
+				forward *= 0.75F;
+			}
 
 			if (AetherAPI.get(player).isJumping())
 			{

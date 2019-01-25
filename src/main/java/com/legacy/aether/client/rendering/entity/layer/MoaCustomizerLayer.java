@@ -37,11 +37,11 @@ public class MoaCustomizerLayer extends FeatureRenderer<EntityMoa, MoaModel>
 
 	private MoaModel model;
 
-	public MoaCustomizerLayer(FeatureRendererContext<EntityMoa, MoaModel> class_3883)
+	public MoaCustomizerLayer(FeatureRendererContext<EntityMoa, MoaModel> context)
 	{
-		super(class_3883);
+		super(context);
 
-		model = class_3883.getModel();
+		model = context.getModel();
 		renderManager = MinecraftClient.getInstance().getEntityRenderManager();
 	}
 
