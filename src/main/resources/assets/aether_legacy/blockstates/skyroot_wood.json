@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "axis=y": { "model": "block/skyroot_wood" },
+    "axis=z": { "model": "block/skyroot_wood", "x": 90 },
+    "axis=x": { "model": "block/skyroot_wood", "x": 90, "y": 90 }
+  }
+}
