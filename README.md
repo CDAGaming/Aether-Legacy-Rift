@@ -24,6 +24,9 @@ The goal of this project is to help show how much the Aether has grown from then
 ## ⚠️ Disclaimer
 There's only 2 programmers, with limited time, so if you find any bugs we do apologize. Please list all bugs on the issue tracker and a patch will be done every other week. Also, we are not adding any new content at all to keep the "legacy" in Aether Legacy.
 
+## 📜 Fabric (1.14 Snapshots)
+If you are planning on using the 1.14 snapshots you must install the [Fabric loader](https://minecraft.curseforge.com/linkout?remoteUrl=https%253a%252f%252ffabricmc.net%252fuse%252f). Along with the Fabric Loader you will also need the [Fabric API mod](https://minecraft.curseforge.com/projects/fabric) in your mods folder to run Aether Legacy. Keep in mind current builds for Fabric are in Alpha and therefore are unfinished. Singleplayer survival is possible however server support hasn't been tested. Feel free to report issues on our [fabric issue tracker](https://github.com/Modding-Legacy/Aether-Legacy-Rift/issues) and specify the version causing issues.
+
 ## ✏️ Contributors
 Thanks so much to these people keep Aether alive.
 
