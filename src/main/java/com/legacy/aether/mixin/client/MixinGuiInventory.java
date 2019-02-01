@@ -1,7 +1,7 @@
 package com.legacy.aether.mixin.client;
 
-import net.minecraft.client.gui.ingame.AbstractPlayerInventoryGui;
-import net.minecraft.client.gui.ingame.PlayerInventoryGui;
+import net.minecraft.client.gui.ingame.AbstractPlayerInventoryScreen;
+import net.minecraft.client.gui.ingame.PlayerInventoryScreen;
 import net.minecraft.container.PlayerContainer;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.text.TranslatableTextComponent;
@@ -13,8 +13,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import com.legacy.aether.client.gui.button.GuiAccessoryButton;
 
-@Mixin(PlayerInventoryGui.class)
-public abstract class MixinGuiInventory extends AbstractPlayerInventoryGui<PlayerContainer>
+@Mixin(PlayerInventoryScreen.class)
+public abstract class MixinGuiInventory extends AbstractPlayerInventoryScreen<PlayerContainer>
 {
     public MixinGuiInventory(PlayerEntity player)
     {

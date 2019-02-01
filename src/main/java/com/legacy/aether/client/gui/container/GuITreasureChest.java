@@ -1,14 +1,14 @@
 package com.legacy.aether.client.gui.container;
 
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.container.ContainerGui54;
+import net.minecraft.client.gui.container.ContainerScreen54;
 import net.minecraft.container.GenericContainer;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.text.TranslatableTextComponent;
 
 import com.legacy.aether.blocks.entity.TreasureChestBlockEntity;
 
-public class GuITreasureChest extends ContainerGui54
+public class GuITreasureChest extends ContainerScreen54
 {
 
 	public GuITreasureChest(int syncId, PlayerInventory playerInventory, TreasureChestBlockEntity inventory)

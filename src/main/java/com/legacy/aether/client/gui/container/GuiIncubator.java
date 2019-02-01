@@ -1,7 +1,7 @@
 package com.legacy.aether.client.gui.container;
 
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.ContainerGui;
+import net.minecraft.client.gui.ContainerScreen;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.text.TranslatableTextComponent;
 import net.minecraft.util.Identifier;
@@ -12,7 +12,7 @@ import com.legacy.aether.blocks.entity.IncubatorBlockEntity;
 import com.legacy.aether.container.ContainerIncubator;
 import com.mojang.blaze3d.platform.GlStateManager;
 
-public class GuiIncubator extends ContainerGui<ContainerIncubator>
+public class GuiIncubator extends ContainerScreen<ContainerIncubator>
 {
 
 	private AetherBlockEntity incubator;

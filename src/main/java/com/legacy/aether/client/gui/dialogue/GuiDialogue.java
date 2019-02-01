@@ -1,12 +1,12 @@
 package com.legacy.aether.client.gui.dialogue;
 
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.Gui;
-import net.minecraft.text.StringTextComponent;
-
 import java.util.ArrayList;
 
-public class GuiDialogue extends Gui
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.Screen;
+import net.minecraft.text.StringTextComponent;
+
+public class GuiDialogue extends Screen
 {
 
 	private ArrayList<DialogueOption> dialogueOptions = new ArrayList<DialogueOption>();
@@ -69,7 +69,7 @@ public class GuiDialogue extends Gui
 
 	public void dialogueTreeCompleted()
 	{
-		this.client.openGui(null);
+		this.client.openScreen(null);
 	}
 
     @Override

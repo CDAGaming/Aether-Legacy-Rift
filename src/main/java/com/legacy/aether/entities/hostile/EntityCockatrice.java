@@ -5,6 +5,7 @@ import net.minecraft.class_1376;
 import net.minecraft.class_1394;
 import net.minecraft.class_1399;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.SpawnType;
 import net.minecraft.entity.ai.RangedAttacker;
 import net.minecraft.entity.ai.goal.FollowTargetGoal;
 import net.minecraft.entity.ai.goal.ProjectileAttackGoal;
@@ -13,20 +14,21 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.entity.mob.MobEntityWithAi;
+import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 
 import com.legacy.aether.entities.EntityTypesAether;
 import com.legacy.aether.entities.projectile.EntityPoisonNeedle;
 import com.legacy.aether.sounds.SoundsAether;
 
-public class EntityCockatrice extends MobEntityWithAi implements RangedAttacker
+public class EntityCockatrice extends HostileEntity implements RangedAttacker
 {
 
 	public float wingRotation, destPos, prevDestPos, prevWingRotation;
@@ -47,7 +49,7 @@ public class EntityCockatrice extends MobEntityWithAi implements RangedAttacker
 		super.method_5959();
 
 		this.goalSelector.add(1, new SwimGoal(this));
-		this.goalSelector.add(4, new ProjectileAttackGoal(this, 0.0D, 30, 12.0F));
+		this.goalSelector.add(4, new ProjectileAttackGoal(this, 0.5D, 30, 12.0F));
 		//this.goalSelector.add(5, new EntityAIMoveTowardsRestriction(this, 1.0D));
 		this.goalSelector.add(5, new class_1394(this, 1.0D));
 		this.goalSelector.add(6, new class_1361(this, PlayerEntity.class, 8.0F));
@@ -118,19 +120,23 @@ public class EntityCockatrice extends MobEntityWithAi implements RangedAttacker
 	@Override
 	public void attack(LivingEntity targetIn, float arg1)
 	{
-		double x = targetIn.x - this.x;
-		double z = targetIn.z - this.z;
-		double y = 0.1D + (Math.sqrt((x * x) + (z * z) + 0.1D) * 0.5D) + ((this.y - targetIn.y) * 0.25D);
-
-		double distance = 1.5D / Math.sqrt((x * x) + (z * z) + 0.1D);
-
 		EntityPoisonNeedle needle = new EntityPoisonNeedle(this, this.world);
 
-		needle.setVelocity(x * distance, y, z * distance, 0.285F + ((float) y * 0.05F), 1.0F);
+		double x = targetIn.x - this.x;
+		double z = targetIn.z - this.z;
+		double y = targetIn.getBoundingBox().minY + (double)(targetIn.getHeight() / 3.0F) - needle.y;
+		double double_4 = (double)MathHelper.sqrt(x * x + z * z);
+
+		needle.setVelocity(x, y + double_4 * 0.20000000298023224D, z, 1.2F, 1.0F);
 
 		this.playSound(SoundEvents.ENTITY_SKELETON_SHOOT, 1.0F, 1.2F / (this.getRand().nextFloat() * 0.2F + 0.9F));
 
 		this.world.spawnEntity(needle);
+	}
+
+	public boolean canSpawn(IWorld world, SpawnType spawnType)
+	{
+		return world.getRandom().nextInt(25) == 0 && super.canSpawn(world, spawnType);
 	}
 
 	@Override
@@ -143,6 +149,12 @@ public class EntityCockatrice extends MobEntityWithAi implements RangedAttacker
 	public boolean isPotionEffective(StatusEffectInstance effect)
 	{
 		return effect.getEffectType() == StatusEffects.POISON ? false : super.isPotionEffective(effect);
+	}
+
+	@Override
+	public int getLimitPerChunk()
+	{
+		return 1;
 	}
 
 	@Override

@@ -8,12 +8,12 @@ import net.minecraft.client.network.packet.EntitySpawnClientPacket;
 import net.minecraft.client.network.packet.MapUpdateClientPacket;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.item.FilledMapItem;
 import net.minecraft.item.map.MapState;
-import net.minecraft.server.network.EntityTracker;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -21,6 +21,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import com.legacy.aether.entities.EntityTypesAether;
 import com.legacy.aether.entities.block.EntityFloatingBlock;
 import com.legacy.aether.entities.projectile.EntityEnchantedDart;
 import com.legacy.aether.entities.projectile.EntityGoldenDart;
@@ -42,28 +43,29 @@ public class MixinClientPlayNetworkHandler
 		double d0 = packet.getX();
 		double d1 = packet.getY();
 		double d2 = packet.getZ();
+		int entityData = packet.getEntityData();
 
 		Entity aetherEntity = null;
+		EntityType<?> entityType = packet.getEntityTypeId();
 
-		if (packet.getEntityTypeId() == 583)
+		if (entityType == EntityTypesAether.FLOATING_BLOCK)
 		{
-			aetherEntity = new EntityFloatingBlock(this.world, d0, d1, d2, Block.getStateFromRawId(packet.getEntityData()));
-
-			packet.setEntityData(0);
+			aetherEntity = new EntityFloatingBlock(this.world, d0, d1, d2, Block.getStateFromRawId(entityData));
+			entityData = 0;
 		}
-		else if (packet.getEntityTypeId() == 584)
+		else if (entityType == EntityTypesAether.GOLDEN_DART)
 		{
 			aetherEntity = new EntityGoldenDart(d0, d1, d2, this.world);
 		}
-		else if (packet.getEntityTypeId() == 585)
+		else if (entityType == EntityTypesAether.ENCHANTED_DART)
 		{
 			aetherEntity = new EntityEnchantedDart(d0, d1, d2, this.world);
 		}
-		else if (packet.getEntityTypeId() == 586)
+		else if (entityType == EntityTypesAether.POISON_DART)
 		{
 			aetherEntity = new EntityPoisonDart(d0, d1, d2, this.world);
 		}
-		else if (packet.getEntityTypeId() == 587)
+		else if (entityType == EntityTypesAether.POISON_NEEDLE)
 		{
 			aetherEntity = new EntityPoisonNeedle(d0, d1, d2, this.world);
 		}
@@ -99,7 +101,7 @@ public class MixinClientPlayNetworkHandler
 
 		if (aetherEntity != null)
 		{
-			EntityTracker.method_14070(aetherEntity, d0, d1, d2);
+			aetherEntity.method_18003(d0, d1, d2);
 
 			aetherEntity.pitch = (float) (packet.getPitch() * 360) / 256.0F;
 			aetherEntity.yaw = (float) (packet.getYaw() * 360) / 256.0F;
@@ -120,13 +122,13 @@ public class MixinClientPlayNetworkHandler
 
 			this.world.method_2942(packet.getId(), aetherEntity);
 
-			if (packet.getEntityData() > 0)
+			if (entityData > 0)
 			{
-				if (packet.getEntityTypeId() > 583 && packet.getEntityTypeId() < 588)
+				if (aetherEntity instanceof ProjectileEntity)
 				{
-					Entity entity3 = this.world.getEntityById(packet.getEntityData() - 1);
+					Entity entity3 = this.world.getEntityById(entityData - 1);
 
-					if (entity3 instanceof LivingEntity && aetherEntity instanceof ProjectileEntity)
+					if (entity3 instanceof LivingEntity)
 					{
 						ProjectileEntity projectileEntity_1 = (ProjectileEntity) aetherEntity;
 

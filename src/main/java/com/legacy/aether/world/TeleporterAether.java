@@ -374,7 +374,7 @@ public class TeleporterAether extends PortalForcer
             }
         }
 
-        BlockState iblockstate = BlocksAether.aether_portal.getDefaultState().with(PortalBlock.field_11310, l6 == 0 ? Direction.Axis.Z : Direction.Axis.X);
+        BlockState iblockstate = BlocksAether.aether_portal.getDefaultState().with(PortalBlock.AXIS, l6 == 0 ? Direction.Axis.Z : Direction.Axis.X);
 
         for (int i8 = 0; i8 < 4; ++i8)
         {

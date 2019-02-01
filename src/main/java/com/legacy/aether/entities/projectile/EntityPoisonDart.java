@@ -87,7 +87,7 @@ public class EntityPoisonDart extends EntityDart
 				}
 			}
 
-			this.invalidate();
+			this.invalid = false;
 			this.poison.onUpdate();
 			this.setInvisible(true);
 			this.setPosition(this.victim.x, this.victim.y, this.victim.z);
@@ -111,8 +111,9 @@ public class EntityPoisonDart extends EntityDart
 		}
 		else
 		{
-			//this.victim = entityIn;
-			//this.poison = new AetherPoisonMovement(this.victim);
+			this.victim = entityIn;
+			this.poison = new AetherPoisonMovement(this.victim);
+			this.poison.inflictPoison(500);
 			this.invalid = false;
 		}
 	}

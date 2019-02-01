@@ -75,11 +75,11 @@ public class EntityTypesAether
 
 		trackEntity(FLOATING_BLOCK, 160, 20, true);
 
-		registerSpawnPacket(FLOATING_BLOCK, (entity) -> new EntitySpawnClientPacket(entity, 583, Block.getRawIdFromState(((EntityFloatingBlock)entity).getBlockstate())));
-		registerSpawnPacket(GOLDEN_DART, (entity) -> new EntitySpawnClientPacket(entity, 584, 1 + (((EntityDart)entity).getOwner() == null ? entity.getEntityId() : ((EntityDart)entity).getOwner().getEntityId())));
-		registerSpawnPacket(ENCHANTED_DART, (entity) -> new EntitySpawnClientPacket(entity, 585, 1 + (((EntityDart)entity).getOwner() == null ? entity.getEntityId() : ((EntityDart)entity).getOwner().getEntityId())));
-		registerSpawnPacket(POISON_DART, (entity) -> new EntitySpawnClientPacket(entity, 586, 1 + (((EntityDart)entity).getOwner() == null ? entity.getEntityId() : ((EntityDart)entity).getOwner().getEntityId())));
-		registerSpawnPacket(POISON_NEEDLE, (entity) -> new EntitySpawnClientPacket(entity, 587, 1 + (((EntityDart)entity).getOwner() == null ? entity.getEntityId() : ((EntityDart)entity).getOwner().getEntityId())));
+		registerSpawnPacket(FLOATING_BLOCK, (entity) -> new EntitySpawnClientPacket(entity, Block.getRawIdFromState(((EntityFloatingBlock)entity).getBlockstate())));
+		registerSpawnPacket(GOLDEN_DART, (entity) -> new EntitySpawnClientPacket(entity, 1 + (((EntityDart)entity).getOwner() == null ? entity.getEntityId() : ((EntityDart)entity).getOwner().getEntityId())));
+		registerSpawnPacket(ENCHANTED_DART, (entity) -> new EntitySpawnClientPacket(entity, 1 + (((EntityDart)entity).getOwner() == null ? entity.getEntityId() : ((EntityDart)entity).getOwner().getEntityId())));
+		registerSpawnPacket(POISON_DART, (entity) -> new EntitySpawnClientPacket(entity, 1 + (((EntityDart)entity).getOwner() == null ? entity.getEntityId() : ((EntityDart)entity).getOwner().getEntityId())));
+		registerSpawnPacket(POISON_NEEDLE, (entity) -> new EntitySpawnClientPacket(entity, 1 + (((EntityDart)entity).getOwner() == null ? entity.getEntityId() : ((EntityDart)entity).getOwner().getEntityId())));
 		//registerSpawnPacket(FLOATING_BLOCK, (entity) -> new CustomPayloadClientPacket(Aether.locate("spawns"), EntityFloatingBlock.write((EntityFloatingBlock)entity)));
 		//registerSpawnPacket(GOLDEN_DART, (entity) -> new CustomPayloadClientPacket(Aether.locate("spawns"), EntityDart.write((EntityDart) entity)));
 		//registerSpawnPacket(ENCHANTED_DART, (entity) -> new CustomPayloadClientPacket(Aether.locate("spawns"), EntityDart.write((EntityDart) entity)));

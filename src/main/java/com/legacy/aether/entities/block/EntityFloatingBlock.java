@@ -11,6 +11,7 @@ import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.Packet;
 import net.minecraft.tag.FluidTags;
 import net.minecraft.util.PacketByteBuf;
 import net.minecraft.util.TagHelper;
@@ -249,5 +250,11 @@ public class EntityFloatingBlock extends Entity
     {
         return this.state;
     }
+
+	@Override
+	public Packet<?> createSpawnPacket()
+	{
+		return null;
+	}
 
 }

@@ -4,6 +4,7 @@ import net.minecraft.entity.LightningEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.network.ServerPlayerEntity;
 
 import com.legacy.aether.item.ItemsAether;
 import com.legacy.aether.item.util.AetherTier;
@@ -17,26 +18,31 @@ public class ItemElementalSword extends ItemAetherSword
 	}
 
 	@Override
-    public boolean onEntityDamaged(ItemStack stack, LivingEntity entityliving, LivingEntity entityliving1)
+    public boolean onEntityDamaged(ItemStack stack, LivingEntity victim, LivingEntity attacker)
     {
 		if (this == ItemsAether.flaming_sword)
 		{
-			entityliving.setOnFireFor(30);
+			victim.setOnFireFor(30);
 		}
 		else if (this == ItemsAether.lightning_sword)
 		{
-			LightningEntity lightning = new LightningEntity(entityliving1.world, entityliving.getPos().getX(), entityliving.getPos().getY(), entityliving.getPos().getZ(), false);
+			LightningEntity lightning = new LightningEntity(attacker.world, victim.getPos().getX(), victim.getPos().getY(), victim.getPos().getZ(), false);
+
+			if (attacker instanceof ServerPlayerEntity)
+			{
+				lightning.method_6961((ServerPlayerEntity) attacker);
+			}
 
 			//entityliving1.world.addWeatherEffect(lightning);
 		}
-		else if (this == ItemsAether.holy_sword && entityliving.isUndead())
+		else if (this == ItemsAether.holy_sword && victim.isUndead())
 		{
-			entityliving.damage(DamageSource.mob(entityliving1), 20);
+			victim.damage(DamageSource.mob(attacker), 20);
 
-			stack.applyDamage(10, entityliving1);
+			stack.applyDamage(10, attacker);
 		}
 
-		return super.onEntityDamaged(stack, entityliving, entityliving1);
+		return super.onEntityDamaged(stack, victim, attacker);
     }
 
 }

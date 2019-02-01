@@ -1,14 +1,14 @@
 package com.legacy.aether.world;
 
-import com.legacy.aether.Aether;
-import com.legacy.aether.world.biome.AetherHighlandsBiome;
-import com.legacy.aether.world.gen.chunk.AetherChunkGenerator;
-import com.legacy.aether.world.gen.chunk.AetherChunkGeneratorSettings;
-
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.gen.chunk.ChunkGeneratorType;
+
+import com.legacy.aether.Aether;
+import com.legacy.aether.world.biome.AetherHighlandsBiome;
+import com.legacy.aether.world.gen.chunk.AetherChunkGenerator;
+import com.legacy.aether.world.gen.chunk.AetherChunkGeneratorSettings;
 
 public class WorldAether
 {

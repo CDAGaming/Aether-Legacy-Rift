@@ -8,7 +8,7 @@ import net.minecraft.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.entity.ai.goal.SwimGoal;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.mob.MobEntityWithAi;
+import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.AxeItem;
 import net.minecraft.sound.SoundEvent;
@@ -17,7 +17,7 @@ import net.minecraft.world.World;
 
 import com.legacy.aether.entities.EntityTypesAether;
 
-public class EntityChestMimic extends MobEntityWithAi
+public class EntityChestMimic extends HostileEntity
 {
 
 	public float mouth, legs;

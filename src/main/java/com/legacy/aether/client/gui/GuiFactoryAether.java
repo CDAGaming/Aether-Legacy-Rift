@@ -2,7 +2,7 @@ package com.legacy.aether.client.gui;
 
 import net.fabricmc.fabric.api.client.gui.GuiProviderRegistry;
 import net.fabricmc.fabric.api.container.ContainerFactory;
-import net.minecraft.client.gui.ContainerGui;
+import net.minecraft.client.gui.ContainerScreen;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.PacketByteBuf;
@@ -17,7 +17,7 @@ import com.legacy.aether.client.gui.container.GuiFreezer;
 import com.legacy.aether.client.gui.container.GuiIncubator;
 
 @SuppressWarnings("rawtypes")
-public class GuiFactoryAether implements ContainerFactory<ContainerGui>
+public class GuiFactoryAether implements ContainerFactory<ContainerScreen>
 {
 
 	private static final GuiFactoryAether INSTANCE = new GuiFactoryAether();
@@ -32,7 +32,7 @@ public class GuiFactoryAether implements ContainerFactory<ContainerGui>
 	}
 
 	@Override
-	public ContainerGui<?> create(int syncId, Identifier identifierIn, PlayerEntity playerIn, PacketByteBuf byteBuf)
+	public ContainerScreen<?> create(int syncId, Identifier identifierIn, PlayerEntity playerIn, PacketByteBuf byteBuf)
 	{
 		String guiName = identifierIn.getPath();
 

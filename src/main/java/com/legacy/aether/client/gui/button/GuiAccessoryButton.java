@@ -2,8 +2,8 @@ package com.legacy.aether.client.gui.button;
 
 import io.netty.buffer.Unpooled;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.Gui;
-import net.minecraft.client.gui.ingame.PlayerInventoryGui;
+import net.minecraft.client.gui.Screen;
+import net.minecraft.client.gui.ingame.PlayerInventoryScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.server.network.packet.CustomPayloadServerPacket;
 import net.minecraft.util.Identifier;
@@ -20,9 +20,9 @@ public class GuiAccessoryButton extends ButtonWidget
 
 	private static final Identifier HOVERED_TEXTURE = Aether.locate("textures/gui/inventory/button/cloud_hover.png");
 
-	private Gui screen;
+	private Screen screen;
 
-	public GuiAccessoryButton(Gui screen, int xIn, int yIn)
+	public GuiAccessoryButton(Screen screen, int xIn, int yIn)
 	{
 		super(18067, xIn, yIn, 12, 12, "");
 
@@ -42,9 +42,9 @@ public class GuiAccessoryButton extends ButtonWidget
 	{
 		MinecraftClient mc = MinecraftClient.getInstance();
 
-		if (mc.currentGui instanceof GuiAccessories)
+		if (mc.currentScreen instanceof GuiAccessories)
 		{
-			mc.openGui(new PlayerInventoryGui(mc.player));
+			mc.openScreen(new PlayerInventoryScreen(mc.player));
 		}
 		else
 		{

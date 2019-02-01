@@ -43,12 +43,12 @@ dependencies {
     implementation 'org.ow2.asm:asm:6.2'
     implementation 'org.ow2.asm:asm-commons:6.2'
 
-    minecraft "com.mojang:minecraft:19w04b"
-    mappings "net.fabricmc:yarn:19w04b.1"
+    minecraft "com.mojang:minecraft:19w05a"
+    mappings "net.fabricmc:yarn:19w05a.6"
     modCompile "net.fabricmc:fabric-loader:0.3.2.96"
 
     // Fabric API. This is technically optional, but you probably want it anyway.
-    modCompile "net.fabricmc:fabric:0.1.4.79"
+    modCompile "net.fabricmc:fabric:0.1.5.87"
 }
 
 compileJava {

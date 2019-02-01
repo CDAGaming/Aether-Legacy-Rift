@@ -78,7 +78,7 @@ public class BlockAetherPortal extends PortalBlock
 	public BlockState getStateForNeighborUpdate(BlockState blockState_1, Direction direction_1, BlockState blockState_2, IWorld iWorld_1, BlockPos pos, BlockPos blockPos_2)
 	{
 		Direction.Axis direction$Axis_1 = direction_1.getAxis();
-		Direction.Axis direction$Axis_2 = (Direction.Axis) blockState_1.get(field_11310);
+		Direction.Axis direction$Axis_2 = (Direction.Axis) blockState_1.get(AXIS);
 		boolean boolean_1 = direction$Axis_2 != direction$Axis_1 && direction$Axis_1.isHorizontal();
 
 		return !boolean_1 && blockState_2.getBlock() != this && !(new AetherPortalSize(iWorld_1, pos, direction$Axis_2)).method_10362() ? Blocks.AIR.getDefaultState() : super.getStateForNeighborUpdate(blockState_1, direction_1, blockState_2, iWorld_1, pos, blockPos_2);

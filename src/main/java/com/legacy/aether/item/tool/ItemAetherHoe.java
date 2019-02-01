@@ -24,7 +24,7 @@ import com.legacy.aether.item.util.AetherTier;
 public class ItemAetherHoe extends HoeItem implements IAetherTool
 {
 
-    protected static final Map<Block, BlockState> convertableBlocks = Maps.<Block, BlockState>newHashMap(ImmutableMap.of(Blocks.GRASS_BLOCK, Blocks.FARMLAND.getDefaultState(), Blocks.GRASS_PATH, Blocks.FARMLAND.getDefaultState(), Blocks.DIRT, Blocks.FARMLAND.getDefaultState(), Blocks.COARSE_DIRT, Blocks.DIRT.getDefaultState()));
+    protected static final Map<Block, BlockState> convertableBlocks = Maps.<Block, BlockState>newHashMap(ImmutableMap.of(/*BlocksAether.aether_grass, BlocksAether.aether_farmland.getDefaultState(), BlocksAether.aether_grass_path, BlocksAether.aether_farmland.getDefaultState(), BlocksAether.aether_dirt, BlocksAether.aether_farmland.getDefaultState(), */Blocks.GRASS_BLOCK, Blocks.FARMLAND.getDefaultState(), Blocks.GRASS_PATH, Blocks.FARMLAND.getDefaultState(), Blocks.DIRT, Blocks.FARMLAND.getDefaultState(), Blocks.COARSE_DIRT, Blocks.DIRT.getDefaultState()));
 
 	private AetherTier material;
 

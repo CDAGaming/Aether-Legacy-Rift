@@ -1,16 +1,13 @@
 package com.legacy.aether.client.gui.dialogue;
 
-import net.minecraft.block.GrassBlock;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.audio.*;
-import net.minecraft.client.gui.Gui;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvent;
+import net.minecraft.client.audio.PositionedSoundInstance;
+import net.minecraft.client.audio.SoundLoader;
+import net.minecraft.client.gui.Screen;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.TextFormat;
 
-@SuppressWarnings("unused")
-public class DialogueOption extends Gui
+public class DialogueOption extends Screen
 {
 
 	private int dialogueId;

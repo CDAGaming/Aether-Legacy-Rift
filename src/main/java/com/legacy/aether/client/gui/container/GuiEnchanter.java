@@ -1,7 +1,7 @@
 package com.legacy.aether.client.gui.container;
 
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.ContainerGui;
+import net.minecraft.client.gui.ContainerScreen;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.text.TranslatableTextComponent;
 import net.minecraft.util.Identifier;
@@ -11,7 +11,7 @@ import com.legacy.aether.blocks.entity.AetherBlockEntity;
 import com.legacy.aether.container.ContainerEnchanter;
 import com.mojang.blaze3d.platform.GlStateManager;
 
-public class GuiEnchanter extends ContainerGui<ContainerEnchanter>
+public class GuiEnchanter extends ContainerScreen<ContainerEnchanter>
 {
 
 	private static final Identifier TEXTURE = Aether.locate("textures/gui/enchanter.png");

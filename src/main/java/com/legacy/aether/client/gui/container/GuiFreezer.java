@@ -1,7 +1,7 @@
 package com.legacy.aether.client.gui.container;
 
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.ContainerGui;
+import net.minecraft.client.gui.ContainerScreen;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.text.TranslatableTextComponent;
 import net.minecraft.util.Identifier;
@@ -11,7 +11,7 @@ import com.legacy.aether.blocks.entity.AetherBlockEntity;
 import com.legacy.aether.container.ContainerFreezer;
 import com.mojang.blaze3d.platform.GlStateManager;
 
-public class GuiFreezer extends ContainerGui<ContainerFreezer>
+public class GuiFreezer extends ContainerScreen<ContainerFreezer>
 {
 
 	private static final Identifier TEXTURE = Aether.locate("textures/gui/freezer.png");

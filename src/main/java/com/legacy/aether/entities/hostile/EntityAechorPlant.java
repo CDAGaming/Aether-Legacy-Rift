@@ -93,6 +93,15 @@ public class EntityAechorPlant extends EntityAetherAnimal implements RangedAttac
 		}
 	}
 
+	@Override
+	public boolean canSee(Entity entity)
+	{
+		double distance = this.distanceTo(entity);
+
+		return distance <= 4.0F && super.canSee(entity);
+	}
+
+	@Override
 	public boolean canSpawn(IWorld worldIn, SpawnType spawnType)
 	{
 		return worldIn.getBlockState(this.getPos().down()).getBlock() == BlocksAether.aether_grass && this.random.nextInt(400) == 0;
@@ -198,7 +207,19 @@ public class EntityAechorPlant extends EntityAetherAnimal implements RangedAttac
 	}
 
 	@Override
+	public boolean isPushable()
+	{
+		return false;
+	}
+
+	@Override
 	protected void pushAway(Entity entityIn)
+	{
+		
+	}
+
+	@Override
+	protected void doPushLogic()
 	{
 		
 	}

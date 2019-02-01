@@ -27,7 +27,7 @@ public class ItemHealingStone extends ItemAetherFood
     }
 
 	@Override
-    public boolean hasEnchantmentGlow(ItemStack stackIn)
+    public boolean hasEnchantmentGlint(ItemStack stackIn)
     {
     	return true;
     }
