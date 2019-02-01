@@ -1,0 +1,18 @@
+{
+  "type": "crafting_shaped",
+  "pattern": [
+    "#  ",
+    "## ",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "aether_legacy:light_hellfire_stone",
+      "data": 2
+    }
+  },
+  "result": {
+    "item": "aether_legacy:light_hellfire_stairs",
+    "count": 4
+  }
+}

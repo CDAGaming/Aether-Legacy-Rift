@@ -1,0 +1,17 @@
+{
+  "type": "crafting_shaped",
+  "pattern": [
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "aether_legacy:hellfire_stone",
+      "data": 4
+    }
+  },
+  "result": {
+    "item": "aether_legacy:hellfire_wall",
+    "count": 6
+  }
+}

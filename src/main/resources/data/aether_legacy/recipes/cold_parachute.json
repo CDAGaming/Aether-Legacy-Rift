@@ -1,0 +1,18 @@
+{
+  "type": "crafting_shaped",
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": [
+      {
+        "item": "aether_legacy:cold_aercloud",
+        "data": 0
+      }
+    ]
+  },
+  "result": {
+    "item": "aether_legacy:cloud_parachute"
+  }
+}

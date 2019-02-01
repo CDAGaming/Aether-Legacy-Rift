@@ -1,0 +1,15 @@
+{
+  "type": "crafting_shaped",
+  "pattern": [
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "aether_legacy:light_hellfire_stone"
+    }
+  },
+  "result": {
+    "item": "aether_legacy:light_hellfire_slab",
+    "count": 6
+  }
+}

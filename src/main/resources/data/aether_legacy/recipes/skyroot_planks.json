@@ -1,0 +1,38 @@
+{
+  "type": "crafting_shaped",
+  "group": "planks",
+  "pattern": [
+    "#"
+  ],
+  "key": {
+
+    "#": [{
+      "item": "aether_legacy:skyroot_log"
+    },
+    {
+      "item": "aether_legacy:golden_oak_log"
+    },
+    {
+      "item": "aether_legacy:stripped_skyroot_log"
+    },
+    {
+      "item": "aether_legacy:stripped_golden_oak_log"
+    },
+    {
+      "item": "aether_legacy:stripped_skyroot_wood"
+    },
+    {
+      "item": "aether_legacy:stripped_golden_oak_wood"
+    },
+    {
+      "item": "aether_legacy:skyroot_wood"
+    },
+    {
+      "item": "aether_legacy:golden_oak_wood"
+    }]
+  },
+  "result": {
+    "item": "aether_legacy:skyroot_planks",
+    "count": 4
+  }
+}

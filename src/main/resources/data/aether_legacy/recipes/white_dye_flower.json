@@ -1,0 +1,13 @@
+{
+  "type": "crafting_shapeless",
+  "group": "purple_dye",
+  "ingredients": [
+    {
+      "item": "aether_legacy:white_flower"
+    }
+  ],
+  "result": {
+    "item": "white_dye",
+    "count": 2
+  }
+}

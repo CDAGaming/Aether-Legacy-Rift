@@ -1,0 +1,15 @@
+{
+  "type": "crafting_shaped",
+  "pattern": [
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "aether_legacy:angelic_stone"
+    }
+  },
+  "result": {
+    "item": "aether_legacy:angelic_slab",
+    "count": 6
+  }
+}

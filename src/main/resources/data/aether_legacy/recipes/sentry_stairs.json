@@ -1,0 +1,18 @@
+{
+  "type": "crafting_shaped",
+  "pattern": [
+    "#  ",
+    "## ",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "aether_legacy:sentry_stone",
+      "data": 2
+    }
+  },
+  "result": {
+    "item": "aether_legacy:sentry_stairs",
+    "count": 4
+  }
+}

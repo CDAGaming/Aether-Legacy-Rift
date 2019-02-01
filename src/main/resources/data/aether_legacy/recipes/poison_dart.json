@@ -1,0 +1,20 @@
+{
+  "type": "crafting_shaped",
+  "pattern": [
+    "HHH",
+    "HBH",
+    "HHH"
+  ],
+  "key": {
+    "B": {
+      "item": "aether_legacy:skyroot_poison_bucket"
+    },
+    "H": {
+      "item": "aether_legacy:golden_dart"
+    }
+  },
+  "result": {
+    "item": "aether_legacy:poison_dart",
+    "count": 8
+  }
+}
