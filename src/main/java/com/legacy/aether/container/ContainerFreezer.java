@@ -41,7 +41,7 @@ public class ContainerFreezer extends Container
 			this.addSlot(new Slot(inventoryIn, i, 8 + i * 18, 142));
 		}
 
-		this.readData(freezerIn);
+		this.addProperties(freezerIn);
 	}
 
 	@Override

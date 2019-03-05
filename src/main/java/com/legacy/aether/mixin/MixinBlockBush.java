@@ -2,13 +2,14 @@ package com.legacy.aether.mixin;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.block.PlantBlock;
 import net.minecraft.util.math.BlockPos;
-
 import net.minecraft.world.BlockView;
+
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import com.legacy.aether.blocks.BlocksAether;
 
@@ -16,15 +17,16 @@ import com.legacy.aether.blocks.BlocksAether;
 public class MixinBlockBush 
 {
 
-	/**
-	 * @author Modding Legacy
-	 */
-	@Overwrite
-	public boolean canPlantOnTop(BlockState stateIn, BlockView readerIn, BlockPos posIn)
+	@Inject(method = "canPlantOnTop", at = @At("RETURN"), cancellable = true)
+	protected void canPlantOnAetherBlocks(BlockState stateIn, BlockView readerIn, BlockPos posIn, CallbackInfoReturnable<Boolean> ci)
 	{
-        Block block = stateIn.getBlock();
+		if (!ci.getReturnValue())
+		{
+			Block block = stateIn.getBlock();
+			boolean canBePlacedOn = block == BlocksAether.aether_grass || block == BlocksAether.aether_dirt || block == BlocksAether.aether_farmland;
 
-        return block == BlocksAether.aether_grass || block == BlocksAether.aether_dirt || block == Blocks.GRASS_BLOCK || block == Blocks.DIRT || block == Blocks.COARSE_DIRT || block == Blocks.PODZOL || block == Blocks.FARMLAND;
+			ci.setReturnValue(canBePlacedOn);
+		}
 	}
 
 }

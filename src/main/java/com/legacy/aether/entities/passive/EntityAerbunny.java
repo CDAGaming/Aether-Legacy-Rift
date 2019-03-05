@@ -2,10 +2,10 @@ package com.legacy.aether.entities.passive;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.class_1361;
-import net.minecraft.class_1376;
 import net.minecraft.class_1394;
 import net.minecraft.entity.ai.goal.AnimalMateGoal;
+import net.minecraft.entity.ai.goal.LookAroundGoal;
+import net.minecraft.entity.ai.goal.LookAtEntityGoal;
 import net.minecraft.entity.ai.goal.SwimGoal;
 import net.minecraft.entity.ai.goal.TemptGoal;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -22,6 +22,7 @@ import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 import com.legacy.aether.api.AetherAPI;
@@ -46,19 +47,17 @@ public class EntityAerbunny extends EntityAetherAnimal
 		super(EntityTypesAether.AERBUNNY, world);
 
 		this.ignoreCameraFrustum = true;
-
-		this.setSize(0.4F, 0.4F);
 	}
 
 	@Override
-	protected void method_5959()
+	protected void initGoals()
 	{
 		this.goalSelector.add(0, new SwimGoal(this));
 		this.goalSelector.add(1, new class_1394(this, 2D, 6));
 		this.goalSelector.add(2, new AnimalMateGoal(this, 1.0D));
 		this.goalSelector.add(3, new TemptGoal(this, 1.25D, Ingredient.ofItems(ItemsAether.blueberry), false));
-		this.goalSelector.add(4, new class_1361(this, PlayerEntity.class, 10.0F));
-		this.goalSelector.add(5, new class_1376(this));
+		this.goalSelector.add(4, new LookAtEntityGoal(this, PlayerEntity.class, 10.0F));
+		this.goalSelector.add(5, new LookAroundGoal(this));
 		//this.goalSelector.add(6, new EntityAIBunnyHop(this));
 	}
 
@@ -170,19 +169,19 @@ public class EntityAerbunny extends EntityAetherAnimal
 			this.doJump(true);
 			this.jumps = 1;
 			this.jumpTicks = 2;
-			this.velocityY = 0.42F;
+			this.setVelocity(new Vec3d(this.getVelocity().x, 0.42D, this.getVelocity().z));
 		}
 
-		if (this.velocityY < -0.1D)
+		if (this.getVelocity().y < -0.1D)
 		{
-			this.velocityY = -0.1D;
+			this.setVelocity(new Vec3d(this.getVelocity().x, -0.1D, this.getVelocity().z));
 		}
 
 		if (this.getRiddenEntity() != null && this.getRiddenEntity() instanceof PlayerEntity)
 		{
 			PlayerEntity player = (PlayerEntity) this.getRiddenEntity();
 
-			this.getNavigation().method_6340();
+			this.getNavigation().stop();
 
 			this.setRotation(player.yaw, player.pitch);
 
@@ -192,16 +191,16 @@ public class EntityAerbunny extends EntityAetherAnimal
 			{
 				if (!player.abilities.flying)
 				{
-					player.velocityY += 0.05000000074505806D;
+					this.setVelocity(this.getVelocity().add(0.0D, 0.05D, 0.0D));
 				}
 
 				player.fallDistance = 0.0F;
 
-				if (player.velocityY < -0.22499999403953552D)
+				if (player.getVelocity().y < -0.22499999403953552D)
 				{
 					if (AetherAPI.get(player).isJumping())
 					{
-						player.velocityY = 0.125D;
+						this.setVelocity(new Vec3d(this.getVelocity().x, 0.125D, this.getVelocity().z));
 
 						this.setPuffiness(11);
 						this.method_5990();

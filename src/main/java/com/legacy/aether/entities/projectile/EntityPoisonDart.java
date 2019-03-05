@@ -1,18 +1,19 @@
 package com.legacy.aether.entities.projectile;
 
 import io.netty.buffer.Unpooled;
-import net.minecraft.client.network.packet.CustomPayloadClientPacket;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.particle.ItemStackParticleParameters;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.network.packet.CustomPayloadC2SPacket;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.PacketByteBuf;
+import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
@@ -29,21 +30,21 @@ public class EntityPoisonDart extends EntityDart
 
 	private AetherPoisonMovement poison;
 
-	public EntityPoisonDart(EntityType<?> entityType, double x, double y, double z, World world)
+	public EntityPoisonDart(EntityType<? extends ProjectileEntity> entityType, double x, double y, double z, World world)
 	{
 		super(entityType, x, y, z, world);
 
 		this.setDamage(0);
 	}
 
-	public EntityPoisonDart(EntityType<?> entityType, LivingEntity owner, World world)
+	public EntityPoisonDart(EntityType<? extends ProjectileEntity> entityType, LivingEntity owner, World world)
 	{
 		super(entityType, owner, world);
 
 		this.setDamage(0);
 	}
 
-	public EntityPoisonDart(EntityType<?> entityType, World world)
+	public EntityPoisonDart(EntityType<? extends ProjectileEntity> entityType, World world)
 	{
 		super(entityType, world);
 
@@ -107,7 +108,7 @@ public class EntityPoisonDart extends EntityDart
 
 			byteBuf.writeInt(500);
 
-			((ServerPlayerEntity)entityIn).networkHandler.sendPacket(new CustomPayloadClientPacket(Aether.locate("poison"), byteBuf));
+			((ServerPlayerEntity)entityIn).networkHandler.sendPacket(new CustomPayloadC2SPacket(Aether.locate("poison"), byteBuf));
 		}
 		else
 		{
@@ -119,7 +120,7 @@ public class EntityPoisonDart extends EntityDart
 	}
 
 	@Override
-	protected Entity method_7434(Vec3d start, Vec3d end)
+	protected EntityHitResult method_7434(Vec3d start, Vec3d end)
 	{
 		return this.victim == null ? super.method_7434(start, end) : null;
 	}
@@ -137,12 +138,6 @@ public class EntityPoisonDart extends EntityDart
 	protected ItemStack asItemStack()
 	{
 		return new ItemStack(ItemsAether.poison_dart);
-	}
-
-	@Override
-	public int getSpawnID()
-	{
-		return 3;
 	}
 
 }

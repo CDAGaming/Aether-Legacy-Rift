@@ -30,17 +30,17 @@ public class AerbunnyRenderer extends MobEntityRenderer<EntityAerbunny, Aerbunny
 
 		if (!bunny.onGround)
 		{
-			if (bunny.velocityY > 0.5D)
+			if (bunny.getVelocity().y > 0.5D)
 			{
 				GL11.glRotatef(15.0F, -1.0F, 0.0F, 0.0F);
 			}
-			else if (bunny.velocityY < -0.5D)
+			else if (bunny.getVelocity().y < -0.5D)
 			{
 				GL11.glRotatef(-15.0F, -1.0F, 0.0F, 0.0F);
 			}
 			else
 			{
-				GL11.glRotatef((float) (bunny.velocityY * 30.0D), -1.0F, 0.0F, 0.0F);
+				GL11.glRotatef((float) (bunny.getVelocity().y * 30.0D), -1.0F, 0.0F, 0.0F);
 			}
 		}
 	}

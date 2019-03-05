@@ -134,7 +134,7 @@ public abstract class AetherBlockEntity extends BlockEntity implements SidedInve
 	}
 
 	@Override
-	public void clearInv()
+	public void clear()
 	{
 		this.getInventory().clear();
 	}

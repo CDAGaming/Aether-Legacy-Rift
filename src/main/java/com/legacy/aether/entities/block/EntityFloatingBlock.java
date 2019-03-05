@@ -1,10 +1,10 @@
 package com.legacy.aether.entities.block;
 
-import io.netty.buffer.Unpooled;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.ConcretePowderBlock;
+import net.minecraft.client.network.packet.EntitySpawnS2CPacket;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.MovementType;
 import net.minecraft.entity.data.DataTracker;
@@ -13,12 +13,10 @@ import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Packet;
 import net.minecraft.tag.FluidTags;
-import net.minecraft.util.PacketByteBuf;
 import net.minecraft.util.TagHelper;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.RayTraceContext;
 import net.minecraft.world.World;
@@ -29,6 +27,7 @@ import com.legacy.aether.entities.EntityTypesAether;
 
 public class EntityFloatingBlock extends Entity
 {
+
     private static final TrackedData<BlockPos> ORIGIN = DataTracker.registerData(EntityFloatingBlock.class, TrackedDataHandlerRegistry.BLOCK_POS);
 
     private BlockState state = BlocksAether.gravitite_ore.getDefaultState();
@@ -40,7 +39,6 @@ public class EntityFloatingBlock extends Entity
 		super(EntityTypesAether.FLOATING_BLOCK, world);
 
 		this.state = BlocksAether.gravitite_ore.getDefaultState();
-		this.setSize(0.98F, 0.98F);
 	}
 
 	public EntityFloatingBlock(World world, double x, double y, double z, BlockState state)
@@ -48,38 +46,16 @@ public class EntityFloatingBlock extends Entity
 		this(world);
 
 		this.state = state;
-		//this.preventEntitySpawning = true;
+		this.field_6033 = true;
 
 		this.setPosition(x, y + (double)((1.0F - this.getHeight()) / 2.0F), z);
+		this.setVelocity(Vec3d.ZERO);
 
-		this.velocityX = this.velocityY = this.velocityZ = 0.0D;
 		this.prevX = x;
 		this.prevY = y;
 		this.prevZ = z;
 
 		this.setOrigin(new BlockPos(this));
-	}
-
-	public static PacketByteBuf write(EntityFloatingBlock block) 
-	{
-		PacketByteBuf buf = new PacketByteBuf(Unpooled.buffer());
-
-		buf.writeInt(0);
-		buf.writeVarInt(block.getEntityId());
-		buf.writeUuid(block.getUuid());
-		buf.writeDouble(block.x);
-		buf.writeDouble(block.y);
-		buf.writeDouble(block.z);
-		buf.writeInt((int)(MathHelper.clamp(block.velocityX, -3.9D, 3.9D) * 8000.0D));
-		buf.writeInt((int)(MathHelper.clamp(block.velocityY, -3.9D, 3.9D) * 8000.0D));
-		buf.writeInt((int)(MathHelper.clamp(block.velocityZ, -3.9D, 3.9D) * 8000.0D));
-		buf.writeInt(MathHelper.floor(block.pitch * 256.0F / 360.0F));
-		buf.writeInt(MathHelper.floor(block.yaw * 256.0F / 360.0F));
-
-		//Extra data
-		buf.writeInt(Block.getRawIdFromState(block.getBlockstate()));
-
-		return buf;
 	}
 
     public void setOrigin(BlockPos p_184530_1_)
@@ -148,17 +124,17 @@ public class EntityFloatingBlock extends Entity
 
             if (!this.isUnaffectedByGravity())
             {
-                this.velocityY += 0.04D;
+            	this.setVelocity(this.getVelocity().add(0.0D, -0.04D, 0.0D));
             }
 
-            this.move(MovementType.SELF, this.velocityX, this.velocityY, this.velocityZ);
+            this.move(MovementType.SELF, this.getVelocity());
 
             if (!this.world.isClient)
             {
                 BlockPos blockpos1 = new BlockPos(this);
                 boolean flag = this.state.getBlock() instanceof ConcretePowderBlock;
                 boolean flag1 = flag && this.world.getFluidState(blockpos1).matches(FluidTags.WATER);
-                double d0 = this.velocityX * this.velocityX + this.velocityY * this.velocityY + this.velocityZ * this.velocityZ;
+                double d0 = this.getVelocity().lengthSquared();
 
                 if (flag && d0 > 1.0D)
                 {
@@ -191,17 +167,13 @@ public class EntityFloatingBlock extends Entity
                         return;
                     }
 
-                    this.velocityX *= 0.699999988079071D;
-                    this.velocityZ *= 0.699999988079071D;
-                    this.velocityY *= 0.5D;
+                    this.setVelocity(this.getVelocity().multiply(0.7D, -0.5D, 0.7D));
                 }
             }
 
-            this.velocityX *= 0.9800000190734863D;
-            this.velocityY *= 0.9800000190734863D;
-            this.velocityZ *= 0.9800000190734863D;
+            this.setVelocity(this.getVelocity().multiply(0.98D));
 
-            if (this.velocityY == 0.0F)
+            if (this.getVelocity().y == 0.0F)
             {
             	this.world.setBlockState(new BlockPos(this), this.getBlockstate());
             	this.invalidate();
@@ -254,7 +226,7 @@ public class EntityFloatingBlock extends Entity
 	@Override
 	public Packet<?> createSpawnPacket()
 	{
-		return null;
+		return new EntitySpawnS2CPacket(this, Block.getRawIdFromState(this.getBlockstate()));
 	}
 
 }

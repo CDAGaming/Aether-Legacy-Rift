@@ -37,10 +37,4 @@ public class EntityEnchantedDart extends EntityDart
 		return new ItemStack(ItemsAether.enchanted_dart);
 	}
 
-	@Override
-	public int getSpawnID()
-	{
-		return 2;
-	}
-
 }

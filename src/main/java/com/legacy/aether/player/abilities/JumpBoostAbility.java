@@ -28,7 +28,7 @@ public class JumpBoostAbility implements AetherAbility
 		{
 			this.boosted = true;
 
-			this.playerAether.getPlayer().velocityY = 1D;
+			this.playerAether.getPlayer().setVelocity(this.playerAether.getPlayer().getVelocity().add(0.0D, 1.0D, 0.0D));
 		}
 		else if (this.playerAether.getPlayer().onGround)
 		{

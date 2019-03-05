@@ -1,24 +1,24 @@
 package com.legacy.aether.world;
 
-import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.gen.chunk.ChunkGeneratorType;
 
 import com.legacy.aether.Aether;
 import com.legacy.aether.world.biome.AetherHighlandsBiome;
+import com.legacy.aether.world.dimension.AetherDimensionType;
 import com.legacy.aether.world.gen.chunk.AetherChunkGenerator;
 import com.legacy.aether.world.gen.chunk.AetherChunkGeneratorSettings;
+import com.legacy.aether.world.gen.chunk.AetherChunkGeneratorType;
 
 public class WorldAether
 {
 
-	public static final DimensionType THE_AETHER = Registry.DIMENSION.get(new Identifier("the_aether"));
+	public static final DimensionType THE_AETHER = Registry.register(Registry.DIMENSION, 4, "aether_legacy:the_aether", new AetherDimensionType());
 
 	public static AetherHighlandsBiome AETHER_HIGHLANDS;
 
-	@SuppressWarnings("unchecked")
-	public static final ChunkGeneratorType<AetherChunkGeneratorSettings, AetherChunkGenerator> AETHER_ISLANDS = (ChunkGeneratorType<AetherChunkGeneratorSettings, AetherChunkGenerator>) Registry.CHUNK_GENERATOR_TYPE.get(new Identifier("aether_islands"));
+	public static final ChunkGeneratorType<AetherChunkGeneratorSettings, AetherChunkGenerator> AETHER_ISLANDS = Registry.register(Registry.CHUNK_GENERATOR_TYPE, Aether.locate("aether_islands"), new AetherChunkGeneratorType());
 
 	public static void registerWorld()
 	{

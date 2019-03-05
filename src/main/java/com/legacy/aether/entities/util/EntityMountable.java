@@ -8,9 +8,11 @@ import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 import com.legacy.aether.api.AetherAPI;
@@ -29,9 +31,9 @@ public abstract class EntityMountable extends EntityAetherAnimal
 
 	protected boolean canJumpMidAir = false;
 
-	public EntityMountable(EntityType<?> entityType, World world)
+	public EntityMountable(EntityType<? extends AnimalEntity> type, World world)
 	{
-		super(entityType, world);
+		super(type, world);
 	}
 
 	@Override
@@ -43,7 +45,7 @@ public abstract class EntityMountable extends EntityAetherAnimal
 	}
 
 	@Override
-	public void method_6091(float strafe, float vertical, float forward)
+	public void travel(Vec3d motion)
 	{
 		Entity entity = this.getPassengerList().isEmpty() ? null : this.getPassengerList().get(0);
 
@@ -56,40 +58,38 @@ public abstract class EntityMountable extends EntityAetherAnimal
 
 			this.headYaw = player.headYaw;
 
-			strafe = player.field_6212;
-			vertical = player.field_6227;
-			forward = player.field_6250;
+			motion = new Vec3d(player.movementInputSideways, player.movementInputUp, player.movementInputForward);
 
-			if (forward <= 0.0F)
+			if (motion.z <= 0.0F)
 			{
-				forward *= 0.25F;
+				motion.multiply(1.0F, 1.0F, 0.25F);
 			}
 			else
 			{
-				forward *= 0.75F;
+				motion.multiply(1.0F, 1.0F, 0.75F);
 			}
 
 			if (AetherAPI.get(player).isJumping())
 			{
-				this.onMountedJump(strafe, forward);
+				this.onMountedJump(motion);
 			}
 
 			if (this.jumpPower > 0.0F && !this.isMountJumping() && (this.onGround || this.canJumpMidAir))
 			{
-				this.velocityY = this.getMountJumpStrength() * (double) this.jumpPower;
+				this.setVelocity(new Vec3d(this.getVelocity().x, this.getMountJumpStrength() * this.jumpPower, this.getVelocity().z));
 
 				if (this.hasPotionEffect(StatusEffects.JUMP_BOOST))
 				{
-					this.velocityY += (double) ((float) (this.getPotionEffect(StatusEffects.JUMP_BOOST).getAmplifier() + 1) * 0.1F);
+					this.setVelocity(this.getVelocity().add(0.0D, (this.getPotionEffect(StatusEffects.JUMP_BOOST).getAmplifier() + 1) * 0.1F, 0.0D));
 				}
 
 				this.setMountJumping(true);
+
 				this.velocityDirty = true;
 
-				if (forward > 0.0F) 
+				if (motion.z > 0.0F) 
 				{
-					this.velocityX *= 0.35F;
-					this.velocityZ *= 0.35F;
+					this.setVelocity(this.getVelocity().multiply(0.35F, 1.0F, 0.35F));
 				}
 
 				this.jumpPower = 0.0F;
@@ -97,18 +97,16 @@ public abstract class EntityMountable extends EntityAetherAnimal
 
 			this.stepHeight = 1.0F;
 
-			this.field_6281 = this.method_6029() * 0.1F;
+			this.field_6281 = this.getMovementSpeed() * 0.1F;
 
 			if (this.method_5787())
 			{
-				this.method_6125((float) this.getAttributeInstance(EntityAttributes.MOVEMENT_SPEED).getValue());
-				super.method_6091(strafe, vertical, forward);
+				this.setMovementSpeed((float) this.getAttributeInstance(EntityAttributes.MOVEMENT_SPEED).getValue());
+				super.travel(motion);
 			} 
 			else
 			{
-				this.velocityX = 0.0D;
-				this.velocityY = 0.0D;
-				this.velocityZ = 0.0D;
+				super.travel(Vec3d.ZERO);
 			}
 
 			if (this.onGround)
@@ -134,12 +132,13 @@ public abstract class EntityMountable extends EntityAetherAnimal
 		{
 			this.stepHeight = 0.5F;
 			this.field_6281 = 0.02F;
-			super.method_6091(strafe, vertical, forward);
+
+			super.travel(motion);
 		}
 	}
 
 	@Override
-    public float method_6029()
+    public float getMovementSpeed()
     {
         return this.getMountedMoveSpeed();
     }
@@ -170,7 +169,7 @@ public abstract class EntityMountable extends EntityAetherAnimal
 		return this.mountJumping;
 	}
 
-	public void onMountedJump(float par1, float par2)
+	public void onMountedJump(Vec3d motion)
 	{
 		this.jumpPower = 0.4F;
 	}

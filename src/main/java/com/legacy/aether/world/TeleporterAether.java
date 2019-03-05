@@ -2,6 +2,7 @@ package com.legacy.aether.world;
 
 import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
 import it.unimi.dsi.fastutil.longs.Long2ObjectOpenHashMap;
+import it.unimi.dsi.fastutil.objects.ObjectIterator;
 
 import java.util.Random;
 
@@ -21,17 +22,20 @@ import net.minecraft.world.chunk.ChunkPos;
 
 import com.legacy.aether.blocks.BlocksAether;
 import com.legacy.aether.blocks.portal.BlockAetherPortal;
+import com.mojang.datafixers.util.Pair;
 
 public class TeleporterAether extends PortalForcer
 {
 
-	private boolean portalSpawn;
+	public final boolean portalSpawn;
 
-    private final Random random;
+	private final Random random;
 
-    private final ServerWorld worldServerInstance;
+	private final ServerWorld worldServerInstance;
 
-    private final Long2ObjectMap<AetherPortalPosition> destinationCoordinateCache = new Long2ObjectOpenHashMap<AetherPortalPosition>(4096);
+	private final Long2ObjectMap<AetherPortalPosition> destinations = new Long2ObjectOpenHashMap<AetherPortalPosition>(4096);
+
+	private Entity data;
 
 	public TeleporterAether(boolean portalSpawn, ServerWorld serverIn)
 	{
@@ -43,164 +47,106 @@ public class TeleporterAether extends PortalForcer
 	}
 
 	@Override
-	public void method_8655(Entity entityIn, float rotationYaw)
+	public boolean method_8653(Entity entity, float yaw)
 	{
-    	if (!this.portalSpawn)
-    	{
-            if (entityIn instanceof ServerPlayerEntity)
-            {
-                ((ServerPlayerEntity)entityIn).networkHandler.teleportRequest(entityIn.x, 256, entityIn.z, entityIn.yaw, entityIn.pitch);
-                ((ServerPlayerEntity)entityIn).networkHandler.syncWithPlayerPosition();
-            }
-            else
-            {
-                entityIn.setPositionAnglesAndUpdate(entityIn.x, 256, entityIn.z, entityIn.yaw, entityIn.pitch);
-            }
+		this.data = entity;
 
-    		return;
-    	}
+		Direction direction_1 = entity.method_5843();
+		long long_1 = ChunkPos.toLong(MathHelper.floor(entity.x), MathHelper.floor(entity.z));
+		Pair<Vec3d, Pair<Vec3d, Integer>> pair_1 = this.method_18475(new BlockPos(entity), entity.getVelocity(), long_1, direction_1, 0, 0);
 
-        if (!this.method_8653(entityIn, rotationYaw))
-        {
-            this.method_8654(entityIn);
-            this.method_8653(entityIn, rotationYaw);
-        }
+		if (pair_1 == null)
+		{
+			return false;
+		}
+		else
+		{
+			Vec3d vec3d_2 = (Vec3d) pair_1.getFirst();
+			Vec3d vec3d_3 = (Vec3d) ((Pair<Vec3d, Integer>) pair_1.getSecond()).getFirst();
+
+			entity.setVelocity(vec3d_3);
+			entity.yaw = yaw + (float) (Integer) ((Pair<Vec3d, Integer>) pair_1.getSecond()).getSecond();
+
+			if (entity instanceof ServerPlayerEntity)
+			{
+				((ServerPlayerEntity) entity).networkHandler.teleportRequest(vec3d_2.x, vec3d_2.y, vec3d_2.z, entity.yaw, entity.pitch);
+				((ServerPlayerEntity) entity).networkHandler.syncWithPlayerPosition();
+			}
+			else
+			{
+				entity.setPositionAndAngles(vec3d_2.x, vec3d_2.y, vec3d_2.z, entity.yaw, entity.pitch);
+			}
+
+			return true;
+		}
 	}
 
 	@Override
-	public boolean method_8653(Entity entityIn, float rotationYaw)
+	public Pair<Vec3d, Pair<Vec3d, Integer>> method_18475(BlockPos entityPos, Vec3d velocity, long chunkPos, Direction direction, double x, double y)
 	{
-        double d0 = -1.0D;
-        int j = MathHelper.floor(entityIn.x);
-        int k = MathHelper.floor(entityIn.z);
-        boolean flag = true;
-        BlockPos blockpos = BlockPos.ORIGIN;
-        long l = ChunkPos.toLong(j, k);
+		boolean shouldBeCreated = true;
+		BlockPos portalPos = null;
 
-        if (this.destinationCoordinateCache.containsKey(l))
-        {
-        	AetherPortalPosition teleporter$portalposition = this.destinationCoordinateCache.get(l);
-            d0 = 0.0D;
-            blockpos = teleporter$portalposition;
-            teleporter$portalposition.lastUpdateTime = this.worldServerInstance.getTime();
-            flag = false;
-        }
-        else
-        {
-            BlockPos blockpos3 = new BlockPos(entityIn);
+		if (this.destinations.containsKey(chunkPos))
+		{
+			AetherPortalPosition portalForcer$class_1947_1 = (AetherPortalPosition) this.destinations.get(chunkPos);
+			portalPos = portalForcer$class_1947_1;
+			portalForcer$class_1947_1.lastUpdateTime = this.worldServerInstance.getTime();
+			shouldBeCreated = false;
+		}
+		else
+		{
+			double double_3 = Double.MAX_VALUE;
 
-            for (int i1 = -128; i1 <= 128; ++i1)
-            {
-                BlockPos blockpos2;
+			for (int checkX = -128; checkX <= 128; ++checkX)
+			{
+				BlockPos blockPos_4;
 
-                for (int j1 = -128; j1 <= 128; ++j1)
-                {
-                    for (BlockPos blockpos1 = blockpos3.add(i1, this.worldServerInstance.getHeight() - 1 - blockpos3.getY(), j1); blockpos1.getY() >= 0; blockpos1 = blockpos2)
-                    {
-                        blockpos2 = blockpos1.down();
+				for (int checkZ = -128; checkZ <= 128; ++checkZ)
+				{
+					for (BlockPos blockPos_3 = entityPos.add(checkX, this.worldServerInstance.getEffectiveHeight() - 1 - entityPos.getY(), checkZ); blockPos_3.getY() >= 0; blockPos_3 = blockPos_4)
+					{
+						blockPos_4 = blockPos_3.down();
 
-                        if (this.worldServerInstance.getBlockState(blockpos1).getBlock() == BlocksAether.aether_portal)
-                        {
-                            for (blockpos2 = blockpos1.down(); this.worldServerInstance.getBlockState(blockpos2).getBlock() == BlocksAether.aether_portal; blockpos2 = blockpos2.down())
-                            {
-                                blockpos1 = blockpos2;
-                            }
+						if (this.worldServerInstance.getBlockState(blockPos_3).getBlock() == BlocksAether.aether_portal)
+						{
+							for (blockPos_4 = blockPos_3.down(); this.worldServerInstance.getBlockState(blockPos_4).getBlock() == BlocksAether.aether_portal; blockPos_4 = blockPos_4.down())
+							{
+								blockPos_3 = blockPos_4;
+							}
 
-                            double d1 = blockpos1.squaredDistanceTo(blockpos3);
+							double double_4 = blockPos_3.squaredDistanceTo(entityPos);
 
-                            if (d0 < 0.0D || d1 < d0)
-                            {
-                                d0 = d1;
-                                blockpos = blockpos1;
-                            }
-                        }
-                    }
-                }
-            }
-        }
+							if (double_3 < 0.0D || double_4 < double_3)
+							{
+								double_3 = double_4;
+								portalPos = blockPos_3;
+							}
+						}
+					}
+				}
+			}
+		}
 
-        if (d0 >= 0.0D)
-        {
-            if (flag)
-            {
-                this.destinationCoordinateCache.put(l, new AetherPortalPosition(blockpos, this.worldServerInstance.getTime()));
-            }
+		if (portalPos == null)
+		{
+			return null;
+		}
+		else
+		{
+			if (shouldBeCreated)
+			{
+				this.destinations.put(chunkPos, new AetherPortalPosition(portalPos, this.worldServerInstance.getTime()));
+			}
 
-            double d5 = (double)blockpos.getX() + 0.5D;
-            double d7 = (double)blockpos.getZ() + 0.5D;
+			BlockPattern.Result blockPattern$Result_1 = ((BlockAetherPortal) BlocksAether.aether_portal).method_10350(this.worldServerInstance, portalPos);
 
-            BlockPattern.Result blockpattern$patternhelper = ((BlockAetherPortal) BlocksAether.aether_portal).method_10350(this.worldServerInstance, blockpos);
-            boolean flag1 = blockpattern$patternhelper.getForwards().rotateYClockwise().getDirection() == Direction.AxisDirection.NEGATIVE;
-            double d2 = blockpattern$patternhelper.getForwards().getAxis() == Direction.Axis.X ? (double)blockpattern$patternhelper.getFrontTopLeft().getZ() : (double)blockpattern$patternhelper.getFrontTopLeft().getX();
+	        double double_1 = blockPattern$Result_1.getForwards().getAxis() == Direction.Axis.X ? (double)blockPattern$Result_1.getFrontTopLeft().getZ() : (double)blockPattern$Result_1.getFrontTopLeft().getX();
+	        double double_2 = Math.abs(MathHelper.method_15370((blockPattern$Result_1.getForwards().getAxis() == Direction.Axis.X ? portalPos.getZ() + 0.5D : portalPos.getX() + 0.5D) - (double)(blockPattern$Result_1.getForwards().rotateYClockwise().getDirection() == Direction.AxisDirection.NEGATIVE ? 1 : 0), double_1, double_1 - (double)blockPattern$Result_1.getWidth()));
+	        double double_3 = MathHelper.method_15370(portalPos.getY() - 1.0D, (double)blockPattern$Result_1.getFrontTopLeft().getY(), (double)(blockPattern$Result_1.getFrontTopLeft().getY() - blockPattern$Result_1.getHeight()));
 
-            double d1 = blockpattern$patternhelper.getForwards().getAxis() == Direction.Axis.X ? d7 : d5;
-            d1 = Math.abs(MathHelper.method_15370(d1 - (double)(blockpattern$patternhelper.getForwards().rotateYClockwise().getDirection() == Direction.AxisDirection.NEGATIVE ? 1 : 0), d2, d2 - (double)blockpattern$patternhelper.getWidth()));
-            double d22 = MathHelper.method_15370(blockpos.getY() - 1.0D, (double)blockpattern$patternhelper.getFrontTopLeft().getY(), (double)(blockpattern$patternhelper.getFrontTopLeft().getY() - blockpattern$patternhelper.getHeight()));
-
-            double d6 = (double)(blockpattern$patternhelper.getFrontTopLeft().getY() + 1) - new Vec3d(d1, d22, 0.0D).y * (double)blockpattern$patternhelper.getHeight();
-
-            if (flag1)
-            {
-                ++d2;
-            }
-
-            if (blockpattern$patternhelper.getForwards().getAxis() == Direction.Axis.X)
-            {
-                d7 = d2 + (1.0D - new Vec3d(d1, d22, 0.0D).x) * (double)blockpattern$patternhelper.getWidth() * (double)blockpattern$patternhelper.getForwards().rotateYClockwise().getDirection().offset();
-            }
-            else
-            {
-                d5 = d2 + (1.0D - new Vec3d(d1, d22, 0.0D).x) * (double)blockpattern$patternhelper.getWidth() * (double)blockpattern$patternhelper.getForwards().rotateYClockwise().getDirection().offset();
-            }
-
-            float f = 0.0F;
-            float f1 = 0.0F;
-            float f2 = 0.0F;
-            float f3 = 0.0F;
-
-            if (blockpattern$patternhelper.getForwards().getOpposite() == blockpattern$patternhelper.getForwards())
-            {
-                f = 1.0F;
-                f1 = 1.0F;
-            }
-            else if (blockpattern$patternhelper.getForwards().getOpposite() == blockpattern$patternhelper.getForwards().getOpposite())
-            {
-                f = -1.0F;
-                f1 = -1.0F;
-            }
-            else if (blockpattern$patternhelper.getForwards().getOpposite() == blockpattern$patternhelper.getForwards().rotateYClockwise())
-            {
-                f2 = 1.0F;
-                f3 = -1.0F;
-            }
-            else
-            {
-                f2 = -1.0F;
-                f3 = 1.0F;
-            }
-
-            double d3 = entityIn.velocityX;
-            double d4 = entityIn.velocityZ;
-            entityIn.velocityX = d3 * (double)f + d4 * (double)f3;
-            entityIn.velocityZ = d3 * (double)f2 + d4 * (double)f1;
-            entityIn.yaw = rotationYaw - (float)(blockpattern$patternhelper.getForwards().getOpposite().getHorizontal() * 90) + (float)(blockpattern$patternhelper.getForwards().getHorizontal() * 90);
-
-            if (entityIn instanceof ServerPlayerEntity)
-            {
-                ((ServerPlayerEntity)entityIn).networkHandler.teleportRequest(d5, d6, d7, entityIn.yaw, entityIn.pitch);
-                ((ServerPlayerEntity)entityIn).networkHandler.syncWithPlayerPosition();
-            }
-            else
-            {
-                entityIn.setPositionAndAngles(d5, d6, d7, entityIn.yaw, entityIn.pitch);
-            }
-
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+			return blockPattern$Result_1.method_18478(blockPattern$Result_1.getForwards(), portalPos, double_3, velocity, double_2);
+		}
 	}
 
 	@Override
@@ -393,5 +339,33 @@ public class TeleporterAether extends PortalForcer
 
         return true;
     }
+
+	@Override
+	public void tick(long time)
+	{
+		if (time % 100L == 0L)
+		{
+			long long_2 = time - 300L;
+			ObjectIterator<AetherPortalPosition> iterator = this.destinations.values().iterator();
+
+			while (true)
+			{
+				AetherPortalPosition portalPosition;
+
+				do
+				{
+					if (!iterator.hasNext())
+					{
+						return;
+					}
+
+					portalPosition = (AetherPortalPosition) iterator.next();
+				}
+				while (portalPosition != null && portalPosition.lastUpdateTime >= long_2);
+
+				iterator.remove();
+			}
+		}
+	}
 
 }

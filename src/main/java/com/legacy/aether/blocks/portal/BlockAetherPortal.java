@@ -4,7 +4,7 @@ import java.util.Random;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.block.FabricBlockSettings;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.Material;
@@ -13,6 +13,7 @@ import net.minecraft.block.pattern.BlockPattern;
 import net.minecraft.block.pattern.CachedBlockPosition;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
@@ -22,6 +23,7 @@ import net.minecraft.world.World;
 
 import com.google.common.cache.LoadingCache;
 import com.legacy.aether.api.AetherAPI;
+import com.legacy.aether.particle.AetherParticleTypes;
 
 public class BlockAetherPortal extends PortalBlock
 {
@@ -168,7 +170,8 @@ public class BlockAetherPortal extends PortalBlock
 				zSpeed = (double) (random.nextFloat() * 2.0F * (float) offset);
 			}
 
-			net.minecraft.client.MinecraftClient.getInstance().particleManager.addParticle(new com.legacy.aether.client.particle.ParticleAetherPortal(world, xCoord, yCoord, zCoord, xSpeed, ySpeed, zSpeed));
+			world.addParticle(AetherParticleTypes.AETHER_PORTAL, xCoord, yCoord, zCoord, xSpeed, ySpeed, zSpeed);
+			//net.minecraft.client.MinecraftClient.getInstance().particleManager.addParticle(new com.legacy.aether.client.particle.ParticleAetherPortal(world, xCoord, yCoord, zCoord, xSpeed, ySpeed, zSpeed));
 		}
 	}
 

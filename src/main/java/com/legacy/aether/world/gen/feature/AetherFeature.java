@@ -20,7 +20,7 @@ public abstract class AetherFeature<T extends FeatureConfig> extends Feature<T>
 	}
 
 	@Override
-	public T deserialize(Dynamic<?> dynamic_1)
+	public T deserializeConfig(Dynamic<?> dynamic_1)
 	{
 		return this.supplier.get();
 	}

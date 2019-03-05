@@ -8,18 +8,20 @@ import java.util.stream.Collectors;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.class_1361;
-import net.minecraft.class_1374;
-import net.minecraft.class_1376;
 import net.minecraft.class_1394;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.container.Container;
 import net.minecraft.entity.EntityData;
+import net.minecraft.entity.EntityPose;
+import net.minecraft.entity.EntitySize;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.SpawnType;
 import net.minecraft.entity.ai.goal.AnimalMateGoal;
+import net.minecraft.entity.ai.goal.EscapeDangerGoal;
 import net.minecraft.entity.ai.goal.FollowParentGoal;
+import net.minecraft.entity.ai.goal.LookAroundGoal;
+import net.minecraft.entity.ai.goal.LookAtEntityGoal;
 import net.minecraft.entity.ai.goal.SwimGoal;
 import net.minecraft.entity.ai.goal.TemptGoal;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -95,23 +97,21 @@ public class EntitySheepuff extends AnimalEntity
 	public EntitySheepuff(World world)
 	{
 		super(EntityTypesAether.SHEEPUFF, world);
-
-		this.setSize(0.9F, 1.3F);
 	}
 
 	@Override
-	protected void method_5959()
+	protected void initGoals()
 	{
 		this.eatGrassGoal = new EatAetherGrassGoal(this);
 		this.goalSelector.add(0, new SwimGoal(this));
-		this.goalSelector.add(1, new class_1374(this, 1.25D));
+		this.goalSelector.add(1, new EscapeDangerGoal(this, 1.25D));
 		this.goalSelector.add(2, new AnimalMateGoal(this, 1.0D));
 		this.goalSelector.add(3,new TemptGoal(this, 1.1D, Ingredient.ofItems(ItemsAether.blueberry), false));
 		this.goalSelector.add(4, new FollowParentGoal(this, 1.1D));
 		this.goalSelector.add(5, this.eatGrassGoal);
 		this.goalSelector.add(6, new class_1394(this, 1.0D));
-		this.goalSelector.add(7, new class_1361(this, PlayerEntity.class, 6.0F));
-		this.goalSelector.add(8, new class_1376(this));
+		this.goalSelector.add(7, new LookAtEntityGoal(this, PlayerEntity.class, 6.0F));
+		this.goalSelector.add(8, new LookAroundGoal(this));
 	}
 
 	@Override
@@ -282,9 +282,7 @@ public class EntitySheepuff extends AnimalEntity
 
 				if (item != null)
 				{
-					item.velocityY += (double) (this.random.nextFloat() * 0.05F);
-					item.velocityX += (double) ((this.random.nextFloat() - this.random.nextFloat()) * 0.1F);
-					item.velocityZ += (double) ((this.random.nextFloat() - this.random.nextFloat()) * 0.1F);
+					item.setVelocity(this.getVelocity().add(this.random.nextFloat() - this.random.nextFloat() * 0.1F, this.random.nextFloat() * 0.05F, this.random.nextFloat() - this.random.nextFloat() * 0.1F));
 				}
 			}
 		}
@@ -470,9 +468,9 @@ public class EntitySheepuff extends AnimalEntity
 	}
 
 	@Override
-	public float getEyeHeight()
+	public float getActiveEyeHeight(EntityPose pos, EntitySize size)
 	{
-		return 0.95F * this.getHeight();
+		return 0.95F * size.height;
 	}
 
 	static {

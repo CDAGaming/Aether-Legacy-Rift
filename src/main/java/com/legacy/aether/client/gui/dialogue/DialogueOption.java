@@ -24,13 +24,13 @@ public class DialogueOption extends Screen
 	{
 		this.dialogueText = "[" + dialogueText + "]";
 		this.height = 12;
-		this.width = this.mc.fontRenderer.getStringWidth(this.dialogueText) + 2;
+		this.width = this.mc.textRenderer.getStringWidth(this.dialogueText) + 2;
 	}
 
 	public void renderDialogue(double mouseX, double mouseY)
 	{
         this.drawGradientRect(this.xPosition, this.yPosition, this.xPosition + this.width, this.yPosition + this.height, 0x66000000, 0x66000000);
-        this.drawString(this.mc.fontRenderer, this.isMouseOver(mouseX, mouseY) ? TextFormat.YELLOW.toString() + this.getDialogueText() : this.getDialogueText(), this.xPosition + 2, this.yPosition + 2, 0xffffff);
+        this.drawString(this.mc.textRenderer, this.isMouseOver(mouseX, mouseY) ? TextFormat.YELLOW.toString() + this.getDialogueText() : this.getDialogueText(), this.xPosition + 2, this.yPosition + 2, 0xffffff);
 	}
 
 	public boolean isMouseOver(double mouseX, double mouseY)
@@ -46,7 +46,7 @@ public class DialogueOption extends Screen
 	public void setDialogueText(String dialogueText)
 	{
 		this.dialogueText = "[" + dialogueText + "]";
-		this.width = this.mc.fontRenderer.getStringWidth(this.dialogueText) + 2;
+		this.width = this.mc.textRenderer.getStringWidth(this.dialogueText) + 2;
 	}
 
 	public void setXPosition(int xPosition)

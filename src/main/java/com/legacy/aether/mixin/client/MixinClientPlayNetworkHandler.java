@@ -4,8 +4,8 @@ import net.minecraft.block.Block;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.MapRenderer;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
-import net.minecraft.client.network.packet.EntitySpawnClientPacket;
-import net.minecraft.client.network.packet.MapUpdateClientPacket;
+import net.minecraft.client.network.packet.EntitySpawnS2CPacket;
+import net.minecraft.client.network.packet.MapUpdateS2CPacket;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -38,7 +38,7 @@ public class MixinClientPlayNetworkHandler
 	@Shadow private MinecraftClient client;
 
 	@Inject(method = "onEntitySpawn", at = @At("RETURN"))
-	public void onAetherEntitySpawn(EntitySpawnClientPacket packet, CallbackInfo ci)
+	public void onAetherEntitySpawn(EntitySpawnS2CPacket packet, CallbackInfo ci)
 	{
 		double d0 = packet.getX();
 		double d1 = packet.getY();
@@ -106,17 +106,6 @@ public class MixinClientPlayNetworkHandler
 			aetherEntity.pitch = (float) (packet.getPitch() * 360) / 256.0F;
 			aetherEntity.yaw = (float) (packet.getYaw() * 360) / 256.0F;
 
-			Entity[] aentity = aetherEntity.getParts();
-
-			if (aentity != null)
-			{
-				int i = packet.getId() - aetherEntity.getEntityId();
-				for (Entity entity2 : aentity)
-				{
-					entity2.setEntityId(entity2.getEntityId() + i);
-				}
-			}
-
 			aetherEntity.setEntityId(packet.getId());
 			aetherEntity.setUuid(packet.getUuid());
 
@@ -152,11 +141,11 @@ public class MixinClientPlayNetworkHandler
 	}
 
 	@Inject(method = "onMapUpdate", at = @At("RETURN"))
-	public void onMapUpdateDimension(MapUpdateClientPacket packet, CallbackInfo ci)
+	public void onMapUpdateDimension(MapUpdateS2CPacket packet, CallbackInfo ci)
 	{
 		MapRenderer mapRenderer = this.client.gameRenderer.getMapRenderer();
 		String string_1 = FilledMapItem.method_17440(packet.getId());
-		MapState mapState = this.client.world.method_17891(string_1);//FilledMapItem.method_7997(this.client.world, string_1);
+		MapState mapState = this.client.world.getMapState(string_1);//FilledMapItem.method_7997(this.client.world, string_1);
 
 		mapState.dimension = ((MapDimensionData)packet).getDimension();
 

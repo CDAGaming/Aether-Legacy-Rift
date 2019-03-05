@@ -2,7 +2,7 @@ package com.legacy.aether.blocks.natural.aercloud;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.block.FabricBlockSettings;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderLayer;
 import net.minecraft.block.BlockState;
@@ -58,14 +58,14 @@ public class BlockAercloud extends Block
 				worldIn.addParticle(ParticleTypes.SPLASH, xOffset, yOffset, zOffset, 0.0D, 0.0D, 0.0D);
 			}
 
-			if (entityIn instanceof PlayerEntity && entityIn.isSneaking() && entityIn.velocityY < 0.0F)
+			if (entityIn instanceof PlayerEntity && entityIn.isSneaking() && entityIn.getVelocity().y < 0.0D)
 			{
-				entityIn.velocityY *= 0.005D;
+				entityIn.setVelocity(entityIn.getVelocity().multiply(1.0D, 0.005D, 1.0D));
 
     			return;
 			}
 
-			entityIn.velocityY = 2.0D;
+			entityIn.setVelocity(entityIn.getVelocity().add(0.0D, 2.0D, 0.0D));
 		}
 		else
 		{
@@ -74,9 +74,9 @@ public class BlockAercloud extends Block
 				((LivingEntity)entityIn).heal(1.0F);
 			}
 
-    		if (entityIn.velocityY <= 0.0F)
+    		if (entityIn.getVelocity().y <= 0.0F)
     		{
-    			entityIn.velocityY *= 0.005D;
+    			entityIn.setVelocity(entityIn.getVelocity().multiply(1.0D, 0.005D, 1.0D));
     		}
 		}
 	}

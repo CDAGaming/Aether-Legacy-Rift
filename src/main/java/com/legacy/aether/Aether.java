@@ -12,6 +12,7 @@ import com.legacy.aether.entities.EntityTypesAether;
 import com.legacy.aether.entities.util.AetherMoaTypes;
 import com.legacy.aether.item.ItemsAether;
 import com.legacy.aether.network.ServerNetworkAether;
+import com.legacy.aether.particle.AetherParticleTypes;
 import com.legacy.aether.registry.AetherAPIRegistry;
 import com.legacy.aether.sounds.SoundsAether;
 import com.legacy.aether.world.WorldAether;
@@ -24,6 +25,7 @@ public class Aether implements ModInitializer
 	@Override
 	public void onInitialize()
 	{
+		AetherParticleTypes.register();
 		SoundsAether.registerSounds();
 		ItemsAether.registerItems();
 

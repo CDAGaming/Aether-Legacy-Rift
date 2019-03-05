@@ -2,9 +2,7 @@ package com.legacy.aether.blocks.natural;
 
 import java.util.Random;
 
-import com.legacy.aether.blocks.BlocksAether;
-
-import net.fabricmc.fabric.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.block.FabricBlockSettings;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Fertilizable;
 import net.minecraft.block.Material;
@@ -16,6 +14,8 @@ import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
+
+import com.legacy.aether.blocks.BlocksAether;
 
 public class BlockBerryBushStem extends PlantBlock implements Fertilizable
 {
@@ -35,7 +35,7 @@ public class BlockBerryBushStem extends PlantBlock implements Fertilizable
 
 		super.onScheduledTick(state, world, pos, random);
 
-		if (world.method_8602(pos.up()) >= 9 && random.nextInt(60) == 0)
+		if (world.getLightLevel(pos.up()) >= 9 && random.nextInt(60) == 0)
 		{
 			world.setBlockState(pos, BlocksAether.berry_bush.getDefaultState());
 		}

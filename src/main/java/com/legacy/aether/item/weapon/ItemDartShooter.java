@@ -72,7 +72,7 @@ public class ItemDartShooter extends Item
 
 			if (!worldIn.isClient)
 			{
-				projectile.method_7437(playerIn, playerIn.pitch, playerIn.yaw, 0.0F, 1.0F, 1.0F);
+				projectile.method_7474(playerIn, playerIn.pitch, playerIn.yaw, 0.0F, 1.0F, 1.0F);
 
 				worldIn.spawnEntity(projectile);
 

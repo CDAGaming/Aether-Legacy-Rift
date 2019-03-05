@@ -1,6 +1,6 @@
 package com.legacy.aether.client.rendering;
 
-import net.fabricmc.fabric.client.render.EntityRendererRegistry;
+import net.fabricmc.fabric.api.client.render.EntityRendererRegistry;
 import net.minecraft.entity.Entity;
 
 import com.legacy.aether.client.rendering.entity.AechorPlantRenderer;

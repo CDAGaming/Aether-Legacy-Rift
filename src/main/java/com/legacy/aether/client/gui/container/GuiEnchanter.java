@@ -38,7 +38,7 @@ public class GuiEnchanter extends ContainerScreen<ContainerEnchanter>
     {
         this.drawBackground();
     	super.draw(mouseX, mouseY, partialTicks);
-        this.drawMousoverTooltip(mouseX, mouseY);
+        this.drawMouseoverTooltip(mouseX, mouseY);
     }
 
 	@Override
@@ -46,8 +46,8 @@ public class GuiEnchanter extends ContainerScreen<ContainerEnchanter>
 	{
 		String name = this.enchanter.getName().getFormattedText();
 
-		this.fontRenderer.draw(name, this.containerWidth / 2f - this.fontRenderer.getStringWidth(name) / 2f, 6, 4210752);
-		this.fontRenderer.draw(this.name.getFormattedText(), 8, this.containerHeight - 96 + 2, 4210752);
+		this.fontRenderer.draw(name, this.screenWidth / 2f - this.fontRenderer.getStringWidth(name) / 2f, 6, 4210752);
+		this.fontRenderer.draw(this.name.getFormattedText(), 8, this.screenHeight - 96 + 2, 4210752);
 	}
 
 	@Override
@@ -57,10 +57,10 @@ public class GuiEnchanter extends ContainerScreen<ContainerEnchanter>
 
 		this.client.getTextureManager().bindTexture(TEXTURE);
 
-		int k = (this.width - this.containerWidth) / 2;
-		int l = (this.height - this.containerHeight) / 2;
+		int k = (this.width - this.screenWidth) / 2;
+		int l = (this.height - this.screenHeight) / 2;
 
-		this.drawTexturedRect(k, l, 0, 0, this.containerWidth, this.containerHeight);
+		this.drawTexturedRect(k, l, 0, 0, this.screenWidth, this.screenHeight);
 
 		int i1;
 

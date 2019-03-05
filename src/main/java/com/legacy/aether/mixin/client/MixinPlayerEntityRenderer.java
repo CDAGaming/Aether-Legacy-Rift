@@ -27,4 +27,5 @@ public abstract class MixinPlayerEntityRenderer extends LivingEntityRenderer<Abs
 	{
 		this.addFeature(new AccessoryLayer(this, isSlim));
 	}
+
 }

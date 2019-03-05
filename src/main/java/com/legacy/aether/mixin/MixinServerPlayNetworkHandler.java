@@ -1,14 +1,14 @@
 package com.legacy.aether.mixin;
 
-import net.minecraft.client.network.packet.BlockUpdateClientPacket;
-import net.minecraft.client.network.packet.ChatMessageClientPacket;
+import net.minecraft.client.network.packet.BlockUpdateS2CPacket;
+import net.minecraft.client.network.packet.ChatMessageS2CPacket;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.NetworkThreadUtils;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayNetworkHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.network.packet.PlayerActionServerPacket;
-import net.minecraft.server.network.packet.PlayerInteractBlockServerPacket;
+import net.minecraft.server.network.packet.PlayerActionC2SPacket;
+import net.minecraft.server.network.packet.PlayerInteractBlockC2SPacket;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sortme.ChatMessageType;
 import net.minecraft.text.TextComponent;
@@ -38,7 +38,7 @@ public class MixinServerPlayNetworkHandler
 	@Shadow private Vec3d field_14119;
 
 	@Overwrite
-	public void onPlayerAction(PlayerActionServerPacket packetIn)
+	public void onPlayerAction(PlayerActionC2SPacket packetIn)
 	{
 		NetworkThreadUtils.forceMainThread(packetIn, (ServerPlayNetworkHandler) (Object) this, (ServerWorld) this.player.getServerWorld());
 
@@ -97,7 +97,7 @@ public class MixinServerPlayNetworkHandler
 			}
 			else
 			{
-				if (packetIn.getAction() == PlayerActionServerPacket.Action.START_DESTROY_BLOCK)
+				if (packetIn.getAction() == PlayerActionC2SPacket.Action.START_DESTROY_BLOCK)
 				{
 					if (!this.server.isSpawnProtected(serverWorld_1, blockPos_1, this.player) && serverWorld_1.getWorldBorder().contains(blockPos_1))
 					{
@@ -105,23 +105,23 @@ public class MixinServerPlayNetworkHandler
 					}
 					else
 					{
-						this.player.networkHandler.sendPacket(new BlockUpdateClientPacket(serverWorld_1, blockPos_1));
+						this.player.networkHandler.sendPacket(new BlockUpdateS2CPacket(serverWorld_1, blockPos_1));
 					}
 				}
 				else
 				{
-					if (packetIn.getAction() == PlayerActionServerPacket.Action.STOP_DESTROY_BLOCK)
+					if (packetIn.getAction() == PlayerActionC2SPacket.Action.STOP_DESTROY_BLOCK)
 					{
 						this.player.interactionManager.method_14258(blockPos_1);
 					}
-					else if (packetIn.getAction() == PlayerActionServerPacket.Action.ABORT_DESTROY_BLOCK)
+					else if (packetIn.getAction() == PlayerActionC2SPacket.Action.ABORT_DESTROY_BLOCK)
 					{
 						this.player.interactionManager.method_14269();
 					}
 
 					if (!serverWorld_1.getBlockState(blockPos_1).isAir())
 					{
-						this.player.networkHandler.sendPacket(new BlockUpdateClientPacket(serverWorld_1, blockPos_1));
+						this.player.networkHandler.sendPacket(new BlockUpdateS2CPacket(serverWorld_1, blockPos_1));
 					}
 				}
 
@@ -133,7 +133,7 @@ public class MixinServerPlayNetworkHandler
 	}
 
 	@Overwrite
-	public void onPlayerInteractBlock(PlayerInteractBlockServerPacket packetIn)
+	public void onPlayerInteractBlock(PlayerInteractBlockC2SPacket packetIn)
 	{
 		NetworkThreadUtils.forceMainThread(packetIn, (ServerPlayNetworkHandler) (Object) this, (ServerWorld) this.player.getServerWorld());
 
@@ -154,15 +154,15 @@ public class MixinServerPlayNetworkHandler
 		{
 			TextComponent textComponent_1 = (new TranslatableTextComponent("build.tooHigh", new Object[]{this.server.getWorldHeight()})).applyFormat(TextFormat.RED);
 
-			this.player.networkHandler.sendPacket(new ChatMessageClientPacket(textComponent_1, ChatMessageType.GAME_INFO));
+			this.player.networkHandler.sendPacket(new ChatMessageS2CPacket(textComponent_1, ChatMessageType.GAME_INFO));
 		} 
 		else if (this.field_14119 == null && this.player.squaredDistanceTo((double)pos.getX() + 0.5D, (double)pos.getY() + 0.5D, (double)pos.getZ() + 0.5D) < distance && !this.server.isSpawnProtected(world, pos, this.player) && world.getWorldBorder().contains(pos))
 		{
 			this.player.interactionManager.interactBlock(this.player, world, heldItem, hand, class_3965_1);
 		}
 
-		this.player.networkHandler.sendPacket(new BlockUpdateClientPacket(world, pos));
-		this.player.networkHandler.sendPacket(new BlockUpdateClientPacket(world, pos.offset(direction)));
+		this.player.networkHandler.sendPacket(new BlockUpdateS2CPacket(world, pos));
+		this.player.networkHandler.sendPacket(new BlockUpdateS2CPacket(world, pos.offset(direction)));
 	}
 
 }

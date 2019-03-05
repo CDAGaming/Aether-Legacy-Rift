@@ -4,13 +4,14 @@ import io.netty.buffer.Unpooled;
 
 import java.util.ArrayList;
 
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.server.network.packet.CustomPayloadC2SPacket;
+import net.minecraft.util.PacketByteBuf;
+
 import com.google.common.collect.Lists;
 import com.legacy.aether.Aether;
 import com.legacy.aether.client.gui.dialogue.DialogueOption;
 import com.legacy.aether.client.gui.dialogue.GuiDialogue;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.packet.CustomPayloadClientPacket;
-import net.minecraft.util.PacketByteBuf;
 
 public class GuiServerDialogue extends GuiDialogue
 {
@@ -41,7 +42,7 @@ public class GuiServerDialogue extends GuiDialogue
 		buffer.writeString(this.dialogueName);
 		buffer.writeInt(dialogue.getDialogueId());
 
-		MinecraftClient.getInstance().player.networkHandler.sendPacket(new CustomPayloadClientPacket(Aether.locate("dialogue_clicked"), buffer));
+		MinecraftClient.getInstance().player.networkHandler.sendPacket(new CustomPayloadC2SPacket(Aether.locate("dialogue_clicked"), buffer));
 
 		this.dialogueTreeCompleted();
 	}

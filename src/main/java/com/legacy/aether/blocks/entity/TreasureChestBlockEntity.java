@@ -1,19 +1,19 @@
 package com.legacy.aether.blocks.entity;
 
-import com.legacy.aether.item.ItemsAether;
-import com.legacy.aether.item.dungeon.ItemDungeonKey;
-
-import net.fabricmc.fabric.block.entity.ClientSerializable;
+import net.fabricmc.fabric.api.block.entity.BlockEntityClientSerializable;
 import net.minecraft.block.Block;
 import net.minecraft.block.entity.ChestBlockEntity;
-import net.minecraft.client.network.packet.BlockEntityUpdateClientPacket;
+import net.minecraft.client.network.packet.BlockEntityUpdateS2CPacket;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Hand;
 
-public class TreasureChestBlockEntity extends ChestBlockEntity implements ClientSerializable
+import com.legacy.aether.item.ItemsAether;
+import com.legacy.aether.item.dungeon.ItemDungeonKey;
+
+public class TreasureChestBlockEntity extends ChestBlockEntity implements BlockEntityClientSerializable
 {
 
 	private boolean locked = true;
@@ -64,9 +64,9 @@ public class TreasureChestBlockEntity extends ChestBlockEntity implements Client
 	}
 
 	@Override
-	public BlockEntityUpdateClientPacket toUpdatePacket()
+	public BlockEntityUpdateS2CPacket toUpdatePacket()
 	{
-		return new BlockEntityUpdateClientPacket(this.getPos(), 127, this.toClientTag(new CompoundTag()));
+		return new BlockEntityUpdateS2CPacket(this.getPos(), 127, this.toClientTag(new CompoundTag()));
 	}
 
 	@Override

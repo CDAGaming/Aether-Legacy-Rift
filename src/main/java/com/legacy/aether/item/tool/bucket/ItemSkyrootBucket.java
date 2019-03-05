@@ -106,7 +106,7 @@ public class ItemSkyrootBucket extends Item
                         }
                     }
 
-                    return new TypedActionResult<ItemStack>(ActionResult.FAILURE, itemstack);
+                    return new TypedActionResult<ItemStack>(ActionResult.FAIL, itemstack);
                 }
                 else
                 {
@@ -126,7 +126,7 @@ public class ItemSkyrootBucket extends Item
             }
             else
             {
-                return new TypedActionResult<ItemStack>(ActionResult.FAILURE, itemstack);
+                return new TypedActionResult<ItemStack>(ActionResult.FAIL, itemstack);
             }
         }
         else

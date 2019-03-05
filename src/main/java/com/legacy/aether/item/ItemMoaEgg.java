@@ -42,7 +42,7 @@ public class ItemMoaEgg extends Item
     }
 
 	@Override
-    public void addStacksForDisplay(ItemGroup group, DefaultedList<ItemStack> subItems)
+    public void appendItemsForGroup(ItemGroup group, DefaultedList<ItemStack> subItems)
 	{
 		for (int moaTypeSize = 0; moaTypeSize < AetherAPI.instance().getMoaRegistrySize(); ++moaTypeSize)
 		{

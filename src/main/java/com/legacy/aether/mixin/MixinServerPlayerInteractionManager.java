@@ -18,12 +18,14 @@ public class MixinServerPlayerInteractionManager implements PlayerReach
 
 	@Shadow private GameMode gameMode;
 
+	@Override
 	public void setReachDistance(float survivalReach, float creativeReach)
 	{
 		this.survivalReachDistance = survivalReach;
 		this.creativeReachDistance = creativeReach;
 	}
 
+	@Override
 	public float getReachDistance()
 	{
 		return this.gameMode.isCreative() ? this.creativeReachDistance : this.survivalReachDistance;

@@ -28,9 +28,9 @@ public class ParticleEvilWhirly extends AetherParticle
         this.colorRed = f;
         this.colorGreen = f;
         this.colorBlue = f;
-        this.size *= 0.75F; // TODO : VERIFY
-        this.size *= p_i46348_14_;
-        this.smokeParticleScale = this.size;
+        //this.size *= 0.75F; // TODO : VERIFY
+        //this.size *= p_i46348_14_;
+        //this.smokeParticleScale = this.size;
         this.maxAge = (int)(8.0D / (Math.random() * 0.8D + 0.2D));
         this.maxAge = (int)((float)this.maxAge * p_i46348_14_);
         this.maxAge = Math.max(this.maxAge, 1);
@@ -41,7 +41,7 @@ public class ParticleEvilWhirly extends AetherParticle
     {
         float f = ((float)this.age + partialTicks) / (float)this.maxAge * 32.0F;
         f = MathHelper.clamp(f, 0.0F, 1.0F);
-        this.size = this.smokeParticleScale * f;
+        //this.size = this.smokeParticleScale * f;
         super.buildGeometry(worldRendererIn, entityIn, partialTicks, rotationX, rotationZ, rotationYZ, rotationXY, rotationXZ);
     }
 
@@ -57,7 +57,7 @@ public class ParticleEvilWhirly extends AetherParticle
             this.markDead();
         }
 
-        this.setSpriteIndex(7 - this.age * 8 / this.maxAge);
+        //this.setSpriteIndex(7 - this.age * 8 / this.maxAge);
         this.velocityY += 0.004D;
         this.setPos(this.velocityX, this.velocityY, this.velocityZ);
 

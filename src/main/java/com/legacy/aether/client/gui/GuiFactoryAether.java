@@ -1,6 +1,6 @@
 package com.legacy.aether.client.gui;
 
-import net.fabricmc.fabric.api.client.gui.GuiProviderRegistry;
+import net.fabricmc.fabric.api.client.screen.ScreenProviderRegistry;
 import net.fabricmc.fabric.api.container.ContainerFactory;
 import net.minecraft.client.gui.ContainerScreen;
 import net.minecraft.entity.player.PlayerEntity;
@@ -24,11 +24,11 @@ public class GuiFactoryAether implements ContainerFactory<ContainerScreen>
 
 	public static void registerGUIs()
 	{
-		GuiProviderRegistry.INSTANCE.registerFactory(Aether.locate("accessories"), INSTANCE);
-		GuiProviderRegistry.INSTANCE.registerFactory(Aether.locate("enchanter"), INSTANCE);
-		GuiProviderRegistry.INSTANCE.registerFactory(Aether.locate("freezer"), INSTANCE);
-		GuiProviderRegistry.INSTANCE.registerFactory(Aether.locate("incubator"), INSTANCE);
-		GuiProviderRegistry.INSTANCE.registerFactory(Aether.locate("treasure_chest"), INSTANCE);
+		ScreenProviderRegistry.INSTANCE.registerFactory(Aether.locate("accessories"), INSTANCE);
+		ScreenProviderRegistry.INSTANCE.registerFactory(Aether.locate("enchanter"), INSTANCE);
+		ScreenProviderRegistry.INSTANCE.registerFactory(Aether.locate("freezer"), INSTANCE);
+		ScreenProviderRegistry.INSTANCE.registerFactory(Aether.locate("incubator"), INSTANCE);
+		ScreenProviderRegistry.INSTANCE.registerFactory(Aether.locate("treasure_chest"), INSTANCE);
 	}
 
 	@Override

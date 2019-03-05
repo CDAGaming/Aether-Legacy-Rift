@@ -1,5 +1,6 @@
 package com.legacy.aether.item.food;
 
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
@@ -15,9 +16,12 @@ public class ItemWhiteApple extends ItemAetherFood
 	}
 
 	@Override
-    protected void onConsumed(ItemStack stackIn, World worldIn, PlayerEntity playerIn)
+    protected void onConsumed(ItemStack stackIn, World worldIn, LivingEntity entityIn)
     {
-		AetherAPI.get(playerIn).inflictCure(300);
+		if (entityIn instanceof PlayerEntity)
+		{
+			AetherAPI.get((PlayerEntity) entityIn).inflictCure(300);
+		}
     }
 
 }

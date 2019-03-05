@@ -37,10 +37,4 @@ public class EntityGoldenDart extends EntityDart
 		return new ItemStack(ItemsAether.golden_dart);
 	}
 
-	@Override
-	public int getSpawnID()
-	{
-		return 1;
-	}
-
 }

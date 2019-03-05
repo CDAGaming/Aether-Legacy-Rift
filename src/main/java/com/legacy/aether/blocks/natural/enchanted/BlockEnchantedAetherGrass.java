@@ -2,7 +2,7 @@ package com.legacy.aether.blocks.natural.enchanted;
 
 import java.util.Random;
 
-import net.fabricmc.fabric.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.block.FabricBlockSettings;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Material;
@@ -27,7 +27,7 @@ public class BlockEnchantedAetherGrass extends Block
 	{
         if (!worldIn.isClient)
         {
-            if (worldIn.method_8602(posIn.up()) < 4)
+            if (worldIn.getLightLevel(posIn.up()) < 4)
             {
             	worldIn.setBlockState(posIn, BlocksAether.aether_dirt.getDefaultState().with(BlockAetherDirt.DOUBLE_DROP, false));
             }

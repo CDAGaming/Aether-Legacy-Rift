@@ -29,17 +29,17 @@ public class TheAetherDimension extends Dimension
 	@Override
 	public ChunkGenerator<?> createChunkGenerator()
 	{
-		return WorldAether.AETHER_ISLANDS.create(this.world, BiomeSourceType.FIXED.applyConfig(new FixedBiomeSourceConfig().method_8782(WorldAether.AETHER_HIGHLANDS)), new AetherChunkGeneratorSettings());
+		return WorldAether.AETHER_ISLANDS.create(this.world, BiomeSourceType.FIXED.applyConfig(new FixedBiomeSourceConfig().setBiome(WorldAether.AETHER_HIGHLANDS)), new AetherChunkGeneratorSettings());
 	}
 
 	@Override
-	public BlockPos method_12452(ChunkPos var1, boolean var2) //findSpawn
+	public BlockPos getSpawningBlockInChunk(ChunkPos var1, boolean var2) //findSpawn
 	{
 		return null;
 	}
 
 	@Override
-	public BlockPos method_12444(int var1, int var2, boolean var3) //findSpawn
+	public BlockPos getTopSpawningBlockPosition(int var1, int var2, boolean var3) //findSpawn
 	{
 		return null;
 	}
@@ -74,7 +74,7 @@ public class TheAetherDimension extends Dimension
 	}
 
 	@Override
-	public Vec3d method_12445(float var1, float var2)
+	public Vec3d getFogColor(float var1, float var2)
 	{
 		int i = 0x8080a0;
 
@@ -118,19 +118,19 @@ public class TheAetherDimension extends Dimension
 
 	@Override
 	@Environment(EnvType.CLIENT)
-	public float method_12455()
+	public float getCloudHeight()
 	{
 		return 8.0F;
 	}
 
 	@Override
-	public boolean method_12448()
+	public boolean canPlayersSleep()
 	{
 		return true;
 	}
 
 	@Override
-	public boolean method_12453(int var1, int var2)
+	public boolean shouldRenderFog(int var1, int var2)
 	{
 		return false;
 	}

@@ -2,8 +2,8 @@ package com.legacy.aether.client;
 
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.render.ColorProviderRegistry;
-import net.fabricmc.fabric.events.client.ClientTickEvent;
-import net.fabricmc.fabric.events.client.SpriteEvent;
+import net.fabricmc.fabric.api.event.client.ClientSpriteRegistryCallback;
+import net.fabricmc.fabric.api.event.client.ClientTickCallback;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemProvider;
 
@@ -46,12 +46,12 @@ public class ClientAether implements ClientModInitializer
     	    	ItemsAether.neptune_gloves, ItemsAether.phoenix_gloves, ItemsAether.obsidian_gloves, ItemsAether.iron_ring, ItemsAether.golden_ring, ItemsAether.zanite_ring,
     	    	ItemsAether.ice_ring, ItemsAether.iron_pendant, ItemsAether.golden_pendant, ItemsAether.zanite_pendant, ItemsAether.ice_pendant, ItemsAether.white_cape);
 
-		ClientTickEvent.CLIENT.register(mineCraftClient -> ClientTickHandler.clientTick(mineCraftClient));
+		ClientTickCallback.EVENT.register(minecraft -> ClientTickHandler.clientTick(minecraft));
 	}
 
 	private void registerSprite(String name)
 	{
-		SpriteEvent.PROVIDE.register(registry -> registry.register(Aether.locate("item/sprite/" + name)));
+		ClientSpriteRegistryCallback.EVENT.register((texture, registry) -> registry.register(Aether.locate("item/sprite/" + name)));
 	}
 
 	private void registerBlockColors(Block... blocks)

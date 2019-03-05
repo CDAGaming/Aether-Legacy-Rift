@@ -16,7 +16,7 @@ public class SkyrootTreeFeature extends AetherTreeFeature
 	{
 		int l = randomIn.nextInt(3) + 4;
 
-		if (worldIn.test(posIn.down(), (ground) -> ground.getBlock() != BlocksAether.aether_grass))
+		if (worldIn.testBlockState(posIn.down(), (ground) -> ground.getBlock() != BlocksAether.aether_grass))
 		{
 			return false;
 		}
@@ -46,7 +46,7 @@ public class SkyrootTreeFeature extends AetherTreeFeature
 
 		for (int l1 = 0; l1 < l; l1++)
 		{
-			if (worldIn.test(posIn.up(l1), (blockState) -> canGrowInto(blockState))) 
+			if (worldIn.testBlockState(posIn.up(l1), (blockState) -> canGrowInto(blockState))) 
 			{
 				this.setBlockState(posListIn, worldIn, posIn.up(l1), BlocksAether.skyroot_log.getDefaultState());
 			}

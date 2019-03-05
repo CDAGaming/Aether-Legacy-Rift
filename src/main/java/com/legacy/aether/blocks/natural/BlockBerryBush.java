@@ -1,10 +1,8 @@
 package com.legacy.aether.blocks.natural;
 
-import com.legacy.aether.blocks.BlocksAether;
-
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.block.FabricBlockSettings;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Material;
@@ -16,6 +14,8 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
+
+import com.legacy.aether.blocks.BlocksAether;
 
 public class BlockBerryBush extends PlantBlock
 {

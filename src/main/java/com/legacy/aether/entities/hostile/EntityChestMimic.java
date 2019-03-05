@@ -27,14 +27,12 @@ public class EntityChestMimic extends HostileEntity
 	public EntityChestMimic(World world)
 	{
 		super(EntityTypesAether.CHEST_MIMIC, world);
-
-		this.setSize(1.0F, 2.0F);
 	}
 
 	@Override
-	protected void method_5959()
+	protected void initGoals()
 	{
-		super.method_5959();
+		super.initGoals();
 
 		this.goalSelector.add(0, new SwimGoal(this));
 		this.goalSelector.add(2, new MeleeAttackGoal(this, 1.0D, false));

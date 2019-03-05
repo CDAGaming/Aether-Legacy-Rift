@@ -46,7 +46,7 @@ public class ContainerIncubator extends Container
             this.addSlot(new Slot(inventoryIn, j, 8 + j * 18, 142));
         }
 
-		this.readData(incubatorIn);
+		this.addProperties(incubatorIn);
     }
 
 	@Override

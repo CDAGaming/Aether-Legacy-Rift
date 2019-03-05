@@ -1,16 +1,12 @@
 package com.legacy.aether.entities;
 
-import java.util.function.Function;
-
-import net.fabricmc.fabric.entity.EntityTrackingRegistry;
-import net.fabricmc.fabric.entity.FabricEntityTypeBuilder;
-import net.minecraft.block.Block;
-import net.minecraft.client.network.packet.EntitySpawnClientPacket;
+import net.fabricmc.fabric.api.entity.EntityTrackingRegistry;
+import net.fabricmc.fabric.api.entity.FabricEntityTypeBuilder;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityCategory;
+import net.minecraft.entity.EntitySize;
 import net.minecraft.entity.EntityType;
-import net.minecraft.network.Packet;
 import net.minecraft.util.registry.Registry;
-import net.minecraft.world.World;
 
 import com.legacy.aether.Aether;
 import com.legacy.aether.entities.block.EntityFloatingBlock;
@@ -22,7 +18,6 @@ import com.legacy.aether.entities.passive.EntityFlyingCow;
 import com.legacy.aether.entities.passive.EntityMoa;
 import com.legacy.aether.entities.passive.EntityPhyg;
 import com.legacy.aether.entities.passive.EntitySheepuff;
-import com.legacy.aether.entities.projectile.EntityDart;
 import com.legacy.aether.entities.projectile.EntityEnchantedDart;
 import com.legacy.aether.entities.projectile.EntityGoldenDart;
 import com.legacy.aether.entities.projectile.EntityPoisonDart;
@@ -31,31 +26,31 @@ import com.legacy.aether.entities.projectile.EntityPoisonNeedle;
 public class EntityTypesAether
 {
 
-	public static final EntityType<EntityAechorPlant> AECHOR_PLANT = register("aechor_plant", EntityAechorPlant.class, EntityAechorPlant::new);
+	public static final EntityType<EntityAechorPlant> AECHOR_PLANT = register("aechor_plant", EntityCategory.MONSTER, EntitySize.resizeable(1.0F, 1.0F), (entityType, world) -> new EntityAechorPlant(world));
 
-	public static final EntityType<EntityFlyingCow> FLYING_COW = register("flying_cow", EntityFlyingCow.class, EntityFlyingCow::new);
+	public static final EntityType<EntityFlyingCow> FLYING_COW = register("flying_cow", EntityCategory.CREATURE, EntitySize.resizeable(0.9F, 1.3F), (entityType, world) -> new EntityFlyingCow(world));
 
-	public static final EntityType<EntityAerbunny> AERBUNNY = register("aerbunny", EntityAerbunny.class, EntityAerbunny::new);
+	public static final EntityType<EntityAerbunny> AERBUNNY = register("aerbunny", EntityCategory.CREATURE, EntitySize.resizeable(0.4F, 0.4F), (entityType, world) -> new EntityAerbunny(world));
 
-	public static final EntityType<EntityMoa> MOA = register("moa", EntityMoa.class, EntityMoa::new);
+	public static final EntityType<EntityMoa> MOA = register("moa", EntityCategory.CREATURE, EntitySize.resizeable(1.0F, 2.0F), (entityType, world) -> new EntityMoa(world));
 
-	public static final EntityType<EntityPhyg> PHYG = register("phyg", EntityPhyg.class, EntityPhyg::new);
+	public static final EntityType<EntityPhyg> PHYG = register("phyg", EntityCategory.CREATURE, EntitySize.resizeable(0.9F, 1.3F), (entityType, world) -> new EntityPhyg(world));
 
-	public static final EntityType<EntitySheepuff> SHEEPUFF = register("sheepuff", EntitySheepuff.class, EntitySheepuff::new);
+	public static final EntityType<EntitySheepuff> SHEEPUFF = register("sheepuff", EntityCategory.CREATURE, EntitySize.resizeable(0.9F, 1.3F), (entityType, world) -> new EntitySheepuff(world));
 
-	public static final EntityType<EntityCockatrice> COCKATRICE = register("cockatrice", EntityCockatrice.class, EntityCockatrice::new);
+	public static final EntityType<EntityCockatrice> COCKATRICE = register("cockatrice", EntityCategory.MONSTER, EntitySize.resizeable(1.0F, 2.0F), (entityType, world) -> new EntityCockatrice(world));
 
-	public static final EntityType<EntityChestMimic> CHEST_MIMIC = register("chest_mimic", EntityChestMimic.class, EntityChestMimic::new);
+	public static final EntityType<EntityChestMimic> CHEST_MIMIC = register("chest_mimic", EntityCategory.MONSTER, EntitySize.resizeable(1.0F, 2.0F), (entityType, world) -> new EntityChestMimic(world));
 
-	public static final EntityType<EntityFloatingBlock> FLOATING_BLOCK = register("floating_block", EntityFloatingBlock.class, EntityFloatingBlock::new);
+	public static final EntityType<EntityFloatingBlock> FLOATING_BLOCK = register("floating_block", EntityCategory.MISC, EntitySize.resizeable(0.98F, 0.98F), (entityType, world) -> new EntityFloatingBlock(world));
 
-	public static final EntityType<EntityGoldenDart> GOLDEN_DART = register("golden_dart", EntityGoldenDart.class, EntityGoldenDart::new);
+	public static final EntityType<EntityGoldenDart> GOLDEN_DART = register("golden_dart", EntityCategory.MISC, EntitySize.resizeable(0.5F, 0.5F), (entityType, world) -> new EntityGoldenDart(world));
 
-	public static final EntityType<EntityEnchantedDart> ENCHANTED_DART = register("enchanted_dart", EntityEnchantedDart.class, EntityEnchantedDart::new);
+	public static final EntityType<EntityEnchantedDart> ENCHANTED_DART = register("enchanted_dart", EntityCategory.MISC, EntitySize.resizeable(0.5F, 0.5F), (entityType, world) -> new EntityEnchantedDart(world));
 
-	public static final EntityType<EntityPoisonDart> POISON_DART = register("poison_dart", EntityPoisonDart.class, EntityPoisonDart::new);
+	public static final EntityType<EntityPoisonDart> POISON_DART = register("poison_dart", EntityCategory.MISC, EntitySize.resizeable(0.5F, 0.5F), (entityType, world) -> new EntityPoisonDart(world));
 
-	public static final EntityType<EntityPoisonNeedle> POISON_NEEDLE = register("poison_needle", EntityPoisonNeedle.class, EntityPoisonNeedle::new);
+	public static final EntityType<EntityPoisonNeedle> POISON_NEEDLE = register("poison_needle", EntityCategory.MISC, EntitySize.resizeable(0.5F, 0.5F), (entityType, world) -> new EntityPoisonNeedle(world));
 
 	//public static EntityType<EntityWhirlwind> WHIRLWIND;
 
@@ -74,17 +69,6 @@ public class EntityTypesAether
 		Aether.log("Registering Aether Entities");
 
 		trackEntity(FLOATING_BLOCK, 160, 20, true);
-
-		registerSpawnPacket(FLOATING_BLOCK, (entity) -> new EntitySpawnClientPacket(entity, Block.getRawIdFromState(((EntityFloatingBlock)entity).getBlockstate())));
-		registerSpawnPacket(GOLDEN_DART, (entity) -> new EntitySpawnClientPacket(entity, 1 + (((EntityDart)entity).getOwner() == null ? entity.getEntityId() : ((EntityDart)entity).getOwner().getEntityId())));
-		registerSpawnPacket(ENCHANTED_DART, (entity) -> new EntitySpawnClientPacket(entity, 1 + (((EntityDart)entity).getOwner() == null ? entity.getEntityId() : ((EntityDart)entity).getOwner().getEntityId())));
-		registerSpawnPacket(POISON_DART, (entity) -> new EntitySpawnClientPacket(entity, 1 + (((EntityDart)entity).getOwner() == null ? entity.getEntityId() : ((EntityDart)entity).getOwner().getEntityId())));
-		registerSpawnPacket(POISON_NEEDLE, (entity) -> new EntitySpawnClientPacket(entity, 1 + (((EntityDart)entity).getOwner() == null ? entity.getEntityId() : ((EntityDart)entity).getOwner().getEntityId())));
-		//registerSpawnPacket(FLOATING_BLOCK, (entity) -> new CustomPayloadClientPacket(Aether.locate("spawns"), EntityFloatingBlock.write((EntityFloatingBlock)entity)));
-		//registerSpawnPacket(GOLDEN_DART, (entity) -> new CustomPayloadClientPacket(Aether.locate("spawns"), EntityDart.write((EntityDart) entity)));
-		//registerSpawnPacket(ENCHANTED_DART, (entity) -> new CustomPayloadClientPacket(Aether.locate("spawns"), EntityDart.write((EntityDart) entity)));
-		//registerSpawnPacket(POISON_DART, (entity) -> new CustomPayloadClientPacket(Aether.locate("spawns"), EntityDart.write((EntityDart) entity)));
-		//registerSpawnPacket(POISON_NEEDLE, (entity) -> new CustomPayloadClientPacket(Aether.locate("spawns"), EntityDart.write((EntityDart) entity)));
 	}
 
 	@SuppressWarnings("unused")
@@ -116,21 +100,15 @@ public class EntityTypesAether
 		EntityTrackingRegistry.INSTANCE.register(type, trackingDistance, updateIntervalTicks, alwaysUpdateVelocity);
 	}
 
-	@SuppressWarnings("rawtypes")
-	private static void registerSpawnPacket(EntityType<?> type, Function<Entity, Packet> function)
-	{
-		EntityTrackingRegistry.INSTANCE.registerSpawnPacketProvider(type, function);
-	}
-
 	public static void registerItems()
 	{
 		//Registry.register(Registry.ITEM, Aether.locate("aechor_plant_spawn_egg"), new ItemAetherSpawnEgg(AECHOR_PLANT, 0x9fc3f7, 0x29a793));
 		//Registry.register(Registry.ITEM, Aether.locate("cockatrice_spawn_egg"), new ItemAetherSpawnEgg(COCKATRICE, 0x9fc3f7, 0x3d2338));
 	}
 
-	public static <X extends Entity> EntityType<X> register(String name, Class<X> clazz, Function<? super World, X> function)
+	public static <X extends Entity> EntityType<X> register(String name, EntityCategory category, EntitySize size, EntityType.class_4049<X> factory)
 	{
-		return Registry.register(Registry.ENTITY_TYPE, Aether.locate(name), FabricEntityTypeBuilder.create(clazz, function).size(1.0F, 1.0F).build());
+		return Registry.register(Registry.ENTITY_TYPE, Aether.locate(name), FabricEntityTypeBuilder.<X>create(category, factory).size(size).disableSaving().build());
 	}
 
 }

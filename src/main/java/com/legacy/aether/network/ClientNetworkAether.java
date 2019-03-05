@@ -1,9 +1,8 @@
 package com.legacy.aether.network;
 
-import java.util.function.BiConsumer;
-
-import net.fabricmc.fabric.networking.CustomPayloadPacketRegistry;
-import net.fabricmc.fabric.networking.PacketContext;
+import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
+import net.fabricmc.fabric.api.network.PacketConsumer;
+import net.fabricmc.fabric.api.network.PacketContext;
 import net.minecraft.util.PacketByteBuf;
 
 import com.legacy.aether.Aether;
@@ -19,9 +18,9 @@ public class ClientNetworkAether
 		register("cure", (contextIn, byteBuf) -> onPlayerCured(contextIn, byteBuf));
 	}
 
-	private static void register(String name, BiConsumer<PacketContext, PacketByteBuf> consumer)
+	private static void register(String name, PacketConsumer consumer)
 	{
-		CustomPayloadPacketRegistry.CLIENT.register(Aether.locate(name), consumer);
+		ClientSidePacketRegistry.INSTANCE.register(Aether.locate(name), consumer);
 	}
 
 	public static void onPlayerPoisoned(PacketContext contextIn, PacketByteBuf byteBuf)

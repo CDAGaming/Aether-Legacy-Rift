@@ -9,11 +9,12 @@ import com.legacy.aether.blocks.BlocksAether;
 public abstract class EntityAetherAnimal extends AnimalEntity
 {
 
-	public EntityAetherAnimal(EntityType<?> entityType_1, World world_1)
+	public EntityAetherAnimal(EntityType<? extends AnimalEntity> type, World world)
 	{
-		super(entityType_1, world_1);
+		super(type, world);
 
 		this.spawningGround = BlocksAether.aether_grass;
 	}
+
 
 }

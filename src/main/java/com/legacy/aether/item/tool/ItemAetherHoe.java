@@ -7,7 +7,6 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.HoeItem;
-import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -19,6 +18,7 @@ import net.minecraft.world.World;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
+import com.legacy.aether.item.AetherItemGroup;
 import com.legacy.aether.item.util.AetherTier;
 
 public class ItemAetherHoe extends HoeItem implements IAetherTool
@@ -30,14 +30,14 @@ public class ItemAetherHoe extends HoeItem implements IAetherTool
 
 	public ItemAetherHoe(AetherTier material, float attackSpeed)
 	{
-		super(material.getDefaultTier(), attackSpeed, new Settings().itemGroup(ItemGroup.TOOLS));
+		super(material.getDefaultTier(), attackSpeed, new Settings().itemGroup(AetherItemGroup.AETHER_TOOLS));
 
 		this.material = material;
 	}
 
 	public ItemAetherHoe(AetherTier material, Rarity rarity, float attackSpeed)
 	{
-		super(material.getDefaultTier(), attackSpeed, new Settings().itemGroup(ItemGroup.TOOLS).rarity(rarity));
+		super(material.getDefaultTier(), attackSpeed, new Settings().itemGroup(AetherItemGroup.AETHER_TOOLS).rarity(rarity));
 
 		this.material = material;
 	}

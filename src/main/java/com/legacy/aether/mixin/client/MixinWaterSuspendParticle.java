@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import com.legacy.aether.world.WorldAether;
 
 @Mixin(WaterSuspendParticle.class)
-public class MixinWaterSuspendParticle extends Particle
+public abstract class MixinWaterSuspendParticle extends Particle
 {
 
 	public MixinWaterSuspendParticle(World world_1, double double_1, double double_2, double double_3, double double_4, double double_5, double double_6)

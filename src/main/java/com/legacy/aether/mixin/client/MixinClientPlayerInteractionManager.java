@@ -12,12 +12,14 @@ import com.legacy.aether.api.player.util.PlayerReach;
 @Mixin(ClientPlayerInteractionManager.class)
 public class MixinClientPlayerInteractionManager implements PlayerReach
 {
+
 	private float survivalReachDistance = 4.5F;
 
 	private float creativeReachDistance = 5.0F;
 
 	@Shadow private GameMode gameMode;
 
+	@Override
 	public void setReachDistance(float survivalReach, float creativeReach)
 	{
 		this.survivalReachDistance = survivalReach;
@@ -29,4 +31,5 @@ public class MixinClientPlayerInteractionManager implements PlayerReach
 	{
 		return this.gameMode.isCreative() ? this.creativeReachDistance : this.survivalReachDistance;
 	}
+
 }

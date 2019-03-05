@@ -47,8 +47,8 @@ public class GuiDialogue extends Screen
         for (DialogueOption option : options) 
         {
             option.setDialogueId(lineNumber);
-            option.setXPosition((this.width / 2) - (option.getWidth() / 2));
-            option.setYPosition((this.height / 2) + this.fontRenderer.wrapStringToWidthAsList(this.dialogue, 300).size() * 12 + 12 * lineNumber);
+            option.setXPosition((this.screenWidth / 2) - (option.getWidth() / 2));
+            option.setYPosition((this.screenHeight / 2) + this.fontRenderer.wrapStringToWidthAsList(this.dialogue, 300).size() * 12 + 12 * lineNumber);
 
             lineNumber++;
         }
@@ -64,7 +64,7 @@ public class GuiDialogue extends Screen
 
 	public void addDialogueMessage(String dialogueMessage)
 	{
-		MinecraftClient.getInstance().inGameHud.getHudChat().addMessage(new StringTextComponent(dialogueMessage));
+		MinecraftClient.getInstance().inGameHud.getChatHud().addMessage(new StringTextComponent(dialogueMessage));
 	}
 
 	public void dialogueTreeCompleted()
@@ -89,8 +89,8 @@ public class GuiDialogue extends Screen
         {
             int stringWidth = this.fontRenderer.getStringWidth(theDialogue);
 
-        	this.drawGradientRect(this.width / 2 - stringWidth / 2 - 2, this.height / 2 + optionWidth * 12 - 2, this.width / 2 + stringWidth / 2 + 2, this.height / 2 + optionWidth * 10 + 10, 0x66000000, 0x66000000);
-        	this.drawString(this.fontRenderer, theDialogue, this.width / 2 - stringWidth / 2, this.height / 2 + optionWidth * 10, 0xffffff);
+        	this.drawGradientRect(this.screenWidth / 2 - stringWidth / 2 - 2, this.screenHeight / 2 + optionWidth * 12 - 2, this.screenWidth / 2 + stringWidth / 2 + 2, this.screenHeight / 2 + optionWidth * 10 + 10, 0x66000000, 0x66000000);
+        	this.drawString(this.fontRenderer, theDialogue, this.screenWidth / 2 - stringWidth / 2, this.screenHeight / 2 + optionWidth * 10, 0xffffff);
         	++optionWidth;
         }
 

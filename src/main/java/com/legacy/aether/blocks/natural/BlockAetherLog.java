@@ -1,7 +1,11 @@
 package com.legacy.aether.blocks.natural;
 
-import net.fabricmc.fabric.block.FabricBlockSettings;
-import net.minecraft.block.*;
+import net.fabricmc.fabric.api.block.FabricBlockSettings;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.LogBlock;
+import net.minecraft.block.Material;
+import net.minecraft.block.MaterialColor;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.state.StateFactory;

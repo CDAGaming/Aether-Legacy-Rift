@@ -3,7 +3,7 @@ package com.legacy.aether.blocks.decorative;
 import java.util.Iterator;
 import java.util.Random;
 
-import net.fabricmc.fabric.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.block.FabricBlockSettings;
 import net.minecraft.block.AttachedStemBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPlacementEnvironment;

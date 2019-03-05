@@ -1,8 +1,8 @@
 package com.legacy.aether.item.food;
 
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Rarity;
 import net.minecraft.world.World;
@@ -21,9 +21,9 @@ public class ItemHealingStone extends ItemAetherFood
 	}
 
 	@Override
-    protected void onConsumed(ItemStack stackIn, World worldIn, PlayerEntity playerIn)
+    protected void onConsumed(ItemStack stackIn, World worldIn, LivingEntity entityIn)
     {
-		playerIn.addPotionEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 610, 0));
+		entityIn.addPotionEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 610, 0));
     }
 
 	@Override

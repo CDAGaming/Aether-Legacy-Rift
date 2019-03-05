@@ -55,7 +55,7 @@ public class EatAetherGrassGoal extends Goal
 	{
 		this.timer = 40;
 		this.world.summonParticle(this.owner, (byte) 10);
-		this.owner.getNavigation().method_6340();
+		this.owner.getNavigation().stop();
 	}
 
 	@Override
@@ -96,7 +96,7 @@ public class EatAetherGrassGoal extends Goal
 				{
 					if (this.world.getGameRules().getBoolean("mobGriefing"))
 					{
-						this.world.fireWorldEvent(2001, downPos, Block.getRawIdFromState(BlocksAether.aether_grass.getDefaultState()));
+						this.world.playEvent(2001, downPos, Block.getRawIdFromState(BlocksAether.aether_grass.getDefaultState()));
 						this.world.setBlockState(downPos, BlocksAether.aether_dirt.getDefaultState(), 2);
 					}
 

@@ -1,6 +1,6 @@
 package com.legacy.aether.blocks.decorative;
 
-import net.fabricmc.fabric.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.block.FabricBlockSettings;
 import net.minecraft.block.BlockRenderLayer;
 import net.minecraft.block.GlassBlock;
 import net.minecraft.block.Material;

@@ -1,13 +1,13 @@
 package com.legacy.aether.entities.hostile;
 
-import net.minecraft.class_1361;
-import net.minecraft.class_1376;
 import net.minecraft.class_1394;
 import net.minecraft.class_1399;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnType;
 import net.minecraft.entity.ai.RangedAttacker;
 import net.minecraft.entity.ai.goal.FollowTargetGoal;
+import net.minecraft.entity.ai.goal.LookAroundGoal;
+import net.minecraft.entity.ai.goal.LookAtEntityGoal;
 import net.minecraft.entity.ai.goal.ProjectileAttackGoal;
 import net.minecraft.entity.ai.goal.SwimGoal;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -40,20 +40,19 @@ public class EntityCockatrice extends HostileEntity implements RangedAttacker
 		super(EntityTypesAether.COCKATRICE, world);
 
 		this.stepHeight = 1.0F;
-		this.setSize(1.0F, 2.0F);
 	}
 
 	@Override
-	protected void method_5959()
+	protected void initGoals()
 	{
-		super.method_5959();
+		super.initGoals();
 
 		this.goalSelector.add(1, new SwimGoal(this));
 		this.goalSelector.add(4, new ProjectileAttackGoal(this, 0.5D, 30, 12.0F));
 		//this.goalSelector.add(5, new EntityAIMoveTowardsRestriction(this, 1.0D));
 		this.goalSelector.add(5, new class_1394(this, 1.0D));
-		this.goalSelector.add(6, new class_1361(this, PlayerEntity.class, 8.0F));
-		this.goalSelector.add(6, new class_1376(this));
+		this.goalSelector.add(6, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
+		this.goalSelector.add(6, new LookAroundGoal(this));
 		this.targetSelector.add(1, new class_1399(this, new Class[0]));
 		this.targetSelector.add(2, new FollowTargetGoal<PlayerEntity>(this, PlayerEntity.class, true));
 	}
@@ -73,9 +72,9 @@ public class EntityCockatrice extends HostileEntity implements RangedAttacker
 	{
 		super.update();
 
-		if (!this.onGround && this.velocityY < 0.0D)
+		if (!this.onGround && this.getVelocity().y < 0.0D)
 		{
-			this.velocityY *= 0.59999999999999998D;
+			this.setVelocity(this.getVelocity().multiply(1.0D, 0.6D, 1.0D));
 		}
 
 		if (!this.onGround)

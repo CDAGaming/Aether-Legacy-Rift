@@ -1,9 +1,9 @@
 package com.legacy.aether.blocks.decorative;
 
-import com.legacy.aether.blocks.BlocksAether;
-
-import net.fabricmc.fabric.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.block.FabricBlockSettings;
 import net.minecraft.block.FenceBlock;
+
+import com.legacy.aether.blocks.BlocksAether;
 
 public class BlockSkyrootFence extends FenceBlock
 {

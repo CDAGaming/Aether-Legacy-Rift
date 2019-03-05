@@ -81,8 +81,7 @@ public class AetherPoisonMovement
 		double newRotD = (Math.PI / 4D) * gaussian;
 
 		this.motD = 0.2D * newMotD + (0.8D) * this.motD;
-		this.entity.velocityX += this.motD;
-		this.entity.velocityZ += this.motD;
+		this.entity.setVelocity(this.entity.getVelocity().add(this.motD, 0.0D, this.motD));
 		this.rotD = 0.125D * newRotD + (1.0D - 0.125D) * this.rotD;
 
 		this.entity.yaw = (float) ((double) this.entity.yaw + rotD);

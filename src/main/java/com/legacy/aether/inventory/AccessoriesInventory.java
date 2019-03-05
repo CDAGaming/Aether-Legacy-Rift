@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.attribute.EntityAttributeModifier;
+import net.minecraft.entity.attribute.EntityAttributeModifier.Operation;
+import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.inventory.InventoryListener;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DefaultedList;
@@ -15,6 +18,7 @@ import com.legacy.aether.api.accessories.AetherAccessory;
 import com.legacy.aether.api.player.IPlayerAether;
 import com.legacy.aether.api.player.util.AccessoryInventory;
 import com.legacy.aether.item.ItemsAether;
+import com.legacy.aether.item.accessory.ItemAccessory;
 
 public class AccessoriesInventory implements AccessoryInventory
 {
@@ -24,6 +28,8 @@ public class AccessoriesInventory implements AccessoryInventory
 	private final List<InventoryListener> listeners = new ArrayList<InventoryListener>();
 
 	private final Int2ObjectBiMap<AccessoryType> types = AccessoryType.createCompleteList();
+
+	private final Int2ObjectBiMap<EntityAttributeModifier> modifiers = new Int2ObjectBiMap<EntityAttributeModifier>(8);
 
 	private final IPlayerAether playerAether;
 
@@ -42,6 +48,26 @@ public class AccessoriesInventory implements AccessoryInventory
 	public void removeListener(InventoryListener listener)
 	{
 		this.listeners.remove(listener);
+	}
+
+	@Override
+	public void setInvStack(int slot, ItemStack stack)
+	{
+		if (stack.getItem() instanceof ItemAccessory)
+		{
+			EntityAttributeModifier modifier = new EntityAttributeModifier(this.types.get(slot).name().toLowerCase() + "_modifier", ((ItemAccessory)stack.getItem()).getDamageMultiplier(), Operation.MULTIPLY_BASE);
+
+			this.playerAether.getPlayer().getAttributeInstance(EntityAttributes.ATTACK_DAMAGE).addModifier(modifier);
+
+			if (this.modifiers.get(slot) != null && this.playerAether.getPlayer().getAttributeInstance(EntityAttributes.ATTACK_DAMAGE).hasModifier(this.modifiers.get(slot)))
+			{
+				this.playerAether.getPlayer().getAttributeInstance(EntityAttributes.ATTACK_DAMAGE).removeModifier(this.modifiers.get(slot));
+			}
+
+			this.modifiers.put(modifier, slot);
+		}
+
+		this.stackList.set(slot, stack);
 	}
 
 	@Override
@@ -102,7 +128,7 @@ public class AccessoriesInventory implements AccessoryInventory
 
 		for (int index = 0; index < this.types.size(); ++index)
 		{
-			AccessoryType type = this.types.getInt(index);
+			AccessoryType type = this.types.get(index);
 
 			if (!this.getInvStack(index).isEmpty())
 			{

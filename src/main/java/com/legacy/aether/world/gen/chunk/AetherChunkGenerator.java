@@ -72,8 +72,8 @@ public class AetherChunkGenerator extends ChunkGenerator<AetherChunkGeneratorSet
 		ChunkRandom class_2919_1 = new ChunkRandom();
 		class_2919_1.setSeed(int_1, int_2);
 		ChunkPos chunkPos_2 = chunk.getPos();
-		int int_3 = chunkPos_2.getXStart();
-		int int_4 = chunkPos_2.getZStart();
+		int int_3 = chunkPos_2.getStartX();
+		int int_4 = chunkPos_2.getStartZ();
 		Biome[] biomes_1 = chunk.getBiomeArray();
 
 		for (int int_5 = 0; int_5 < 16; ++int_5)
@@ -83,7 +83,7 @@ public class AetherChunkGenerator extends ChunkGenerator<AetherChunkGeneratorSet
 				int int_7 = int_3 + int_5;
 				int int_8 = int_4 + int_6;
 
-				biomes_1[int_6 * 16 + int_5].buildSurface(class_2919_1, chunk, int_7, int_8, 0, 0.0D, this.getSettings().getDefaultBlock(), this.getSettings().getDefaultFluid(), 0, this.world.getSeed());
+				biomes_1[int_6 * 16 + int_5].buildSurface(class_2919_1, chunk, int_7, int_8, 0, 0.0D, this.config.getDefaultBlock(), this.config.getDefaultFluid(), 0, this.world.getSeed());
 			}
 		}
 	}
@@ -202,7 +202,7 @@ public class AetherChunkGenerator extends ChunkGenerator<AetherChunkGeneratorSet
 	}
 
 	@Override
-	public int produceHeight(int x, int z, Type type)
+	public int getHeightOnGround(int x, int z, Type type)
 	{
 		this.buffer = this.setupNoiseGenerators(this.buffer, x * 2, z * 2);
 

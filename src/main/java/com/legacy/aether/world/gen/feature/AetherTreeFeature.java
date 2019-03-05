@@ -27,7 +27,7 @@ public abstract class AetherTreeFeature extends AbstractTreeFeature<DefaultFeatu
 	@Override
 	protected void setToDirt(ModifiableTestableWorld worldIn, BlockPos posIn)
 	{
-		if (worldIn.test(posIn, (state) -> state.getBlock() != BlocksAether.aether_dirt))
+		if (worldIn.testBlockState(posIn, (state) -> state.getBlock() != BlocksAether.aether_dirt))
 		{
 			this.setBlockState(worldIn, posIn, BlocksAether.aether_dirt.getDefaultState());
 		}

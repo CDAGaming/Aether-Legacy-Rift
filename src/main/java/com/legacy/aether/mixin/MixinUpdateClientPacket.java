@@ -1,6 +1,6 @@
 package com.legacy.aether.mixin;
 
-import net.minecraft.client.network.packet.MapUpdateClientPacket;
+import net.minecraft.client.network.packet.MapUpdateS2CPacket;
 import net.minecraft.util.PacketByteBuf;
 import net.minecraft.world.dimension.DimensionType;
 
@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import com.legacy.aether.util.MapDimensionData;
 
-@Mixin(MapUpdateClientPacket.class)
+@Mixin(MapUpdateS2CPacket.class)
 public class MixinUpdateClientPacket implements MapDimensionData
 {
 

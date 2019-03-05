@@ -49,7 +49,7 @@ public class ContainerAccessories extends PlayerContainer
 		{
 			for (int y = 0; y < 4; y++)
 			{
-				this.addSlot(new SlotAccessory(playerAether.getAccessoryInventory(), types.getInt(slotID), slotID, 59 + x * 18, 8 + y * 18));
+				this.addSlot(new SlotAccessory(playerAether.getAccessoryInventory(), types.get(slotID), slotID, 59 + x * 18, 8 + y * 18));
 				++slotID;
 			}
 		}

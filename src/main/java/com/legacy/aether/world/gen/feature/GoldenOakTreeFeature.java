@@ -16,7 +16,7 @@ public class GoldenOakTreeFeature extends AetherTreeFeature
 	{
 		int height = 9;
 
-		if (worldIn.test(posIn.down(), (ground) -> ground.getBlock() != BlocksAether.aether_grass))
+		if (worldIn.testBlockState(posIn.down(), (ground) -> ground.getBlock() != BlocksAether.aether_grass))
         {
             return false;
         }
@@ -29,7 +29,7 @@ public class GoldenOakTreeFeature extends AetherTreeFeature
 				{
 					BlockPos newPos = new BlockPos(x1, y1, z1);
 
-					if((x1 - posIn.getX()) * (x1 - posIn.getX()) + (y1 - posIn.getY() - 8) * (y1 - posIn.getY() - 8) + (z1 - posIn.getZ()) * (z1 - posIn.getZ()) < 12 + randomIn.nextInt(5) && worldIn.test(newPos, (state) -> canGrowInto(state)))
+					if((x1 - posIn.getX()) * (x1 - posIn.getX()) + (y1 - posIn.getY() - 8) * (y1 - posIn.getY() - 8) + (z1 - posIn.getZ()) * (z1 - posIn.getZ()) < 12 + randomIn.nextInt(5) && worldIn.testBlockState(newPos, (state) -> canGrowInto(state)))
 					{
 						this.setBlockState(worldIn, newPos, BlocksAether.golden_oak_leaves.getDefaultState());
 					}
@@ -72,7 +72,7 @@ public class GoldenOakTreeFeature extends AetherTreeFeature
 			i -= directionX;
 			k -= directionZ;
 
-			if(worldIn.test(posIn, (state) -> canGrowInto(state)))
+			if(worldIn.testBlockState(posIn, (state) -> canGrowInto(state)))
 			{
 				this.setBlockState(worldIn, new BlockPos(x, y, z), BlocksAether.golden_oak_log.getDefaultState());
 				this.setBlockState(worldIn, new BlockPos(i, y, k), BlocksAether.golden_oak_log.getDefaultState());

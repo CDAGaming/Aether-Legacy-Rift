@@ -27,26 +27,30 @@ public class MixinBucketItem
 	@Shadow @Final private Fluid fluid;
 
 	@Inject(method = "placeFluid", at = @At("HEAD"), cancellable = true)
-    public void placeAetherPortal(PlayerEntity playerIn, World worldIn, BlockPos posIn, BlockHitResult hitResult, CallbackInfoReturnable<Boolean> ci)
-    {
+	public void placeAetherPortal(PlayerEntity playerIn, World worldIn, BlockPos posIn, BlockHitResult hitResult, CallbackInfoReturnable<Boolean> ci)
+	{
 		if (this.fluid == Fluids.WATER && ((BlockAetherPortal) BlocksAether.aether_portal).method_10352(worldIn, posIn))
 		{
 			this.playEmptyingSound(playerIn, worldIn, posIn);
+
 			ci.setReturnValue(true);
 			ci.cancel();
 		}
 		else if (this.fluid == Fluids.LAVA && playerIn.dimension == WorldAether.THE_AETHER)
 		{
 			this.playEmptyingSound(playerIn, worldIn, posIn);
+
 			worldIn.setBlockState(posIn, BlocksAether.aerogel.getDefaultState(), 11);
+
 			ci.setReturnValue(true);
 			ci.cancel();
 		}
-    }
+	}
 
-    @Shadow
-    protected void playEmptyingSound(PlayerEntity playerIn, IWorld worldIn, BlockPos posIn)
-    {
-    	
-    }
+	@Shadow
+	protected void playEmptyingSound(PlayerEntity playerIn, IWorld worldIn, BlockPos posIn)
+	{
+
+	}
+
 }

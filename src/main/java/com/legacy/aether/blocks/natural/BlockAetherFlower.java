@@ -1,8 +1,6 @@
 package com.legacy.aether.blocks.natural;
 
-import com.legacy.aether.blocks.BlocksAether;
-
-import net.fabricmc.fabric.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.block.FabricBlockSettings;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.FlowerBlock;
@@ -11,6 +9,8 @@ import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BlockView;
+
+import com.legacy.aether.blocks.BlocksAether;
 
 public class BlockAetherFlower extends FlowerBlock
 {

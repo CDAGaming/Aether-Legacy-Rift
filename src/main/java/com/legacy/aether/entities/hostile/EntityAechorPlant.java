@@ -2,6 +2,8 @@ package com.legacy.aether.entities.hostile;
 
 import net.minecraft.class_1399;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityPose;
+import net.minecraft.entity.EntitySize;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnType;
 import net.minecraft.entity.ai.RangedAttacker;
@@ -42,13 +44,17 @@ public class EntityAechorPlant extends EntityAetherAnimal implements RangedAttac
 		this.poisonRemaining = this.random.nextInt(4) + 2;
 
 		this.setPosition(this.x, this.y, this.z);
-		this.setSize(0.75F + ((float) this.size * 0.125F), 0.5F + ((float) this.size * 0.075F));
+	}
+
+	public EntitySize getSizeForStatus(EntityPose entityPose_1)
+	{
+		return EntitySize.resizeable(0.75F + ((float) this.size * 0.125F), 0.5F + ((float) this.size * 0.075F));
 	}
 
 	@Override
-	protected void method_5959()
+	protected void initGoals()
 	{
-		super.method_5959();
+		super.initGoals();
 
 		this.goalSelector.add(4, new ProjectileAttackGoal(this, 0.0D, 30, 1.0F));
 		this.targetSelector.add(1, new class_1399(this, new Class[0]));

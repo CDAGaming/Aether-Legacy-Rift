@@ -119,7 +119,7 @@ public interface AccessoryInventory extends Inventory
 	}
 
 	@Override
-	public default void clearInv()
+	public default void clear()
 	{
 		this.getInventory().clear();
 	}

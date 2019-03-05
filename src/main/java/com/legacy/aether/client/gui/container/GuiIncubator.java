@@ -39,7 +39,7 @@ public class GuiIncubator extends ContainerScreen<ContainerIncubator>
     {
         this.drawBackground();
     	super.draw(mouseX, mouseY, partialTicks);
-        this.drawMousoverTooltip(mouseX, mouseY);
+        this.drawMouseoverTooltip(mouseX, mouseY);
     }
 
 	@Override
@@ -53,8 +53,8 @@ public class GuiIncubator extends ContainerScreen<ContainerIncubator>
 			incubatorName = ((IncubatorBlockEntity)this.incubator).ownerName + "'s " + incubatorName;
 		}
 
-		this.fontRenderer.draw(incubatorName, this.containerWidth / 2 - this.fontRenderer.getStringWidth(incubatorName) / 2, 6, 4210752);
-		this.fontRenderer.draw(this.name.getFormattedText(), 8, this.containerHeight - 96 + 2, 0x404040);
+		this.fontRenderer.draw(incubatorName, this.screenWidth / 2 - this.fontRenderer.getStringWidth(incubatorName) / 2, 6, 4210752);
+		this.fontRenderer.draw(this.name.getFormattedText(), 8, this.screenHeight - 96 + 2, 0x404040);
 	}
 
 	@Override
@@ -64,10 +64,10 @@ public class GuiIncubator extends ContainerScreen<ContainerIncubator>
 
 		this.client.getTextureManager().bindTexture(TEXTURE_INCUBATOR);
 
-		int j = (this.width - this.containerWidth) / 2;
-		int k = (this.height - this.containerHeight) / 2;
+		int j = (this.width - this.screenWidth) / 2;
+		int k = (this.height - this.screenHeight) / 2;
 
-		this.drawTexturedRect(j, k, 0, 0, this.containerWidth, this.containerHeight);
+		this.drawTexturedRect(j, k, 0, 0, this.screenWidth, this.screenHeight);
 
 		if (this.incubator.get(1) > 0)
 		{

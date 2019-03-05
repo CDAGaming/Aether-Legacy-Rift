@@ -1,11 +1,11 @@
 package com.legacy.aether.entities.passive;
 
-import net.minecraft.class_1361;
-import net.minecraft.class_1376;
 import net.minecraft.class_1394;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.MovementType;
 import net.minecraft.entity.ai.goal.AnimalMateGoal;
+import net.minecraft.entity.ai.goal.LookAroundGoal;
+import net.minecraft.entity.ai.goal.LookAtEntityGoal;
 import net.minecraft.entity.ai.goal.SwimGoal;
 import net.minecraft.entity.ai.goal.TemptGoal;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -26,6 +26,7 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 import com.legacy.aether.api.AetherAPI;
@@ -59,8 +60,6 @@ public class EntityMoa extends EntitySaddleMount
 	{
 		super(EntityTypesAether.MOA, world);
 
-		this.setSize(1.0F, 2.0F);
-
 		this.stepHeight = 1.0F;
 		this.secsUntilEgg = this.getRandomEggTime();
 	}
@@ -73,26 +72,26 @@ public class EntityMoa extends EntitySaddleMount
 	}
 
 	@Override
-	protected void method_5959()
+	protected void initGoals()
     {
 		this.goalSelector.add(0, new SwimGoal(this));
 		this.goalSelector.add(2, new class_1394(this, 0.30F)); //WanderGoal
 		this.goalSelector.add(2, new TemptGoal(this, 1.25D, Ingredient.ofItems(ItemsAether.nature_staff), false));
-		this.goalSelector.add(4, new class_1361(this, PlayerEntity.class, 6.0F));
-		this.goalSelector.add(5, new class_1376(this)); //LookGoal
+		this.goalSelector.add(4, new LookAtEntityGoal(this, PlayerEntity.class, 6.0F));
+		this.goalSelector.add(5, new LookAroundGoal(this)); //LookGoal
 		this.goalSelector.add(6, new AnimalMateGoal(this, 0.25F));
     }
 
 	@Override
-    public void move(MovementType type, double x, double y, double z)
+    public void move(MovementType movement, Vec3d motion)
     {
 		if (!this.isSitting())
 		{
-			super.move(type, x, y, z);
+			super.move(movement, motion);
 		}
 		else
 		{
-			super.move(type, 0, y, 0);
+			super.move(movement, new Vec3d(0, motion.y, 0));
 		}
     }
 
@@ -209,7 +208,7 @@ public class EntityMoa extends EntitySaddleMount
 
 		if (this.field_6282)
 		{
-			this.velocityY += 0.05F;
+			this.setVelocity(this.getVelocity().add(0.0D, 0.05D, 0.0D));
 		}
 
 		this.updateWingRotation();
@@ -302,13 +301,14 @@ public class EntityMoa extends EntitySaddleMount
 	}
 
 	@Override
-	public void onMountedJump(float par1, float par2)
+	public void onMountedJump(Vec3d motion)
 	{
-		if (this.getRemainingJumps() > 0 && this.velocityY < 0.0D)
+		if (this.getRemainingJumps() > 0 && this.getVelocity().y < 0.0D)
 		{
 			if (!this.onGround)
 			{
-				this.velocityY = 0.7D;
+				this.setVelocity(new Vec3d(this.getVelocity().x, 0.7D, this.getVelocity().z));
+
 				this.world.playSound(null, this.x, this.y, this.z, SoundEvents.ENTITY_BAT_TAKEOFF, SoundCategory.NEUTRAL, 0.15F, MathHelper.clamp(this.random.nextFloat(), 0.7f, 1.0f) + MathHelper.clamp(this.random.nextFloat(), 0f, 0.3f));
 
 				if (!this.world.isClient)
@@ -323,7 +323,7 @@ public class EntityMoa extends EntitySaddleMount
 			}
 			else
 			{
-				this.velocityY = 0.89D;
+				this.setVelocity(new Vec3d(this.getVelocity().x, 0.89D, this.getVelocity().z));
 			}
 		}
 	}
@@ -447,9 +447,9 @@ public class EntityMoa extends EntitySaddleMount
 	{
 		boolean blockBeneath = !this.world.isAir(new BlockPos(this).down());
 
-		if (this.velocityY < 0.0D && !this.isSneaking())
+		if (this.getVelocity().y < 0.0D && !this.isSneaking())
 		{
-			this.velocityY *= 0.6D;
+			this.setVelocity(this.getVelocity().multiply(1.0D, 0.6D, 1.0D));
 		}
 
 		if (blockBeneath)

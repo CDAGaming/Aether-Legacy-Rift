@@ -1,6 +1,5 @@
 package com.legacy.aether.mixin;
 
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -22,7 +21,7 @@ public abstract class MixinPlayerEntity extends LivingEntity implements IEntityP
 
 	private PlayerAether playerAether;
 
-	protected MixinPlayerEntity(EntityType<?> entityType_1, World world_1)
+	protected MixinPlayerEntity(EntityType<? extends LivingEntity> entityType_1, World world_1)
 	{
 		super(entityType_1, world_1);
 	}
@@ -31,16 +30,6 @@ public abstract class MixinPlayerEntity extends LivingEntity implements IEntityP
 	public void playerInit(CallbackInfo ci)
 	{
 		this.playerAether = new PlayerAether((PlayerEntity) (Object) this);
-	}
-
-	public PlayerAether getPlayerAether()
-	{
-		return this.playerAether;
-	}
-
-	public Entity getInstance()
-	{
-		return (PlayerEntity) (Object) this;
 	}
 
 	@Inject(method = "update", at = @At("RETURN"))
@@ -90,6 +79,12 @@ public abstract class MixinPlayerEntity extends LivingEntity implements IEntityP
 
 			super.handleFallDamage(fallDamage, this.playerAether.disableFallDamage() ? 0.0F : multiplier);
 		}
+	}
+
+	@Override
+	public PlayerAether getPlayerAether()
+	{
+		return this.playerAether;
 	}
 
 }

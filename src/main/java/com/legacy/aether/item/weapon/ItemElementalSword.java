@@ -30,7 +30,7 @@ public class ItemElementalSword extends ItemAetherSword
 
 			if (attacker instanceof ServerPlayerEntity)
 			{
-				lightning.method_6961((ServerPlayerEntity) attacker);
+				lightning.setChanneller((ServerPlayerEntity) attacker);
 			}
 
 			//entityliving1.world.addWeatherEffect(lightning);

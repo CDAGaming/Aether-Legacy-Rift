@@ -6,6 +6,7 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
+import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -20,9 +21,9 @@ public abstract class EntitySaddleMount extends EntityMountable
 
 	private static final TrackedData<Boolean> SADDLED = DataTracker.registerData(EntitySaddleMount.class, TrackedDataHandlerRegistry.BOOLEAN);
 
-	public EntitySaddleMount(EntityType<?> entityType, World world)
+	public EntitySaddleMount(EntityType<? extends AnimalEntity> type, World world)
 	{
-		super(entityType, world);
+		super(type, world);
 	}
 
 	@Override

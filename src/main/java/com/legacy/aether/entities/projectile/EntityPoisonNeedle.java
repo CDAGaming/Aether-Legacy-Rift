@@ -36,10 +36,4 @@ public class EntityPoisonNeedle extends EntityPoisonDart
 		return ItemStack.EMPTY;
 	}
 
-	@Override
-	public int getSpawnID()
-	{
-		return 4;
-	}
-
 }

@@ -1,12 +1,12 @@
 package com.legacy.aether.entities.passive;
 
-import net.minecraft.class_1361;
-import net.minecraft.class_1374;
-import net.minecraft.class_1376;
 import net.minecraft.class_1394;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.ai.goal.AnimalMateGoal;
+import net.minecraft.entity.ai.goal.EscapeDangerGoal;
 import net.minecraft.entity.ai.goal.FollowParentGoal;
+import net.minecraft.entity.ai.goal.LookAroundGoal;
+import net.minecraft.entity.ai.goal.LookAtEntityGoal;
 import net.minecraft.entity.ai.goal.SwimGoal;
 import net.minecraft.entity.ai.goal.TemptGoal;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -51,19 +51,17 @@ public class EntityPhyg extends EntitySaddleMount
 
 		this.ignoreCameraFrustum = true;
 		this.canJumpMidAir = true;
-
-		this.setSize(0.9F, 1.3F);
 	}
 
 	@Override
-    protected void method_5959()
+    protected void initGoals()
     {
 		this.goalSelector.add(0, new SwimGoal(this));
-		this.goalSelector.add(1, new class_1374(this, 1.25D));
+		this.goalSelector.add(1, new EscapeDangerGoal(this, 1.25D));
 		this.goalSelector.add(2, new AnimalMateGoal(this, 1.0D));
         this.goalSelector.add(3, new TemptGoal(this, 1.25D, Ingredient.ofItems(ItemsAether.blueberry), false));
-		this.goalSelector.add(4, new class_1361(this, PlayerEntity.class, 6.0F));
-		this.goalSelector.add(5, new class_1376(this));
+		this.goalSelector.add(4, new LookAtEntityGoal(this, PlayerEntity.class, 6.0F));
+		this.goalSelector.add(5, new LookAroundGoal(this));
 		this.goalSelector.add(5, new FollowParentGoal(this, 1.1D));
 		this.goalSelector.add(6, new class_1394(this, 1.0D));
     }
@@ -145,9 +143,9 @@ public class EntityPhyg extends EntitySaddleMount
 
 	private void fall()
 	{
-		if (this.velocityY < 0.0D && !this.isSneaking())
+		if (this.getVelocity().y < 0.0D && !this.isSneaking())
 		{
-			this.velocityY *= 0.6D;
+			this.setVelocity(this.getVelocity().multiply(1.0D, 0.6D, 1.0D));
 		}
 
 		if (!this.onGround && !this.field_5953)

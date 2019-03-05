@@ -38,7 +38,7 @@ public class GuiAccessories extends ContainerScreen<ContainerAccessories>
     {
         this.drawBackground();
     	super.draw(mouseX, mouseY, partialTicks);
-        this.drawMousoverTooltip(mouseX, mouseY);
+        this.drawMouseoverTooltip(mouseX, mouseY);
     }
 
 	@Override
