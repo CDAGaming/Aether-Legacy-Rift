@@ -7,6 +7,8 @@ import net.minecraft.entity.player.PlayerEntity;
 public interface IPlayerAether
 {
 
+	public float setReachDistance(float distance);
+
 	public void setInPortal();
 
 	public void inflictCure(int ticks);

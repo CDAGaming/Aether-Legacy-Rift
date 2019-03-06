@@ -4,21 +4,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.UUID;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.attribute.EntityAttributeModifier;
-import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.util.Hand;
-import net.minecraft.world.dimension.DimensionType;
-
 import com.legacy.aether.api.player.IPlayerAether;
 import com.legacy.aether.api.player.util.AccessoryInventory;
 import com.legacy.aether.api.player.util.AetherAbility;
-import com.legacy.aether.api.player.util.PlayerReach;
 import com.legacy.aether.entities.util.AetherPoisonMovement;
 import com.legacy.aether.inventory.AccessoriesInventory;
 import com.legacy.aether.item.tool.IAetherTool;
@@ -30,6 +18,16 @@ import com.legacy.aether.player.perks.AetherDonationPerks;
 import com.legacy.aether.util.AetherTeleportation;
 import com.legacy.aether.world.TeleporterAether;
 import com.legacy.aether.world.WorldAether;
+
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.attribute.EntityAttributeModifier;
+import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.world.dimension.DimensionType;
 
 public class PlayerAether implements IPlayerAether
 {
@@ -57,8 +55,6 @@ public class PlayerAether implements IPlayerAether
 	private AetherPoisonMovement poisonMovement;
 
 	public AetherDonationPerks donationPerks;
-
-	private boolean hadReachTool;
 
 	public PlayerAether(PlayerEntity player)
 	{
@@ -92,7 +88,7 @@ public class PlayerAether implements IPlayerAether
 			}
 		}
 
-		this.updateReach();
+		//this.updateReach();
 		//this.poisonMovement.tick();
 
 		if (this.getPlayer().dimension == WorldAether.THE_AETHER && this.getPlayer().y <= -10.0F)
@@ -176,39 +172,16 @@ public class PlayerAether implements IPlayerAether
 		return check;
 	}
 
-	private void updateReach()
+	public float setReachDistance(float distance)
 	{
-		ItemStack mainHeldItem = this.getPlayer().getStackInHand(Hand.MAIN);
-		ItemStack offHeldItem = this.getPlayer().getStackInHand(Hand.OFF);
-		boolean isMainReachTool = mainHeldItem.getItem() instanceof IAetherTool && ((IAetherTool)mainHeldItem.getItem()).getMaterial() == AetherTier.Valkyrie;
-		boolean isOffReachTool = offHeldItem.getItem() instanceof IAetherTool && ((IAetherTool)offHeldItem.getItem()).getMaterial() == AetherTier.Valkyrie;
+		ItemStack stack = this.getPlayer().getMainHandStack();
 
-		if (isMainReachTool || isOffReachTool)
+		if (stack.getItem() instanceof IAetherTool && ((IAetherTool)stack.getItem()).getMaterial() == AetherTier.Valkyrie)
 		{
-			if (this.getPlayer().world.isClient)
-			{
-				((PlayerReach)net.minecraft.client.MinecraftClient.getInstance().interactionManager).setReachDistance(10.0F, 10.0F);
-			}
-			else
-			{
-				((PlayerReach)((net.minecraft.server.network.ServerPlayerEntity)this.getPlayer()).interactionManager).setReachDistance(10.0F, 10.0F);
-			}
-
-			this.hadReachTool = true;
+			return 10.0F;
 		}
-		else if (!isMainReachTool && !isOffReachTool && this.hadReachTool)
-		{
-			if (this.getPlayer().world.isClient)
-			{
-				((PlayerReach)net.minecraft.client.MinecraftClient.getInstance().interactionManager).setReachDistance(4.5F, 5.0F);
-			}
-			else
-			{
-				((PlayerReach)((net.minecraft.server.network.ServerPlayerEntity)this.getPlayer()).interactionManager).setReachDistance(4.5F, 5.0F);
-			}
 
-			this.hadReachTool = false;
-		}
+		return distance;
 	}
 
 	/*

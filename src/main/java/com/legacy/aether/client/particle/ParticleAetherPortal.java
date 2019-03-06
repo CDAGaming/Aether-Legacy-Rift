@@ -35,7 +35,7 @@ public class ParticleAetherPortal extends SpriteBillboardParticle
 		this.startZ = this.posZ;
 		this.field_17867 = 0.1F * (this.random.nextFloat() * 0.2F + 0.5F);
 		float float_1 = this.random.nextFloat() * 0.6F + 0.4F;
-		this.colorRed = float_1 * 0.9F;
+		this.colorRed = float_1 * 0.1F;
 		this.colorGreen = float_1 * 0.3F;
 		this.colorBlue = float_1;
 		this.maxAge = (int) (Math.random() * 10.0D) + 40;

@@ -1,7 +1,16 @@
 package com.legacy.aether.mixin;
 
+import org.spongepowered.asm.mixin.Final;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Overwrite;
+import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+import com.legacy.aether.api.player.util.ServerPlayerReach;
+
 import net.minecraft.client.network.packet.BlockUpdateS2CPacket;
-import net.minecraft.client.network.packet.ChatMessageS2CPacket;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.NetworkThreadUtils;
 import net.minecraft.server.MinecraftServer;
@@ -10,22 +19,11 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.network.packet.PlayerActionC2SPacket;
 import net.minecraft.server.network.packet.PlayerInteractBlockC2SPacket;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sortme.ChatMessageType;
-import net.minecraft.text.TextComponent;
-import net.minecraft.text.TextFormat;
-import net.minecraft.text.TranslatableTextComponent;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
-
-import org.spongepowered.asm.mixin.Final;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
-import org.spongepowered.asm.mixin.Shadow;
-
-import com.legacy.aether.api.player.util.PlayerReach;
 
 @Mixin(ServerPlayNetworkHandler.class)
 public class MixinServerPlayNetworkHandler
@@ -35,7 +33,7 @@ public class MixinServerPlayNetworkHandler
 
 	@Shadow public ServerPlayerEntity player;
 
-	@Shadow private Vec3d field_14119;
+	@Shadow private Vec3d requestedTeleportPos;
 
 	@Overwrite
 	public void onPlayerAction(PlayerActionC2SPacket packetIn)
@@ -83,7 +81,7 @@ public class MixinServerPlayNetworkHandler
 			double double_3 = this.player.z - ((double) blockPos_1.getZ() + 0.5D);
 			double double_4 = double_1 * double_1 + double_2 * double_2 + double_3 * double_3;
 
-			double distance = ((PlayerReach)this.player.interactionManager).getReachDistance() + 1.0D;
+			double distance = ((ServerPlayerReach)this.player.interactionManager).getReachDistance() + 1.0D;
 
 			distance *= distance;
 
@@ -132,37 +130,33 @@ public class MixinServerPlayNetworkHandler
 		}
 	}
 
-	@Overwrite
-	public void onPlayerInteractBlock(PlayerInteractBlockC2SPacket packetIn)
+	@Inject(method = "onPlayerInteractBlock", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/network/ServerPlayerEntity;updateLastActionTime()V"))
+	public void onPlayerAetherInteractBlock(PlayerInteractBlockC2SPacket packetIn, CallbackInfo ci)
 	{
-		NetworkThreadUtils.forceMainThread(packetIn, (ServerPlayNetworkHandler) (Object) this, (ServerWorld) this.player.getServerWorld());
+		this.player.updateLastActionTime();
 
 		ServerWorld world = this.server.getWorld(this.player.dimension);
 		Hand hand = packetIn.getHand();
 		ItemStack heldItem = this.player.getStackInHand(hand);
-		BlockHitResult class_3965_1 = packetIn.getHitY();
-		BlockPos pos = class_3965_1.getBlockPos();
-		Direction direction = class_3965_1.getSide();
+		BlockHitResult hitResult = packetIn.getHitY();
+		BlockPos pos = hitResult.getBlockPos();
+		Direction direction = hitResult.getSide();
 
-		this.player.updateLastActionTime();
-
-		double distance = ((PlayerReach)this.player.interactionManager).getReachDistance() + 3.0D;
+		double distance = ((ServerPlayerReach)this.player.interactionManager).getReachDistance() + 3.0D;
 
 		distance *= distance;
 
-		if (pos.getY() >= this.server.getWorldHeight() - 1 && (direction == Direction.UP || pos.getY() >= this.server.getWorldHeight()))
+		if (distance > 64.0F)
 		{
-			TextComponent textComponent_1 = (new TranslatableTextComponent("build.tooHigh", new Object[]{this.server.getWorldHeight()})).applyFormat(TextFormat.RED);
-
-			this.player.networkHandler.sendPacket(new ChatMessageS2CPacket(textComponent_1, ChatMessageType.GAME_INFO));
-		} 
-		else if (this.field_14119 == null && this.player.squaredDistanceTo((double)pos.getX() + 0.5D, (double)pos.getY() + 0.5D, (double)pos.getZ() + 0.5D) < distance && !this.server.isSpawnProtected(world, pos, this.player) && world.getWorldBorder().contains(pos))
-		{
-			this.player.interactionManager.interactBlock(this.player, world, heldItem, hand, class_3965_1);
+			if (pos.getY() >= this.server.getWorldHeight() - 1 && (direction == Direction.UP || pos.getY() >= this.server.getWorldHeight()))
+			{
+				
+			}
+			else if (this.requestedTeleportPos == null && this.player.squaredDistanceTo((double)pos.getX() + 0.5D, (double)pos.getY() + 0.5D, (double)pos.getZ() + 0.5D) < distance && !this.server.isSpawnProtected(world, pos, this.player) && world.getWorldBorder().contains(pos))
+			{
+				this.player.interactionManager.interactBlock(this.player, world, heldItem, hand, hitResult);
+			}
 		}
-
-		this.player.networkHandler.sendPacket(new BlockUpdateS2CPacket(world, pos));
-		this.player.networkHandler.sendPacket(new BlockUpdateS2CPacket(world, pos.offset(direction)));
 	}
 
 }

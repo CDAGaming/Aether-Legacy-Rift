@@ -1,18 +1,9 @@
 package com.legacy.aether.mixin;
 
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.player.PlayerEntity;
-
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
-import com.legacy.aether.api.AetherAPI;
-import com.legacy.aether.api.accessories.AccessoryType;
-import com.legacy.aether.api.player.IPlayerAether;
-import com.legacy.aether.item.accessory.ItemAccessory;
+import net.minecraft.entity.LivingEntity;
 
 @Mixin(LivingEntity.class)
 public class MixinLivingEntity

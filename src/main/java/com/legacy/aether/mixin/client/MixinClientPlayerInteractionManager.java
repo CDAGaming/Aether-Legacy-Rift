@@ -1,35 +1,32 @@
 package com.legacy.aether.mixin.client;
 
-import net.minecraft.client.network.ClientPlayerInteractionManager;
-import net.minecraft.world.GameMode;
-
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import com.legacy.aether.api.player.util.PlayerReach;
+import com.legacy.aether.api.AetherAPI;
+
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.ClientPlayerInteractionManager;
 
 @Mixin(ClientPlayerInteractionManager.class)
-public class MixinClientPlayerInteractionManager implements PlayerReach
+public class MixinClientPlayerInteractionManager
 {
 
-	private float survivalReachDistance = 4.5F;
+	@Shadow @Final private MinecraftClient client;
 
-	private float creativeReachDistance = 5.0F;
-
-	@Shadow private GameMode gameMode;
-
-	@Override
-	public void setReachDistance(float survivalReach, float creativeReach)
+	@Inject(method = "getReachDistance", at = @At("RETURN"), cancellable = true)
+	public void setAetherReachDistance(CallbackInfoReturnable<Float> ci)
 	{
-		this.survivalReachDistance = survivalReach;
-		this.creativeReachDistance = creativeReach;
-	}
+		if (this.client.player != null)
+		{
+			float original = ci.getReturnValue();
 
-	@Overwrite
-	public float getReachDistance()
-	{
-		return this.gameMode.isCreative() ? this.creativeReachDistance : this.survivalReachDistance;
+			ci.setReturnValue(AetherAPI.get(this.client.player).setReachDistance(original));
+		}
 	}
 
 }

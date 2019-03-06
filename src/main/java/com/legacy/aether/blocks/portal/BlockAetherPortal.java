@@ -2,6 +2,10 @@ package com.legacy.aether.blocks.portal;
 
 import java.util.Random;
 
+import com.google.common.cache.LoadingCache;
+import com.legacy.aether.api.AetherAPI;
+import com.legacy.aether.particle.AetherParticleTypes;
+
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.block.FabricBlockSettings;
@@ -13,17 +17,12 @@ import net.minecraft.block.pattern.BlockPattern;
 import net.minecraft.block.pattern.CachedBlockPosition;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
-
-import com.google.common.cache.LoadingCache;
-import com.legacy.aether.api.AetherAPI;
-import com.legacy.aether.particle.AetherParticleTypes;
 
 public class BlockAetherPortal extends PortalBlock
 {

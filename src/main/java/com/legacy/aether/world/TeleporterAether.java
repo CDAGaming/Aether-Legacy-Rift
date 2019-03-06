@@ -35,8 +35,6 @@ public class TeleporterAether extends PortalForcer
 
 	private final Long2ObjectMap<AetherPortalPosition> destinations = new Long2ObjectOpenHashMap<AetherPortalPosition>(4096);
 
-	private Entity data;
-
 	public TeleporterAether(boolean portalSpawn, ServerWorld serverIn)
 	{
 		super(serverIn);
@@ -49,8 +47,6 @@ public class TeleporterAether extends PortalForcer
 	@Override
 	public boolean method_8653(Entity entity, float yaw)
 	{
-		this.data = entity;
-
 		Direction direction_1 = entity.method_5843();
 		long long_1 = ChunkPos.toLong(MathHelper.floor(entity.x), MathHelper.floor(entity.z));
 		Pair<Vec3d, Pair<Vec3d, Integer>> pair_1 = this.method_18475(new BlockPos(entity), entity.getVelocity(), long_1, direction_1, 0, 0);
