@@ -54,7 +54,7 @@ public class GuiAccessories extends ContainerScreen<ContainerAccessories>
 
 		this.client.getTextureManager().bindTexture(TEXTURE);
 
-		this.drawTexturedRect(this.width / 2 - 88, this.height / 2 - 166 / 2, 0, 0, 176, 166);
+		this.drawTexturedRect(this.left, this.top, 0, 0, 176, 166);
 
 		PlayerInventoryScreen.drawEntity(this.left + 35, this.top + 75, 30, (float)(this.left + 51) - (float)mouseX, (float)(this.top + 75 - 50) - (float)mouseY, this.client.player);
 	}

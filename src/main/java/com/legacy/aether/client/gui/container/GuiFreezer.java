@@ -46,8 +46,8 @@ public class GuiFreezer extends ContainerScreen<ContainerFreezer>
 	{
 		String name = this.freezer.getName().getFormattedText();
 
-		this.fontRenderer.draw(name, this.screenWidth / 2f - this.fontRenderer.getStringWidth(name) / 2f, 6, 4210752);
-		this.fontRenderer.draw(this.name.getFormattedText(), 8, this.screenHeight - 96 + 2, 4210752);
+		this.fontRenderer.draw(name, this.width / 2f - this.fontRenderer.getStringWidth(name) / 2f, 6, 4210752);
+		this.fontRenderer.draw(this.name.getFormattedText(), 8, this.height - 96 + 2, 4210752);
 	}
 
 	@Override
@@ -57,10 +57,10 @@ public class GuiFreezer extends ContainerScreen<ContainerFreezer>
 
 		this.client.getTextureManager().bindTexture(TEXTURE);
 
-		int k = (this.width - this.screenWidth) / 2;
-		int l = (this.height - this.screenHeight) / 2;
+		int k = this.left;
+		int l = this.top;
 
-		this.drawTexturedRect(k, l, 0, 0, this.screenWidth, this.screenHeight);
+		this.drawTexturedRect(k, l, 0, 0, this.width, this.height);
 
 		int i1;
 

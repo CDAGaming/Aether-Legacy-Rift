@@ -53,8 +53,8 @@ public class GuiIncubator extends ContainerScreen<ContainerIncubator>
 			incubatorName = ((IncubatorBlockEntity)this.incubator).ownerName + "'s " + incubatorName;
 		}
 
-		this.fontRenderer.draw(incubatorName, this.screenWidth / 2 - this.fontRenderer.getStringWidth(incubatorName) / 2, 6, 4210752);
-		this.fontRenderer.draw(this.name.getFormattedText(), 8, this.screenHeight - 96 + 2, 0x404040);
+		this.fontRenderer.draw(incubatorName, this.width / 2 - this.fontRenderer.getStringWidth(incubatorName) / 2, 6, 4210752);
+		this.fontRenderer.draw(this.name.getFormattedText(), 8, this.height - 96 + 2, 0x404040);
 	}
 
 	@Override
@@ -64,10 +64,10 @@ public class GuiIncubator extends ContainerScreen<ContainerIncubator>
 
 		this.client.getTextureManager().bindTexture(TEXTURE_INCUBATOR);
 
-		int j = (this.width - this.screenWidth) / 2;
-		int k = (this.height - this.screenHeight) / 2;
+		int j = this.left;
+		int k = this.top;
 
-		this.drawTexturedRect(j, k, 0, 0, this.screenWidth, this.screenHeight);
+		this.drawTexturedRect(j, k, 0, 0, this.width, this.height);
 
 		if (this.incubator.get(1) > 0)
 		{
