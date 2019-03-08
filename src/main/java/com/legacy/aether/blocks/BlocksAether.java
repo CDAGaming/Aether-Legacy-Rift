@@ -365,7 +365,6 @@ public class BlocksAether
 		register(stripped_golden_oak_wood);
 		register(aerogel, AetherItemGroup.AETHER_DECORATION_BLOCKS);
 		register(ambrosium_torch, new WallStandingBlockItem(ambrosium_torch, ambrosium_torch_wall, new Item.Settings().itemGroup(AetherItemGroup.AETHER_BLOCKS)));
-		register(ambrosium_torch_wall, new BlockItem(ambrosium_torch_wall, new Item.Settings()));
 		register(enchanter);
 		register(freezer);
 		register(incubator);
