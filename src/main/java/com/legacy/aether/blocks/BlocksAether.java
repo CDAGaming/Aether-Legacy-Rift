@@ -7,6 +7,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.block.BlockItem;
 import net.minecraft.item.block.WallStandingBlockItem;
+import net.minecraft.tag.ItemTags;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.registry.Registry;
 
@@ -54,6 +55,7 @@ import com.legacy.aether.blocks.natural.ore.BlockGravititeOre;
 import com.legacy.aether.blocks.natural.ore.BlockZaniteOre;
 import com.legacy.aether.blocks.portal.BlockAetherPortal;
 import com.legacy.aether.item.AetherItemGroup;
+import com.legacy.aether.item.block.BlockTaggedItem;
 import com.legacy.aether.world.gen.GoldenOakSaplingGenerator;
 import com.legacy.aether.world.gen.SkyrootSaplingGenerator;
 
@@ -383,8 +385,8 @@ public class BlocksAether
 		register(locked_sentry_stone);
 		register(locked_light_angelic_stone);
 		register(locked_light_hellfire_stone);
-		register(purple_flower, AetherItemGroup.AETHER_DECORATION_BLOCKS);
-		register(white_flower, AetherItemGroup.AETHER_DECORATION_BLOCKS);
+		register(purple_flower, new BlockTaggedItem(purple_flower, new Item.Settings().itemGroup(AetherItemGroup.AETHER_DECORATION_BLOCKS), ItemTags.SMALL_FLOWERS));
+		register(white_flower, new BlockTaggedItem(white_flower, new Item.Settings().itemGroup(AetherItemGroup.AETHER_DECORATION_BLOCKS), ItemTags.SMALL_FLOWERS));
 		register(berry_bush, AetherItemGroup.AETHER_DECORATION_BLOCKS);
 		register(berry_bush_stem, AetherItemGroup.AETHER_DECORATION_BLOCKS);
 		register(potted_purple_flower, (ItemGroup) null);

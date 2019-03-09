@@ -31,8 +31,8 @@ public class AetherHighlandsBiome extends Biome
 		super(new Settings().configureSurfaceBuilder(new HighlandsSurfaceBuilder(), SurfaceBuilder.AIR_CONFIG).category(Category.FOREST).depth(0.1F).scale(0.2F).temperature(0.5F).precipitation(Precipitation.NONE).downfall(0.0F).waterColor(0xA9F7FF).waterFogColor(0xA9F7FF));
 
 		this.addFeature(GenerationStep.Feature.VEGETAL_DECORATION, Biome.configureFeature(Feature.GRASS, new GrassFeatureConfig(Blocks.GRASS.getDefaultState()), Decorator.COUNT_HEIGHTMAP_DOUBLE, new CountDecoratorConfig(4)));
-		this.addFeature(GenerationStep.Feature.VEGETAL_DECORATION, Biome.configureFeature(Feature.GRASS, new GrassFeatureConfig(BlocksAether.purple_flower.getDefaultState()), Decorator.COUNT_HEIGHTMAP_DOUBLE, new CountDecoratorConfig(2)));
-		this.addFeature(GenerationStep.Feature.VEGETAL_DECORATION, Biome.configureFeature(Feature.GRASS, new GrassFeatureConfig(BlocksAether.white_flower.getDefaultState()), Decorator.COUNT_HEIGHTMAP_DOUBLE, new CountDecoratorConfig(2)));
+		this.addFeature(GenerationStep.Feature.VEGETAL_DECORATION, Biome.configureFeature(Feature.GRASS, new GrassFeatureConfig(BlocksAether.purple_flower.getDefaultState()), Decorator.COUNT_HEIGHTMAP_DOUBLE, new CountDecoratorConfig(1)));
+		this.addFeature(GenerationStep.Feature.VEGETAL_DECORATION, Biome.configureFeature(Feature.GRASS, new GrassFeatureConfig(BlocksAether.white_flower.getDefaultState()), Decorator.COUNT_HEIGHTMAP_DOUBLE, new CountDecoratorConfig(1)));
 		this.addFeature(GenerationStep.Feature.VEGETAL_DECORATION, Biome.configureFeature(Feature.DOUBLE_PLANT, new DoublePlantFeatureConfig(Blocks.TALL_GRASS.getDefaultState()), Decorator.COUNT_HEIGHTMAP_DOUBLE, new CountDecoratorConfig(4)));
 		this.addFeature(GenerationStep.Feature.VEGETAL_DECORATION, configureFeature(new SkyrootTreeFeature(), FeatureConfig.DEFAULT, Decorator.COUNT_HEIGHTMAP, new CountDecoratorConfig(4)));
 		this.addFeature(GenerationStep.Feature.VEGETAL_DECORATION, configureFeature(new GoldenOakTreeFeature(), FeatureConfig.DEFAULT, Decorator.CHANCE_HEIGHTMAP, new ChanceDecoratorConfig(2)));
