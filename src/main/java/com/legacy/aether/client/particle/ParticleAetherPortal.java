@@ -33,7 +33,7 @@ public class ParticleAetherPortal extends SpriteBillboardParticle
 		this.startX = this.posX;
 		this.startY = this.posY;
 		this.startZ = this.posZ;
-		this.field_17867 = 0.1F * (this.random.nextFloat() * 0.2F + 0.5F);
+		this.scale = 0.1F * (this.random.nextFloat() * 0.2F + 0.5F);
 		float float_1 = this.random.nextFloat() * 0.6F + 0.4F;
 		this.colorRed = float_1 * 0.1F;
 		this.colorGreen = float_1 * 0.3F;
@@ -63,7 +63,7 @@ public class ParticleAetherPortal extends SpriteBillboardParticle
 		float_2 *= float_2;
 		float_2 = 1.0F - float_2;
 
-		return this.field_17867 * float_2;
+		return this.scale * float_2;
 	}
 
 	@Override

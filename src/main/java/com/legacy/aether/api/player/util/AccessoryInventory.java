@@ -3,12 +3,12 @@ package com.legacy.aether.api.player.util;
 import java.util.Iterator;
 
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.Inventories;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.InventoryListener;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.DefaultedList;
-import net.minecraft.util.InventoryUtil;
 
 import com.legacy.aether.api.accessories.AccessoryType;
 
@@ -53,12 +53,12 @@ public interface AccessoryInventory extends Inventory
 
 	public default CompoundTag serialize(CompoundTag compound)
 	{
-		return InventoryUtil.serialize(compound, this.getInventory());
+		return Inventories.toTag(compound, this.getInventory());
 	}
 
 	public default void deserialize(CompoundTag compound)
 	{
-		InventoryUtil.deserialize(compound, this.getInventory());
+		Inventories.fromTag(compound, this.getInventory());
 	}
 
 	@Override
@@ -97,13 +97,13 @@ public interface AccessoryInventory extends Inventory
 	@Override
 	public default ItemStack takeInvStack(int slot, int stackSize)
 	{
-		return InventoryUtil.splitStack(this.getInventory(), slot, stackSize);
+		return Inventories.splitStack(this.getInventory(), slot, stackSize);
 	}
 
 	@Override
 	public default ItemStack removeInvStack(int slot)
 	{
-		return InventoryUtil.removeStack(this.getInventory(), slot);
+		return Inventories.removeStack(this.getInventory(), slot);
 	}
 
 	@Override

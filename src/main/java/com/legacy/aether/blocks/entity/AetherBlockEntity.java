@@ -6,13 +6,13 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.container.PropertyDelegate;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.Inventories;
 import net.minecraft.inventory.SidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.text.TextComponent;
 import net.minecraft.text.TranslatableTextComponent;
 import net.minecraft.util.DefaultedList;
-import net.minecraft.util.InventoryUtil;
 import net.minecraft.util.Tickable;
 import net.minecraft.util.math.Direction;
 
@@ -70,13 +70,13 @@ public abstract class AetherBlockEntity extends BlockEntity implements SidedInve
 	@Override
 	public ItemStack takeInvStack(int slot, int stackSize)
 	{
-		return InventoryUtil.splitStack(this.getInventory(), slot, stackSize);
+		return Inventories.splitStack(this.getInventory(), slot, stackSize);
 	}
 
 	@Override
 	public ItemStack removeInvStack(int slot)
 	{
-		return InventoryUtil.removeStack(this.getInventory(), slot);
+		return Inventories.removeStack(this.getInventory(), slot);
 	}
 
 	@Override
@@ -106,7 +106,7 @@ public abstract class AetherBlockEntity extends BlockEntity implements SidedInve
 		super.fromTag(compound);
 
 		this.getInventory().clear();
-		InventoryUtil.deserialize(compound, this.getInventory());
+		Inventories.fromTag(compound, this.getInventory());
 
 		if (compound.containsKey("customName", 8))
 		{
@@ -117,7 +117,7 @@ public abstract class AetherBlockEntity extends BlockEntity implements SidedInve
 	@Override
 	public CompoundTag toTag(CompoundTag compound)
 	{
-		InventoryUtil.serialize(compound, this.getInventory());
+		Inventories.toTag(compound, this.getInventory());
 
 		if (this.hasCustomName())
 		{
