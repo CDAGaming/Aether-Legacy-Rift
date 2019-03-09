@@ -10,7 +10,9 @@ import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.state.StateFactory;
 import net.minecraft.state.property.BooleanProperty;
+import net.minecraft.tag.BlockTags;
 import net.minecraft.tag.FluidTags;
+import net.minecraft.tag.Tag;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ViewableWorld;
 import net.minecraft.world.World;
@@ -27,6 +29,12 @@ public class BlockAetherGrass extends Block
 		super(FabricBlockSettings.of(Material.ORGANIC).ticksRandomly().strength(0.2F, -1.0F).sounds(BlockSoundGroup.GRASS).build());
 
 		this.setDefaultState(this.getDefaultState().with(DOUBLE_DROP, true));
+	}
+
+	@Override
+	public boolean matches(Tag<Block> tag)
+	{
+		return tag == BlockTags.DIRT_LIKE ? true : super.matches(tag);
 	}
 
 	@Override

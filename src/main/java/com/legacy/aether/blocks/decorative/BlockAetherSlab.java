@@ -3,9 +3,12 @@ package com.legacy.aether.blocks.decorative;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.block.FabricBlockSettings;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderLayer;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SlabBlock;
+import net.minecraft.tag.BlockTags;
+import net.minecraft.tag.Tag;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.BlockView;
@@ -18,6 +21,12 @@ public class BlockAetherSlab extends SlabBlock
 	public BlockAetherSlab(BlockState state)
 	{
 		super(FabricBlockSettings.copy(state.getBlock()).build());
+	}
+
+	@Override
+	public boolean matches(Tag<Block> tag)
+	{
+		return (tag == BlockTags.SLABS || (tag == BlockTags.WOODEN_SLABS && this == BlocksAether.skyroot_slab)) ? true : super.matches(tag);
 	}
 
 	@Override

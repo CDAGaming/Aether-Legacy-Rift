@@ -9,6 +9,8 @@ import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.state.StateFactory;
 import net.minecraft.state.property.BooleanProperty;
+import net.minecraft.tag.BlockTags;
+import net.minecraft.tag.Tag;
 
 public class BlockAetherDirt extends Block
 {
@@ -20,6 +22,12 @@ public class BlockAetherDirt extends Block
 		super(FabricBlockSettings.of(Material.EARTH, MaterialColor.ICE).strength(0.2F, -1.0F).sounds(BlockSoundGroup.GRAVEL).build());
 
 		this.setDefaultState(this.getDefaultState().with(DOUBLE_DROP, true));
+	}
+
+	@Override
+	public boolean matches(Tag<Block> tag)
+	{
+		return tag == BlockTags.DIRT_LIKE ? true : super.matches(tag);
 	}
 
 	@Override

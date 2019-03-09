@@ -7,6 +7,8 @@ import net.minecraft.block.FlowerBlock;
 import net.minecraft.block.Material;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.sound.BlockSoundGroup;
+import net.minecraft.tag.BlockTags;
+import net.minecraft.tag.Tag;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BlockView;
 
@@ -18,6 +20,12 @@ public class BlockAetherFlower extends FlowerBlock
 	public BlockAetherFlower(StatusEffect effect, int duration)
 	{
 		super(effect, duration, FabricBlockSettings.of(Material.PLANT).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).build());
+	}
+
+	@Override
+	public boolean matches(Tag<Block> tag)
+	{
+		return tag == BlockTags.SMALL_FLOWERS ? true : super.matches(tag);
 	}
 
 	@Override

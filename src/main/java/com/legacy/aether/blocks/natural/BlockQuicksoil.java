@@ -8,6 +8,8 @@ import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.state.StateFactory;
 import net.minecraft.state.property.BooleanProperty;
+import net.minecraft.tag.BlockTags;
+import net.minecraft.tag.Tag;
 
 public class BlockQuicksoil extends Block
 {
@@ -19,6 +21,12 @@ public class BlockQuicksoil extends Block
 		super(FabricBlockSettings.of(Material.SAND).strength(0.5F, -1.0F).friction(1.1F).sounds(BlockSoundGroup.SAND).build());
 
 		this.setDefaultState(this.getDefaultState().with(DOUBLE_DROP, true));
+	}
+
+	@Override
+	public boolean matches(Tag<Block> tag)
+	{
+		return tag == BlockTags.SAND ? true : super.matches(tag);
 	}
 
 	@Override

@@ -1,8 +1,5 @@
 package com.legacy.aether;
 
-import net.fabricmc.api.ModInitializer;
-import net.minecraft.util.Identifier;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -16,6 +13,9 @@ import com.legacy.aether.particle.AetherParticleTypes;
 import com.legacy.aether.registry.AetherAPIRegistry;
 import com.legacy.aether.sounds.SoundsAether;
 import com.legacy.aether.world.WorldAether;
+
+import net.fabricmc.api.ModInitializer;
+import net.minecraft.util.Identifier;
 
 public class Aether implements ModInitializer
 {
