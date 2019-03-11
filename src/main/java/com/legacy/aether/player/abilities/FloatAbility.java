@@ -22,7 +22,7 @@ public class FloatAbility implements AetherAbility
 	{
 		PlayerEntity player = this.playerAether.getPlayer();
 
-		return this.playerAether.getAccessoryInventory().wearingAccessory(new ItemStack(ItemsAether.golden_feather)) && !player.isFallFlying() && player.getVelocity().y < 0.0D && !player.onGround && !player.isInsideWater() && !player.isSneaking();
+		return this.playerAether.getAccessoryInventory().wearingAccessory(new ItemStack(ItemsAether.golden_feather)) && !player.isFallFlying() && player.getVelocity().y < 0.0D && !player.isInsideWater() && !player.isSneaking();
 	}
 
 	@Override

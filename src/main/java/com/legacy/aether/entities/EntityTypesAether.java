@@ -1,13 +1,5 @@
 package com.legacy.aether.entities;
 
-import net.fabricmc.fabric.api.entity.EntityTrackingRegistry;
-import net.fabricmc.fabric.api.entity.FabricEntityTypeBuilder;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityCategory;
-import net.minecraft.entity.EntitySize;
-import net.minecraft.entity.EntityType;
-import net.minecraft.util.registry.Registry;
-
 import com.legacy.aether.Aether;
 import com.legacy.aether.entities.block.EntityFloatingBlock;
 import com.legacy.aether.entities.hostile.EntityAechorPlant;
@@ -22,6 +14,13 @@ import com.legacy.aether.entities.projectile.EntityEnchantedDart;
 import com.legacy.aether.entities.projectile.EntityGoldenDart;
 import com.legacy.aether.entities.projectile.EntityPoisonDart;
 import com.legacy.aether.entities.projectile.EntityPoisonNeedle;
+
+import net.fabricmc.fabric.api.entity.FabricEntityTypeBuilder;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityCategory;
+import net.minecraft.entity.EntitySize;
+import net.minecraft.entity.EntityType;
+import net.minecraft.util.registry.Registry;
 
 public class EntityTypesAether
 {
@@ -42,7 +41,7 @@ public class EntityTypesAether
 
 	public static final EntityType<EntityChestMimic> CHEST_MIMIC = register("chest_mimic", EntityCategory.MONSTER, EntitySize.resizeable(1.0F, 2.0F), (entityType, world) -> new EntityChestMimic(world));
 
-	public static final EntityType<EntityFloatingBlock> FLOATING_BLOCK = register("floating_block", EntityCategory.MISC, EntitySize.resizeable(0.98F, 0.98F), (entityType, world) -> new EntityFloatingBlock(world));
+	public static final EntityType<EntityFloatingBlock> FLOATING_BLOCK = register("floating_block", 160, 20, true, EntitySize.resizeable(0.98F, 0.98F), (entityType, world) -> new EntityFloatingBlock(world));
 
 	public static final EntityType<EntityGoldenDart> GOLDEN_DART = register("golden_dart", EntityCategory.MISC, EntitySize.resizeable(0.5F, 0.5F), (entityType, world) -> new EntityGoldenDart(world));
 
@@ -67,8 +66,6 @@ public class EntityTypesAether
 	public static void register()
 	{
 		Aether.log("Registering Aether Entities");
-
-		trackEntity(FLOATING_BLOCK, 160, 20, true);
 	}
 
 	@SuppressWarnings("unused")
@@ -95,15 +92,15 @@ public class EntityTypesAether
 		AetherMoaTypes.initialization();*/
 	}
 
-	private static void trackEntity(EntityType<?> type, int trackingDistance, int updateIntervalTicks, boolean alwaysUpdateVelocity)
-	{
-		EntityTrackingRegistry.INSTANCE.register(type, trackingDistance, updateIntervalTicks, alwaysUpdateVelocity);
-	}
-
 	public static void registerItems()
 	{
 		//Registry.register(Registry.ITEM, Aether.locate("aechor_plant_spawn_egg"), new ItemAetherSpawnEgg(AECHOR_PLANT, 0x9fc3f7, 0x29a793));
 		//Registry.register(Registry.ITEM, Aether.locate("cockatrice_spawn_egg"), new ItemAetherSpawnEgg(COCKATRICE, 0x9fc3f7, 0x3d2338));
+	}
+
+	public static <X extends Entity> EntityType<X> register(String name, int trackingDistance, int updateIntervalTicks, boolean alwaysUpdateVelocity, EntitySize size, EntityType.class_4049<X> factory)
+	{
+		return Registry.register(Registry.ENTITY_TYPE, Aether.locate(name), FabricEntityTypeBuilder.<X>create(EntityCategory.MISC, factory).trackable(trackingDistance, updateIntervalTicks, alwaysUpdateVelocity).size(size).disableSaving().build());
 	}
 
 	public static <X extends Entity> EntityType<X> register(String name, EntityCategory category, EntitySize size, EntityType.class_4049<X> factory)

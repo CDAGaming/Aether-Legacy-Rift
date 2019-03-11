@@ -124,7 +124,7 @@ public class EntityFloatingBlock extends Entity
 
             if (!this.isUnaffectedByGravity())
             {
-            	this.setVelocity(this.getVelocity().add(0.0D, -0.04D, 0.0D));
+            	this.setVelocity(this.getVelocity().add(0.0D, 0.04D, 0.0D));
             }
 
             this.move(MovementType.SELF, this.getVelocity());
@@ -204,6 +204,12 @@ public class EntityFloatingBlock extends Entity
     {
         return this.world;
     }
+
+    @Override
+	public boolean method_5833()
+	{
+		return true;
+	}
 
     /*
 	@Override
