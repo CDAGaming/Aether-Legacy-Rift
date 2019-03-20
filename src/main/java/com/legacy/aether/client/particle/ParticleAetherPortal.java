@@ -4,11 +4,11 @@ import com.legacy.aether.particle.AetherParticleType;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.class_4002;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleFactory;
 import net.minecraft.client.particle.ParticleTextureSheet;
 import net.minecraft.client.particle.SpriteBillboardParticle;
+import net.minecraft.client.particle.SpriteProvider;
 import net.minecraft.world.World;
 
 @Environment(EnvType.CLIENT)
@@ -116,11 +116,11 @@ public class ParticleAetherPortal extends SpriteBillboardParticle
 	public static class Factory implements ParticleFactory<AetherParticleType>
 	{
 
-		private final class_4002 spriteObject;
+		private final SpriteProvider provider;
 
-		public Factory(class_4002 spriteObject)
+		public Factory(SpriteProvider provider)
 		{
-			this.spriteObject = spriteObject;
+			this.provider = provider;
 		}
 
 		@Override
@@ -128,7 +128,7 @@ public class ParticleAetherPortal extends SpriteBillboardParticle
 		{
 			ParticleAetherPortal particle = new ParticleAetherPortal(world, x, y, z, velocityX, velocityY, velocityZ);
 
-			particle.method_18140(this.spriteObject);
+			particle.method_18140(this.provider);
 
 			return particle;
 		}

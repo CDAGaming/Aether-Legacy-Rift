@@ -12,18 +12,18 @@
  */
 package com.legacy.aether.client.particle;
 
-import net.minecraft.class_4002;
-import net.minecraft.client.particle.ParticleFactory;
-import net.minecraft.client.particle.ParticleManager;
-import net.minecraft.particle.ParticleParameters;
-import net.minecraft.particle.ParticleType;
+import static com.google.common.base.Preconditions.checkArgument;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.util.function.Function;
 
-import static com.google.common.base.Preconditions.checkArgument;
+import net.minecraft.client.particle.ParticleFactory;
+import net.minecraft.client.particle.ParticleManager;
+import net.minecraft.client.particle.SpriteProvider;
+import net.minecraft.particle.ParticleParameters;
+import net.minecraft.particle.ParticleType;
 
 public final class ParticleFactories
 {
@@ -73,7 +73,7 @@ public final class ParticleFactories
 		throw new UnsupportedOperationException();
 	}
 
-	public static <T extends ParticleParameters> void register(final ParticleManager manager, final ParticleType<T> type, final Function<class_4002, ParticleFactory<T>> func)
+	public static <T extends ParticleParameters> void register(final ParticleManager manager, final ParticleType<T> type, final Function<SpriteProvider, ParticleFactory<T>> func)
 	{
 		try
 		{
@@ -85,13 +85,13 @@ public final class ParticleFactories
 		}
 	}
 
-	private static <T extends ParticleParameters> Object newProxyInstance(final Function<class_4002, ParticleFactory<T>> func)
+	private static <T extends ParticleParameters> Object newProxyInstance(final Function<SpriteProvider, ParticleFactory<T>> func)
 	{
 		return Proxy.newProxyInstance(FACTORY_INTERFACE.getClassLoader(), new Class[] { FACTORY_INTERFACE }, (proxy, method, args) -> {
 			checkArgument(method.getParameterCount() == 1, "Unexpected parameter count in %s", method);
-			checkArgument(class_4002.class.equals(method.getParameters()[0].getType()), "Unexpected parameter type in %s", method);
-			checkArgument(args.length == 1 && args[0] instanceof class_4002, "Argument mismatch: %s for %s", args, method);
-			return func.apply((class_4002) args[0]);
+			checkArgument(SpriteProvider.class.equals(method.getParameters()[0].getType()), "Unexpected parameter type in %s", method);
+			checkArgument(args.length == 1 && args[0] instanceof SpriteProvider, "Argument mismatch: %s for %s", args, method);
+			return func.apply((SpriteProvider) args[0]);
 		});
 	}
 

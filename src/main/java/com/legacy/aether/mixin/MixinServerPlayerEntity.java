@@ -17,6 +17,14 @@ public class MixinServerPlayerEntity implements PlayerTeleportationData
 
 	@Shadow private int field_13979;
 
+	@Shadow private boolean inTeleportationState;
+
+	@Override
+	public void setPlayerTeleporting()
+	{
+		this.inTeleportationState = true;
+	}
+
 	@Override
 	public void afterTeleportation()
 	{

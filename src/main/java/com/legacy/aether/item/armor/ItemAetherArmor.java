@@ -9,22 +9,22 @@ import com.legacy.aether.item.AetherItemGroup;
 public class ItemAetherArmor extends ArmorItem
 {
 
-	private String armorName = "";
+	private String armorName = "iron";
 
-	private int color;
+	private final AetherArmorType typeIn;
 
 	public ItemAetherArmor(AetherArmorType typeIn, EquipmentSlot slotIn)
 	{
 		super(typeIn.getMaterial(), slotIn, new Settings().itemGroup(AetherItemGroup.AETHER_ARMOR));
 
-		this.color = typeIn.getColor();
+		this.typeIn = typeIn;
 	}
 
 	public ItemAetherArmor(AetherArmorType typeIn, Rarity rarityIn, EquipmentSlot slotIn)
 	{
 		super(typeIn.getMaterial(), slotIn, new Settings().itemGroup(AetherItemGroup.AETHER_ARMOR).rarity(rarityIn));
 
-		this.color = typeIn.getColor();
+		this.typeIn = typeIn;
 	}
 
 	public ItemAetherArmor(String nameIn, AetherArmorType typeIn, EquipmentSlot slotIn)
@@ -41,9 +41,9 @@ public class ItemAetherArmor extends ArmorItem
 		this.armorName = nameIn;
 	}
 
-	public int getColor()
+	public AetherArmorType getType()
 	{
-		return this.color;
+		return this.typeIn;
 	}
 
 	public String getArmorName()

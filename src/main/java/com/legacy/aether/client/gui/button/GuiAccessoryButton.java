@@ -20,8 +20,6 @@ public class GuiAccessoryButton extends ButtonWidget
 
 	private static final Identifier HOVERED_TEXTURE = Aether.locate("textures/gui/inventory/button/cloud_hover.png");
 
-	private boolean hovered;
-
 	private Screen screen;
 
 	public GuiAccessoryButton(Screen screen, int xIn, int yIn)
@@ -40,13 +38,7 @@ public class GuiAccessoryButton extends ButtonWidget
 	}
 
 	@Override
-	public void onHoveredChanged(int x, int y, boolean hovered)
-	{
-		this.hovered = hovered;
-	}
-
-	@Override
-	public void onPressed(double mouseX, double mouseY)
+	public void onPressed()
 	{
 		MinecraftClient mc = MinecraftClient.getInstance();
 
@@ -67,7 +59,7 @@ public class GuiAccessoryButton extends ButtonWidget
     	{
             GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
             GlStateManager.pushMatrix();
-            MinecraftClient.getInstance().getTextureManager().bindTexture(this.hovered ? HOVERED_TEXTURE : TEXTURE);
+            MinecraftClient.getInstance().getTextureManager().bindTexture(this.isHovered() ? HOVERED_TEXTURE : TEXTURE);
             GlStateManager.enableBlend();
 
             drawTexturedRect(this.x - 1, this.y, 0, 0, 14, 14, 14, 14);

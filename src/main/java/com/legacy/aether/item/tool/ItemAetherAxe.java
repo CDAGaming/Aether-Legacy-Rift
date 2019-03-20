@@ -61,9 +61,7 @@ public class ItemAetherAxe extends AxeItem implements IAetherTool
         {
         	if (world.isAir(blockpos.up()) && !world.isClient)
         	{
-        		EntityFloatingBlock floatingBlock = new EntityFloatingBlock(world, (double)blockpos.getX() + 0.5D, (double)blockpos.getY(), (double)blockpos.getZ() + 0.5D, world.getBlockState(blockpos));
-
-        		world.spawnEntity(floatingBlock);
+        		world.spawnEntity(new EntityFloatingBlock(world, blockpos.getX() + 0.5D, blockpos.getY(), blockpos.getZ() + 0.5D, world.getBlockState(blockpos)));
         	}
         	else
         	{
@@ -79,13 +77,9 @@ public class ItemAetherAxe extends AxeItem implements IAetherTool
 	@Override
 	public boolean onBlockBroken(ItemStack stackIn, World worldIn, BlockState stateIn, BlockPos posIn, LivingEntity entityIn)
 	{
-		if (this.getMaterial() == AetherTier.Holystone && !worldIn.isClient && worldIn.getRandom().nextInt(100) <= 5)
+		if (!worldIn.isClient && this.getMaterial() == AetherTier.Holystone && worldIn.getRandom().nextInt(100) <= 5)
 		{
-			ItemEntity entityItem = new ItemEntity(worldIn, posIn.getX(), posIn.getY(), posIn.getZ());
-			
-			entityItem.setStack(new ItemStack(ItemsAether.ambrosium_shard, 1));
-
-			worldIn.spawnEntity(entityItem);
+			worldIn.spawnEntity(new ItemEntity(worldIn, posIn.getX(), posIn.getY(), posIn.getZ(), new ItemStack(ItemsAether.ambrosium_shard)));
 		}
 
 		return super.onBlockBroken(stackIn, worldIn, stateIn, posIn, entityIn);
@@ -104,31 +98,27 @@ public class ItemAetherAxe extends AxeItem implements IAetherTool
 
     	if (AllowedCalculations)
     	{
-    		if (isBetween(tool.getDamage(), current, tool.getDamage() - 50))
+    		if (this.isBetween(tool.getDamage(), current, tool.getDamage() - 50))
     		{
     			return this.zaniteHarvestLevels[4];
     		}
-    		else if (isBetween(tool.getDamage() - 51, current, tool.getDamage() - 110))
+    		else if (this.isBetween(tool.getDamage() - 51, current, tool.getDamage() - 110))
     		{
     			return this.zaniteHarvestLevels[3];
     		}
-    		else if (isBetween(tool.getDamage() - 111, current, tool.getDamage() - 200))
+    		else if (this.isBetween(tool.getDamage() - 111, current, tool.getDamage() - 200))
     		{
     			return this.zaniteHarvestLevels[2];
     		}
-    		else if (isBetween(tool.getDamage() - 201, current, tool.getDamage() - 239))
+    		else if (this.isBetween(tool.getDamage() - 201, current, tool.getDamage() - 239))
     		{
     			return this.zaniteHarvestLevels[1];
     		}
-    		else
-    		{
-    			return this.zaniteHarvestLevels[0];
-    		}
+
+    		return this.zaniteHarvestLevels[0];
     	}
-    	else
-    	{
-    		return 1.0F;
-    	}
+
+    	return 1.0F;
     }
 
     private boolean isBetween(int max, int origin, int min)

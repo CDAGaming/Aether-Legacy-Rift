@@ -19,7 +19,7 @@ public abstract class MixinGuiInventory extends AbstractPlayerInventoryScreen<Pl
 
     public MixinGuiInventory(PlayerEntity player)
     {
-        super(player.containerPlayer, player.inventory, new TranslatableTextComponent("container.crafting", new Object[0]));
+        super(player.playerContainer, player.inventory, new TranslatableTextComponent("container.crafting", new Object[0]));
     }
 
     @Inject(method = "onInitialized", at = @At("RETURN"))

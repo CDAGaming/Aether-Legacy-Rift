@@ -36,6 +36,7 @@ import com.legacy.aether.blocks.decorative.BlockSkyrootPlanks;
 import com.legacy.aether.blocks.decorative.BlockZanite;
 import com.legacy.aether.blocks.dungeon.BlockDungeon;
 import com.legacy.aether.blocks.dungeon.BlockDungeonLight;
+import com.legacy.aether.blocks.dungeon.BlockDungeonTrap;
 import com.legacy.aether.blocks.natural.BlockAetherDirt;
 import com.legacy.aether.blocks.natural.BlockAetherFlower;
 import com.legacy.aether.blocks.natural.BlockAetherGrass;
@@ -77,6 +78,8 @@ public class BlocksAether
 	public static final Block skyroot_sapling = register("skyroot_sapling", new BlockAetherSapling(new SkyrootSaplingGenerator()));
 
 	public static final Block golden_oak_sapling = register("golden_oak_sapling", new BlockAetherSapling(new GoldenOakSaplingGenerator()));
+
+	//public static Block crystal_sapling = register("crystal_sapling", new BlockAetherSapling(new CrystalSaplingGenerator()));
 
 	public static final Block quicksoil = register("quicksoil", new BlockQuicksoil());
 
@@ -162,6 +165,8 @@ public class BlocksAether
 
 	public static final Block stripped_golden_oak_wood = register("stripped_golden_oak_wood", new BlockAetherLog());
 
+	//public static final Block skyroot_bookshelf = register("skyroot_bookshelf", new BlockSkyrootBookshelf());
+
 	public static final Block aerogel = register("aerogel", new BlockAerogel());
 
 	public static final Block ambrosium_torch = register("ambrosium_torch", new BlockAmbrosiumTorch());
@@ -180,6 +185,12 @@ public class BlocksAether
 
 	public static final Block aether_farmland = register("aether_farmland", new BlockAetherFarmland());
 
+	//public static final Block present = register("present", new BlockPresent());
+
+	//public static final Block pillar = register("pillar", new BlockPillar());
+
+	//public static final Block pillar_top = register("pillar_top", new BlockPillar());
+
 	public static final Block carved_stone = register("carved_stone", new BlockDungeon(false));
 
 	public static final Block angelic_stone = register("angelic_stone", new BlockDungeon(false));
@@ -192,6 +203,18 @@ public class BlocksAether
 
 	public static final Block light_hellfire_stone = register("light_hellfire_stone", new BlockDungeonLight(false));
 
+	public static final Block carved_stone_trap = register("carved_stone_trap", new BlockDungeonTrap());
+
+	public static final Block angelic_stone_trap = register("angelic_stone_trap", new BlockDungeonTrap());
+
+	public static final Block hellfire_stone_trap = register("hellfire_stone_trap", new BlockDungeonTrap());
+
+	public static final Block sentry_stone_trap = register("sentry_stone_trap", new BlockDungeonTrap());
+
+	public static final Block light_angelic_stone_trap = register("light_angelic_stone_trap", new BlockDungeonTrap());
+
+	public static final Block light_hellfire_stone_trap = register("light_hellfire_stone_trap", new BlockDungeonTrap());
+
 	public static final Block locked_carved_stone = register("locked_carved_stone", new BlockDungeon(true));
 
 	public static final Block locked_angelic_stone = register("locked_angelic_stone", new BlockDungeon(true));
@@ -203,6 +226,8 @@ public class BlocksAether
 	public static final Block locked_light_angelic_stone = register("locked_light_angelic_stone", new BlockDungeonLight(true));
 
 	public static final Block locked_light_hellfire_stone = register("locked_light_hellfire_stone", new BlockDungeonLight(true));
+
+	//public static final Block sun_altar = register("sun_altar", new BlockSunAltar());
 
 	public static final Block purple_flower = register("purple_flower", new BlockAetherFlower(StatusEffects.BAD_OMEN, 5));
 
@@ -297,19 +322,6 @@ public class BlocksAether
 	public static final Block light_hellfire_wall = register("light_hellfire_wall", new BlockAetherWall(light_hellfire_stone.getDefaultState()));
 
 	public static final Block aerogel_wall = register("aerogel_wall", new BlockAetherWall(aerogel.getDefaultState()));
-
-	/*
-	public static Block carved_stone_trap, angelic_stone_trap, hellfire_stone_trap, sentry_stone_trap, light_angelic_stone_trap, light_hellfire_stone_trap;
-
-	public static Block crystal_sapling;
-
-	public static Block pillar, pillar_top;
-
-	public static Block present;
-
-	public static Block sun_altar;
-	
-	public static Block skyroot_bookshelf;*/
 
 	public static void register()
 	{

@@ -6,6 +6,7 @@ import com.legacy.aether.world.TeleporterAether;
 import com.legacy.aether.world.WorldAether;
 
 import net.minecraft.advancement.criterion.Criterions;
+import net.minecraft.client.network.packet.DifficultyS2CPacket;
 import net.minecraft.client.network.packet.EntityPotionEffectS2CPacket;
 import net.minecraft.client.network.packet.PlayerAbilitiesS2CPacket;
 import net.minecraft.client.network.packet.PlayerRespawnS2CPacket;
@@ -17,6 +18,7 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.dimension.DimensionType;
+import net.minecraft.world.level.LevelProperties;
 
 public class AetherTeleportation
 {
@@ -25,12 +27,16 @@ public class AetherTeleportation
 
 	public void teleportPlayer(ServerPlayerEntity player, DimensionType dimensionType_1, TeleporterAether teleporter)
 	{
+		((PlayerTeleportationData) player).setPlayerTeleporting();
+
 		DimensionType dimensionType_2 = player.dimension;
+		LevelProperties levelProperties = player.world.getLevelProperties();
 		PlayerManager playerManager_1 = player.getServer().getPlayerManager();
 		ServerWorld serverWorld_1 = player.getServer().getWorld(dimensionType_2);
 		player.dimension = dimensionType_1;
 		ServerWorld serverWorld_2 = player.getServer().getWorld(dimensionType_1);
-		player.networkHandler.sendPacket(new PlayerRespawnS2CPacket(dimensionType_1, player.world.getDifficulty(), player.world.getLevelProperties().getGeneratorType(), player.interactionManager.getGameMode()));
+		player.networkHandler.sendPacket(new PlayerRespawnS2CPacket(dimensionType_1, levelProperties.getGeneratorType(), player.interactionManager.getGameMode()));
+		player.networkHandler.sendPacket(new DifficultyS2CPacket(levelProperties.getDifficulty(), levelProperties.isDifficultyLocked()));
 		playerManager_1.method_14576(player);
 		serverWorld_1.method_18770(player);
 		player.invalid = false;

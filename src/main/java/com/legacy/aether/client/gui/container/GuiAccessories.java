@@ -20,7 +20,6 @@ public class GuiAccessories extends ContainerScreen<ContainerAccessories>
 	public GuiAccessories(int syncId, PlayerEntity playerAetherIn)
 	{
 		super(new ContainerAccessories(syncId, playerAetherIn), playerAetherIn.inventory, new TranslatableTextComponent("container.crafting", new Object[0]));
-		//this.allowUserInput = true; // TODO: 1.14
 	}
 
 	@Override

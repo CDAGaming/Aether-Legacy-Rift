@@ -29,6 +29,7 @@
     "client.MixinPlayerEntityRenderer",
     "client.MixinMapRenderer",
     "client.MixinClientPlayNetworkHandler",
-    "client.MixinWaterSuspendParticle"
+    "client.MixinWaterSuspendParticle",
+    "client.MixinArmorFeatureRenderer"
   ]
 }

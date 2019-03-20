@@ -1,5 +1,6 @@
 package com.legacy.aether.entities.ai;
 
+import java.util.EnumSet;
 import java.util.function.Predicate;
 
 import net.minecraft.block.Block;
@@ -25,7 +26,7 @@ public class EatAetherGrassGoal extends Goal
 		this.owner = entity;
 		this.world = entity.world;
 
-		this.setControlBits(7);
+		this.setControlBits(EnumSet.of(Goal.class_4134.MOVE, Goal.class_4134.LOOK, Goal.class_4134.JUMP));
 	}
 
 	@Override

@@ -1,19 +1,12 @@
 package com.legacy.aether.item;
 
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.fluid.Fluids;
-import net.minecraft.item.Item;
-import net.minecraft.text.TextFormat;
-import net.minecraft.util.Rarity;
-import net.minecraft.util.registry.Registry;
-
 import com.legacy.aether.Aether;
 import com.legacy.aether.api.accessories.AccessoryType;
 import com.legacy.aether.item.accessory.ItemAccessory;
 import com.legacy.aether.item.armor.AetherArmorType;
 import com.legacy.aether.item.armor.ItemAetherArmor;
 import com.legacy.aether.item.dungeon.ItemDungeonKey;
-import com.legacy.aether.item.food.ItemAetherFood;
+import com.legacy.aether.item.food.AetherFood;
 import com.legacy.aether.item.food.ItemGummySwet;
 import com.legacy.aether.item.food.ItemHealingStone;
 import com.legacy.aether.item.food.ItemLifeShard;
@@ -42,6 +35,13 @@ import com.legacy.aether.item.weapon.ItemPigSlayer;
 import com.legacy.aether.item.weapon.ItemVampireBlade;
 import com.legacy.aether.sounds.SoundsAether;
 import com.legacy.aether.util.Reflection;
+
+import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.fluid.Fluids;
+import net.minecraft.item.Item;
+import net.minecraft.text.TextFormat;
+import net.minecraft.util.Rarity;
+import net.minecraft.util.registry.Registry;
 
 public class ItemsAether
 {
@@ -73,7 +73,7 @@ public class ItemsAether
 
 	public static Item valkyrie_helmet, valkyrie_chestplate, valkyrie_leggings, valkyrie_boots;
 
-	public static Item blueberry, enchanted_blueberry, blue_gummy_swet, golden_gummy_swet, healing_stone, white_apple, ginger_bread_man, candy_cane;
+	public static Item blueberry, enchanted_blueberry, blue_gummy_swet, golden_gummy_swet, healing_stone, white_apple, gingerbread_man, candy_cane;
 
 	public static Item skyroot_bucket, skyroot_water_bucket, skyroot_poison_bucket, skyroot_remedy_bucket, skyroot_milk_bucket;
 
@@ -179,14 +179,14 @@ public class ItemsAether
 
 		sentry_boots = register("sentry_boots", new ItemAetherArmor("sentry", AetherArmorType.Valkyrie, AETHER_LOOT, EquipmentSlot.FEET));
 
-		blueberry = register("blueberry", new ItemAetherFood(2, 2.0F));
-		enchanted_blueberry = register("enchanted_blueberry", new ItemAetherFood(new Item.Settings().itemGroup(AetherItemGroup.AETHER_FOOD).rarity(Rarity.RARE), 8, 10.0F));
+		blueberry = register("blueberry", new Item(new Item.Settings().itemGroup(AetherItemGroup.AETHER_FOOD).method_19265(AetherFood.DEFAULT)));
+		enchanted_blueberry = register("enchanted_blueberry", new Item(new Item.Settings().itemGroup(AetherItemGroup.AETHER_FOOD).rarity(Rarity.RARE).method_19265(AetherFood.ENCHANTED_BLUEBERRY)));
 		white_apple = register("white_apple", new ItemWhiteApple());
 		blue_gummy_swet = register("blue_gummy_swet", new ItemGummySwet());
 		golden_gummy_swet = register("golden_gummy_swet", new ItemGummySwet());
 		healing_stone = register("healing_stone", new ItemHealingStone());
-		candy_cane = register("candy_cane", new ItemAetherFood(2, 1.0F));
-		ginger_bread_man = register("gingerbread_man", new ItemAetherFood(2, 1.0F));
+		candy_cane = register("candy_cane", new Item(new Item.Settings().itemGroup(AetherItemGroup.AETHER_FOOD).method_19265(AetherFood.DEFAULT)));
+		gingerbread_man = register("gingerbread_man", new Item(new Item.Settings().itemGroup(AetherItemGroup.AETHER_FOOD).method_19265(AetherFood.DEFAULT)));
 
 		skyroot_bucket = register("skyroot_bucket", new ItemSkyrootBucket());
 		skyroot_water_bucket = register("skyroot_water_bucket", new ItemSkyrootBucket(Fluids.WATER, skyroot_bucket));
