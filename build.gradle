@@ -19,7 +19,7 @@ apply plugin: 'maven-publish'
 apply plugin: 'com.github.breadmoirai.github-release'
 
 group 'com.legacy.aether'
-version '19w11b-0.0.3'
+version '19w11b-0.0.4'
 archivesBaseName = 'aether_legacy'
 
 allprojects {
