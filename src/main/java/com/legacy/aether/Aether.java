@@ -37,6 +37,7 @@ public class Aether implements ModInitializer
 
 		ContainerFactoryAether.registerContainers();
 		ServerNetworkAether.initializePacketHandler();
+		AetherEventHandler.register();
 		AetherAPIRegistry.register();
 	}
 

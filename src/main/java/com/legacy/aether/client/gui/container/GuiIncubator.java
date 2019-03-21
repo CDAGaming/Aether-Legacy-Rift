@@ -35,10 +35,10 @@ public class GuiIncubator extends ContainerScreen<ContainerIncubator>
 	}
 
 	@Override
-    public void draw(int mouseX, int mouseY, float partialTicks)
+    public void render(int mouseX, int mouseY, float partialTicks)
     {
         this.drawBackground();
-    	super.draw(mouseX, mouseY, partialTicks);
+    	super.render(mouseX, mouseY, partialTicks);
         this.drawMouseoverTooltip(mouseX, mouseY);
     }
 

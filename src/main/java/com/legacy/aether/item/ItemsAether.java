@@ -179,14 +179,14 @@ public class ItemsAether
 
 		sentry_boots = register("sentry_boots", new ItemAetherArmor("sentry", AetherArmorType.Valkyrie, AETHER_LOOT, EquipmentSlot.FEET));
 
-		blueberry = register("blueberry", new Item(new Item.Settings().itemGroup(AetherItemGroup.AETHER_FOOD).method_19265(AetherFood.DEFAULT)));
-		enchanted_blueberry = register("enchanted_blueberry", new Item(new Item.Settings().itemGroup(AetherItemGroup.AETHER_FOOD).rarity(Rarity.RARE).method_19265(AetherFood.ENCHANTED_BLUEBERRY)));
+		blueberry = register("blueberry", new Item(new Item.Settings().itemGroup(AetherItemGroup.AETHER_FOOD).food(AetherFood.DEFAULT)));
+		enchanted_blueberry = register("enchanted_blueberry", new Item(new Item.Settings().itemGroup(AetherItemGroup.AETHER_FOOD).rarity(Rarity.RARE).food(AetherFood.ENCHANTED_BLUEBERRY)));
 		white_apple = register("white_apple", new ItemWhiteApple());
 		blue_gummy_swet = register("blue_gummy_swet", new ItemGummySwet());
 		golden_gummy_swet = register("golden_gummy_swet", new ItemGummySwet());
 		healing_stone = register("healing_stone", new ItemHealingStone());
-		candy_cane = register("candy_cane", new Item(new Item.Settings().itemGroup(AetherItemGroup.AETHER_FOOD).method_19265(AetherFood.DEFAULT)));
-		gingerbread_man = register("gingerbread_man", new Item(new Item.Settings().itemGroup(AetherItemGroup.AETHER_FOOD).method_19265(AetherFood.DEFAULT)));
+		candy_cane = register("candy_cane", new Item(new Item.Settings().itemGroup(AetherItemGroup.AETHER_FOOD).food(AetherFood.DEFAULT)));
+		gingerbread_man = register("gingerbread_man", new Item(new Item.Settings().itemGroup(AetherItemGroup.AETHER_FOOD).food(AetherFood.DEFAULT)));
 
 		skyroot_bucket = register("skyroot_bucket", new ItemSkyrootBucket());
 		skyroot_water_bucket = register("skyroot_water_bucket", new ItemSkyrootBucket(Fluids.WATER, skyroot_bucket));
@@ -242,17 +242,17 @@ public class ItemsAether
 		zanite_pendant = register("zanite_pendant", new ItemAccessory(AccessoryType.PENDANT, 0x711AE8));
 		ice_pendant = register("ice_pendant", new ItemAccessory(AccessoryType.PENDANT, Rarity.RARE, 0x95E6E7));
 
-		white_cape = register("white_cape", new ItemAccessory(AccessoryType.RING));
-		red_cape = register("red_cape", new ItemAccessory(AccessoryType.RING, 0xE81111));
-		blue_cape = register("blue_cape", new ItemAccessory(AccessoryType.RING, 0x137FB7));
-		yellow_cape = register("yellow_cape", new ItemAccessory(AccessoryType.RING, 0xCDCB0E));
-		swet_cape = register("swet_cape", new ItemAccessory("swet", AccessoryType.RING, AETHER_LOOT));
-		agility_cape = register("agility_cape", new ItemAccessory("agility", AccessoryType.RING, AETHER_LOOT));
-		invisibility_cape = register("invisibility_cape", new ItemAccessory(AccessoryType.RING, AETHER_LOOT));
+		white_cape = register("white_cape", new ItemAccessory(AccessoryType.CAPE));
+		red_cape = register("red_cape", new ItemAccessory(AccessoryType.CAPE, 0xE81111));
+		blue_cape = register("blue_cape", new ItemAccessory(AccessoryType.CAPE, 0x137FB7));
+		yellow_cape = register("yellow_cape", new ItemAccessory(AccessoryType.CAPE, 0xCDCB0E));
+		swet_cape = register("swet_cape", new ItemAccessory("swet", AccessoryType.CAPE, AETHER_LOOT));
+		agility_cape = register("agility_cape", new ItemAccessory("agility", AccessoryType.CAPE, AETHER_LOOT));
+		invisibility_cape = register("invisibility_cape", new ItemAccessory(AccessoryType.CAPE, AETHER_LOOT));
 
-		golden_feather = register("golden_feather", new ItemAccessory(AccessoryType.RING, AETHER_LOOT));
-		regeneration_stone = register("regeneration_stone", new ItemAccessory(AccessoryType.RING, AETHER_LOOT));
-		iron_bubble = register("iron_bubble", new ItemAccessory(AccessoryType.RING, AETHER_LOOT));
+		golden_feather = register("golden_feather", new ItemAccessory(AccessoryType.MISC, AETHER_LOOT));
+		regeneration_stone = register("regeneration_stone", new ItemAccessory(AccessoryType.MISC, AETHER_LOOT));
+		iron_bubble = register("iron_bubble", new ItemAccessory(AccessoryType.MISC, AETHER_LOOT));
 
 		life_shard = register("life_shard", new ItemLifeShard());
 

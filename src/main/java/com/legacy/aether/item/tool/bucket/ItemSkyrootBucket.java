@@ -1,5 +1,10 @@
 package com.legacy.aether.item.tool.bucket;
 
+import com.legacy.aether.api.AetherAPI;
+import com.legacy.aether.api.player.IPlayerAether;
+import com.legacy.aether.item.AetherItemGroup;
+import com.legacy.aether.item.ItemsAether;
+
 import net.minecraft.advancement.criterion.Criterions;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.FluidDrainable;
@@ -28,13 +33,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.RayTraceContext;
 import net.minecraft.world.World;
-
-import com.legacy.aether.api.AetherAPI;
-import com.legacy.aether.api.player.IPlayerAether;
-import com.legacy.aether.blocks.BlocksAether;
-import com.legacy.aether.blocks.portal.BlockAetherPortal;
-import com.legacy.aether.item.AetherItemGroup;
-import com.legacy.aether.item.ItemsAether;
 
 public class ItemSkyrootBucket extends Item
 {
@@ -230,13 +228,6 @@ public class ItemSkyrootBucket extends Item
 
     public boolean placeLiquid(PlayerEntity playerIn, World worldIn, BlockPos posIn, BlockHitResult hitResult)
     {
-		if (((BlockAetherPortal) BlocksAether.aether_portal).method_10352(worldIn, posIn))
-		{
-			this.playEmptySound(playerIn, worldIn, posIn);
-
-			return true;
-		}
-
         if (!(this.containedBlock instanceof BaseFluid))
         {
             return false;

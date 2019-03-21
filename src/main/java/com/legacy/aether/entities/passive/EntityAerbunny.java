@@ -1,5 +1,11 @@
 package com.legacy.aether.entities.passive;
 
+import com.legacy.aether.api.AetherAPI;
+import com.legacy.aether.entities.EntityTypesAether;
+import com.legacy.aether.item.ItemsAether;
+import com.legacy.aether.sounds.SoundsAether;
+import com.legacy.aether.world.storage.loot.AetherLootTableList;
+
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.class_1394;
@@ -24,12 +30,6 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-
-import com.legacy.aether.api.AetherAPI;
-import com.legacy.aether.entities.EntityTypesAether;
-import com.legacy.aether.item.ItemsAether;
-import com.legacy.aether.sounds.SoundsAether;
-import com.legacy.aether.world.storage.loot.AetherLootTableList;
 
 public class EntityAerbunny extends EntityAetherAnimal
 {
@@ -124,10 +124,8 @@ public class EntityAerbunny extends EntityAetherAnimal
 		}
 	}
 
-	/*
-	 * @Override public boolean canRiderInteract() { return true; }
-	 */
-
+	//@Override public boolean canRiderInteract() { return true; }
+	
 	public int getPuffiness()
 	{
 		return (int) this.dataTracker.get(PUFF);

@@ -1,8 +1,10 @@
 package com.legacy.aether.entities.hostile;
 
+import com.legacy.aether.entities.EntityTypesAether;
+
 import net.minecraft.class_1370;
 import net.minecraft.class_1394;
-import net.minecraft.class_1399;
+import net.minecraft.entity.ai.goal.AvoidGoal;
 import net.minecraft.entity.ai.goal.FollowTargetGoal;
 import net.minecraft.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.entity.ai.goal.SwimGoal;
@@ -14,8 +16,6 @@ import net.minecraft.item.AxeItem;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.world.World;
-
-import com.legacy.aether.entities.EntityTypesAether;
 
 public class EntityChestMimic extends HostileEntity
 {
@@ -38,7 +38,7 @@ public class EntityChestMimic extends HostileEntity
 		this.goalSelector.add(2, new MeleeAttackGoal(this, 1.0D, false));
 		this.goalSelector.add(5, new class_1370(this, 1.0D));
 		this.goalSelector.add(7, new class_1394(this, 1.0D));
-		this.targetSelector.add(1, new class_1399(this, new Class[0]));
+		this.targetSelector.add(1, new AvoidGoal(this, new Class[0]));
 		this.targetSelector.add(2, new FollowTargetGoal<PlayerEntity>(this, PlayerEntity.class, true));
 	}
 

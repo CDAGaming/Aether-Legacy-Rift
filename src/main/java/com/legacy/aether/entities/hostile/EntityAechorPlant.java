@@ -1,12 +1,19 @@
 package com.legacy.aether.entities.hostile;
 
-import net.minecraft.class_1399;
+import com.legacy.aether.blocks.BlocksAether;
+import com.legacy.aether.entities.EntityTypesAether;
+import com.legacy.aether.entities.passive.EntityAetherAnimal;
+import com.legacy.aether.entities.projectile.EntityPoisonNeedle;
+import com.legacy.aether.item.ItemsAether;
+import com.legacy.aether.world.storage.loot.AetherLootTableList;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityPose;
 import net.minecraft.entity.EntitySize;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnType;
 import net.minecraft.entity.ai.RangedAttacker;
+import net.minecraft.entity.ai.goal.AvoidGoal;
 import net.minecraft.entity.ai.goal.FollowTargetGoal;
 import net.minecraft.entity.ai.goal.ProjectileAttackGoal;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -20,13 +27,6 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
-
-import com.legacy.aether.blocks.BlocksAether;
-import com.legacy.aether.entities.EntityTypesAether;
-import com.legacy.aether.entities.passive.EntityAetherAnimal;
-import com.legacy.aether.entities.projectile.EntityPoisonNeedle;
-import com.legacy.aether.item.ItemsAether;
-import com.legacy.aether.world.storage.loot.AetherLootTableList;
 
 public class EntityAechorPlant extends EntityAetherAnimal implements RangedAttacker
 {
@@ -57,7 +57,7 @@ public class EntityAechorPlant extends EntityAetherAnimal implements RangedAttac
 		super.initGoals();
 
 		this.goalSelector.add(4, new ProjectileAttackGoal(this, 0.0D, 30, 1.0F));
-		this.targetSelector.add(1, new class_1399(this, new Class[0]));
+		this.targetSelector.add(1, new AvoidGoal(this, new Class[0]));
 		this.targetSelector.add(2, new FollowTargetGoal<LivingEntity>(this, LivingEntity.class, true));
 	}
 
@@ -111,18 +111,6 @@ public class EntityAechorPlant extends EntityAetherAnimal implements RangedAttac
 	public boolean canSpawn(IWorld worldIn, SpawnType spawnType)
 	{
 		return worldIn.getBlockState(this.getPos().down()).getBlock() == BlocksAether.aether_grass && this.random.nextInt(400) == 0;
-	}
-
-	@Override
-	public boolean hasArmsRaised()
-	{
-		return false;
-	}
-
-	@Override
-	public void setArmsRaised(boolean isSwinging)
-	{
-
 	}
 
 	@Override

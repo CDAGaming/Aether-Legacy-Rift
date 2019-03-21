@@ -19,6 +19,12 @@ public class AechorPlantRenderer extends MobEntityRenderer<EntityAechorPlant, Ae
     }
 
     @Override
+	protected float method_4045(EntityAechorPlant livingEntity_1, float float_1)
+	{
+		return super.method_4045(livingEntity_1, float_1);
+	}
+
+    @Override
     protected void method_4042(EntityAechorPlant b1, float f)
     {
         float f1 = (float)Math.sin((double)b1.sinage);

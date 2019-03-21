@@ -7,6 +7,7 @@ import net.minecraft.item.ItemStack;
 
 import com.legacy.aether.api.AetherAPI;
 import com.legacy.aether.api.accessories.AccessoryType;
+import com.legacy.aether.api.accessories.AetherAccessory;
 import com.legacy.aether.api.player.util.AccessoryInventory;
 
 public class SlotAccessory extends Slot
@@ -24,7 +25,9 @@ public class SlotAccessory extends Slot
 	@Override
 	public boolean canInsert(ItemStack stack)
 	{
-		return AetherAPI.instance().getAccessory(stack) != null;
+		AetherAccessory accessory = AetherAPI.instance().getAccessory(stack);
+
+		return accessory != null && (accessory.getAccessoryType() == this.type || accessory.getExtraType() == this.type);
 	}
 
 	@Environment(EnvType.CLIENT)

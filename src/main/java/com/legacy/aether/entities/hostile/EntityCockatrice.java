@@ -1,10 +1,14 @@
 package com.legacy.aether.entities.hostile;
 
+import com.legacy.aether.entities.EntityTypesAether;
+import com.legacy.aether.entities.projectile.EntityPoisonNeedle;
+import com.legacy.aether.sounds.SoundsAether;
+
 import net.minecraft.class_1394;
-import net.minecraft.class_1399;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnType;
 import net.minecraft.entity.ai.RangedAttacker;
+import net.minecraft.entity.ai.goal.AvoidGoal;
 import net.minecraft.entity.ai.goal.FollowTargetGoal;
 import net.minecraft.entity.ai.goal.LookAroundGoal;
 import net.minecraft.entity.ai.goal.LookAtEntityGoal;
@@ -23,10 +27,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
-
-import com.legacy.aether.entities.EntityTypesAether;
-import com.legacy.aether.entities.projectile.EntityPoisonNeedle;
-import com.legacy.aether.sounds.SoundsAether;
 
 public class EntityCockatrice extends HostileEntity implements RangedAttacker
 {
@@ -53,7 +53,7 @@ public class EntityCockatrice extends HostileEntity implements RangedAttacker
 		this.goalSelector.add(5, new class_1394(this, 1.0D));
 		this.goalSelector.add(6, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
 		this.goalSelector.add(6, new LookAroundGoal(this));
-		this.targetSelector.add(1, new class_1399(this, new Class[0]));
+		this.targetSelector.add(1, new AvoidGoal(this, new Class[0]));
 		this.targetSelector.add(2, new FollowTargetGoal<PlayerEntity>(this, PlayerEntity.class, true));
 	}
 
@@ -102,18 +102,6 @@ public class EntityCockatrice extends HostileEntity implements RangedAttacker
 		}
 
 		this.wingRotation += 1.233F;
-	}
-
-	@Override
-	public boolean hasArmsRaised()
-	{
-		return false;
-	}
-
-	@Override
-	public void setArmsRaised(boolean isSwinging)
-	{
-
 	}
 
 	@Override

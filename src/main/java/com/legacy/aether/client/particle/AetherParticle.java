@@ -1,9 +1,9 @@
 package com.legacy.aether.client.particle;
 
-import net.minecraft.class_4184;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleTextureSheet;
 import net.minecraft.client.render.BufferBuilder;
+import net.minecraft.client.render.Camera;
 import net.minecraft.world.World;
 
 public class AetherParticle extends Particle
@@ -65,7 +65,7 @@ public class AetherParticle extends Particle
     }
 
 	@Override
-	public void buildGeometry(BufferBuilder builder, class_4184 context, float var3, float var4, float var5, float var6, float var7, float var8)
+	public void buildGeometry(BufferBuilder builder, Camera camera, float var3, float var4, float var5, float var6, float var7, float var8)
 	{
 
 	}

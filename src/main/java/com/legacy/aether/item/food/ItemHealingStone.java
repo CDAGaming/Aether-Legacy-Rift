@@ -11,7 +11,7 @@ public class ItemHealingStone extends Item
 
 	public ItemHealingStone() 
 	{
-		super(new Settings().itemGroup(AetherItemGroup.AETHER_FOOD).rarity(Rarity.RARE).method_19265(AetherFood.HEALING_STONE));
+		super(new Settings().itemGroup(AetherItemGroup.AETHER_FOOD).rarity(Rarity.RARE).food(AetherFood.HEALING_STONE));
 	}
 
 	@Override

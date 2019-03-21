@@ -14,7 +14,7 @@ public class ItemWhiteApple extends Item
 
 	public ItemWhiteApple() 
 	{
-		super(new Item.Settings().itemGroup(AetherItemGroup.AETHER_FOOD).method_19265(AetherFood.WHITE_APPLE));
+		super(new Item.Settings().itemGroup(AetherItemGroup.AETHER_FOOD).food(AetherFood.WHITE_APPLE));
 	}
 
 	@Override

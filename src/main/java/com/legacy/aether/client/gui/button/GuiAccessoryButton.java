@@ -53,7 +53,7 @@ public class GuiAccessoryButton extends ButtonWidget
 	}
 
 	@Override
-    public void draw(int mouseX, int mouseY, float partialTicks)
+    public void render(int mouseX, int mouseY, float partialTicks)
     {
     	if (this.visible)
     	{

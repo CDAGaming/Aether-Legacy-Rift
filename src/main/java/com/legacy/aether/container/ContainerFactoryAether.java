@@ -49,7 +49,7 @@ public class ContainerFactoryAether implements ContainerFactory<Container>
 		}
 		else if ("treasure_chest".equals(containerName))
 		{
-			return GenericContainer.method_19245(syncId, playerIn.inventory, (Inventory) playerIn.world.getBlockEntity(byteBuf.readBlockPos()));
+			return GenericContainer.createGeneric9x3(syncId, playerIn.inventory, (Inventory) playerIn.world.getBlockEntity(byteBuf.readBlockPos()));
 		}
 
 		return null;

@@ -11,7 +11,7 @@ public class BlockAmbrosiumTorchWall extends WallTorchBlock
 
 	public BlockAmbrosiumTorchWall()
 	{
-		super(FabricBlockSettings.of(Material.PART).collidable(false).breakByHand(true).ticksRandomly().lightLevel(1).sounds(BlockSoundGroup.WOOD).dropsLike(BlocksAether.ambrosium_torch).build());
+		super(FabricBlockSettings.of(Material.PART).collidable(false).breakByHand(true).ticksRandomly().lightLevel(15).sounds(BlockSoundGroup.WOOD).dropsLike(BlocksAether.ambrosium_torch).build());
 	}
 
 }

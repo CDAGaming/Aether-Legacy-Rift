@@ -10,7 +10,7 @@ public class BlockAmbrosiumTorch extends TorchBlock
 
 	public BlockAmbrosiumTorch()
 	{
-		super(FabricBlockSettings.of(Material.PART).collidable(false).breakByHand(true).ticksRandomly().lightLevel(1).sounds(BlockSoundGroup.WOOD).build());
+		super(FabricBlockSettings.of(Material.PART).collidable(false).breakByHand(true).ticksRandomly().lightLevel(15).sounds(BlockSoundGroup.WOOD).build());
 	}
 
 }

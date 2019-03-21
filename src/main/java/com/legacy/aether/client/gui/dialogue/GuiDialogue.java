@@ -79,9 +79,9 @@ public class GuiDialogue extends Screen
     }
 
 	@Override
-    public void draw(int mouseX, int mouseY, float partialTicks)
+    public void render(int mouseX, int mouseY, float partialTicks)
     {
-    	super.draw(mouseX, mouseY, partialTicks);
+    	super.render(mouseX, mouseY, partialTicks);
 
         int optionWidth = 0;
 
