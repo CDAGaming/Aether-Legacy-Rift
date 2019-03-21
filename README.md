@@ -2,7 +2,7 @@
 
 
 # Aether Legacy [![Twitter Follow](https://img.shields.io/twitter/follow/moddinglegacy.svg?label=Follow&style=social)](https://twitter.com/ModdingLegacy)
-[![Discord](https://img.shields.io/discord/223938153260515328.svg)](https://discord.gg/qZcfwet)
+[![Discord](https://img.shields.io/discord/223938153260515328.svg?color=7289DA&label=discord&logo=discord&logoColor=FFFFFF)](https://discord.gg/qZcfwet)
 [![GitHub (pre-)release](https://img.shields.io/github/release-pre/modding-legacy/aether-legacy-rift.svg)](https://github.com/Modding-Legacy/Aether-Legacy-Rift/releases)
 [![GitHub](https://img.shields.io/github/license/modding-legacy/aether-legacy-rift.svg)](https://github.com/Modding-Legacy/Aether-Legacy-Rift/blob/master/LICENSE)
 [![CurseForge Total Downloads](http://cf.way2muchnoise.eu/full_255308_downloads.svg)](https://minecraft.curseforge.com/projects/aether-legacy/)
@@ -11,6 +11,10 @@
 
 
 * [**Website**](https://moddinglegacy.com)
+
+## 🐛 Issues [![Issues](https://img.shields.io/github/issues/modding-legacy/aether-legacy.svg)](https://github.com/Modding-Legacy/Aether-Legacy/issues)
+For issues, bug reports, please submit them over on our main repo
+https://github.com/Modding-Legacy/Aether-Legacy/issues
 
 ## 📖 Summary 
 Aether II is indeed an amazing mod and shall continue to grow into something even greater. However, some people haven't played the original Aether mostly due to it being outdated and unavailable to the general public through official ways. Aether Legacy is a port of the original Aether mod that allows people to play the original experience on newer versions of Minecraft with more bug fixes, optimizations, mod & multiplayer support!
