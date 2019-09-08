@@ -5,9 +5,9 @@
 [![Discord](https://img.shields.io/discord/223938153260515328.svg?color=7289DA&label=discord&logo=discord&logoColor=FFFFFF)](https://discord.gg/qZcfwet)
 [![GitHub (pre-)release](https://img.shields.io/github/release-pre/CDAGaming/aether-legacy-rift.svg)](https://github.com/CDAGaming/Aether-Legacy-Rift/releases)
 [![GitHub](https://img.shields.io/github/license/CDAGaming/aether-legacy-rift.svg)](https://github.com/CDAGaming/Aether-Legacy-Rift/blob/master/LICENSE)
-[![CurseForge Total Downloads](http://cf.way2muchnoise.eu/full_255308_downloads.svg)](https://minecraft.curseforge.com/projects/aether-legacy/)
+[![CurseForge Total Downloads](http://cf.way2muchnoise.eu/full_255308_downloads.svg)](https://minecraft.curseforge.com/projects/the-aether/)
 
-[![Availability](http://cf.way2muchnoise.eu/versions/255308.svg)](https://minecraft.curseforge.com/projects/aether-legacy/files)
+[![Availability](http://cf.way2muchnoise.eu/versions/255308.svg)](https://minecraft.curseforge.com/projects/the-aether/files)
 
 
 * [**Website**](https://moddinglegacy.com)
